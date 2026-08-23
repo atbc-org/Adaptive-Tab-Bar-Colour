@@ -32,7 +32,7 @@
 		"@types/react": "^19.2.18",
 		"@types/selenium-webdriver": "^4.35.6",
 		"@types/webextension-polyfill": "^0.12.5",
-		"@wxt-dev/browser": "^0.2.5",
+		"@wxt-dev/browser": "^0.2.6",
 		"@wxt-dev/module-react": "^1.2.2",
 		"cross-env": "^10.1.0",
 		"geckodriver": "^6.1.1",
