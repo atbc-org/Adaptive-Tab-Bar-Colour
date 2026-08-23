@@ -189,7 +189,9 @@ async function getTabMeta(
 	} catch {
 		console.info("Could not connect to", url);
 
-		if (protocol === "about:") {
+		if (await isHomePage(href)) {
+			return { colour: browserColour.HOME, reason: "HOME_PAGE" };
+		} else if (protocol === "about:") {
 			return await getAboutPageMeta(windowId, href, pathname, title);
 		} else if (protocol === "moz-extension:") {
 			return await getWebExtPageMeta(webExtId);
@@ -383,6 +385,18 @@ async function getWebExtPageMeta(webExtId?: string): Promise<MetaQueryResult> {
 	}
 }
 
+/** Applies the home page colour to a window as soon as it is created */
+function paintNewWindow(windowId: number): void {
+	if (!pref.isReady || pref.compatibilityMode) return;
+	const { colour, scheme } = browserColour.HOME.contrastCorrection(
+		cache.scheme,
+		pref.allowDarkLight,
+		pref.minContrast_light,
+		pref.minContrast_dark,
+	);
+	void applyTheme(windowId, colour, scheme);
+}
+
 /** Applies the colour to the browser frame. */
 function setFrameColour(
 	tab: Browser.tabs.Tab,
@@ -560,6 +574,7 @@ async function applyTheme(
 }
 
 export default defineBackground(() => {
+	addWindowCreatedListener(paintNewWindow);
 	pref.initialise().then(run);
 	pref.addOnChangeListener(run);
 	addSchemeChangeListener(run);

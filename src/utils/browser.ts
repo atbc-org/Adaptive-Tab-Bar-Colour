@@ -101,6 +101,15 @@ export function addTabChangeListener(listener: () => void): void {
 	browser.windows?.onBoundsChanged?.addListener(listener);
 }
 
+/** Registers a listener for window creation. */
+export function addWindowCreatedListener(
+	listener: (windowId: number) => void,
+): void {
+	browser.windows?.onCreated?.addListener((window) => {
+		if (window.id !== undefined) listener(window.id);
+	});
+}
+
 /** Checks whether the tab's window is incognito. */
 export async function isWindowIncognito(windowId: number): Promise<boolean> {
 	try {
@@ -116,6 +125,22 @@ export async function getActiveWindowId(): Promise<number | undefined> {
 		(await browser.tabs?.query({ active: true, currentWindow: true }))?.[0]
 			?.windowId ?? (await browser.windows?.getLastFocused())?.id
 	);
+}
+
+/** Checks whether a URL is one Firefox opens for the home page or for new tabs.*/
+export async function isHomePage(href: string): Promise<boolean> {
+	if (href === "about:blank") return true;
+	try {
+		const settings = browser.browserSettings;
+		const homepage = (await settings?.homepageOverride?.get({}))?.value;
+		const newTabPage = (await settings?.newTabPageOverride?.get({}))?.value;
+		return [
+			...(typeof homepage === "string" ? homepage.split("|") : []),
+			...(typeof newTabPage === "string" ? [newTabPage] : []),
+		].some((candidate) => candidate.trim() === href);
+	} catch {
+		return false;
+	}
 }
 
 /** Retrieves all active and fully loaded tabs. */
