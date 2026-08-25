@@ -331,35 +331,24 @@ async function getAboutPageMeta(
 	pathname: string,
 	title?: string,
 ): Promise<MetaQueryResult> {
-	if (
-		["about:firefoxview", "about:home", "about:newtab"].some((homeHref) =>
-			href.startsWith(homeHref),
-		)
-	) {
-		return { colour: browserColour.HOME, reason: "HOME_PAGE" };
-	} else if (href === "about:privatebrowsing") {
+	if (href === "about:privatebrowsing") {
 		return {
 			colour: (await isWindowIncognito(windowId))
 				? browserColour.PRIVATE
 				: browserColour.DEFAULT,
 			reason: "PROTECTED_PAGE",
 		};
-	} else if (
-		href === "about:blank" &&
-		title?.startsWith("about:") &&
-		title?.endsWith("profile")
-	) {
-		return {
-			colour: browserColour[
-				aboutPageColour[title?.slice(6)] ?? "DEFAULT"
-			],
-			reason: "PROTECTED_PAGE",
-		};
 	} else {
-		return {
-			colour: browserColour[aboutPageColour[pathname] ?? "DEFAULT"],
-			reason: "PROTECTED_PAGE",
-		};
+		const identifier =
+			href === "about:blank" &&
+			title?.startsWith("about:") &&
+			title?.endsWith("profile")
+				? title.slice(6)
+				: pathname;
+		const data = aboutPageColour[identifier];
+		return data
+			? { colour: browserColour[data.colour], reason: data.reason }
+			: { colour: browserColour.DEFAULT, reason: "PROTECTED_PAGE" };
 	}
 }
 
@@ -383,18 +372,6 @@ async function getWebExtPageMeta(webExtId?: string): Promise<MetaQueryResult> {
 			info: i18n.t("addonNotFound"),
 		};
 	}
-}
-
-/** Applies the home page colour to a window as soon as it is created */
-function paintNewWindow(windowId: number): void {
-	if (!pref.isReady || pref.compatibilityMode) return;
-	const { colour, scheme } = browserColour.HOME.contrastCorrection(
-		cache.scheme,
-		pref.allowDarkLight,
-		pref.minContrast_light,
-		pref.minContrast_dark,
-	);
-	void applyTheme(windowId, colour, scheme);
 }
 
 /** Applies the colour to the browser frame. */
@@ -574,7 +551,6 @@ async function applyTheme(
 }
 
 export default defineBackground(() => {
-	addWindowCreatedListener(paintNewWindow);
 	pref.initialise().then(run);
 	pref.addOnChangeListener(run);
 	addSchemeChangeListener(run);

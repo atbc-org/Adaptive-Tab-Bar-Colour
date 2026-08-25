@@ -101,15 +101,6 @@ export function addTabChangeListener(listener: () => void): void {
 	browser.windows?.onBoundsChanged?.addListener(listener);
 }
 
-/** Registers a listener for window creation. */
-export function addWindowCreatedListener(
-	listener: (windowId: number) => void,
-): void {
-	browser.windows?.onCreated?.addListener((window) => {
-		if (window.id !== undefined) listener(window.id);
-	});
-}
-
 /** Checks whether the tab's window is incognito. */
 export async function isWindowIncognito(windowId: number): Promise<boolean> {
 	try {
