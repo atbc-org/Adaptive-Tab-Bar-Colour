@@ -3,6 +3,7 @@
 	"version": "4.2.0",
 	"description": "Changes the colour of Firefox theme to match the website’s appearance.",
 	"type": "module",
+	"private": true,
 	"scripts": {
 		"build": "wxt build -b firefox",
 		"format": "prettier --write --list-different .",
@@ -17,15 +18,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour.git"
+		"url": "git+https://github.com/atbc-org/Adaptive-Tab-Bar-Colour.git"
 	},
 	"author": "Eason Wong <me@easonwong.de> (https://easonwong.de/)",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour/issues",
+		"url": "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues",
 		"email": "me@easonwong.de"
 	},
-	"homepage": "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour",
+	"homepage": "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour",
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
 		"@types/node": "^26.4.0",

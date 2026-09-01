@@ -91,4 +91,4 @@ Die Titelleisten-Schaltflächen von Firefox könnten auf den Windows-Stil zurüc
 
 Achte auf bösartige Web-UIs. Es ist wichtig, zwischen der Browser-Benutzeroberfläche und der Web-Benutzeroberfläche zu unterscheiden. Für weitere Informationen siehe [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Dank an [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
 
-Gib diesem Projekt gerne einen Stern auf GitHub: [https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+Gib diesem Projekt gerne einen Stern auf GitHub: [https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)

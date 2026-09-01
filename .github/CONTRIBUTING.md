@@ -40,7 +40,7 @@ Ensure the following software is installed:
 To begin contributing, run the following commands:
 
 ```bash
-git clone https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour.git
+git clone https://github.com/atbc-org/Adaptive-Tab-Bar-Colour.git
 cd Adaptive-Tab-Bar-Colour
 npm install
 ```

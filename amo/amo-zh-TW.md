@@ -91,4 +91,4 @@ Firefox 的標題列按鈕或會重設為 Windows 風格。為免此發生，請
 
 提防惡意網頁介面。分辨瀏覽器介面與網頁介面至關重要。如需更多資訊，請參閱 [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/)。（感謝 [u/KazaHesto](https://www.reddit.com/user/KazaHesto/)）
 
-閣下可移步 GitHub 為此專案加星標：[https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+閣下可移步 GitHub 為此專案加星標：[https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)

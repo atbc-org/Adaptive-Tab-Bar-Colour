@@ -28,7 +28,7 @@ export default defineConfig({
 		description: "__MSG_extensionDescription__",
 		developer: { name: "Eason & Yue", url: "https://easonwong.de/" },
 		homepage_url:
-			"https://github.com/easonwong-de/adaptive-tab-bar-colour/",
+			"https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/",
 		icons: {
 			16: "/icon/icon-16.png",
 			32: "/icon/icon-32.png",

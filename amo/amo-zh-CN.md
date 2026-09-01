@@ -91,4 +91,4 @@ Firefox 的标题栏按钮可能会被重置为 Windows 风格。为了避免这
 
 提防恶意网页界面。分辨浏览器界面与网页界面至关重要。如需更多信息，请参阅 [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/)。（感谢 [u/KazaHesto](https://www.reddit.com/user/KazaHesto/)）
 
-欢迎您为 GitHub 仓库点亮 star：[https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+欢迎您为 GitHub 仓库点亮 star：[https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)
