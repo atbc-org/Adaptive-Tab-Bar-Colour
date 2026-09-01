@@ -41,7 +41,7 @@
 		"prettier-plugin-jsdoc": "^1.8.1",
 		"prettier-plugin-sort-json": "^4.2.0",
 		"prettier-plugin-yaml": "^1.3.0",
-		"selenium-webdriver": "^4.47.0",
+		"selenium-webdriver": "^4.48.0",
 		"selenium-webext-bridge": "^0.4.0",
 		"tsx": "^4.23.12",
 		"typescript": "^7.0.2",
