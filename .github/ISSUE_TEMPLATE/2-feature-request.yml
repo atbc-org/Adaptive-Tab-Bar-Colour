@@ -7,7 +7,7 @@ body:
       attributes:
           value: >-
               If you want to suggest more than one feature, please [open a new
-              issue](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour/issues/new?template=2-feature-request.yml)
+              issue](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=2-feature-request.yml)
               for each request.
     - type: textarea
       id: description

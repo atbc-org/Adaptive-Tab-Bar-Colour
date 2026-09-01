@@ -8,7 +8,7 @@ body:
       attributes:
           value: >-
               Experiencing issues on specific websites? Please [open a bug
-              report](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour/issues/new?template=1-bug-report.yml)
+              report](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=1-bug-report.yml)
               instead.
     - type: textarea
       id: description

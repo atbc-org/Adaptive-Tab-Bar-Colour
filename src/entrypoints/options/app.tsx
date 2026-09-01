@@ -49,7 +49,7 @@ export default function App() {
 			<hr />
 			<footer>
 				<a
-					href="https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour/issues"
+					href="https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
