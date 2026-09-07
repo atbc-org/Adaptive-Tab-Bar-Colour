@@ -98,8 +98,8 @@ themeColourNotFound: Tema rəngi tapılmadı, rəng veb səhifədən seçilir
 toolbar: Alət paneli
 urlBar: URL sətri
 urlDomainOrRegex: URL/regex/joker/domen
-use: İstifadə et
-useIgnoreThemeColour: tema rəngini istifadə et/nəzərə alma
+use: İşlət
+useIgnoreThemeColour: tema rəngini işlət/nəzərə alma
 usingColourForHomePage: Əsas səhifə üçün rəng işlədilir
 usingColourForJSONViewer: JSON göstəricisi üçün rəng işlədilir
 usingColourForPDFViewer: PDF göstəricisi üçün rəng işlədilir
