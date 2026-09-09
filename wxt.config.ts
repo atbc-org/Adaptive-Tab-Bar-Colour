@@ -89,6 +89,8 @@ export default defineConfig({
 			"scripts/**",
 			"amo/**",
 			"prettier.config.ts",
+			"README.md",
+			"CONTRIBUTING.md",
 		],
 	},
 });

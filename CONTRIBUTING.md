@@ -29,7 +29,7 @@ New UI strings often start out machine-translated. If you spot any awkward phras
 
 ### UI Text
 
-Text for the popup and options page is in [`src/locales/xx.yaml`](../src/locales). You can edit these files using the [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) extension.
+Text for the popup and options page is in [`src/locales/xx.yaml`](src/locales). You can edit these files using the [i18n Ally](https://marketplace.visualstudio.com/items?itemName=Lokalise.i18n-ally) extension.
 
 Strings that wrap around dynamic content, such as selectors or code tags, are split into two keys:
 
@@ -52,7 +52,7 @@ Rendered result:
 
 ### Store Description
 
-When adding a new language, provide a translated store description in [`amo/amo-xx.md`](../amo). These files update the listing on Mozilla Add-ons and the “Details” tab in Firefox. You can also edit existing descriptions there.
+When adding a new language, provide a translated store description in [`amo/amo-xx.md`](amo). These files update the listing on Mozilla Add-ons and the “Details” tab in Firefox. You can also edit existing descriptions there.
 
 ## Development
 
