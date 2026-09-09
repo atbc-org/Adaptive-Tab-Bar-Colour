@@ -24,18 +24,18 @@ jobs:
               run: npm ci
             - name: Prepare Version
               id: version
-              run: bash scripts/utils.sh prepare_beta_version
+              run: bash scripts/release.sh prepare_beta_version
             - name: Build And Upload To AMO (Beta)
               env:
                   FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
                   FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
                   BETA_VERSION: ${{ steps.version.outputs.beta_version }}
-              run: bash scripts/utils.sh build_and_sign_beta "$BETA_VERSION"
+              run: bash scripts/release.sh build_and_sign_beta "$BETA_VERSION"
             - name: Tag And Create GitHub Pre-release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   BETA_TAG: ${{ steps.version.outputs.beta_tag }}
                   BETA_VERSION: ${{ steps.version.outputs.beta_version }}
               run:
-                  bash scripts/utils.sh create_beta_release "$BETA_TAG"
+                  bash scripts/release.sh create_beta_release "$BETA_TAG"
                   "$BETA_VERSION"
