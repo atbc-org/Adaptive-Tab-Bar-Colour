@@ -2,8 +2,8 @@
 
 set -euo pipefail
 source "$(dirname "$0")/utils.sh"
-
 cd "$(dirname "$0")/.."
+
 mkdir -p .output
 rm -rf .output/*
 

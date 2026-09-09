@@ -2,12 +2,7 @@
 
 set -euo pipefail
 source "$(dirname "$0")/utils.sh"
-
 cd "$(dirname "$0")/.."
-
-base64url() {
-	openssl base64 -e -A | tr "+/" "-_" | tr -d "=\n"
-}
 
 header=$(echo -n '{"alg":"HS256","typ":"JWT"}' | base64url)
 issued_at=$(date +%s)
