@@ -3,29 +3,25 @@ description: ATBC is not behaving as it is supposed to.
 title: Replace With Title
 labels: [bug]
 body:
-    - type: checkboxes
-      id: prerequisites
-      attributes:
-          label: Prerequisites
-          options:
-              - label:
-                    I am using Firefox Desktop (Release, Developer Edition, or
-                    Nightly).
-                required: true
-              - label:
-                    The issue is reproducible without custom CSS themes
-                    (userChrome.css).
-                required: true
-              - label:
-                    The issue is reproducible with all other extensions
-                    disabled.
-                required: true
-    - type: textarea
-      id: description
-      attributes:
-          label: Description
-          description:
-              Provide a detailed description of the bug, including steps to
-              reproduce.
-      validations:
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      options:
+        - label:
+            I am using Firefox Desktop (Release, Developer Edition, or Nightly).
           required: true
+        - label:
+            The issue is reproducible without custom CSS themes
+            (userChrome.css).
+          required: true
+        - label: The issue is reproducible with all other extensions disabled.
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description:
+        Provide a detailed description of the bug, including steps to reproduce.
+    validations:
+      required: true

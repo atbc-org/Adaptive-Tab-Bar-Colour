@@ -1,22 +1,22 @@
 name: Sync AMO Descriptions
 
 on:
-    push:
-        branches: [main]
-        paths:
-            - amo/**
-    workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - amo/**
+  workflow_dispatch:
 
 jobs:
-    run:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v6
-              with:
-                  ref: ${{ github.ref }}
-            - name: Synchronise AMO Descriptions
-              env:
-                  FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
-                  FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
-              run: bash scripts/sync-amo.sh
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref }}
+      - name: Synchronise AMO Descriptions
+        env:
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+        run: bash scripts/sync-amo.sh

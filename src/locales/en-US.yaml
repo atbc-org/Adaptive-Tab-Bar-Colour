@@ -3,21 +3,21 @@ addonNotFound: Add-on not found
 advanced: Advanced
 allowDarkTabBar: Allow dark tab bar
 allowDarkTabBarTooltip:
-    Allow tab bar to use dark color (light text on dark tab bar).
+  Allow tab bar to use dark color (light text on dark tab bar).
 allowLightTabBar: Allow light tab bar
 allowLightTabBarTooltip:
-    Allow tab bar to use bright color (dark text on light tab bar).
+  Allow tab bar to use bright color (dark text on light tab bar).
 anyCSSColour: Any format
 background: Background
 backgroundOnFocus: Background on focus
 backupAndReset: Backup and reset
 border: Border
 colourIsAdjusted:
-    The original color has been adjusted to ensure minimum contrast
+  The original color has been adjusted to ensure minimum contrast
 compatibilityMode: Compatibility mode
 compatibilityModeTooltip: >-
-    Change the website’s “theme-color” metadata instead of using the theme API.
-    Supported browsers will adjust their tab bar color accordingly.
+  Change the website’s “theme-color” metadata instead of using the theme API.
+  Supported browsers will adjust their tab bar color accordingly.
 confirmResetAll: Are you sure you want to reset all settings?
 confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
 couldNotFindElement: "Could not find the HTML element matching "
@@ -26,14 +26,14 @@ delete: Delete
 deleteRule: Delete rule
 dynamicColourUpdate: Dynamic color update
 dynamicModeTooltip:
-    Keep updating tab bar color while browsing within a web page.
+  Keep updating tab bar color while browsing within a web page.
 errorOccured: An error occurred, using fallback color
 errorOccuredLocatingElement:
-    "An error occurred while looking for the HTML element matching "
+  "An error occurred while looking for the HTML element matching "
 errorOccuredLocatingElementEnd: ", color is picked from the web page instead"
 exportSettings: Export settings
 extensionDescription:
-    Changes the color of Firefox theme to match the website’s appearance.
+  Changes the color of Firefox theme to match the website’s appearance.
 extensionName: Adaptive Tab Bar Color
 fallbackColourDark: "Fallback color: dark"
 fallbackColourLight: "Fallback color: light"
@@ -41,13 +41,13 @@ frame: Frame
 homepageColourDark: "Home page color: dark"
 homepageColourLight: "Home page color: light"
 ifVerticalTabsAreEnabled: >-
-    If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
-    above the window controls, making them harder to reach.
+  If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
+  above the window controls, making them harder to reach.
 ignore: Ignore
 ignoreDesignatedThemeColour: Ignore website’s theme color
 ignoreDesignatedThemeColourTooltip: >-
-    Some websites provide a theme color themselves. Turn on this option to
-    ignore these colors.
+  Some websites provide a theme color themselves. Turn on this option to ignore
+  these colors.
 importFailed: Failed to import settings. Please try again.
 importSettings: Import settings
 inDarkMode: In dark mode
@@ -55,8 +55,8 @@ inLightMode: In light mode
 loading: Loading…
 minimumContrast: Minimum contrast
 minimumContrastTooltip: >-
-    Set the minimum contrast ratio between the tab bar and text. The tab bar
-    color adjusts automatically if the ratio is not met.
+  Set the minimum contrast ratio between the tab bar and text. The tab bar color
+  adjusts automatically if the ratio is not met.
 moreSettings: More settings
 moreSettingsTooltip: Open option page
 no: No
@@ -64,8 +64,8 @@ novaUi: Use Nova UI colors
 novaUiTooltip: Enable if Firefox is using the Nova UI.
 overwriteAccentColour: Overwrite accent color
 overwriteAccentColourTooltip: >-
-    Use a custom accent color instead of your system’s color for the URL bar and
-    toolbar buttons.
+  Use a custom accent color instead of your system’s color for the URL bar and
+  toolbar buttons.
 pageIsProtected: This page is protected by browser
 pickColourFromElement: pick color from element
 popUp: Pop-up
@@ -89,8 +89,8 @@ tabBar: Tab bar
 themeBuilder: Theme builder
 themeColourIsIgnored: Theme color defined by the website is ignored
 themeColourIsUnignored: >-
-    Theme color defined by the website is used, instead of being ignored by
-    default
+  Theme color defined by the website is used, instead of being ignored by
+  default
 themeColourNotFound: Theme color is not found, color is picked from the web page
 toolbar: Toolbar
 urlBar: URL bar

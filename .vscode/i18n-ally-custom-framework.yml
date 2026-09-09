@@ -1,8 +1,8 @@
 languageIds:
-    - javascript
-    - javascriptreact
-    - typescript
-    - typescriptreact
+  - javascript
+  - javascriptreact
+  - typescript
+  - typescriptreact
 monopoly: true
 usageMatchRegex:
-    - "[^\\w\\d]t\\(['\"`]({key})['\"`]"
+  - "[^\\w\\d]t\\(['\"`]({key})['\"`]"
