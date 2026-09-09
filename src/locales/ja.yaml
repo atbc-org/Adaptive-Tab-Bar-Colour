@@ -17,15 +17,15 @@ compatibilityModeTooltip: >-
     の代わりに使用します。対応するブラウザーはそれに応じてタブバーの色を調整します。
 confirmResetAll: すべての設定をリセットしてもよろしいですか？
 confirmResetThemeBuilder: テーマビルダーをリセットしてもよろしいですか？
-couldNotFindElement: "一致する HTML 要素が見つかりませんでした "
-couldNotFindElementEnd: 、代わりにウェブページから取得した色を使用します
+couldNotFindElement: "一致する HTML 要素 "
+couldNotFindElementEnd: "が見つかりませんでした。代わりにウェブページから取得した色を使用します"
 delete: 削除
 deleteRule: ルールを削除
 dynamicColourUpdate: 動的な色の更新
 dynamicModeTooltip: ウェブページ内を閲覧している間、タブバーの色を更新し続けます。
 errorOccured: エラーが発生したため、フォールバック色を使用しています
-errorOccuredLocatingElement: "一致する HTML 要素の検索中にエラーが発生しました "
-errorOccuredLocatingElementEnd: 、色はウェブページから取得されます
+errorOccuredLocatingElement: "一致する HTML 要素 "
+errorOccuredLocatingElementEnd: "の検索中にエラーが発生しました。色はウェブページから取得されます"
 exportSettings: 設定をエクスポート
 extensionDescription:
     Firefox のテーマの色をウェブサイトの外観に合わせて変更します。
@@ -93,17 +93,17 @@ usingColourForHomePage: ホームページの色を使用
 usingColourForJSONViewer: JSON ビューアの色を使用
 usingColourForPDFViewer: PDF ビューアの色を使用
 usingColourForPlainTextViewer: プレーンテキストビューアの色を使用
-usingColourFromElement: "一致する HTML 要素から色を取得します "
+usingColourFromElement: "HTML要素から抽出された色の一致先： "
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: ウェブページから色を取得します
-usingDefaultColourForAddon: "関連ページのデフォルト色を使用します "
+usingDefaultColourForAddon: "関連ページのデフォルト色を使用： "
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: 色が利用できないため、フォールバック色を使用します
 usingImageViewer: 画像ビューアの色を使用
-usingPresetColourForAddon: "関連ページのプリセット色を使用します "
+usingPresetColourForAddon: "関連ページのプリセット色を使用： "
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: このサイトの色は設定で指定されています
-usingSpecifiedColourForAddon: "関連ページの指定色を使用します "
+usingSpecifiedColourForAddon: "関連ページの指定色を使用： "
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: ウェブサイトで定義されたテーマカラーを使用しています
 yes: はい
