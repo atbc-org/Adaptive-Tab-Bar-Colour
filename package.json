@@ -11,10 +11,7 @@
 		"start": "cross-env BINARY=firefox wxt --mode beta",
 		"start:dev": "cross-env BINARY=deved wxt --mode beta",
 		"test": "tsx tests/run.ts",
-		"test:headless": "tsx tests/run.ts --headless",
-		"zip": "bash scripts/zip.sh",
-		"zip:beta": "bash scripts/zip.sh --beta",
-		"zip:clean": "bash scripts/zip.sh --clean"
+		"zip": "bash scripts/zip.sh"
 	},
 	"repository": {
 		"type": "git",
