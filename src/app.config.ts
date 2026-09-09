@@ -1,5 +1,6 @@
 import { defineAppConfig } from "#imports";
-import pkg from "../package.json";
+
+declare const __EXT_VERSION__: string;
 
 declare module "wxt/utils/define-app-config" {
 	export interface WxtAppConfig {
@@ -8,5 +9,5 @@ declare module "wxt/utils/define-app-config" {
 }
 
 export default defineAppConfig({
-	version: pkg.version?.split(".")?.map(Number) ?? [0, 0],
+	version: __EXT_VERSION__.split(".").map(Number),
 });

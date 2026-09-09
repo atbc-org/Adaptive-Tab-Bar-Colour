@@ -1,9 +1,13 @@
 import { defineConfig } from "wxt";
+import pkg from "./package.json";
+
+const appVersion = process.env.EXT_VERSION || pkg.version;
 
 export default defineConfig({
 	browser: "firefox",
 	hooks: {
 		"build:manifestGenerated": (wxt, manifest) => {
+			manifest.version = appVersion;
 			if (wxt.config.mode === "beta") {
 				manifest.name += " (BETA)";
 				manifest.browser_specific_settings.gecko.id =
@@ -27,8 +31,7 @@ export default defineConfig({
 		default_locale: "en",
 		description: "__MSG_extensionDescription__",
 		developer: { name: "Eason & Yue", url: "https://easonwong.de/" },
-		homepage_url:
-			"https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/",
+		homepage_url: "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/",
 		icons: {
 			16: "/icon/icon-16.png",
 			32: "/icon/icon-32.png",
@@ -51,6 +54,7 @@ export default defineConfig({
 	outDirTemplate: "atbc",
 	srcDir: "src",
 	vite: () => ({
+		define: { __EXT_VERSION__: JSON.stringify(appVersion) },
 		css: {
 			modules: {
 				generateScopedName: "[hash:base64:6]",
@@ -85,6 +89,8 @@ export default defineConfig({
 			"scripts/**",
 			"amo/**",
 			"prettier.config.ts",
+			"README.md",
+			"CONTRIBUTING.md",
 		],
 	},
 });

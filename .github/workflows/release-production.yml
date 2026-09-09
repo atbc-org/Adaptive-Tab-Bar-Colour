@@ -1,6 +1,9 @@
 name: Release Production
 
 on:
+    pull_request:
+        types: [closed]
+        branches: [main]
     workflow_dispatch:
         inputs:
             notes:
@@ -11,23 +14,36 @@ on:
 jobs:
     run:
         runs-on: ubuntu-latest
+        if: >
+            (github.event_name == 'pull_request' &&
+             github.event.pull_request.merged == true &&
+             startsWith(github.event.pull_request.head.ref, 'release/')) ||
+            (github.event_name == 'workflow_dispatch' &&
+             github.ref == 'refs/heads/main')
         permissions:
             contents: write
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v6
               with:
-                  ref: ${{ github.ref }}
+                  ref: main
+                  token: ${{ secrets.ADMIN_PAT }}
             - name: Setup Node.js Environment
               uses: actions/setup-node@v6
               with:
                   node-version: 24
                   cache: npm
+            - name: Install Dependencies
+              run: npm ci
             - name: Prepare Environment And Metadata
               id: version
+              env:
+                  RELEASE_NOTES:
+                      ${{ github.event.pull_request.body || inputs.notes || ''
+                      }}
               run:
-                  bash scripts/utils.sh prepare_production_metadata "${{
-                  inputs.notes }}"
+                  bash scripts/utils.sh prepare_production_metadata
+                  "$RELEASE_NOTES"
             - name: Build And Upload To AMO (Production)
               env:
                   FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
@@ -35,7 +51,11 @@ jobs:
               run: bash scripts/utils.sh build_and_sign_production
             - name: Tag And Create GitHub Release
               env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.ADMIN_PAT }}
+                  VERSION: ${{ steps.version.outputs.version }}
+                  RELEASE_NOTES:
+                      ${{ github.event.pull_request.body || inputs.notes || ''
+                      }}
               run:
-                  bash scripts/utils.sh create_production_release "${{
-                  steps.version.outputs.version }}" "${{ inputs.notes }}"
+                  bash scripts/utils.sh create_production_release "$VERSION"
+                  "$RELEASE_NOTES"

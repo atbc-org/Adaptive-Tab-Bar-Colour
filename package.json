@@ -1,6 +1,6 @@
 {
 	"name": "adaptive-tab-bar-colour",
-	"version": "4.2.0",
+	"version": "4.1.0",
 	"description": "Changes the colour of Firefox theme to match the website’s appearance.",
 	"type": "module",
 	"private": true,
@@ -11,10 +11,7 @@
 		"start": "cross-env BINARY=firefox wxt --mode beta",
 		"start:dev": "cross-env BINARY=deved wxt --mode beta",
 		"test": "tsx tests/run.ts",
-		"test:headless": "tsx tests/run.ts --headless",
-		"zip": "bash scripts/zip.sh",
-		"zip:beta": "bash scripts/zip.sh --beta",
-		"zip:clean": "bash scripts/zip.sh --clean"
+		"zip": "bash scripts/zip.sh"
 	},
 	"repository": {
 		"type": "git",

@@ -2,9 +2,9 @@ name: Integration Test
 
 on:
     push:
-        branches: [main]
+        branches: [main, release/**]
     pull_request:
-        branches: [main]
+        branches: [main, release/**]
 
 jobs:
     run:
@@ -17,7 +17,11 @@ jobs:
               with:
                   node-version: 24
                   cache: npm
+            - name: Install Dependencies
+              run: npm ci
             - name: Setup Firefox
               uses: browser-actions/setup-firefox@v1
-            - name: Execute Integration Tests
-              run: bash scripts/utils.sh execute_integration_tests
+            - name: Build Clean Extension
+              run: bash scripts/zip.sh --clean
+            - name: Run Headless Tests
+              run: npx tsx tests/run.ts --headless
