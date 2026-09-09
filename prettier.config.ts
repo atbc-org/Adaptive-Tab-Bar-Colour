@@ -13,7 +13,7 @@ const config: Config = {
 	overrides: [
 		{
 			files: ["*.yml", "*.yaml"],
-			options: { proseWrap: "always", useTabs: false },
+			options: { proseWrap: "always", tabWidth: 2, useTabs: false },
 		},
 	],
 	plugins: [
