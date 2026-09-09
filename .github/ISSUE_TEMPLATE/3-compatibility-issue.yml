@@ -1,21 +1,20 @@
 name: Compatibility Issue
 description:
-    ATBC should work better with other browsers, add-ons, or CSS themes.
+  ATBC should work better with other browsers, add-ons, or CSS themes.
 title: Replace With Title
 labels: [compatibility]
 body:
-    - type: markdown
-      attributes:
-          value: >-
-              Experiencing issues on specific websites? Please [open a bug
-              report](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=1-bug-report.yml)
-              instead.
-    - type: textarea
-      id: description
-      attributes:
-          label: Description
-          description:
-              Describe how ATBC could be improved to work better with your
-              setup.
-      validations:
-          required: true
+  - type: markdown
+    attributes:
+      value: >-
+        Experiencing issues on specific websites? Please [open a bug
+        report](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=1-bug-report.yml)
+        instead.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description:
+        Describe how ATBC could be improved to work better with your setup.
+    validations:
+      required: true

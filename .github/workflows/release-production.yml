@@ -1,61 +1,57 @@
 name: Release Production
 
 on:
-    pull_request:
-        types: [closed]
-        branches: [main]
-    workflow_dispatch:
-        inputs:
-            notes:
-                description: Release notes for the release
-                required: false
-                type: string
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      notes:
+        description: Release notes for the release
+        required: false
+        type: string
 
 jobs:
-    run:
-        runs-on: ubuntu-latest
-        if: >
-            (github.event_name == 'pull_request' &&
-             github.event.pull_request.merged == true &&
-             startsWith(github.event.pull_request.head.ref, 'release/')) ||
-            (github.event_name == 'workflow_dispatch' &&
-             github.ref == 'refs/heads/main')
-        permissions:
-            contents: write
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v6
-              with:
-                  ref: main
-                  token: ${{ secrets.ADMIN_PAT }}
-            - name: Setup Node.js Environment
-              uses: actions/setup-node@v6
-              with:
-                  node-version: 24
-                  cache: npm
-            - name: Install Dependencies
-              run: npm ci
-            - name: Prepare Environment And Metadata
-              id: version
-              env:
-                  RELEASE_NOTES:
-                      ${{ github.event.pull_request.body || inputs.notes || ''
-                      }}
-              run:
-                  bash scripts/release.sh prepare_production_metadata
-                  "$RELEASE_NOTES"
-            - name: Build And Upload To AMO (Production)
-              env:
-                  FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
-                  FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
-              run: bash scripts/release.sh build_and_sign_production
-            - name: Tag And Create GitHub Release
-              env:
-                  GH_TOKEN: ${{ secrets.ADMIN_PAT }}
-                  VERSION: ${{ steps.version.outputs.version }}
-                  RELEASE_NOTES:
-                      ${{ github.event.pull_request.body || inputs.notes || ''
-                      }}
-              run:
-                  bash scripts/release.sh create_production_release "$VERSION"
-                  "$RELEASE_NOTES"
+  run:
+    runs-on: ubuntu-latest
+    if: >
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.merged == true &&
+       startsWith(github.event.pull_request.head.ref, 'release/')) ||
+      (github.event_name == 'workflow_dispatch' &&
+       github.ref == 'refs/heads/main')
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          ref: main
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci
+      - name: Prepare Environment And Metadata
+        id: version
+        env:
+          RELEASE_NOTES:
+            ${{ github.event.pull_request.body || inputs.notes || '' }}
+        run:
+          bash scripts/release.sh prepare_production_metadata "$RELEASE_NOTES"
+      - name: Build And Upload To AMO (Production)
+        env:
+          FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
+        run: bash scripts/release.sh build_and_sign_production
+      - name: Tag And Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          RELEASE_NOTES:
+            ${{ github.event.pull_request.body || inputs.notes || '' }}
+        run:
+          bash scripts/release.sh create_production_release "$VERSION"
+          "$RELEASE_NOTES"

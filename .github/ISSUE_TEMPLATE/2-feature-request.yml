@@ -3,16 +3,16 @@ description: ATBC is missing a feature or enhancement.
 title: Replace With Title
 labels: [feature]
 body:
-    - type: markdown
-      attributes:
-          value: >-
-              If you want to suggest more than one feature, please [open a new
-              issue](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=2-feature-request.yml)
-              for each request.
-    - type: textarea
-      id: description
-      attributes:
-          label: Description
-          description: Describe the feature you would like to see implemented.
-      validations:
-          required: true
+  - type: markdown
+    attributes:
+      value: >-
+        If you want to suggest more than one feature, please [open a new
+        issue](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=2-feature-request.yml)
+        for each request.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature you would like to see implemented.
+    validations:
+      required: true

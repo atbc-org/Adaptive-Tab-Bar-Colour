@@ -13,8 +13,8 @@ border: 边界
 colourIsAdjusted: 为达到最小对比度设置，原颜色已被调整
 compatibilityMode: 兼容模式
 compatibilityModeTooltip:
-    更改网页的「theme-color」元数据，而非使用 Theme
-    API。支持该功能的浏览器会相应地调整其标签栏颜色。
+  更改网页的「theme-color」元数据，而非使用 Theme
+  API。支持该功能的浏览器会相应地调整其标签栏颜色。
 confirmResetAll: 是否确定重置所有设置？
 confirmResetThemeBuilder: 是否确定重置背景主题？
 couldNotFindElement: "找不到符合 "
@@ -26,7 +26,7 @@ dynamicModeTooltip: 在同一个网页停留时，持续更新标签栏颜色。
 errorOccured: 发生错误，使用备选颜色
 errorOccuredLocatingElement: "当寻找符合 "
 errorOccuredLocatingElementEnd:
-    " 的网页元素时发生错误，标签栏的颜色已按普通方法从网页中获取"
+  " 的网页元素时发生错误，标签栏的颜色已按普通方法从网页中获取"
 exportSettings: 保存偏好设置至文件
 extensionDescription: 改变 Firefox 背景主题，使其与网页融为一体。
 extensionName: 变色标签栏

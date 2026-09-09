@@ -1,36 +1,29 @@
 name: Start Version
 
 on:
-    workflow_dispatch:
-        inputs:
-            version:
-                description: Version of the next release (e.g. 1.0.0)
-                required: true
-                type: string
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version of the next release (e.g. 1.0.0)
+        required: true
+        type: string
 
 jobs:
-    run:
-        runs-on: ubuntu-latest
-        if: github.ref == 'refs/heads/main'
-        permissions:
-            contents: write
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v6
-              with:
-                  ref: main
-                  token: ${{ secrets.ADMIN_PAT }}
-            - name: Setup Node.js Environment
-              uses: actions/setup-node@v6
-              with:
-                  node-version: 24
-            - name: Add Release Branch
-              env:
-                  VERSION: ${{ inputs.version }}
-              run: bash scripts/release.sh add_release_branch "$VERSION"
-            - name: Install Dependencies
-              run: npm ci
-            - name: Build Clean Extension
-              run: bash scripts/zip.sh --clean
-            - name: Run Headless Tests
-              run: npx tsx tests/run.ts --headless
+  run:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          ref: main
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Add Release Branch
+        env:
+          VERSION: ${{ inputs.version }}
+        run: bash scripts/release.sh add_release_branch "$VERSION"

@@ -13,8 +13,8 @@ border: 邊界
 colourIsAdjusted: 為達到最小對比度，原顏色已被調整
 compatibilityMode: 相容模式
 compatibilityModeTooltip:
-    更改網頁的「theme-color」元資料，而非使用 Theme
-    API。支援該功能的瀏覽器會相應地調整其標題列顏色。
+  更改網頁的「theme-color」元資料，而非使用 Theme
+  API。支援該功能的瀏覽器會相應地調整其標題列顏色。
 confirmResetAll: 是否確定重設所有設定？
 confirmResetThemeBuilder: 是否確定重設佈景主題設定？
 couldNotFindElement: "未能找到符合 "
@@ -26,7 +26,7 @@ dynamicModeTooltip: 在瀏覽同一網頁時，持續更新標題列顏色。
 errorOccured: 發生錯誤，採用備選顏色
 errorOccuredLocatingElement: "當尋找符合 "
 errorOccuredLocatingElementEnd:
-    " 的網頁元件時發生錯誤，標題列顏色改為以一般方法從網頁中提取"
+  " 的網頁元件時發生錯誤，標題列顏色改為以一般方法從網頁中提取"
 exportSettings: 儲存偏好設定
 extensionDescription: 改變 Firefox 佈景主題色彩，使之與網頁融為一體。
 extensionName: 變色標題列

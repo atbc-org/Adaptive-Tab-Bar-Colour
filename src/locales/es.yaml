@@ -3,46 +3,46 @@ addonNotFound: Extensión no encontrada
 advanced: Avanzado
 allowDarkTabBar: Permitir barra de pestañas oscura
 allowDarkTabBarTooltip: >-
-    Permitir que la barra de pestañas use un color oscuro (texto claro en la
-    barra de pestañas oscura).
+  Permitir que la barra de pestañas use un color oscuro (texto claro en la barra
+  de pestañas oscura).
 allowLightTabBar: Permitir barra de pestañas clara
 allowLightTabBarTooltip: >-
-    Permitir que la barra de pestañas use un color brillante (texto oscuro en la
-    barra de pestañas clara).
+  Permitir que la barra de pestañas use un color brillante (texto oscuro en la
+  barra de pestañas clara).
 anyCSSColour: Cualquier formato
 background: Fondo
 backgroundOnFocus: Fondo en foco
 backupAndReset: Copia de seguridad y reinicio
 border: Borde
 colourIsAdjusted:
-    El color original ha sido ajustado para asegurar un contraste mínimo
+  El color original ha sido ajustado para asegurar un contraste mínimo
 compatibilityMode: Modo de compatibilidad
 compatibilityModeTooltip: >-
-    Cambiar los metadatos “theme-color” del sitio web en lugar de utilizar la
-    API del tema. Los navegadores soportados ajustarán el color de la barra de
-    pestañas en consecuencia.
+  Cambiar los metadatos “theme-color” del sitio web en lugar de utilizar la API
+  del tema. Los navegadores soportados ajustarán el color de la barra de
+  pestañas en consecuencia.
 confirmResetAll:
-    ¿Está seguro de que desea restablecer todas las configuraciones?
+  ¿Está seguro de que desea restablecer todas las configuraciones?
 confirmResetThemeBuilder:
-    ¿Estás seguro de que quieres restablecer el creador de temas?
+  ¿Estás seguro de que quieres restablecer el creador de temas?
 couldNotFindElement: "No se pudo encontrar el elemento HTML que coincide con "
 couldNotFindElementEnd:
-    ", utilizando en su lugar el color extraído de la página web"
+  ", utilizando en su lugar el color extraído de la página web"
 delete: Eliminar
 deleteRule: Eliminar regla
 dynamicColourUpdate: Actualización dinámica de color
 dynamicModeTooltip: >-
-    Sigue actualizando el color de la barra de pestañas mientras navegas dentro
-    de una página web.
+  Sigue actualizando el color de la barra de pestañas mientras navegas dentro de
+  una página web.
 errorOccured: Ocurrió un error, se está usando color de respaldo
 errorOccuredLocatingElement:
-    "Ocurrió un error al buscar el elemento HTML que coincide con "
+  "Ocurrió un error al buscar el elemento HTML que coincide con "
 errorOccuredLocatingElementEnd:
-    ", el color se toma de la página web en su lugar"
+  ", el color se toma de la página web en su lugar"
 exportSettings: Exportar configuración
 extensionDescription: >-
-    Cambia el color del tema de Firefox para que coincida con la apariencia del
-    sitio web.
+  Cambia el color del tema de Firefox para que coincida con la apariencia del
+  sitio web.
 extensionName: Adaptive Tab Bar Colour
 fallbackColourDark: "Color de respaldo: oscuro"
 fallbackColourLight: "Color de respaldo: claro"
@@ -50,14 +50,14 @@ frame: Marco
 homepageColourDark: "Color de la página de inicio: oscuro"
 homepageColourLight: "Color de la página de inicio: claro"
 ifVerticalTabsAreEnabled: >-
-    Si las “pestañas verticales” están habilitadas, cualquier valor distinto de
-    cero puede causar que aparezca un espacio sobre los controles de la ventana,
-    dificultando su alcance.
+  Si las “pestañas verticales” están habilitadas, cualquier valor distinto de
+  cero puede causar que aparezca un espacio sobre los controles de la ventana,
+  dificultando su alcance.
 ignore: Ignorar
 ignoreDesignatedThemeColour: Ignorar el color del tema del sitio web
 ignoreDesignatedThemeColourTooltip: >-
-    Algunos sitios web proporcionan su propio color de tema. Activa esta opción
-    para ignorar estos colores.
+  Algunos sitios web proporcionan su propio color de tema. Activa esta opción
+  para ignorar estos colores.
 importFailed: Error al importar configuraciones. Por favor, inténtalo de nuevo.
 importSettings: Importar configuraciones
 inDarkMode: En modo oscuro
@@ -65,9 +65,9 @@ inLightMode: En modo claro
 loading: Cargando…
 minimumContrast: Contraste mínimo
 minimumContrastTooltip: >-
-    Establece la relación de contraste mínima entre la barra de pestañas y el
-    texto. El color de la barra de pestañas se ajusta automáticamente si no se
-    cumple la relación.
+  Establece la relación de contraste mínima entre la barra de pestañas y el
+  texto. El color de la barra de pestañas se ajusta automáticamente si no se
+  cumple la relación.
 moreSettings: Más opciones
 moreSettingsTooltip: Abrir página de opciones
 no: No
@@ -75,14 +75,14 @@ novaUi: Usar colores de Nova UI
 novaUiTooltip: Activar si Firefox está usando Nova UI.
 overwriteAccentColour: Sobrescribir color de acento
 overwriteAccentColourTooltip: >-
-    Usar un color de énfasis personalizado en lugar del color de su sistema para
-    la barra de URL y los botones de la barra de herramientas.
+  Usar un color de énfasis personalizado en lugar del color de su sistema para
+  la barra de URL y los botones de la barra de herramientas.
 pageIsProtected: Esta página está protegida por el navegador
 pickColourFromElement: usar el color del elemento
 popUp: Ventana emergente
 querySelector: Selector de consulta
 reportAnIssue:
-    Reportar un problema / enviar una sugerencia / traducir esta extensión
+  Reportar un problema / enviar una sugerencia / traducir esta extensión
 reset: Restablecer
 resetAll: Restablecer todo
 resetAllSettings: Restablecer todas las configuraciones
@@ -93,7 +93,7 @@ ruleList: Lista de reglas
 ruleWillBeIgnored: Esta regla será ignorada
 selectedTab: Pestaña seleccionada
 settingsAreExported:
-    Las configuraciones han sido exportadas a tu carpeta de descargas.
+  Las configuraciones han sido exportadas a tu carpeta de descargas.
 settingsAreImported: Las configuraciones han sido importadas.
 sidebar: Barra lateral
 specifyAColour: especificar un color
@@ -102,10 +102,10 @@ tabBar: Barra de pestañas
 themeBuilder: Creador de temas
 themeColourIsIgnored: El color del tema definido por el sitio web es ignorado
 themeColourIsUnignored: >-
-    Se está utilizando el color del tema definido por el sitio web, en lugar de
-    ser ignorado por defecto
+  Se está utilizando el color del tema definido por el sitio web, en lugar de
+  ser ignorado por defecto
 themeColourNotFound:
-    No se encuentra el color del tema, el color se toma de la página web
+  No se encuentra el color del tema, el color se toma de la página web
 toolbar: Barra de herramientas
 urlBar: Barra de direcciones
 urlDomainOrRegex: URL/regex/wildcard/dominio
@@ -119,17 +119,17 @@ usingColourFromElement: "El color se toma de un elemento HTML que coincide con "
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: El color se toma de la página web
 usingDefaultColourForAddon:
-    "Usando color por defecto para páginas relacionadas con "
+  "Usando color por defecto para páginas relacionadas con "
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: No hay color disponible, se está usando color de respaldo
 usingImageViewer: Se está usando color para el visor de imágenes
 usingPresetColourForAddon:
-    "Usando color preestablecido para páginas relacionadas con "
+  "Usando color preestablecido para páginas relacionadas con "
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour:
-    El color para este sitio está especificado en la configuración
+  El color para este sitio está especificado en la configuración
 usingSpecifiedColourForAddon:
-    "Se está usando color especificado para páginas relacionadas con "
+  "Se está usando color especificado para páginas relacionadas con "
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Se está usando el color del tema definido por el sitio web
 yes: Sí
