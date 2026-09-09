@@ -21,8 +21,7 @@ compatibilityModeTooltip: >-
   navegadores suportados ajustarão a cor da barra de abas de acordo.
 confirmResetAll: Tem certeza de que deseja redefinir todas as configurações?
 confirmResetThemeBuilder: Você realmente deseja redefinir o criador de temas?
-couldNotFindElement:
-  "Não foi possível encontrar o elemento HTML que coincide com "
+couldNotFindElement: Não foi possível encontrar o elemento HTML que coincide com
 couldNotFindElementEnd: ", usando a cor extraída da página web em vez disso"
 delete: Apagar
 deleteRule: Apagar regra
@@ -32,7 +31,7 @@ dynamicModeTooltip:
   web.
 errorOccured: Um erro ocorreu, será utilizada a cor alternativa
 errorOccuredLocatingElement:
-  "Um erro ocorreu durante a procura de um elemento HTML que coincide com "
+  Um erro ocorreu durante a procura de um elemento HTML que coincide com
 errorOccuredLocatingElementEnd: ", então a cor foi selecionada da página web"
 exportSettings: Exportar configurações
 extensionDescription:
@@ -109,18 +108,18 @@ usingColourForJSONViewer: Usando cor para visualização de JSON
 usingColourForPDFViewer: Usando cor para visualização de PDF
 usingColourForPlainTextViewer: Usando cor para visualização de texto simples
 usingColourFromElement:
-  "A cor foi obtida a partir de um elemento HTML que coincide com "
+  A cor foi obtida a partir de um elemento HTML que coincide com
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: A cor foi obtida a partir da página web
-usingDefaultColourForAddon: "Usando cor padrão para páginas relacionadas a "
+usingDefaultColourForAddon: Usando cor padrão para páginas relacionadas a
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: Não há cor disponível, usando cor alternativa
 usingImageViewer: Usando cor para visualizador de imagem
-usingPresetColourForAddon: "Usando cor predefinida para páginas relacionadas a "
+usingPresetColourForAddon: Usando cor predefinida para páginas relacionadas a
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: A cor desse site está especificada nas configurações
 usingSpecifiedColourForAddon:
-  "Usando cor especificada para páginas relacionadas a "
+  Usando cor especificada para páginas relacionadas a
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Usando cor do tema definida pelo site
 yes: Sim

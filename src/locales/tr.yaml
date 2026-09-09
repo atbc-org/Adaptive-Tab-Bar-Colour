@@ -34,7 +34,7 @@ dynamicModeTooltip: >-
   eder.
 errorOccured: Bir hata meydana geldi, yedek renk kullanılıyor
 errorOccuredLocatingElement:
-  "Şununla eşleşen HTML ögesi aranırken bir hata meydana geldi: "
+  "Şununla eşleşen HTML ögesi aranırken bir hata meydana geldi:"
 errorOccuredLocatingElementEnd: ", onun yerine renk web sayfasından seçildi"
 exportSettings: Ayarları dışarı aktar
 extensionDescription:
@@ -107,20 +107,20 @@ usingColourForHomePage: Giriş sayfası için renk kullanılıyor
 usingColourForJSONViewer: JSON görüntüleyici için renk kullanılıyor
 usingColourForPDFViewer: PDF görüntüleyici için renk kullanılıyor
 usingColourForPlainTextViewer: Düz metin görüntüleyici için renk kullanılıyor
-usingColourFromElement: "Eşleşen bir HTML ögesinden renk seçildi "
+usingColourFromElement: Eşleşen bir HTML ögesinden renk seçildi
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: Renk web sayfasından seçildi
 usingDefaultColourForAddon:
-  "Varsayılan renk şunlarla ilgili sayfalar için kullanılıyor: "
+  "Varsayılan renk şunlarla ilgili sayfalar için kullanılıyor:"
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: Hiç renk mevcut değil, yedek renk kullanılıyor
 usingImageViewer: Resim görüntüleyici için renk kullanılıyor
 usingPresetColourForAddon:
-  "Önayarlı renk şunlarla ilgili sayfalar için kullanılıyor: "
+  "Önayarlı renk şunlarla ilgili sayfalar için kullanılıyor:"
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: Bu site için renk ayarlarda belirtildi
 usingSpecifiedColourForAddon:
-  "Belirtilen renk şunlarla ilgili sayfalar için kullanılıyor: "
+  "Belirtilen renk şunlarla ilgili sayfalar için kullanılıyor:"
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Web sitesi tarafından tanımlanan tema rengi kullanılıyor
 yes: Evet

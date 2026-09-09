@@ -23,7 +23,7 @@ compatibilityModeTooltip: >-
   вкладок.
 confirmResetAll: Вы уверены, что хотите сбросить все настройки?
 confirmResetThemeBuilder: Вы уверены, что хотите сбросить конструктор темы?
-couldNotFindElement: "Не удалось найти HTML-элемент, соответствующий "
+couldNotFindElement: Не удалось найти HTML-элемент, соответствующий
 couldNotFindElementEnd: ", цвет выбран со страницы вместо него"
 delete: Удалить
 deleteRule: Удалить правило
@@ -32,7 +32,7 @@ dynamicModeTooltip:
   Обновлять цвет панели вкладок во время навигации внутри страницы.
 errorOccured: Произошла ошибка, используется резервный цвет
 errorOccuredLocatingElement:
-  "Произошла ошибка при поиске HTML-элемента, соответствующего "
+  Произошла ошибка при поиске HTML-элемента, соответствующего
 errorOccuredLocatingElementEnd: ", цвет выбран со страницы вместо него"
 exportSettings: Экспорт настроек
 extensionDescription:
@@ -105,20 +105,20 @@ usingColourForHomePage: Использование цвета для домаш�
 usingColourForJSONViewer: Использование цвета для JSON-просмотрщика
 usingColourForPDFViewer: Использование цвета для PDF-просмотрщика
 usingColourForPlainTextViewer: Использование цвета для просмотра текста
-usingColourFromElement: "Цвет выбран из HTML-элемента, соответствующего "
+usingColourFromElement: Цвет выбран из HTML-элемента, соответствующего
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: Цвет выбран со страницы
 usingDefaultColourForAddon:
-  "Используется цвет по умолчанию для страниц, связанных с "
+  Используется цвет по умолчанию для страниц, связанных с
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: Цвет недоступен, используется резервный
 usingImageViewer: Использование цвета для просмотрщика изображений
 usingPresetColourForAddon:
-  "Используется предустановленный цвет для страниц, связанных с "
+  Используется предустановленный цвет для страниц, связанных с
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: Цвет для этого сайта задан в настройках
 usingSpecifiedColourForAddon:
-  "Используется указанный цвет для страниц, связанных с "
+  Используется указанный цвет для страниц, связанных с
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Используется цвет темы, заданный сайтом
 yes: Да

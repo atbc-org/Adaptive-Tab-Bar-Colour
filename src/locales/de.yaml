@@ -25,10 +25,10 @@ confirmResetAll:
   Sind Sie sicher, dass Sie alle Einstellungen zurücksetzen möchten?
 confirmResetThemeBuilder:
   Sind Sie sicher, dass Sie den Theme-Editor zurücksetzen möchten?
-couldNotFindElement: "Das HTML-Element, das mit "
+couldNotFindElement: Das HTML-Element, das mit
 couldNotFindElementEnd:
-  " übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
-  Webseite gewählte Farbe verwendet"
+  übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
+  Webseite gewählte Farbe verwendet
 delete: Löschen
 deleteRule: Regel löschen
 dynamicColourUpdate: Dynamische Farbaktualisierung
@@ -40,7 +40,7 @@ errorOccuredLocatingElement: >-
   Ein Fehler ist aufgetreten, während nach dem HTML-Element gesucht wurde, das
   mit
 errorOccuredLocatingElementEnd:
-  " übereinstimmt. Die Farbe wird stattdessen von der Webseite gewählt"
+  übereinstimmt. Die Farbe wird stattdessen von der Webseite gewählt
 exportSettings: Einstellungen exportieren
 extensionDescription: >-
   Ändert die Farbe des Firefox-Themes, um dem Erscheinungsbild der Website zu
@@ -119,18 +119,18 @@ usingColourForJSONViewer: Farbe für JSON-Viewer wird verwendet
 usingColourForPDFViewer: Farbe für PDF-Viewer wird verwendet
 usingColourForPlainTextViewer: Farbe für Plain-Text-Viewer wird verwendet
 usingColourFromElement:
-  "Die Farbe wird von einem HTML-Element ausgewählt, das mit "
-usingColourFromElementEnd: " übereinstimmt"
+  Die Farbe wird von einem HTML-Element ausgewählt, das mit
+usingColourFromElementEnd: übereinstimmt
 usingColourFromWebpage: Farbe erfolgreich von der Webseite gewählt
-usingDefaultColourForAddon: "Standardfarbe für Seiten, die zu "
-usingDefaultColourForAddonEnd: " gehören, wird verwendet"
+usingDefaultColourForAddon: Standardfarbe für Seiten, die zu
+usingDefaultColourForAddonEnd: gehören, wird verwendet
 usingFallbackColour: Keine Farbe verfügbar, Fallback-Farbe wird verwendet
 usingImageViewer: Farbe für Bild-Viewer wird verwendet
-usingPresetColourForAddon: "Voreingestellte Farbe für Seiten in Verbindung mit "
+usingPresetColourForAddon: Voreingestellte Farbe für Seiten in Verbindung mit
 usingPresetColourForAddonEnd: wird verwendet
 usingSpecifiedColour:
   Die Farbe für diese Seite ist in den Einstellungen angegeben
-usingSpecifiedColourForAddon: "Spezifizierte Farbe für Seiten, die zu "
-usingSpecifiedColourForAddonEnd: " gehören, wird verwendet"
+usingSpecifiedColourForAddon: Spezifizierte Farbe für Seiten, die zu
+usingSpecifiedColourForAddonEnd: gehören, wird verwendet
 usingThemeColour: Die von der Website definierte Theme-Farbe wird verwendet
 yes: Ja

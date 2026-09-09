@@ -17,16 +17,15 @@ compatibilityModeTooltip:
   API。支持该功能的浏览器会相应地调整其标签栏颜色。
 confirmResetAll: 是否确定重置所有设置？
 confirmResetThemeBuilder: 是否确定重置背景主题？
-couldNotFindElement: "找不到符合 "
-couldNotFindElementEnd: " 的网页元素，改为使用从网页中提取的颜色"
+couldNotFindElement: 找不到符合
+couldNotFindElementEnd: 的网页元素，改为使用从网页中提取的颜色
 delete: 删除
 deleteRule: 删除规则
 dynamicColourUpdate: 动态更新颜色
 dynamicModeTooltip: 在同一个网页停留时，持续更新标签栏颜色。
 errorOccured: 发生错误，使用备选颜色
-errorOccuredLocatingElement: "当寻找符合 "
-errorOccuredLocatingElementEnd:
-  " 的网页元素时发生错误，标签栏的颜色已按普通方法从网页中获取"
+errorOccuredLocatingElement: 当寻找符合
+errorOccuredLocatingElementEnd: 的网页元素时发生错误，标签栏的颜色已按普通方法从网页中获取
 exportSettings: 保存偏好设置至文件
 extensionDescription: 改变 Firefox 背景主题，使其与网页融为一体。
 extensionName: 变色标签栏
@@ -86,17 +85,17 @@ usingColourForHomePage: 使用首页背景色
 usingColourForJSONViewer: 从 JSON 阅读器获取颜色
 usingColourForPDFViewer: 从 PDF 阅读器获取颜色
 usingColourForPlainTextViewer: 从文本阅读器获取颜色
-usingColourFromElement: "标签栏的颜色是从符合 "
-usingColourFromElementEnd: " 的网页元素中获取"
+usingColourFromElement: 标签栏的颜色是从符合
+usingColourFromElementEnd: 的网页元素中获取
 usingColourFromWebpage: 颜色已从网页中提取
-usingDefaultColourForAddon: "使用 "
-usingDefaultColourForAddonEnd: " 相关页面的默认颜色"
+usingDefaultColourForAddon: 使用
+usingDefaultColourForAddonEnd: 相关页面的默认颜色
 usingFallbackColour: 未能从网页获取颜色，使用备选颜色
 usingImageViewer: 按图像查看器着色
-usingPresetColourForAddon: "使用 "
-usingPresetColourForAddonEnd: " 相关页面的默认颜色"
+usingPresetColourForAddon: 使用
+usingPresetColourForAddonEnd: 相关页面的默认颜色
 usingSpecifiedColour: 此网站对应的标签栏颜色已被指定
-usingSpecifiedColourForAddon: "使用 "
-usingSpecifiedColourForAddonEnd: " 相关页面指定的颜色"
+usingSpecifiedColourForAddon: 使用
+usingSpecifiedColourForAddonEnd: 相关页面指定的颜色
 usingThemeColour: 使用此网站指定的主题色
 yes: 是

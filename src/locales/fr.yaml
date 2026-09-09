@@ -24,7 +24,7 @@ compatibilityModeTooltip: >-
 confirmResetAll: Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?
 confirmResetThemeBuilder:
   Êtes-vous sûr de vouloir réinitialiser le constructeur de thèmes ?
-couldNotFindElement: "N'a pas pu trouver l'élément HTML correspondant "
+couldNotFindElement: N'a pas pu trouver l'élément HTML correspondant
 couldNotFindElementEnd:
   ", utilisation de la couleur extraite de la page web à la place"
 delete: Supprimer
@@ -117,21 +117,21 @@ usingColourForPDFViewer: Utilisation de la couleur pour la visionneuse PDF
 usingColourForPlainTextViewer:
   Utilisation de la couleur pour la visionneuse de texte brut
 usingColourFromElement:
-  "La couleur est choisie à partir d'un élément HTML correspondant "
+  La couleur est choisie à partir d'un élément HTML correspondant
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: La couleur est choisie à partir de la page web
 usingDefaultColourForAddon:
-  "Utilisation de la couleur par défaut pour les pages liées à "
+  Utilisation de la couleur par défaut pour les pages liées à
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour:
   Aucune couleur n'est disponible, utilisation de la couleur de repli
 usingImageViewer: Utilisation de la couleur pour la visionneuse d'images
 usingPresetColourForAddon:
-  "Utilisation de la couleur prédéfinie pour les pages liées à "
+  Utilisation de la couleur prédéfinie pour les pages liées à
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: La couleur de ce site est spécifiée dans les paramètres
 usingSpecifiedColourForAddon:
-  "Utilisation de la couleur spécifiée pour les pages liées à "
+  Utilisation de la couleur spécifiée pour les pages liées à
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Utilisation de la couleur du thème définie par le site web
 yes: Oui

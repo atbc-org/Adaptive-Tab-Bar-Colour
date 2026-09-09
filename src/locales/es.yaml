@@ -25,7 +25,7 @@ confirmResetAll:
   ¿Está seguro de que desea restablecer todas las configuraciones?
 confirmResetThemeBuilder:
   ¿Estás seguro de que quieres restablecer el creador de temas?
-couldNotFindElement: "No se pudo encontrar el elemento HTML que coincide con "
+couldNotFindElement: No se pudo encontrar el elemento HTML que coincide con
 couldNotFindElementEnd:
   ", utilizando en su lugar el color extraído de la página web"
 delete: Eliminar
@@ -36,7 +36,7 @@ dynamicModeTooltip: >-
   una página web.
 errorOccured: Ocurrió un error, se está usando color de respaldo
 errorOccuredLocatingElement:
-  "Ocurrió un error al buscar el elemento HTML que coincide con "
+  Ocurrió un error al buscar el elemento HTML que coincide con
 errorOccuredLocatingElementEnd:
   ", el color se toma de la página web en su lugar"
 exportSettings: Exportar configuración
@@ -115,21 +115,21 @@ usingColourForHomePage: Se está usando color para la página de inicio
 usingColourForJSONViewer: Se está usando color para el lector de JSON
 usingColourForPDFViewer: Se está usando color para el lector de PDF
 usingColourForPlainTextViewer: Se está usando color para el visor de texto plano
-usingColourFromElement: "El color se toma de un elemento HTML que coincide con "
+usingColourFromElement: El color se toma de un elemento HTML que coincide con
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: El color se toma de la página web
 usingDefaultColourForAddon:
-  "Usando color por defecto para páginas relacionadas con "
+  Usando color por defecto para páginas relacionadas con
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: No hay color disponible, se está usando color de respaldo
 usingImageViewer: Se está usando color para el visor de imágenes
 usingPresetColourForAddon:
-  "Usando color preestablecido para páginas relacionadas con "
+  Usando color preestablecido para páginas relacionadas con
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour:
   El color para este sitio está especificado en la configuración
 usingSpecifiedColourForAddon:
-  "Se está usando color especificado para páginas relacionadas con "
+  Se está usando color especificado para páginas relacionadas con
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Se está usando el color del tema definido por el sitio web
 yes: Sí

@@ -20,7 +20,7 @@ compatibilityModeTooltip: >-
   Supported browsers will adjust their tab bar color accordingly.
 confirmResetAll: Are you sure you want to reset all settings?
 confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
-couldNotFindElement: "Could not find the HTML element matching "
+couldNotFindElement: Could not find the HTML element matching
 couldNotFindElementEnd: ", using color picked from the web page instead"
 delete: Delete
 deleteRule: Delete rule
@@ -29,7 +29,7 @@ dynamicModeTooltip:
   Keep updating tab bar color while browsing within a web page.
 errorOccured: An error occurred, using fallback color
 errorOccuredLocatingElement:
-  "An error occurred while looking for the HTML element matching "
+  An error occurred while looking for the HTML element matching
 errorOccuredLocatingElementEnd: ", color is picked from the web page instead"
 exportSettings: Export settings
 extensionDescription:
@@ -101,17 +101,17 @@ usingColourForHomePage: Using color for home page
 usingColourForJSONViewer: Using color for JSON viewer
 usingColourForPDFViewer: Using color for PDF viewer
 usingColourForPlainTextViewer: Using color for plain text viewer
-usingColourFromElement: "Color is picked from an HTML element matching "
+usingColourFromElement: Color is picked from an HTML element matching
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: Color is picked from the web page
-usingDefaultColourForAddon: "Using default color for pages related to "
+usingDefaultColourForAddon: Using default color for pages related to
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: No color is available, using fallback color
 usingImageViewer: Using color for image viewer
-usingPresetColourForAddon: "Using preset color for pages related to "
+usingPresetColourForAddon: Using preset color for pages related to
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: Color for this site is specified in the settings
-usingSpecifiedColourForAddon: "Using specified color for pages related to "
+usingSpecifiedColourForAddon: Using specified color for pages related to
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Using theme color defined by the website
 yes: Yes

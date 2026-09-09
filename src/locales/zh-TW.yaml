@@ -17,16 +17,15 @@ compatibilityModeTooltip:
   API。支援該功能的瀏覽器會相應地調整其標題列顏色。
 confirmResetAll: 是否確定重設所有設定？
 confirmResetThemeBuilder: 是否確定重設佈景主題設定？
-couldNotFindElement: "未能找到符合 "
-couldNotFindElementEnd: " 的網頁元件，改為使用從網頁中提取的顏色"
+couldNotFindElement: 未能找到符合
+couldNotFindElementEnd: 的網頁元件，改為使用從網頁中提取的顏色
 delete: 刪除
 deleteRule: 刪除規則
 dynamicColourUpdate: 動態更新顏色
 dynamicModeTooltip: 在瀏覽同一網頁時，持續更新標題列顏色。
 errorOccured: 發生錯誤，採用備選顏色
-errorOccuredLocatingElement: "當尋找符合 "
-errorOccuredLocatingElementEnd:
-  " 的網頁元件時發生錯誤，標題列顏色改為以一般方法從網頁中提取"
+errorOccuredLocatingElement: 當尋找符合
+errorOccuredLocatingElementEnd: 的網頁元件時發生錯誤，標題列顏色改為以一般方法從網頁中提取
 exportSettings: 儲存偏好設定
 extensionDescription: 改變 Firefox 佈景主題色彩，使之與網頁融為一體。
 extensionName: 變色標題列
@@ -86,17 +85,17 @@ usingColourForHomePage: 採用首頁背景色
 usingColourForJSONViewer: 採用 JSON 檢視器顏色
 usingColourForPDFViewer: 採用 PDF 閱讀器顏色
 usingColourForPlainTextViewer: 採用純文字閱讀器顏色
-usingColourFromElement: "標題列顏色是從符合 "
+usingColourFromElement: 標題列顏色是從符合
 usingColourFromElementEnd: 的網頁元件提取
 usingColourFromWebpage: 標題列顏色是從網頁提取
-usingDefaultColourForAddon: "使用 "
-usingDefaultColourForAddonEnd: " 相關頁面的預設顏色"
+usingDefaultColourForAddon: 使用
+usingDefaultColourForAddonEnd: 相關頁面的預設顏色
 usingFallbackColour: 未能從網頁提取顏色，採用備選顏色
 usingImageViewer: 採用圖片檢視器色彩
-usingPresetColourForAddon: "採用 "
-usingPresetColourForAddonEnd: " 相關頁面的預設顏色"
+usingPresetColourForAddon: 採用
+usingPresetColourForAddonEnd: 相關頁面的預設顏色
 usingSpecifiedColour: 此網站的標題列顏色已在設定當中指定
-usingSpecifiedColourForAddon: "採用為 "
-usingSpecifiedColourForAddonEnd: " 相關頁面指定的顏色"
+usingSpecifiedColourForAddon: 採用為
+usingSpecifiedColourForAddonEnd: 相關頁面指定的顏色
 usingThemeColour: 採用此網站指定的主題色
 yes: 是
