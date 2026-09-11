@@ -2,11 +2,11 @@ addANewRule: Agregar una nueva regla
 addonNotFound: Extensión no encontrada
 advanced: Avanzado
 allowDarkTabBar: Permitir barra de pestañas oscura
-allowDarkTabBarTooltip: >-
+allowDarkTabBarTooltip:
   Permitir que la barra de pestañas use un color oscuro (texto claro en la barra
   de pestañas oscura).
 allowLightTabBar: Permitir barra de pestañas clara
-allowLightTabBarTooltip: >-
+allowLightTabBarTooltip:
   Permitir que la barra de pestañas use un color brillante (texto oscuro en la
   barra de pestañas clara).
 anyCSSColour: Cualquier formato
@@ -17,7 +17,7 @@ border: Borde
 colourIsAdjusted:
   El color original ha sido ajustado para asegurar un contraste mínimo
 compatibilityMode: Modo de compatibilidad
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Cambiar los metadatos “theme-color” del sitio web en lugar de utilizar la API
   del tema. Los navegadores soportados ajustarán el color de la barra de
   pestañas en consecuencia.
@@ -31,7 +31,7 @@ couldNotFindElementEnd:
 delete: Eliminar
 deleteRule: Eliminar regla
 dynamicColourUpdate: Actualización dinámica de color
-dynamicModeTooltip: >-
+dynamicModeTooltip:
   Sigue actualizando el color de la barra de pestañas mientras navegas dentro de
   una página web.
 errorOccured: Ocurrió un error, se está usando color de respaldo
@@ -40,7 +40,7 @@ errorOccuredLocatingElement:
 errorOccuredLocatingElementEnd:
   ", el color se toma de la página web en su lugar"
 exportSettings: Exportar configuración
-extensionDescription: >-
+extensionDescription:
   Cambia el color del tema de Firefox para que coincida con la apariencia del
   sitio web.
 extensionName: Adaptive Tab Bar Colour
@@ -49,13 +49,13 @@ fallbackColourLight: "Color de respaldo: claro"
 frame: Marco
 homepageColourDark: "Color de la página de inicio: oscuro"
 homepageColourLight: "Color de la página de inicio: claro"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   Si las “pestañas verticales” están habilitadas, cualquier valor distinto de
   cero puede causar que aparezca un espacio sobre los controles de la ventana,
   dificultando su alcance.
 ignore: Ignorar
 ignoreDesignatedThemeColour: Ignorar el color del tema del sitio web
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Algunos sitios web proporcionan su propio color de tema. Activa esta opción
   para ignorar estos colores.
 importFailed: Error al importar configuraciones. Por favor, inténtalo de nuevo.
@@ -64,7 +64,7 @@ inDarkMode: En modo oscuro
 inLightMode: En modo claro
 loading: Cargando…
 minimumContrast: Contraste mínimo
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Establece la relación de contraste mínima entre la barra de pestañas y el
   texto. El color de la barra de pestañas se ajusta automáticamente si no se
   cumple la relación.
@@ -74,7 +74,7 @@ no: No
 novaUi: Usar colores de Nova UI
 novaUiTooltip: Activar si Firefox está usando Nova UI.
 overwriteAccentColour: Sobrescribir color de acento
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   Usar un color de énfasis personalizado en lugar del color de su sistema para
   la barra de URL y los botones de la barra de herramientas.
 pageIsProtected: Esta página está protegida por el navegador
@@ -101,7 +101,7 @@ system: Sistema
 tabBar: Barra de pestañas
 themeBuilder: Creador de temas
 themeColourIsIgnored: El color del tema definido por el sitio web es ignorado
-themeColourIsUnignored: >-
+themeColourIsUnignored:
   Se está utilizando el color del tema definido por el sitio web, en lugar de
   ser ignorado por defecto
 themeColourNotFound:

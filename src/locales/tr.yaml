@@ -2,11 +2,11 @@ addANewRule: Yeni kural ekle
 addonNotFound: Eklenti bulunamadı
 advanced: Gelişmiş
 allowDarkTabBar: Koyu sekme çubuğuna izin ver
-allowDarkTabBarTooltip: >-
+allowDarkTabBarTooltip:
   Sekme çubuğunun koyu renk kullanmasına izin ver (koyu sekme çubuğu üzerinde
   açık metin).
 allowLightTabBar: Açık renk sekme çubuğuna izin ver
-allowLightTabBarTooltip: >-
+allowLightTabBarTooltip:
   Sekme çubuğunun parlak renk kullanmasına izin ver (açık renk sekme çubuğu
   üzerinde koyu metin).
 anyCSSColour: Herhangi bir biçim
@@ -16,7 +16,7 @@ backupAndReset: Yedekleme ve sıfırlama
 border: Kenar
 colourIsAdjusted: Orijinal renk, asgari karşıtlıktan emin olmak için düzeltildi
 compatibilityMode: Uyumluluk modu
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Tema API'sini kullanmak yerine web sitesinin “theme-color” metadata'sını
   değiştirmek. Desteklenen tarayıcılar sekme çubuğu rengini buna göre
   ayarlayacaktır.
@@ -29,7 +29,7 @@ couldNotFindElementEnd:
 delete: Sil
 deleteRule: Kuralı sil
 dynamicColourUpdate: Dinamik renk güncellemesi
-dynamicModeTooltip: >-
+dynamicModeTooltip:
   Web sayfası içerisinde gezinirken sekme çubuğu rengini güncellemeye devam
   eder.
 errorOccured: Bir hata meydana geldi, yedek renk kullanılıyor
@@ -45,13 +45,13 @@ fallbackColourLight: "Yedek renk: açık"
 frame: Çerçeve
 homepageColourDark: "Giriş sayfası rengi: koyu"
 homepageColourLight: "Giriş sayfası rengi: açık"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   “Dikey sekmeler” devredeyse, sıfır olmayan herhangi bir değer pencere
   denetimlerinin üstünde bir boşluk belirip bu denetimlere ulaşmanın
   zorlaşmasına yol açabilir.
 ignore: Yoksay
 ignoreDesignatedThemeColour: Web sitesinin tema rengini yoksay
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Bazı web sitelerinin kendileri bir tema rengi sağlar. Bu renkleri yoksaymak
   için bu seçeneği açın.
 importFailed: Ayarlar içe aktarılamadı. Lütfen tekrar deneyin.
@@ -60,7 +60,7 @@ inDarkMode: Koyu modda
 inLightMode: Açık modda
 loading: Yükleniyor…
 minimumContrast: Asgari karşıtlık
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Sekme çubuğu ve metin arasında asgari karşıtlık oranını ayarla. Eğer orana
   ulaşılamazsa sekme çubuğu rengi otomatik olarak düzeltilir.
 moreSettings: Daha fazla ayar
@@ -69,7 +69,7 @@ no: Hayır
 novaUi: Nova UI renklerini kullan
 novaUiTooltip: Firefox Nova UI kullanıyorsa etkinleştirin.
 overwriteAccentColour: Vurgu renginin üzerine yaz
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   URL çubuğu ve araç çubuğu düğmeleri için sistem renginiz yerine özel bir vurgu
   rengi kullanmak.
 pageIsProtected: Bu sayfa tarayıcı tarafından korunuyor
@@ -94,7 +94,7 @@ system: Sistem
 tabBar: Sekme çubuğu
 themeBuilder: Tema oluşturucu
 themeColourIsIgnored: Web sitesi tarafından tanımlanan tema rengi yoksayılıyor
-themeColourIsUnignored: >-
+themeColourIsUnignored:
   Web sitesi tarafından tanımlanan tema rengi kullanılıyor, varsayılan olarak
   yoksayılmak yerine
 themeColourNotFound: Tema rengi bulunamadı, renk web sayfasından seçildi

@@ -15,7 +15,7 @@ border: Border
 colourIsAdjusted:
   The original colour has been adjusted to ensure minimum contrast
 compatibilityMode: Compatibility mode
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Change the website’s “theme-color” metadata instead of using the theme API.
   Supported browsers will adjust their tab bar colour accordingly.
 confirmResetAll: Are you sure you want to reset all settings?
@@ -40,12 +40,12 @@ fallbackColourLight: "Fallback colour: light"
 frame: Frame
 homepageColourDark: "Home page colour: dark"
 homepageColourLight: "Home page colour: light"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
   above the window controls, making them harder to reach.
 ignore: Ignore
 ignoreDesignatedThemeColour: Ignore website’s theme colour
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Some websites provide a theme colour themselves. Turn on this option to ignore
   these colours.
 importFailed: Failed to import settings. Please try again.
@@ -54,7 +54,7 @@ inDarkMode: In dark mode
 inLightMode: In light mode
 loading: Loading…
 minimumContrast: Minimum contrast
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Set the minimum contrast ratio between the tab bar and text. The tab bar
   colour will be adjusted if the ratio is not met.
 moreSettings: More settings
@@ -63,7 +63,7 @@ no: No
 novaUi: Use Nova UI colours
 novaUiTooltip: Enable if Firefox is using the Nova UI.
 overwriteAccentColour: Overwrite accent colour
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   Use a custom accent colour instead of your system’s colour for the URL bar and
   toolbar buttons.
 pageIsProtected: This page is protected by browser
@@ -88,7 +88,7 @@ system: System
 tabBar: Tab bar
 themeBuilder: Theme builder
 themeColourIsIgnored: Theme colour defined by the website is ignored
-themeColourIsUnignored: >-
+themeColourIsUnignored:
   Theme colour defined by the website is used, instead of being ignored by
   default
 themeColourNotFound:

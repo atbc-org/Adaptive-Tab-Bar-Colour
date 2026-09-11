@@ -2,11 +2,11 @@ addANewRule: Добавить новое правило
 addonNotFound: Дополнение не найдено
 advanced: Дополнительно
 allowDarkTabBar: Разрешить тёмную панель вкладок
-allowDarkTabBarTooltip: >-
+allowDarkTabBarTooltip:
   Разрешить панели вкладок использовать тёмный цвет (светлый текст на тёмной
   панели).
 allowLightTabBar: Разрешить светлую панель вкладок
-allowLightTabBarTooltip: >-
+allowLightTabBarTooltip:
   Разрешить панели вкладок использовать светлый цвет (тёмный текст на светлой
   панели).
 anyCSSColour: Любой формат
@@ -17,7 +17,7 @@ border: Граница
 colourIsAdjusted:
   Исходный цвет скорректирован для обеспечения минимального контраста
 compatibilityMode: Режим совместимости
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Изменить метаданные «theme-color» на веб-сайте вместо использования API темы.
   Поддерживаемые браузеры соответствующим образом настраивают цвет панели
   вкладок.
@@ -43,13 +43,13 @@ fallbackColourLight: "Резервный цвет: светлый"
 frame: Рамка
 homepageColourDark: "Цвет домашней страницы: тёмный"
 homepageColourLight: "Цвет домашней страницы: светлый"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   Если включены «вертикальные вкладки», любое ненулевое значение может привести
   к появлению зазора над элементами управления окном, что затрудняет доступ к
   ним.
 ignore: Игнорировать
 ignoreDesignatedThemeColour: Игнорировать цвет темы сайта
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Некоторые сайты задают свой цвет темы. Включите этот параметр, чтобы
   игнорировать такие цвета.
 importFailed: Не удалось импортировать настройки. Попробуйте ещё раз.
@@ -58,7 +58,7 @@ inDarkMode: В тёмном режиме
 inLightMode: В светлом режиме
 loading: Загрузка…
 minimumContrast: Минимальный контраст
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Задайте минимальное соотношение контраста между панелью вкладок и текстом.
   Цвет панели будет скорректирован автоматически, если условие не выполнено.
 moreSettings: Больше настроек
@@ -67,7 +67,7 @@ no: Нет
 novaUi: Использовать цвета Nova UI
 novaUiTooltip: Включите, если Firefox использует интерфейс Nova.
 overwriteAccentColour: Перезаписать акцентный цвет
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   Использовать собственный цвет акцента вместо цвета системы для адресной строки
   и кнопок панели инструментов.
 pageIsProtected: Эта страница защищена браузером

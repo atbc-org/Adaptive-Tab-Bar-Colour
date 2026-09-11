@@ -6,7 +6,7 @@ labels: [compatibility]
 body:
   - type: markdown
     attributes:
-      value: >-
+      value:
         Experiencing issues on specific websites? Please [open a bug
         report](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues/new?template=1-bug-report.yml)
         instead.

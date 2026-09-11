@@ -2,11 +2,11 @@ addANewRule: Ajouter une nouvelle règle
 addonNotFound: Extension non trouvée
 advanced: Avancé
 allowDarkTabBar: Autoriser la barre d'onglets sombre
-allowDarkTabBarTooltip: >-
+allowDarkTabBarTooltip:
   Autoriser la barre d'onglets à utiliser des couleurs sombres (texte clair sur
   la barre d'onglets sombre).
 allowLightTabBar: Autoriser la barre d'onglets claire
-allowLightTabBarTooltip: >-
+allowLightTabBarTooltip:
   Autorise la barre d'onglets à utiliser des couleurs claires (texte sombre sur
   la barre d'onglets claire).
 anyCSSColour: Tout format
@@ -17,7 +17,7 @@ border: Bordure
 colourIsAdjusted:
   La couleur d'origine a été ajustée pour garantir un minimum de contraste
 compatibilityMode: Mode de compatibilité
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Modifier les métadonnées « theme-color » du site Web au lieu d'utiliser l'API
   du thème. Les navigateurs pris en charge ajusteront la couleur de leur barre
   d'onglets en conséquence.
@@ -30,7 +30,7 @@ couldNotFindElementEnd:
 delete: Supprimer
 deleteRule: Supprimer la règle
 dynamicColourUpdate: Mise à jour dynamique des couleurs
-dynamicModeTooltip: >-
+dynamicModeTooltip:
   Met à jour continuellement la couleur de la barre d'onglets lors de la
   navigation sur une page Web.
 errorOccured: Une erreur s'est produite, utilisation de la couleur de repli
@@ -39,7 +39,7 @@ errorOccuredLocatingElement:
 errorOccuredLocatingElementEnd:
   ", la couleur est choisie à partir de la page web à la place"
 exportSettings: Exporter les paramètres
-extensionDescription: >-
+extensionDescription:
   Change la couleur du thème de Firefox pour correspondre à l'apparence de
   sites.
 extensionName: Adaptive Tab Bar Colour
@@ -48,13 +48,13 @@ fallbackColourLight: "Couleur de repli : claire"
 frame: Cadre
 homepageColourDark: "Couleur de la page d'accueil : sombre"
 homepageColourLight: "Couleur de la page d'accueil : claire"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   Si les « onglets verticaux » sont activés, toute valeur non nulle peut
   entraîner l'apparition d'un espace au-dessus des commandes de la fenêtre, les
   rendant plus difficiles à atteindre.
 ignore: Ignorer
 ignoreDesignatedThemeColour: Ignorer la couleur du thème des sites Web
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Certains sites web proposent eux-mêmes une couleur de thème. Activez cette
   option pour ignorer ces couleurs.
 importFailed: Échec de l'importation des paramètres. Veuillez réessayer.
@@ -63,7 +63,7 @@ inDarkMode: En mode sombre
 inLightMode: En mode clair
 loading: Chargement…
 minimumContrast: Contraste minimum
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Définir le ratio de contraste minimal entre la barre d'onglets et le texte. La
   couleur de la barre d'onglets s'ajuste automatiquement si le ratio n'est pas
   respecté.
@@ -73,7 +73,7 @@ no: Non
 novaUi: Utiliser les couleurs de Nova UI
 novaUiTooltip: Activer si Firefox utilise Nova UI.
 overwriteAccentColour: Remplacer la couleur d'accentuation
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   Utiliser une couleur d’accentuation personnalisée au lieu de la couleur de
   votre système pour la barre d’URL et les boutons de la barre d’outils.
 pageIsProtected: Cette page est protégée par le navigateur
@@ -100,10 +100,10 @@ system: Système
 tabBar: Barre d'onglets
 themeBuilder: Constructeur de thème
 themeColourIsIgnored: La couleur du thème définie par le site web est ignorée
-themeColourIsUnignored: >-
+themeColourIsUnignored:
   La couleur du thème définie par le site web est utilisée, au lieu d'être
   ignorée par défaut
-themeColourNotFound: >-
+themeColourNotFound:
   La couleur du thème n'est pas trouvée, la couleur est choisie à partir de la
   page web
 toolbar: Barre d'outils

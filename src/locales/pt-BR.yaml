@@ -16,7 +16,7 @@ backupAndReset: Backup e redefinição
 border: Borda
 colourIsAdjusted: A cor original foi ajustada para garantir um contraste mínimo
 compatibilityMode: Modo de compatibilidade
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Alterar os metadados “theme-color” do site em vez de usar a API do tema. Os
   navegadores suportados ajustarão a cor da barra de abas de acordo.
 confirmResetAll: Tem certeza de que deseja redefinir todas as configurações?
@@ -42,13 +42,13 @@ fallbackColourLight: "Cor alternativa: Claro"
 frame: Moldura
 homepageColourDark: "Cor da página inicial: Escuro"
 homepageColourLight: "Cor da página inicial: Claro"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   Se as “abas verticais” estiverem ativadas, qualquer valor diferente de zero
   pode causar um espaço acima dos controles da janela, tornando-os mais difíceis
   de alcançar.
 ignore: Ignore
 ignoreDesignatedThemeColour: Ignorar a cor do tema do site
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Alguns sites fornecem sua própria cor do tema. Ative essa opção para ignorar
   essas cores.
 importFailed: Erro ao importar configurações. Por favor, tente novamente.
@@ -57,7 +57,7 @@ inDarkMode: Em modo escuro
 inLightMode: Em modo claro
 loading: Carregando…
 minimumContrast: Contraste mínimo
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Ajuste o contraste mínimo entre a barra de abas e o texto. A cor da barra de
   abas é ajustada automaticamente se o contraste mínimo não for alcançado.
 moreSettings: Mais opções
@@ -66,7 +66,7 @@ no: Não
 novaUi: Usar cores da Nova UI
 novaUiTooltip: Ative se o Firefox estiver usando a Nova UI.
 overwriteAccentColour: Substituir cor de destaque
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   Usar uma cor de destaque personalizada em vez da cor do seu sistema para a
   barra de URL e os botões da barra de ferramentas.
 pageIsProtected: Essa página é protegida pelo navegador
@@ -93,7 +93,7 @@ system: Sistema
 tabBar: Barra de abas
 themeBuilder: Criador de temas
 themeColourIsIgnored: A cor do tema definida pelo site é ignorada
-themeColourIsUnignored: >-
+themeColourIsUnignored:
   A cor do tema definida pelo site é utilizada, ao invés de ser ignorada por
   padrão
 themeColourNotFound:

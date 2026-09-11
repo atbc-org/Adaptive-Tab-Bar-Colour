@@ -2,11 +2,11 @@ addANewRule: Neue Regel hinzufügen
 addonNotFound: Add-on nicht gefunden
 advanced: Erweitert
 allowDarkTabBar: Dunkle Tableiste erlauben
-allowDarkTabBarTooltip: >-
+allowDarkTabBarTooltip:
   Erlaubt der Tableiste, dunkle Farben zu verwenden (heller Text auf dunkler
   Tableiste).
 allowLightTabBar: Helle Tableiste erlauben
-allowLightTabBarTooltip: >-
+allowLightTabBarTooltip:
   Erlaubt der Tableiste, helle Farben zu verwenden (dunkler Text auf heller
   Tableiste).
 anyCSSColour: Jedes Format
@@ -17,7 +17,7 @@ border: Rahmen
 colourIsAdjusted:
   Die Originalfarbe wurde angepasst, um den minimalen Kontrast zu gewährleisten
 compatibilityMode: Kompatibilitätsmodus
-compatibilityModeTooltip: >-
+compatibilityModeTooltip:
   Die „theme-color“-Metadaten der Website ändern, anstatt die Theme-API zu
   verwenden. Unterstützte Browser passen die Farbe ihrer Tableiste entsprechend
   an.
@@ -32,17 +32,17 @@ couldNotFindElementEnd:
 delete: Löschen
 deleteRule: Regel löschen
 dynamicColourUpdate: Dynamische Farbaktualisierung
-dynamicModeTooltip: >-
+dynamicModeTooltip:
   Aktualisiert die Farbe der Tableiste während des Surfens auf einer Webseite
   ständig.
 errorOccured: Ein Fehler ist aufgetreten, Fallback-Farbe wird verwendet
-errorOccuredLocatingElement: >-
+errorOccuredLocatingElement:
   Ein Fehler ist aufgetreten, während nach dem HTML-Element gesucht wurde, das
   mit
 errorOccuredLocatingElementEnd:
   übereinstimmt. Die Farbe wird stattdessen von der Webseite gewählt
 exportSettings: Einstellungen exportieren
-extensionDescription: >-
+extensionDescription:
   Ändert die Farbe des Firefox-Themes, um dem Erscheinungsbild der Website zu
   entsprechen.
 extensionName: Anpassende Tableistenfarbe
@@ -51,13 +51,13 @@ fallbackColourLight: "Fallback-Farbe: hell"
 frame: Fensterrahmen
 homepageColourDark: "Startseitenfarbe: dunkel"
 homepageColourLight: "Startseitenfarbe: hell"
-ifVerticalTabsAreEnabled: >-
+ifVerticalTabsAreEnabled:
   Wenn „vertikale Tabs“ aktiviert sind, kann ein Wert ungleich Null dazu führen,
   dass über den Fenstersteuerungen eine Lücke entsteht, was deren Erreichbarkeit
   erschwert.
 ignore: Aus
 ignoreDesignatedThemeColour: Theme-Farbe der Website ignorieren
-ignoreDesignatedThemeColourTooltip: >-
+ignoreDesignatedThemeColourTooltip:
   Einige Websites geben selbst eine Theme-Farbe an. Aktivieren Sie diese Option,
   um diese Farben zu ignorieren.
 importFailed:
@@ -67,7 +67,7 @@ inDarkMode: Im dunklen Modus
 inLightMode: Im hellen Modus
 loading: Laden…
 minimumContrast: Minimaler Kontrast
-minimumContrastTooltip: >-
+minimumContrastTooltip:
   Stellt den minimalen Kontrast zwischen Tableiste und ihrem Text ein. Die Farbe
   der Tableiste wird automatisch angepasst, wenn der Kontrast nicht erreicht
   wird.
@@ -77,7 +77,7 @@ no: Nein
 novaUi: Nova UI-Farben verwenden
 novaUiTooltip: Aktivieren, wenn Firefox die Nova-Benutzeroberfläche verwendet.
 overwriteAccentColour: Akzentfarbe überschreiben
-overwriteAccentColourTooltip: >-
+overwriteAccentColourTooltip:
   Für die URL-Leiste und die Werkzeugleisten-Buttons eine benutzerdefinierte
   Akzentfarbe anstelle Ihrer Systemfarbe verwenden.
 pageIsProtected: Diese Seite wird vom Browser geschützt
@@ -104,7 +104,7 @@ system: System
 tabBar: Tableiste
 themeBuilder: Theme-Editor
 themeColourIsIgnored: Die von der Website definierte Theme-Farbe wird ignoriert
-themeColourIsUnignored: >-
+themeColourIsUnignored:
   Die von der Website definierte Theme-Farbe wird verwendet, anstatt
   standardmäßig ignoriert zu werden
 themeColourNotFound:

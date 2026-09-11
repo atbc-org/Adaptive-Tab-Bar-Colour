@@ -6,6 +6,17 @@ const appVersion = process.env.EXT_VERSION || pkg.version;
 export default defineConfig({
 	browser: "firefox",
 	hooks: {
+		ready: (wxt) => {
+			const originalWarn = wxt.logger.warn;
+			wxt.logger.warn = (...args) => {
+				if (
+					typeof args[0] !== "string" ||
+					!args[0].startsWith("Unsupported locales:")
+				) {
+					originalWarn(...args);
+				}
+			};
+		},
 		"build:manifestGenerated": (wxt, manifest) => {
 			manifest.version = appVersion;
 			if (wxt.config.mode === "beta") {
