@@ -189,9 +189,7 @@ async function getTabMeta(
 	} catch {
 		console.info("Could not connect to", url);
 
-		if (await isHomePage(href)) {
-			return { colour: browserColour.HOME, reason: "HOME_PAGE" };
-		} else if (protocol === "about:") {
+		if (protocol === "about:") {
 			return await getAboutPageMeta(windowId, href, pathname, title);
 		} else if (protocol === "moz-extension:") {
 			return await getWebExtPageMeta(webExtId);
