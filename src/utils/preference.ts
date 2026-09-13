@@ -8,7 +8,7 @@ import { defaultPreferenceContent as defaultContent } from "./constants";
  *
  * @class
  */
-export default class Preference {
+export class Preference {
 	/** The content of the preference. */
 	#content: PreferenceContent = { ...defaultContent };
 
@@ -802,3 +802,5 @@ export default class Preference {
 		this.#storageListener = undefined;
 	}
 }
+
+export default Preference;

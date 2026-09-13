@@ -18,8 +18,6 @@
  * Theme:
  * An object that defines the colour of the Firefox UI.
  */
-import Colour from "@/utils/colour";
-import Preference from "@/utils/preference";
 
 /** Version of Firefox. */
 let firefoxVersion = 115;

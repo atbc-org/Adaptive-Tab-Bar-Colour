@@ -1,4 +1,3 @@
-import Preference from "@/utils/preference";
 import clsx from "clsx";
 import { useSyncExternalStore } from "react";
 import styles from "./RuleTab.module.css";

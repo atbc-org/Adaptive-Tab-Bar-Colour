@@ -1,4 +1,3 @@
-import Preference from "@/utils/preference";
 import { useSyncExternalStore } from "react";
 import styles from "./RuleWidget.module.css";
 

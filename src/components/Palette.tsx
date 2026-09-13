@@ -1,4 +1,3 @@
-import Colour from "@/utils/colour";
 import clsx from "clsx";
 import { type CSSProperties } from "react";
 import styles from "./Palette.module.css";

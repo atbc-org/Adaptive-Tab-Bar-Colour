@@ -1,4 +1,3 @@
-import Preference from "@/utils/preference";
 import CorrectionWidget from "./widgets/CorrectionWidget";
 import LoadingWidget from "./widgets/LoadingWidget";
 import RuleWidget from "./widgets/RuleWidget";

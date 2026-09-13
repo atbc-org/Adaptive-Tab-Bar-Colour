@@ -6,7 +6,7 @@
  *
  * @class
  */
-export default class Colour {
+export class Colour {
 	#r = 0;
 	#g = 0;
 	#b = 0;
@@ -392,3 +392,5 @@ export default class Colour {
 		this.#a = Math.max(0, Math.min(1, num));
 	}
 }
+
+export default Colour;
