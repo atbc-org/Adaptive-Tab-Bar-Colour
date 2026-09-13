@@ -26,6 +26,7 @@ export const default_compatibilityMode = !supportsThemeAPI();
 // prettier-ignore
 /** Colours for about:pages. */
 export const aboutPageColour = Object.freeze({
+	"blank": { colour: "BLANK", reason: "PROTECTED_PAGE" },
 	"compat": { colour: "COMPAT", reason: "PROTECTED_PAGE" },
 	"deleteprofile": { colour: "HOME", reason: "HOME_PAGE" },
 	"devtools-toolbox": { colour: "TOOLBOX", reason: "PROTECTED_PAGE" },
@@ -145,6 +146,11 @@ export function createBrowserColour(
 			return getScheme() === "light"
 				? new colour("#ececec")
 				: new colour("#323232");
+		},
+		get BLANK() {
+			return getScheme() === "light"
+				? new colour("#ffffff")
+				: new colour("#1c1b22");
 		},
 		get COMPAT() {
 			return getScheme() === "light"

@@ -101,6 +101,20 @@ export function addTabChangeListener(listener: () => void): void {
 	browser.windows?.onBoundsChanged?.addListener(listener);
 }
 
+/** Registers a listener for blank page tab events. */
+export function addBlankPageListener(
+	listener: (tabId: number, isBlank: boolean) => void,
+): void {
+	browser.tabs?.onCreated?.addListener((tab) => {
+		if (tab.id !== undefined && (!tab.url || tab.url === "about:blank")) {
+			listener(tab.id, true);
+		}
+	});
+	browser.tabs?.onRemoved?.addListener((tabId) => {
+		listener(tabId, false);
+	});
+}
+
 /** Checks whether the tab's window is incognito. */
 export async function isWindowIncognito(windowId: number): Promise<boolean> {
 	try {

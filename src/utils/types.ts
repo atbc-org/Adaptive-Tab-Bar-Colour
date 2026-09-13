@@ -4,6 +4,7 @@ export type Scheme = "light" | "dark";
 
 export type BrowserColour =
 	| "ADDON"
+	| "BLANK"
 	| "COMPAT"
 	| "DEFAULT"
 	| "FALLBACK"

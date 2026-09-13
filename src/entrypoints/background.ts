@@ -27,6 +27,9 @@ let firefoxVersion = 115;
 /** Preference instance. */
 const pref = new Preference();
 
+/** Blank tab IDs. */
+const blankTabIds = new Set<number>();
+
 /** Page colour of Firefox internal page. */
 const browserColour = createBrowserColour(
 	() => cache.scheme,
@@ -156,6 +159,10 @@ async function getTabMeta(
 	const { hostname, href, pathname, protocol } = new URL(url);
 	const { rule, webExtId } = ruleData;
 
+	if (href !== "about:blank" && href !== "about:newtab") {
+		blankTabIds.delete(id);
+	}
+
 	if (rule?.type === "COLOUR") {
 		sendMessageToTab(id, { header: "SETUP_SCRIPT", mode: "suspend" }).catch(
 			() => {},
@@ -190,7 +197,7 @@ async function getTabMeta(
 		console.info("Could not connect to", url);
 
 		if (protocol === "about:") {
-			return await getAboutPageMeta(windowId, href, pathname, title);
+			return await getAboutPageMeta(id, windowId, href, pathname, title);
 		} else if (protocol === "moz-extension:") {
 			return await getWebExtPageMeta(webExtId);
 		} else if (sourcePageProtocol.includes(protocol)) {
@@ -324,6 +331,7 @@ function getSourcePageMeta(protocol: string, href: string): MetaQueryResult {
 
 /** Gets colour metadata for an about page. */
 async function getAboutPageMeta(
+	tabId: number,
 	windowId: number,
 	href: string,
 	pathname: string,
@@ -336,6 +344,13 @@ async function getAboutPageMeta(
 				: browserColour.DEFAULT,
 			reason: "PROTECTED_PAGE",
 		};
+	} else if (href === "about:blank" && (await isWindowIncognito(windowId))) {
+		return {
+			colour: pref.nova ? browserColour.DEFAULT : browserColour.PRIVATE,
+			reason: "PROTECTED_PAGE",
+		};
+	} else if (href === "about:newtab" && blankTabIds.has(tabId)) {
+		return { colour: browserColour.BLANK, reason: "PROTECTED_PAGE" };
 	} else {
 		const identifier =
 			href === "about:blank" &&
@@ -554,6 +569,10 @@ export default defineBackground(() => {
 	addSchemeChangeListener(run);
 	addTabChangeListener(run);
 	addMessageListener(handleMessage);
+	addBlankPageListener((tabId, isBlank) => {
+		if (isBlank) blankTabIds.add(tabId);
+		else blankTabIds.delete(tabId);
+	});
 	getFirefoxVersion().then((version) => (firefoxVersion = version));
 	setInterval(() => void browser.runtime.getPlatformInfo(), 2e4);
 });
