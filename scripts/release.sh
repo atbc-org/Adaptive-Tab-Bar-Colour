@@ -68,6 +68,8 @@ prepare_beta_version() {
 build_and_sign_beta() {
 	local beta_version="$1"
 	export EXT_VERSION="$beta_version"
+	mkdir -p .output
+	rm -f .output/*.xpi
 	npx wxt build -b firefox --mode beta
 	npx web-ext sign \
 		--api-key "$FIREFOX_JWT_ISSUER" \
@@ -75,7 +77,7 @@ build_and_sign_beta() {
 		--channel unlisted \
 		--source-dir .output/atbc \
 		--artifacts-dir .output \
-		--approval-timeout 200000
+		--approval-timeout 300000 || true
 }
 
 # Tag release, locate and rename XPI asset, and create GitHub pre-release
@@ -84,16 +86,20 @@ create_beta_release() {
 	local beta_version="$2"
 	local xpi_asset
 	xpi_asset=$(find .output -name "*.xpi" 2>/dev/null | head -n 1 || true)
-	if [ -z "$xpi_asset" ]; then
-		print_error "Error: Signed XPI asset not found in .output"
-	fi
-	local renamed_asset=".output/atbc-${beta_version}.xpi"
-	mv "$xpi_asset" "$renamed_asset"
-
 	git_tag_and_push "$beta_tag"
-	gh release create "$beta_tag" "$renamed_asset" \
-		--title "$beta_tag" \
-		--prerelease
+
+	if [ -z "$xpi_asset" ]; then
+		gh release create "$beta_tag" \
+			--title "$beta_tag" \
+			--notes "Build is waiting for approval on AMO." \
+			--prerelease
+	else
+		local renamed_asset=".output/atbc-${beta_version}.xpi"
+		[ "$xpi_asset" != "$renamed_asset" ] && mv "$xpi_asset" "$renamed_asset"
+		gh release create "$beta_tag" "$renamed_asset" \
+			--title "$beta_tag" \
+			--prerelease
+	fi
 }
 
 # Extract package version and create AMO metadata file
