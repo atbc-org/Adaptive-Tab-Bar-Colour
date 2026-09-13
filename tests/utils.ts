@@ -1,11 +1,23 @@
 import fs from "node:fs/promises";
 import http from "node:http";
+import os from "node:os";
 import path from "node:path";
 import readline from "node:readline";
-import { pathToFileURL } from "node:url";
-import type { WebDriver } from "selenium-webdriver";
-import { Command } from "selenium-webdriver/lib/command.js";
-import type { TestCase } from "./types.js";
+import { fileURLToPath } from "node:url";
+import { Builder } from "selenium-webdriver";
+import firefox, {
+	type Driver as FirefoxDriver,
+} from "selenium-webdriver/firefox.js";
+import type { TestContext } from "./types.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+export const OUTPUT_DIR = path.join(__dirname, "..", ".output");
+export const SERVER_PORT = 8080;
+
+/** Sleeps for a given duration in milliseconds. */
+export function sleep(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 /** Resolves the extension path to use for tests. */
 export async function getWebExtPath(
@@ -16,10 +28,11 @@ export async function getWebExtPath(
 	const files = entries
 		.filter((entry) => {
 			const entryName = entry.name.toLowerCase();
+			if (entryName.includes("source")) return false;
 			return (
 				entryName.endsWith(".zip") ||
 				entryName.endsWith(".xpi") ||
-				(interactive && entry.isDirectory())
+				entry.isDirectory()
 			);
 		})
 		.map((entry) => entry.name)
@@ -100,39 +113,8 @@ export function getSelection(options: string[]): Promise<string> {
 	});
 }
 
-/** Discovers test cases from spec files in a directory. */
-export async function getTestCases(dir: string): Promise<TestCase[]> {
-	const entries = await fs.readdir(dir, { withFileTypes: true });
-	const files = entries
-		.filter(
-			(entry) =>
-				entry.isFile() &&
-				entry.name.endsWith(".spec.ts") &&
-				!entry.name.startsWith("."),
-		)
-		.map((entry) => entry.name)
-		.sort((a, b) => a.localeCompare(b));
-
-	const testCases: TestCase[] = [];
-	for (const specFile of files) {
-		const specPath = path.join(dir, specFile);
-		const module = await import(specPath);
-		const module = await import(pathToFileURL(specPath).href);
-		if (!module.testCase)
-			throw new Error(`Missing testCase export in ${specFile}`);
-		testCases.push(module.testCase as TestCase);
-	}
-	return testCases;
-}
-
-/**
- * Creates a local HTTP server that serves test pages.
- *
- * @example
- * 	const server = await createServer();
- * 	await driver.get("http://127.0.0.1:8080?background=white&theme=white");
- */
-export function createServer(port = 8080): Promise<http.Server> {
+/** Creates a local HTTP server that serves test pages. */
+export function createServer(port = SERVER_PORT): Promise<http.Server> {
 	return new Promise<http.Server>((resolve, reject) => {
 		const server = http.createServer((req, res) => {
 			const url = new URL(
@@ -163,7 +145,7 @@ export function createServer(port = 8080): Promise<http.Server> {
 						<script>
 							setInterval(() => {
 								document.getElementById("keepalive").textContent = Date.now();
-								}, 5000);
+							}, 5000);
 						</script>
 					</body>
 				</html>
@@ -172,28 +154,146 @@ export function createServer(port = 8080): Promise<http.Server> {
 
 		server.on("error", reject);
 		server.listen(port, "127.0.0.1", () => {
-			console.log(`Serving test pages on http://127.0.0.1:${port}`);
 			resolve(server);
 		});
 	});
 }
 
+/** Launches a Firefox instance with an isolated temporary profile. */
+export async function launchBrowser(
+	options: { headless?: boolean } = {},
+): Promise<{ driver: FirefoxDriver; profileDir: string }> {
+	const headless =
+		options.headless ??
+		(process.env.HEADLESS === "true" || process.env.CI === "true");
+
+	const profileDir = await fs.mkdtemp(
+		path.join(os.tmpdir(), "firefox-test-profile-"),
+	);
+
+	const firefoxOptions = new firefox.Options();
+	firefoxOptions.setProfile(profileDir);
+	firefoxOptions.setPreference("browser.tabs.warnOnClose", false);
+	firefoxOptions.setPreference("browser.warnOnQuit", false);
+	firefoxOptions.setPreference("browser.tabs.closeWindowWithLastTab", false);
+	firefoxOptions.setPreference("services.sync.engine.tabs", false);
+	firefoxOptions.setPreference("services.sync.engine.prefs", false);
+	firefoxOptions.setPreference("toolkit.startup.max_resumed_crashes", -1);
+	firefoxOptions.addArguments("--new-instance", "-no-remote");
+
+	if (headless) {
+		firefoxOptions.addArguments("-headless");
+	}
+
+	const service = new firefox.ServiceBuilder().addArguments(
+		"--allow-system-access",
+	);
+
+	const driver = (await new Builder()
+		.forBrowser("firefox")
+		.setFirefoxOptions(firefoxOptions)
+		.setFirefoxService(service)
+		.build()) as FirefoxDriver;
+
+	await driver.get("about:blank");
+	return { driver, profileDir };
+}
+
+/** Cleans up browser and temporary profile directory. */
+export async function cleanupBrowser(
+	driver: FirefoxDriver | null,
+	profileDir?: string,
+): Promise<void> {
+	if (driver) {
+		try {
+			await driver.quit();
+		} catch {}
+	}
+	if (profileDir) {
+		try {
+			await fs.rm(profileDir, { recursive: true, force: true });
+		} catch {}
+	}
+}
+
+/** Resolves the moz-extension:// base URL for an installed addon. */
+export async function getExtensionUrl(
+	driver: FirefoxDriver,
+	extensionId: string,
+): Promise<string> {
+	try {
+		await driver.setContext(firefox.Context.CHROME);
+		const uuidsJson = (await driver.executeScript(() => {
+			return Services.prefs.getStringPref(
+				"extensions.webextensions.uuids",
+				"{}",
+			);
+		})) as string;
+		const uuids = JSON.parse(uuidsJson) as Record<string, string>;
+		const uuid = uuids[extensionId];
+		if (!uuid)
+			throw new Error(`UUID not found for extension ${extensionId}`);
+		return `moz-extension://${uuid}`;
+	} finally {
+		await driver.setContext(firefox.Context.CONTENT);
+	}
+}
+
 /** Reads the browser frame's accent colour from Firefox chrome context. */
 export async function getFrameColour(
-	driver: WebDriver,
+	driver: FirefoxDriver,
 ): Promise<string | null> {
 	try {
-		await driver.execute(
-			new Command("setContext").setParameter("context", "chrome"),
-		);
+		await driver.setContext(firefox.Context.CHROME);
 		return await driver.executeScript(() => {
 			const style = getComputedStyle(document.documentElement);
 			return style.getPropertyValue("--lwt-accent-color").trim() || null;
 		});
 	} finally {
-		await driver.execute(
-			new Command("setContext").setParameter("context", "content"),
-		);
+		await driver.setContext(firefox.Context.CONTENT);
+	}
+}
+
+/** Sets up server, browser, and installs the extension for testing. */
+export async function setupTestContext(
+	port = SERVER_PORT,
+): Promise<{ context: TestContext; cleanup: () => Promise<void> }> {
+	const headless =
+		process.env.HEADLESS === "true" || process.env.CI === "true";
+	const server = await createServer(port);
+	const webExtPath = await getWebExtPath(OUTPUT_DIR, !headless);
+	const { driver, profileDir } = await launchBrowser({ headless });
+
+	let addonId: string | null = null;
+	try {
+		addonId = await driver.installAddon(webExtPath, true);
+		await sleep(500);
+		const extensionUrl = await getExtensionUrl(driver, addonId);
+		const context: TestContext = {
+			driver,
+			optionsUrl: `${extensionUrl}/options.html`,
+			popupUrl: `${extensionUrl}/popup.html`,
+			port,
+		};
+		const cleanup = async () => {
+			if (addonId) {
+				try {
+					await driver.uninstallAddon(addonId);
+				} catch {}
+			}
+			await cleanupBrowser(driver, profileDir);
+			server.close();
+		};
+		return { context, cleanup };
+	} catch (error) {
+		if (addonId) {
+			try {
+				await driver.uninstallAddon(addonId);
+			} catch {}
+		}
+		await cleanupBrowser(driver, profileDir);
+		server.close();
+		throw error;
 	}
 }
 
@@ -253,7 +353,7 @@ function parseColourString(colour: string): ColourChannel {
 	return channel;
 }
 
-/** Checks if the difference between two colour strings is within tolerence. */
+/** Checks if the difference between two colour strings is within tolerance. */
 export function compareColour(
 	colour1: string,
 	colour2: string,

@@ -37,7 +37,7 @@ get_package_version() {
 # Execute integration tests locally
 execute_integration_tests() {
 	bash scripts/zip.sh --clean
-	npx tsx tests/run.ts --headless
+	npm run test:headless
 }
 
 if [ "${BASH_SOURCE[0]}" = "$0" ]; then

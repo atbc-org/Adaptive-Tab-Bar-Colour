@@ -24,4 +24,4 @@ jobs:
       - name: Build Clean Extension
         run: bash scripts/zip.sh --clean
       - name: Run Headless Tests
-        run: npx tsx tests/run.ts --headless
+        run: npm run test:headless

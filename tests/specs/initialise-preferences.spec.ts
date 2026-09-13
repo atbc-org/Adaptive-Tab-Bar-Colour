@@ -1,7 +1,7 @@
-import { sleep } from "selenium-webext-bridge";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import pkg from "../../package.json" with { type: "json" };
-import type { TestCase } from "../types.js";
-import { compareRecord } from "../utils.js";
+import type { TestContext } from "../types.js";
+import { compareRecord, setupTestContext, sleep } from "../utils.js";
 
 const expectedPrefs: Record<string, unknown> = {
 	accentColour_dark: "#00cadb",
@@ -16,6 +16,7 @@ const expectedPrefs: Record<string, unknown> = {
 	minContrast_dark: 45,
 	minContrast_light: 90,
 	noThemeColour: true,
+	nova: false,
 	overwriteAccentColour: false,
 	popup: 5,
 	popupBorder: 10,
@@ -34,61 +35,56 @@ const expectedPrefs: Record<string, unknown> = {
 	version: pkg.version.split(".").map(Number),
 };
 
-export const testCase: TestCase = {
-	name: "Initialise Preferences",
-	async run({ driver, results, optionsUrl }) {
-		try {
-			await driver.get(optionsUrl);
-			await sleep(500);
+describe("Initialise Preferences", () => {
+	let context: TestContext;
+	let cleanup: () => Promise<void>;
+	let actualPrefs: Record<string, unknown>;
 
-			expectedPrefs.compatibilityMode = (await driver.executeScript(
-				() => {
-					return typeof browser?.theme?.update !== "function";
-				},
-			)) as boolean;
+	beforeAll(async () => {
+		({ context, cleanup } = await setupTestContext());
+		await context.driver.get(context.optionsUrl);
+		await sleep(500);
 
-			const { lastSave, ...actualPrefs } = (await driver.executeScript(
-				async () => {
-					return await browser.storage.local.get();
-				},
-			)) as Record<string, unknown>;
+		expectedPrefs.compatibilityMode = (await context.driver.executeScript(
+			() => {
+				return typeof browser?.theme?.update !== "function";
+			},
+		)) as boolean;
 
-			const {
-				extraKeys1: missingKeys,
-				extraKeys2: extraKeys,
-				mismatchedValues: wrongValues,
-			} = compareRecord(expectedPrefs, actualPrefs);
+		const { lastSave, ...prefs } = (await context.driver.executeScript(
+			async () => {
+				return await browser.storage.local.get();
+			},
+		)) as Record<string, unknown>;
 
-			if (missingKeys.length === 0) {
-				results.pass("No missing default preference keys");
-			} else {
-				results.fail(
-					"Missing default preference key(s)",
-					missingKeys.join(", "),
-				);
-			}
+		actualPrefs = prefs;
+	});
 
-			if (extraKeys.length === 0) {
-				results.pass("No extra default preference keys");
-			} else {
-				results.fail(
-					"Extra default preference key(s)",
-					extraKeys.join(", "),
-				);
-			}
+	afterAll(async () => {
+		if (cleanup) await cleanup();
+	});
 
-			if (wrongValues.length === 0) {
-				results.pass("All preference default values match expected");
-			} else {
-				for (const wrongValue of wrongValues) {
-					results.fail(
-						"Wrong default preference value(s)",
-						wrongValue,
-					);
-				}
-			}
-		} catch (error) {
-			results.error("Initialise Preferences", error);
-		}
-	},
-};
+	it("has no missing default preference keys", () => {
+		const { extraKeys1: missingKeys } = compareRecord(
+			expectedPrefs,
+			actualPrefs,
+		);
+		expect(missingKeys, `Missing: ${missingKeys.join(", ")}`).toEqual([]);
+	});
+
+	it("has no extra default preference keys", () => {
+		const { extraKeys2: extraKeys } = compareRecord(
+			expectedPrefs,
+			actualPrefs,
+		);
+		expect(extraKeys, `Extra: ${extraKeys.join(", ")}`).toEqual([]);
+	});
+
+	it("matches all expected default preference values", () => {
+		const { mismatchedValues } = compareRecord(expectedPrefs, actualPrefs);
+		expect(
+			mismatchedValues,
+			`Mismatches: ${mismatchedValues.join(", ")}`,
+		).toEqual([]);
+	});
+});
