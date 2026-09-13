@@ -1,23 +1,27 @@
 name: Integration Test
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
+  push:
+    branches: [main, release/**]
+  pull_request:
+    branches: [main, release/**]
 
 jobs:
-    run:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v6
-            - name: Setup Node.js Environment
-              uses: actions/setup-node@v6
-              with:
-                  node-version: 24
-                  cache: npm
-            - name: Setup Firefox
-              uses: browser-actions/setup-firefox@v1
-            - name: Execute Integration Tests
-              run: bash scripts/utils.sh execute_integration_tests
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci
+      - name: Setup Firefox
+        uses: browser-actions/setup-firefox@v1
+      - name: Build Clean Extension
+        run: bash scripts/zip.sh --clean
+      - name: Run Headless Tests
+        run: npx tsx tests/run.ts --headless

@@ -3,69 +3,69 @@ addonNotFound: Add-on not found
 advanced: Advanced
 allowDarkTabBar: Allow dark tab bar
 allowDarkTabBarTooltip:
-    Allow tab bar to use dark colour (light text on dark tab bar).
+  Allow tab bar to use dark colour (light text on dark tab bar).
 allowLightTabBar: Allow light tab bar
 allowLightTabBarTooltip:
-    Allow tab bar to use bright colour (dark text on light tab bar).
+  Allow tab bar to use bright colour (dark text on light tab bar).
 anyCSSColour: Any format
 background: Background
 backgroundOnFocus: Background on focus
 backupAndReset: Backup and reset
 border: Border
 colourIsAdjusted:
-    The original colour has been adjusted to ensure minimum contrast
+  The original colour has been adjusted to ensure minimum contrast
 compatibilityMode: Compatibility mode
-compatibilityModeTooltip: >-
-    Change the website’s “theme-color” metadata instead of using the theme API.
-    Supported browsers will adjust their tab bar colour accordingly.
+compatibilityModeTooltip:
+  Change the website’s “theme-color” metadata instead of using the theme API.
+  Supported browsers will adjust their tab bar colour accordingly.
 confirmResetAll: Are you sure you want to reset all settings?
 confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
-couldNotFindElement: "Could not find the HTML element matching "
+couldNotFindElement: Could not find the HTML element matching
 couldNotFindElementEnd: ", using colour picked from the web page instead"
 delete: Delete
 deleteRule: Delete rule
 dynamicColourUpdate: Dynamic colour update
 dynamicModeTooltip:
-    Keep updating tab bar colour while browsing within a web page.
+  Keep updating tab bar colour while browsing within a web page.
 errorOccured: An error occurred, using fallback colour
 errorOccuredLocatingElement:
-    "An error occurred while looking for the HTML element matching "
+  An error occurred while looking for the HTML element matching
 errorOccuredLocatingElementEnd: ", colour is picked from the web page instead"
 exportSettings: Export settings
 extensionDescription:
-    Changes the colour of Firefox theme to match the website’s appearance.
+  Changes the colour of Firefox theme to match the website’s appearance.
 extensionName: Adaptive Tab Bar Colour
 fallbackColourDark: "Fallback colour: dark"
 fallbackColourLight: "Fallback colour: light"
 frame: Frame
 homepageColourDark: "Home page colour: dark"
 homepageColourLight: "Home page colour: light"
-ifVerticalTabsAreEnabled: >-
-    If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
-    above the window controls, making them harder to reach.
+ifVerticalTabsAreEnabled:
+  If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
+  above the window controls, making them harder to reach.
 ignore: Ignore
 ignoreDesignatedThemeColour: Ignore website’s theme colour
-ignoreDesignatedThemeColourTooltip: >-
-    Some websites provide a theme colour themselves. Turn on this option to
-    ignore these colours.
+ignoreDesignatedThemeColourTooltip:
+  Some websites provide a theme colour themselves. Turn on this option to ignore
+  these colours.
 importFailed: Failed to import settings. Please try again.
 importSettings: Import settings
 inDarkMode: In dark mode
 inLightMode: In light mode
 loading: Loading…
 minimumContrast: Minimum contrast
-minimumContrastTooltip: >-
-    Set the minimum contrast ratio between the tab bar and text. The tab bar
-    colour will be adjusted if the ratio is not met.
+minimumContrastTooltip:
+  Set the minimum contrast ratio between the tab bar and text. The tab bar
+  colour will be adjusted if the ratio is not met.
 moreSettings: More settings
 moreSettingsTooltip: Open option page
 no: No
 novaUi: Use Nova UI colours
 novaUiTooltip: Enable if Firefox is using the Nova UI.
 overwriteAccentColour: Overwrite accent colour
-overwriteAccentColourTooltip: >-
-    Use a custom accent colour instead of your system’s colour for the URL bar
-    and toolbar buttons.
+overwriteAccentColourTooltip:
+  Use a custom accent colour instead of your system’s colour for the URL bar and
+  toolbar buttons.
 pageIsProtected: This page is protected by browser
 pickColourFromElement: pick colour from element
 popUp: Pop-up
@@ -88,11 +88,11 @@ system: System
 tabBar: Tab bar
 themeBuilder: Theme builder
 themeColourIsIgnored: Theme colour defined by the website is ignored
-themeColourIsUnignored: >-
-    Theme colour defined by the website is used, instead of being ignored by
-    default
+themeColourIsUnignored:
+  Theme colour defined by the website is used, instead of being ignored by
+  default
 themeColourNotFound:
-    Theme colour is not found, colour is picked from the web page
+  Theme colour is not found, colour is picked from the web page
 toolbar: Toolbar
 urlBar: URL bar
 urlDomainOrRegex: URL/regex/wildcard/domain
@@ -102,17 +102,17 @@ usingColourForHomePage: Using colour for home page
 usingColourForJSONViewer: Using colour for JSON viewer
 usingColourForPDFViewer: Using colour for PDF viewer
 usingColourForPlainTextViewer: Using colour for plain text viewer
-usingColourFromElement: "Colour is picked from an HTML element matching "
+usingColourFromElement: Colour is picked from an HTML element matching
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: Colour is picked from the web page
-usingDefaultColourForAddon: "Using default colour for pages related to "
+usingDefaultColourForAddon: Using default colour for pages related to
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: No colour is available, using fallback colour
 usingImageViewer: Using colour for image viewer
-usingPresetColourForAddon: "Using preset colour for pages related to "
+usingPresetColourForAddon: Using preset colour for pages related to
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: Colour for this site is specified in the settings
-usingSpecifiedColourForAddon: "Using specified colour for pages related to "
+usingSpecifiedColourForAddon: Using specified colour for pages related to
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Using theme colour defined by the website
 yes: Yes

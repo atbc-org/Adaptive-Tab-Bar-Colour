@@ -3,6 +3,7 @@
 	"version": "4.2.0",
 	"description": "Changes the colour of Firefox theme to match the website’s appearance.",
 	"type": "module",
+	"private": true,
 	"scripts": {
 		"build": "wxt build -b firefox",
 		"format": "prettier --write --list-different .",
@@ -10,29 +11,26 @@
 		"start": "cross-env BINARY=firefox wxt --mode beta",
 		"start:dev": "cross-env BINARY=deved wxt --mode beta",
 		"test": "tsx tests/run.ts",
-		"test:headless": "tsx tests/run.ts --headless",
-		"zip": "bash scripts/zip.sh",
-		"zip:beta": "bash scripts/zip.sh --beta",
-		"zip:clean": "bash scripts/zip.sh --clean"
+		"zip": "bash scripts/zip.sh"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour.git"
+		"url": "git+https://github.com/atbc-org/Adaptive-Tab-Bar-Colour.git"
 	},
 	"author": "Eason Wong <me@easonwong.de> (https://easonwong.de/)",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour/issues",
+		"url": "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/issues",
 		"email": "me@easonwong.de"
 	},
-	"homepage": "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour",
+	"homepage": "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour",
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "^6.0.2",
-		"@types/node": "^26.2.0",
+		"@types/node": "^26.4.1",
 		"@types/react": "^19.2.18",
 		"@types/selenium-webdriver": "^4.35.6",
-		"@types/webextension-polyfill": "^0.12.5",
-		"@wxt-dev/browser": "^0.2.5",
+		"@types/webextension-polyfill": "^0.12.6",
+		"@wxt-dev/browser": "^0.2.9",
 		"@wxt-dev/module-react": "^1.2.2",
 		"cross-env": "^10.1.0",
 		"geckodriver": "^6.1.1",
@@ -41,9 +39,9 @@
 		"prettier-plugin-jsdoc": "^1.8.1",
 		"prettier-plugin-sort-json": "^4.2.0",
 		"prettier-plugin-yaml": "^1.3.0",
-		"selenium-webdriver": "^4.47.0",
+		"selenium-webdriver": "^4.48.0",
 		"selenium-webext-bridge": "^0.4.0",
-		"tsx": "^4.23.12",
+		"tsx": "^4.23.13",
 		"typescript": "^7.0.2",
 		"web-ext": "^10.6.0",
 		"webextension-polyfill": "^0.12.0",

@@ -91,4 +91,4 @@ Firefox изначально применяет эффект перехода к
 
 Остерегайтесь вредоносных веб-интерфейсов. Важно различать интерфейс браузера и веб-интерфейс. Для получения дополнительной информации см. [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Спасибо [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
 
-Не забудьте отметить проект звездочкой на GitHub: [https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+Не забудьте отметить проект звездочкой на GitHub: [https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)

@@ -91,4 +91,4 @@ Firefox'un başlık çubuğu düğmeleri Windows tarzına geri dönebilir. Bunu 
 
 Kötü niyetli web arayüzlerine karşı dikkatli olun. Tarayıcı arayüzüyle web sayfasının arayüzü arasındaki ayrımın farkında olmak önemlidir. Daha fazla bilgi için lütfen [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/) makalesine başvurun. ([u/KazaHesto](https://www.reddit.com/user/KazaHesto/)'ya teşekkürler)
 
-Bu projeyi GitHub'da yıldızlamaktan çekinmeyin: [https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+Bu projeyi GitHub'da yıldızlamaktan çekinmeyin: [https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)

@@ -3,12 +3,12 @@ addonNotFound: Extensão não encontrada
 advanced: Avançado
 allowDarkTabBar: Permitir barra de abas escura
 allowDarkTabBarTooltip:
-    Permite o uso de cores escuras na barra de abas (texto claro na barra de
-    abas escura).
+  Permite o uso de cores escuras na barra de abas (texto claro na barra de abas
+  escura).
 allowLightTabBar: Permitir barra de abas clara
 allowLightTabBarTooltip:
-    Permite o uso de cores claras na barra de abas (texto escuro na barra de
-    abas clara).
+  Permite o uso de cores claras na barra de abas (texto escuro na barra de abas
+  clara).
 anyCSSColour: Qualquer formato
 background: Fundo
 backgroundOnFocus: Fundo em foco
@@ -16,60 +16,59 @@ backupAndReset: Backup e redefinição
 border: Borda
 colourIsAdjusted: A cor original foi ajustada para garantir um contraste mínimo
 compatibilityMode: Modo de compatibilidade
-compatibilityModeTooltip: >-
-    Alterar os metadados “theme-color” do site em vez de usar a API do tema. Os
-    navegadores suportados ajustarão a cor da barra de abas de acordo.
+compatibilityModeTooltip:
+  Alterar os metadados “theme-color” do site em vez de usar a API do tema. Os
+  navegadores suportados ajustarão a cor da barra de abas de acordo.
 confirmResetAll: Tem certeza de que deseja redefinir todas as configurações?
 confirmResetThemeBuilder: Você realmente deseja redefinir o criador de temas?
-couldNotFindElement:
-    "Não foi possível encontrar o elemento HTML que coincide com "
+couldNotFindElement: Não foi possível encontrar o elemento HTML que coincide com
 couldNotFindElementEnd: ", usando a cor extraída da página web em vez disso"
 delete: Apagar
 deleteRule: Apagar regra
 dynamicColourUpdate: Atualização dinâmica de cor
 dynamicModeTooltip:
-    Continua atualizando a cor da barra de abas durante a navegação em uma
-    página web.
+  Continua atualizando a cor da barra de abas durante a navegação em uma página
+  web.
 errorOccured: Um erro ocorreu, será utilizada a cor alternativa
 errorOccuredLocatingElement:
-    "Um erro ocorreu durante a procura de um elemento HTML que coincide com "
+  Um erro ocorreu durante a procura de um elemento HTML que coincide com
 errorOccuredLocatingElementEnd: ", então a cor foi selecionada da página web"
 exportSettings: Exportar configurações
 extensionDescription:
-    Muda a cor do tema do Firefox para combinar com a aparência dos sites.
+  Muda a cor do tema do Firefox para combinar com a aparência dos sites.
 extensionName: Adaptive Tab Bar Colour
 fallbackColourDark: "Cor alternativa: Escuro"
 fallbackColourLight: "Cor alternativa: Claro"
 frame: Moldura
 homepageColourDark: "Cor da página inicial: Escuro"
 homepageColourLight: "Cor da página inicial: Claro"
-ifVerticalTabsAreEnabled: >-
-    Se as “abas verticais” estiverem ativadas, qualquer valor diferente de zero
-    pode causar um espaço acima dos controles da janela, tornando-os mais
-    difíceis de alcançar.
+ifVerticalTabsAreEnabled:
+  Se as “abas verticais” estiverem ativadas, qualquer valor diferente de zero
+  pode causar um espaço acima dos controles da janela, tornando-os mais difíceis
+  de alcançar.
 ignore: Ignore
 ignoreDesignatedThemeColour: Ignorar a cor do tema do site
-ignoreDesignatedThemeColourTooltip: >-
-    Alguns sites fornecem sua própria cor do tema. Ative essa opção para ignorar
-    essas cores.
+ignoreDesignatedThemeColourTooltip:
+  Alguns sites fornecem sua própria cor do tema. Ative essa opção para ignorar
+  essas cores.
 importFailed: Erro ao importar configurações. Por favor, tente novamente.
 importSettings: Importar configurações
 inDarkMode: Em modo escuro
 inLightMode: Em modo claro
 loading: Carregando…
 minimumContrast: Contraste mínimo
-minimumContrastTooltip: >-
-    Ajuste o contraste mínimo entre a barra de abas e o texto. A cor da barra de
-    abas é ajustada automaticamente se o contraste mínimo não for alcançado.
+minimumContrastTooltip:
+  Ajuste o contraste mínimo entre a barra de abas e o texto. A cor da barra de
+  abas é ajustada automaticamente se o contraste mínimo não for alcançado.
 moreSettings: Mais opções
 moreSettingsTooltip: Abre a página de opções
 no: Não
 novaUi: Usar cores da Nova UI
 novaUiTooltip: Ative se o Firefox estiver usando a Nova UI.
 overwriteAccentColour: Substituir cor de destaque
-overwriteAccentColourTooltip: >-
-    Usar uma cor de destaque personalizada em vez da cor do seu sistema para a
-    barra de URL e os botões da barra de ferramentas.
+overwriteAccentColourTooltip:
+  Usar uma cor de destaque personalizada em vez da cor do seu sistema para a
+  barra de URL e os botões da barra de ferramentas.
 pageIsProtected: Essa página é protegida pelo navegador
 pickColourFromElement: Selecionar a cor a partir de um elemento
 popUp: Pop-up
@@ -79,14 +78,14 @@ reset: Redefinir
 resetAll: Redefinir tudo
 resetAllSettings: Redefinir todas as configurações
 ruleAppliedInBothMode:
-    A regra será aplicada tanto no modo claro quanto no modo escuro
+  A regra será aplicada tanto no modo claro quanto no modo escuro
 ruleAppliedInDarkMode: A regra só será aplicada no modo escuro
 ruleAppliedInLightMode: A regra só será aplicada no modo claro
 ruleList: Lista de regras
 ruleWillBeIgnored: Esta regra será ignorada
 selectedTab: Aba selecionada
 settingsAreExported:
-    As configurações foram exportadas para sua pasta de downloads.
+  As configurações foram exportadas para sua pasta de downloads.
 settingsAreImported: As configurações foram importadas.
 sidebar: Painel lateral
 specifyAColour: Especificar uma cor
@@ -94,11 +93,11 @@ system: Sistema
 tabBar: Barra de abas
 themeBuilder: Criador de temas
 themeColourIsIgnored: A cor do tema definida pelo site é ignorada
-themeColourIsUnignored: >-
-    A cor do tema definida pelo site é utilizada, ao invés de ser ignorada por
-    padrão
+themeColourIsUnignored:
+  A cor do tema definida pelo site é utilizada, ao invés de ser ignorada por
+  padrão
 themeColourNotFound:
-    A cor do tema não foi encontrada, a cor será selecionada da página web
+  A cor do tema não foi encontrada, a cor será selecionada da página web
 toolbar: Barra de ferramentas
 urlBar: Barra de endereços
 urlDomainOrRegex: URL/regex/wildcard/domínio
@@ -109,18 +108,18 @@ usingColourForJSONViewer: Usando cor para visualização de JSON
 usingColourForPDFViewer: Usando cor para visualização de PDF
 usingColourForPlainTextViewer: Usando cor para visualização de texto simples
 usingColourFromElement:
-    "A cor foi obtida a partir de um elemento HTML que coincide com "
+  A cor foi obtida a partir de um elemento HTML que coincide com
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: A cor foi obtida a partir da página web
-usingDefaultColourForAddon: "Usando cor padrão para páginas relacionadas a "
+usingDefaultColourForAddon: Usando cor padrão para páginas relacionadas a
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: Não há cor disponível, usando cor alternativa
 usingImageViewer: Usando cor para visualizador de imagem
-usingPresetColourForAddon: "Usando cor predefinida para páginas relacionadas a "
+usingPresetColourForAddon: Usando cor predefinida para páginas relacionadas a
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: A cor desse site está especificada nas configurações
 usingSpecifiedColourForAddon:
-    "Usando cor especificada para páginas relacionadas a "
+  Usando cor especificada para páginas relacionadas a
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Usando cor do tema definida pelo site
 yes: Sim

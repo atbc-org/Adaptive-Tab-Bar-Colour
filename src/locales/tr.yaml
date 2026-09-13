@@ -2,13 +2,13 @@ addANewRule: Yeni kural ekle
 addonNotFound: Eklenti bulunamadı
 advanced: Gelişmiş
 allowDarkTabBar: Koyu sekme çubuğuna izin ver
-allowDarkTabBarTooltip: >-
-    Sekme çubuğunun koyu renk kullanmasına izin ver (koyu sekme çubuğu üzerinde
-    açık metin).
+allowDarkTabBarTooltip:
+  Sekme çubuğunun koyu renk kullanmasına izin ver (koyu sekme çubuğu üzerinde
+  açık metin).
 allowLightTabBar: Açık renk sekme çubuğuna izin ver
-allowLightTabBarTooltip: >-
-    Sekme çubuğunun parlak renk kullanmasına izin ver (açık renk sekme çubuğu
-    üzerinde koyu metin).
+allowLightTabBarTooltip:
+  Sekme çubuğunun parlak renk kullanmasına izin ver (açık renk sekme çubuğu
+  üzerinde koyu metin).
 anyCSSColour: Herhangi bir biçim
 background: Arka plan
 backgroundOnFocus: Odaklıyken arka plan
@@ -16,62 +16,62 @@ backupAndReset: Yedekleme ve sıfırlama
 border: Kenar
 colourIsAdjusted: Orijinal renk, asgari karşıtlıktan emin olmak için düzeltildi
 compatibilityMode: Uyumluluk modu
-compatibilityModeTooltip: >-
-    Tema API'sini kullanmak yerine web sitesinin “theme-color” metadata'sını
-    değiştirmek. Desteklenen tarayıcılar sekme çubuğu rengini buna göre
-    ayarlayacaktır.
+compatibilityModeTooltip:
+  Tema API'sini kullanmak yerine web sitesinin “theme-color” metadata'sını
+  değiştirmek. Desteklenen tarayıcılar sekme çubuğu rengini buna göre
+  ayarlayacaktır.
 confirmResetAll: Tüm ayarları sıfırlamak istediğinizden emin misiniz?
 confirmResetThemeBuilder:
-    Tema oluşturucuyu sıfırlamak istediğinize emin misiniz?
+  Tema oluşturucuyu sıfırlamak istediğinize emin misiniz?
 couldNotFindElement: Eşleşen HTML ögesi bulunamadı
 couldNotFindElementEnd:
-    ", bunun yerine web sayfasından seçilen renk kullanılıyor"
+  ", bunun yerine web sayfasından seçilen renk kullanılıyor"
 delete: Sil
 deleteRule: Kuralı sil
 dynamicColourUpdate: Dinamik renk güncellemesi
-dynamicModeTooltip: >-
-    Web sayfası içerisinde gezinirken sekme çubuğu rengini güncellemeye devam
-    eder.
+dynamicModeTooltip:
+  Web sayfası içerisinde gezinirken sekme çubuğu rengini güncellemeye devam
+  eder.
 errorOccured: Bir hata meydana geldi, yedek renk kullanılıyor
 errorOccuredLocatingElement:
-    "Şununla eşleşen HTML ögesi aranırken bir hata meydana geldi: "
+  "Şununla eşleşen HTML ögesi aranırken bir hata meydana geldi:"
 errorOccuredLocatingElementEnd: ", onun yerine renk web sayfasından seçildi"
 exportSettings: Ayarları dışarı aktar
 extensionDescription:
-    Firefox tema rengini web sitesinin görünümüyle eşlemek için değiştirir.
+  Firefox tema rengini web sitesinin görünümüyle eşlemek için değiştirir.
 extensionName: Adaptive Tab Bar Colour
 fallbackColourDark: "Yedek renk: koyu"
 fallbackColourLight: "Yedek renk: açık"
 frame: Çerçeve
 homepageColourDark: "Giriş sayfası rengi: koyu"
 homepageColourLight: "Giriş sayfası rengi: açık"
-ifVerticalTabsAreEnabled: >-
-    “Dikey sekmeler” devredeyse, sıfır olmayan herhangi bir değer pencere
-    denetimlerinin üstünde bir boşluk belirip bu denetimlere ulaşmanın
-    zorlaşmasına yol açabilir.
+ifVerticalTabsAreEnabled:
+  “Dikey sekmeler” devredeyse, sıfır olmayan herhangi bir değer pencere
+  denetimlerinin üstünde bir boşluk belirip bu denetimlere ulaşmanın
+  zorlaşmasına yol açabilir.
 ignore: Yoksay
 ignoreDesignatedThemeColour: Web sitesinin tema rengini yoksay
-ignoreDesignatedThemeColourTooltip: >-
-    Bazı web sitelerinin kendileri bir tema rengi sağlar. Bu renkleri yoksaymak
-    için bu seçeneği açın.
+ignoreDesignatedThemeColourTooltip:
+  Bazı web sitelerinin kendileri bir tema rengi sağlar. Bu renkleri yoksaymak
+  için bu seçeneği açın.
 importFailed: Ayarlar içe aktarılamadı. Lütfen tekrar deneyin.
 importSettings: Ayarları içe aktar
 inDarkMode: Koyu modda
 inLightMode: Açık modda
 loading: Yükleniyor…
 minimumContrast: Asgari karşıtlık
-minimumContrastTooltip: >-
-    Sekme çubuğu ve metin arasında asgari karşıtlık oranını ayarla. Eğer orana
-    ulaşılamazsa sekme çubuğu rengi otomatik olarak düzeltilir.
+minimumContrastTooltip:
+  Sekme çubuğu ve metin arasında asgari karşıtlık oranını ayarla. Eğer orana
+  ulaşılamazsa sekme çubuğu rengi otomatik olarak düzeltilir.
 moreSettings: Daha fazla ayar
 moreSettingsTooltip: Seçenek sayfasını aç
 no: Hayır
 novaUi: Nova UI renklerini kullan
 novaUiTooltip: Firefox Nova UI kullanıyorsa etkinleştirin.
 overwriteAccentColour: Vurgu renginin üzerine yaz
-overwriteAccentColourTooltip: >-
-    URL çubuğu ve araç çubuğu düğmeleri için sistem renginiz yerine özel bir
-    vurgu rengi kullanmak.
+overwriteAccentColourTooltip:
+  URL çubuğu ve araç çubuğu düğmeleri için sistem renginiz yerine özel bir vurgu
+  rengi kullanmak.
 pageIsProtected: Bu sayfa tarayıcı tarafından korunuyor
 pickColourFromElement: ögeden renk seç
 popUp: Açılır pencere
@@ -94,9 +94,9 @@ system: Sistem
 tabBar: Sekme çubuğu
 themeBuilder: Tema oluşturucu
 themeColourIsIgnored: Web sitesi tarafından tanımlanan tema rengi yoksayılıyor
-themeColourIsUnignored: >-
-    Web sitesi tarafından tanımlanan tema rengi kullanılıyor, varsayılan olarak
-    yoksayılmak yerine
+themeColourIsUnignored:
+  Web sitesi tarafından tanımlanan tema rengi kullanılıyor, varsayılan olarak
+  yoksayılmak yerine
 themeColourNotFound: Tema rengi bulunamadı, renk web sayfasından seçildi
 toolbar: Araç çubuğu
 urlBar: URL çubuğu
@@ -107,20 +107,20 @@ usingColourForHomePage: Giriş sayfası için renk kullanılıyor
 usingColourForJSONViewer: JSON görüntüleyici için renk kullanılıyor
 usingColourForPDFViewer: PDF görüntüleyici için renk kullanılıyor
 usingColourForPlainTextViewer: Düz metin görüntüleyici için renk kullanılıyor
-usingColourFromElement: "Eşleşen bir HTML ögesinden renk seçildi "
+usingColourFromElement: Eşleşen bir HTML ögesinden renk seçildi
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: Renk web sayfasından seçildi
 usingDefaultColourForAddon:
-    "Varsayılan renk şunlarla ilgili sayfalar için kullanılıyor: "
+  "Varsayılan renk şunlarla ilgili sayfalar için kullanılıyor:"
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: Hiç renk mevcut değil, yedek renk kullanılıyor
 usingImageViewer: Resim görüntüleyici için renk kullanılıyor
 usingPresetColourForAddon:
-    "Önayarlı renk şunlarla ilgili sayfalar için kullanılıyor: "
+  "Önayarlı renk şunlarla ilgili sayfalar için kullanılıyor:"
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: Bu site için renk ayarlarda belirtildi
 usingSpecifiedColourForAddon:
-    "Belirtilen renk şunlarla ilgili sayfalar için kullanılıyor: "
+  "Belirtilen renk şunlarla ilgili sayfalar için kullanılıyor:"
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Web sitesi tarafından tanımlanan tema rengi kullanılıyor
 yes: Evet

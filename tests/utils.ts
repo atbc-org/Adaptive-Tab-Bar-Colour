@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
 import readline from "node:readline";
+import { pathToFileURL } from "node:url";
 import type { WebDriver } from "selenium-webdriver";
 import { Command } from "selenium-webdriver/lib/command.js";
 import type { TestCase } from "./types.js";
@@ -116,6 +117,7 @@ export async function getTestCases(dir: string): Promise<TestCase[]> {
 	for (const specFile of files) {
 		const specPath = path.join(dir, specFile);
 		const module = await import(specPath);
+		const module = await import(pathToFileURL(specPath).href);
 		if (!module.testCase)
 			throw new Error(`Missing testCase export in ${specFile}`);
 		testCases.push(module.testCase as TestCase);

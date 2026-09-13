@@ -91,4 +91,4 @@ Firefox のタイトルバーのボタンは Windows スタイルに戻ること
 
 悪意のあるウェブ UI に注意してください。ブラウザー UI とウェブ UI を区別することが重要です。詳細は [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/) を参照してください。（提供: [u/KazaHesto](https://www.reddit.com/user/KazaHesto/)）
 
-GitHub でこのプロジェクトにスターをしてください: [https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+GitHub でこのプロジェクトにスターをしてください: [https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)

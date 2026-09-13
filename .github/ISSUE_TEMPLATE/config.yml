@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-    - name: Discussions
-      url: https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour/discussions
-      about: Not sure yet? Open a discussion here.
+  - name: Discussions
+    url: https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/discussions
+    about: Not sure yet? Open a discussion here.

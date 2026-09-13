@@ -12,52 +12,49 @@ backupAndReset: バックアップとリセット
 border: 枠線
 colourIsAdjusted: 元の色は最小コントラストを確保するために調整されました
 compatibilityMode: 互換モード
-compatibilityModeTooltip: >-
-    ウェブサイトの「theme-color」メタデータを変更し、テーマ API
-    の代わりに使用します。対応するブラウザーはそれに応じてタブバーの色を調整します。
+compatibilityModeTooltip:
+  ウェブサイトの「theme-color」メタデータを変更し、テーマ API
+  の代わりに使用します。対応するブラウザーはそれに応じてタブバーの色を調整します。
 confirmResetAll: すべての設定をリセットしてもよろしいですか？
 confirmResetThemeBuilder: テーマビルダーをリセットしてもよろしいですか？
-couldNotFindElement: "一致する HTML 要素が見つかりませんでした "
-couldNotFindElementEnd: 、代わりにウェブページから取得した色を使用します
+couldNotFindElement: 一致する HTML 要素
+couldNotFindElementEnd: が見つかりませんでした。代わりにウェブページから取得した色を使用します
 delete: 削除
 deleteRule: ルールを削除
 dynamicColourUpdate: 動的な色の更新
 dynamicModeTooltip: ウェブページ内を閲覧している間、タブバーの色を更新し続けます。
 errorOccured: エラーが発生したため、フォールバック色を使用しています
-errorOccuredLocatingElement: "一致する HTML 要素の検索中にエラーが発生しました "
-errorOccuredLocatingElementEnd: 、色はウェブページから取得されます
+errorOccuredLocatingElement: 一致する HTML 要素
+errorOccuredLocatingElementEnd: の検索中にエラーが発生しました。色はウェブページから取得されます
 exportSettings: 設定をエクスポート
 extensionDescription:
-    Firefox のテーマの色をウェブサイトの外観に合わせて変更します。
+  Firefox のテーマの色をウェブサイトの外観に合わせて変更します。
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "フォールバック色: ダーク"
-fallbackColourLight: "フォールバック色: ライト"
+fallbackColourDark: フォールバック色：ダーク
+fallbackColourLight: フォールバック色：ライト
 frame: フレーム
-homepageColourDark: "ホームページの色: ダーク"
-homepageColourLight: "ホームページの色: ライト"
-ifVerticalTabsAreEnabled: >-
-    「垂直タブ」が有効な場合、０以外の値を設定するとウィンドウコントロール上部に隙間ができ、操作しづらくなることがあります。
+homepageColourDark: ホームページの色：ダーク
+homepageColourLight: ホームページの色：ライト
+ifVerticalTabsAreEnabled: 「垂直タブ」が有効な場合、０以外の値を設定するとウィンドウコントロール上部に隙間ができ、操作しづらくなることがあります。
 ignore: 無視
 ignoreDesignatedThemeColour: ウェブサイトのテーマカラーを無視
-ignoreDesignatedThemeColourTooltip: >-
-    一部のウェブサイトはテーマカラーを自ら提供します。このオプションをオンにすると、それらの色を無視します。
+ignoreDesignatedThemeColourTooltip: 一部のウェブサイトはテーマカラーを自ら提供します。このオプションをオンにすると、それらの色を無視します。
 importFailed: 設定のインポートに失敗しました。もう一度お試しください。
 importSettings: 設定をインポート
 inDarkMode: ダークモード時
 inLightMode: ライトモード時
 loading: 読み込み中⋯⋯
 minimumContrast: 最小コントラスト
-minimumContrastTooltip: >-
-    タブバーとテキストの最小コントラスト比を設定します。比率が満たされない場合、タブバーの色が自動的に調整されます。
+minimumContrastTooltip: タブバーとテキストの最小コントラスト比を設定します。比率が満たされない場合、タブバーの色が自動的に調整されます。
 moreSettings: さらに設定
 moreSettingsTooltip: オプションページを開く
 no: いいえ
 novaUi: Nova UI の色を使用する
 novaUiTooltip: Firefox が Nova UI を使用している場合に有効にします。
 overwriteAccentColour: アクセントカラーを上書き
-overwriteAccentColourTooltip: >-
-    URL
-    バーとツールバーのボタンに、システムの色の代わりにカスタムアクセントカラーを使用します。
+overwriteAccentColourTooltip:
+  URL
+  バーとツールバーのボタンに、システムの色の代わりにカスタムアクセントカラーを使用します。
 pageIsProtected: このページはブラウザーによって保護されています
 pickColourFromElement: 要素から色を選ぶ
 popUp: ポップアップ
@@ -80,10 +77,8 @@ system: システム
 tabBar: タブバー
 themeBuilder: テーマビルダー
 themeColourIsIgnored: ウェブサイトで定義されたテーマカラーは無視されます
-themeColourIsUnignored: >-
-    ウェブサイトで定義されたテーマカラーが使用され、デフォルトの無視設定は適用されません
-themeColourNotFound:
-    "# テーマカラーが見つかりません。ウェブページから色が選択されます"
+themeColourIsUnignored: ウェブサイトで定義されたテーマカラーが使用され、デフォルトの無視設定は適用されません
+themeColourNotFound: テーマカラーが見つかりません。ウェブページから色が選択されます
 toolbar: ツールバー
 urlBar: URL バー
 urlDomainOrRegex: URL/正規表現/ワイルドカード/ドメイン
@@ -93,17 +88,17 @@ usingColourForHomePage: ホームページの色を使用
 usingColourForJSONViewer: JSON ビューアの色を使用
 usingColourForPDFViewer: PDF ビューアの色を使用
 usingColourForPlainTextViewer: プレーンテキストビューアの色を使用
-usingColourFromElement: "一致する HTML 要素から色を取得します "
+usingColourFromElement: HTML 要素から抽出された色の一致先：
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: ウェブページから色を取得します
-usingDefaultColourForAddon: "関連ページのデフォルト色を使用します "
+usingDefaultColourForAddon: 関連ページのデフォルト色を使用：
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour: 色が利用できないため、フォールバック色を使用します
 usingImageViewer: 画像ビューアの色を使用
-usingPresetColourForAddon: "関連ページのプリセット色を使用します "
+usingPresetColourForAddon: 関連ページのプリセット色を使用：
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: このサイトの色は設定で指定されています
-usingSpecifiedColourForAddon: "関連ページの指定色を使用します "
+usingSpecifiedColourForAddon: 関連ページの指定色を使用：
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: ウェブサイトで定義されたテーマカラーを使用しています
 yes: はい

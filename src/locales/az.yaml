@@ -1,0 +1,122 @@
+addANewRule: Yeni qayda əlavə et
+addonNotFound: Əlavə tapılmadı
+advanced: Qabaqcıl
+allowDarkTabBar: Tünd tab panelinə icazə ver
+allowDarkTabBarTooltip:
+  Tab panelinin tünd rəng işlətməsinə icazə verir (tünd tab panelində açıq
+  mətn).
+allowLightTabBar: Açıq tab panelinə icazə ver
+allowLightTabBarTooltip:
+  Tab panelinin parlaq rəng işlətməsinə icazə verir (açıq tab panelində tünd
+  mətn).
+anyCSSColour: İstənilən format
+background: Fon
+backgroundOnFocus: Fokusda fon
+backupAndReset: Ehtiyat nüsxə və sıfırlama
+border: Haşiyə
+colourIsAdjusted: Minimum kontrastı təmin etmək üçün ilkin rəng tənzimlənib
+compatibilityMode: Uyğunluq rejimi
+compatibilityModeTooltip:
+  Tema API-si əvəzinə veb saytın “theme-color” metaməlumatı dəyişdirilir.
+  Dəstəkləyən brauzerlər tab panelinin rəngini buna uyğun tənzimləyir.
+confirmResetAll: Bütün parametrləri sıfırlamaq istədiyinizə əminsiniz?
+confirmResetThemeBuilder: Tema qurucusunu sıfırlamaq istədiyinizə əminsiniz?
+couldNotFindElement: "Uyğun gələn HTML elementi tapılmadı:"
+couldNotFindElementEnd: ", əvəzinə rəng veb səhifədən seçildi"
+delete: Sil
+deleteRule: Qaydanı sil
+dynamicColourUpdate: Dinamik rəng yeniləməsi
+dynamicModeTooltip:
+  Veb səhifə daxilində gəzərkən tab panelinin rəngi yenilənməyə davam edir.
+errorOccured: Xəta baş verdi, ehtiyat rəng işlədilir
+errorOccuredLocatingElement:
+  "Uyğun gələn HTML elementi axtarılarkən xəta baş verdi:"
+errorOccuredLocatingElementEnd: ", əvəzinə rəng veb səhifədən seçilir"
+exportSettings: Parametrləri ixrac et
+extensionDescription:
+  Firefox temasının rəngini veb saytın görünüşünə uyğunlaşdırır.
+extensionName: Adaptive Tab Bar Colour
+fallbackColourDark: "Ehtiyat rəng: tünd"
+fallbackColourLight: "Ehtiyat rəng: açıq"
+frame: Çərçivə
+homepageColourDark: "Əsas səhifə rəngi: tünd"
+homepageColourLight: "Əsas səhifə rəngi: açıq"
+ifVerticalTabsAreEnabled:
+  “Şaquli tablar” aktivdirsə, sıfırdan fərqli istənilən dəyər pəncərə idarəetmə
+  düymələrinin üstündə boşluq yarada və onlara çatmağı çətinləşdirə bilər.
+ignore: Nəzərə alma
+ignoreDesignatedThemeColour: Veb saytın tema rəngini nəzərə alma
+ignoreDesignatedThemeColourTooltip:
+  Bəzi veb saytlar tema rəngini özləri təqdim edir. Bu rəngləri nəzərə almamaq
+  üçün bu seçimi aktivləşdirin.
+importFailed:
+  Parametrləri idxal etmək alınmadı. Zəhmət olmasa yenidən cəhd edin.
+importSettings: Parametrləri idxal et
+inDarkMode: Tünd rejimdə
+inLightMode: Açıq rejimdə
+loading: Yüklənir…
+minimumContrast: Minimum kontrast
+minimumContrastTooltip:
+  Tab paneli ilə mətn arasındakı minimum kontrast nisbətini təyin edin. Nisbət
+  ödənilmirsə tab panelinin rəngi tənzimlənəcək.
+moreSettings: Daha çox parametr
+moreSettingsTooltip: Seçimlər səhifəsini aç
+no: Xeyr
+novaUi: Nova UI rənglərini işlət
+novaUiTooltip: Firefox Nova UI işlədirsə aktivləşdirin.
+overwriteAccentColour: Vurğu rəngini əvəz et
+overwriteAccentColourTooltip:
+  URL sətri və alət paneli düymələri üçün sisteminizin rəngi əvəzinə fərdi vurğu
+  rəngi işlədin.
+pageIsProtected: Bu səhifə brauzer tərəfindən qorunur
+pickColourFromElement: elementdən rəng seç
+popUp: Açılan pəncərə
+querySelector: Sorğu seçicisi
+reportAnIssue: Problem bildir / təklif göndər / bu əlavəni tərcümə et
+reset: Sıfırla
+resetAll: Hamısını sıfırla
+resetAllSettings: Bütün parametrləri sıfırla
+ruleAppliedInBothMode: Qayda həm açıq, həm də tünd rejimdə tətbiq olunacaq
+ruleAppliedInDarkMode: Qayda yalnız tünd rejimdə tətbiq olunacaq
+ruleAppliedInLightMode: Qayda yalnız açıq rejimdə tətbiq olunacaq
+ruleList: Qaydalar siyahısı
+ruleWillBeIgnored: Bu qayda nəzərə alınmayacaq
+selectedTab: Seçilmiş tab
+settingsAreExported: Parametrlər endirmələr qovluğunuza ixrac edildi.
+settingsAreImported: Parametrlər idxal edildi.
+sidebar: Yan panel
+specifyAColour: rəng təyin et
+system: Sistem
+tabBar: Tab paneli
+themeBuilder: Tema qurucusu
+themeColourIsIgnored: Veb saytın təyin etdiyi tema rəngi nəzərə alınmır
+themeColourIsUnignored:
+  Veb saytın təyin etdiyi tema rəngi standart olaraq nəzərə alınmasa da
+  işlədilir
+themeColourNotFound: Tema rəngi tapılmadı, rəng veb səhifədən seçilir
+toolbar: Alət paneli
+urlBar: URL sətri
+urlDomainOrRegex: URL/regex/joker/domen
+use: İşlət
+useIgnoreThemeColour: tema rəngini işlət/nəzərə alma
+usingColourForHomePage: Əsas səhifə üçün rəng işlədilir
+usingColourForJSONViewer: JSON göstəricisi üçün rəng işlədilir
+usingColourForPDFViewer: PDF göstəricisi üçün rəng işlədilir
+usingColourForPlainTextViewer: Sadə mətn göstəricisi üçün rəng işlədilir
+usingColourFromElement: "Rəng uyğun gələn HTML elementindən seçilir:"
+usingColourFromElementEnd: "\0"
+usingColourFromWebpage: Rəng veb səhifədən seçilir
+usingDefaultColourForAddon:
+  "Standart rəng bununla əlaqəli səhifələr üçün işlədilir:"
+usingDefaultColourForAddonEnd: "\0"
+usingFallbackColour: Heç bir rəng mövcud deyil, ehtiyat rəng işlədilir
+usingImageViewer: Şəkil göstəricisi üçün rəng işlədilir
+usingPresetColourForAddon:
+  "Hazır rəng bununla əlaqəli səhifələr üçün işlədilir:"
+usingPresetColourForAddonEnd: "\0"
+usingSpecifiedColour: Bu sayt üçün rəng parametrlərdə təyin edilib
+usingSpecifiedColourForAddon:
+  "Təyin edilmiş rəng bununla əlaqəli səhifələr üçün işlədilir:"
+usingSpecifiedColourForAddonEnd: "\0"
+usingThemeColour: Veb saytın təyin etdiyi tema rəngi işlədilir
+yes: Bəli

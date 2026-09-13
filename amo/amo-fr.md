@@ -91,4 +91,4 @@ Les boutons de la barre de titre de Firefox peuvent revenir au style de Windows.
 
 Attention aux interfaces web malveillantes. Il est important de faire la distinction entre l’interface du navigateur et l’interface web. Pour plus d’informations, veuillez consulter [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Merci à [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
 
-N'hésitez pas à ajouter ce projet à vos favoris sur GitHub : [https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour](https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour)
+N'hésitez pas à ajouter ce projet à vos favoris sur GitHub : [https://github.com/atbc-org/Adaptive-Tab-Bar-Colour](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour)

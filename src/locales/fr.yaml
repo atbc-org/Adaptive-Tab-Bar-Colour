@@ -2,87 +2,86 @@ addANewRule: Ajouter une nouvelle règle
 addonNotFound: Extension non trouvée
 advanced: Avancé
 allowDarkTabBar: Autoriser la barre d'onglets sombre
-allowDarkTabBarTooltip: >-
-    Autoriser la barre d'onglets à utiliser des couleurs sombres (texte clair
-    sur la barre d'onglets sombre).
+allowDarkTabBarTooltip:
+  Autoriser la barre d'onglets à utiliser des couleurs sombres (texte clair sur
+  la barre d'onglets sombre).
 allowLightTabBar: Autoriser la barre d'onglets claire
-allowLightTabBarTooltip: >-
-    Autorise la barre d'onglets à utiliser des couleurs claires (texte sombre
-    sur la barre d'onglets claire).
+allowLightTabBarTooltip:
+  Autorise la barre d'onglets à utiliser des couleurs claires (texte sombre sur
+  la barre d'onglets claire).
 anyCSSColour: Tout format
 background: Arrière-plan
 backgroundOnFocus: Arrière-plan au focus
 backupAndReset: Sauvegarde et réinitialisation
 border: Bordure
 colourIsAdjusted:
-    La couleur d'origine a été ajustée pour garantir un minimum de contraste
+  La couleur d'origine a été ajustée pour garantir un minimum de contraste
 compatibilityMode: Mode de compatibilité
-compatibilityModeTooltip: >-
-    Modifier les métadonnées « theme-color » du site Web au lieu d'utiliser
-    l'API du thème. Les navigateurs pris en charge ajusteront la couleur de leur
-    barre d'onglets en conséquence.
+compatibilityModeTooltip:
+  Modifier les métadonnées « theme-color » du site Web au lieu d'utiliser l'API
+  du thème. Les navigateurs pris en charge ajusteront la couleur de leur barre
+  d'onglets en conséquence.
 confirmResetAll: Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?
 confirmResetThemeBuilder:
-    Êtes-vous sûr de vouloir réinitialiser le constructeur de thèmes ?
-couldNotFindElement: "N'a pas pu trouver l'élément HTML correspondant "
+  Êtes-vous sûr de vouloir réinitialiser le constructeur de thèmes ?
+couldNotFindElement: N'a pas pu trouver l'élément HTML correspondant
 couldNotFindElementEnd:
-    ", utilisation de la couleur extraite de la page web à la place"
+  ", utilisation de la couleur extraite de la page web à la place"
 delete: Supprimer
 deleteRule: Supprimer la règle
 dynamicColourUpdate: Mise à jour dynamique des couleurs
-dynamicModeTooltip: >-
-    Met à jour continuellement la couleur de la barre d'onglets lors de la
-    navigation sur une page Web.
+dynamicModeTooltip:
+  Met à jour continuellement la couleur de la barre d'onglets lors de la
+  navigation sur une page Web.
 errorOccured: Une erreur s'est produite, utilisation de la couleur de repli
 errorOccuredLocatingElement:
-    Une erreur s'est produite lors de la recherche de l'élément HTML
-    correspondant
+  Une erreur s'est produite lors de la recherche de l'élément HTML correspondant
 errorOccuredLocatingElementEnd:
-    ", la couleur est choisie à partir de la page web à la place"
+  ", la couleur est choisie à partir de la page web à la place"
 exportSettings: Exporter les paramètres
-extensionDescription: >-
-    Change la couleur du thème de Firefox pour correspondre à l'apparence de
-    sites.
+extensionDescription:
+  Change la couleur du thème de Firefox pour correspondre à l'apparence de
+  sites.
 extensionName: Adaptive Tab Bar Colour
 fallbackColourDark: "Couleur de repli : sombre"
 fallbackColourLight: "Couleur de repli : claire"
 frame: Cadre
 homepageColourDark: "Couleur de la page d'accueil : sombre"
 homepageColourLight: "Couleur de la page d'accueil : claire"
-ifVerticalTabsAreEnabled: >-
-    Si les « onglets verticaux » sont activés, toute valeur non nulle peut
-    entraîner l'apparition d'un espace au-dessus des commandes de la fenêtre,
-    les rendant plus difficiles à atteindre.
+ifVerticalTabsAreEnabled:
+  Si les « onglets verticaux » sont activés, toute valeur non nulle peut
+  entraîner l'apparition d'un espace au-dessus des commandes de la fenêtre, les
+  rendant plus difficiles à atteindre.
 ignore: Ignorer
 ignoreDesignatedThemeColour: Ignorer la couleur du thème des sites Web
-ignoreDesignatedThemeColourTooltip: >-
-    Certains sites web proposent eux-mêmes une couleur de thème. Activez cette
-    option pour ignorer ces couleurs.
+ignoreDesignatedThemeColourTooltip:
+  Certains sites web proposent eux-mêmes une couleur de thème. Activez cette
+  option pour ignorer ces couleurs.
 importFailed: Échec de l'importation des paramètres. Veuillez réessayer.
 importSettings: Importer les paramètres
 inDarkMode: En mode sombre
 inLightMode: En mode clair
 loading: Chargement…
 minimumContrast: Contraste minimum
-minimumContrastTooltip: >-
-    Définir le ratio de contraste minimal entre la barre d'onglets et le texte.
-    La couleur de la barre d'onglets s'ajuste automatiquement si le ratio n'est
-    pas respecté.
+minimumContrastTooltip:
+  Définir le ratio de contraste minimal entre la barre d'onglets et le texte. La
+  couleur de la barre d'onglets s'ajuste automatiquement si le ratio n'est pas
+  respecté.
 moreSettings: Plus de paramètres
 moreSettingsTooltip: Ouvrir la page d'options
 no: Non
 novaUi: Utiliser les couleurs de Nova UI
 novaUiTooltip: Activer si Firefox utilise Nova UI.
 overwriteAccentColour: Remplacer la couleur d'accentuation
-overwriteAccentColourTooltip: >-
-    Utiliser une couleur d’accentuation personnalisée au lieu de la couleur de
-    votre système pour la barre d’URL et les boutons de la barre d’outils.
+overwriteAccentColourTooltip:
+  Utiliser une couleur d’accentuation personnalisée au lieu de la couleur de
+  votre système pour la barre d’URL et les boutons de la barre d’outils.
 pageIsProtected: Cette page est protégée par le navigateur
 pickColourFromElement: sélectionner la couleur de l'élément
 popUp: Pop-up
 querySelector: Sélecteur de requête
 reportAnIssue:
-    Signaler un problème / soumettre une suggestion / traduire cette extension
+  Signaler un problème / soumettre une suggestion / traduire cette extension
 reset: Réinitialiser
 resetAll: Tout réinitialiser
 resetAllSettings: Réinitialiser tous les paramètres
@@ -93,7 +92,7 @@ ruleList: Liste de règles
 ruleWillBeIgnored: Cette règle sera ignorée
 selectedTab: Onglet sélectionné
 settingsAreExported:
-    Les paramètres ont été exportés vers votre dossier de téléchargement.
+  Les paramètres ont été exportés vers votre dossier de téléchargement.
 settingsAreImported: Les paramètres ont été importés.
 sidebar: Barre latérale
 specifyAColour: spécifier une couleur
@@ -101,12 +100,12 @@ system: Système
 tabBar: Barre d'onglets
 themeBuilder: Constructeur de thème
 themeColourIsIgnored: La couleur du thème définie par le site web est ignorée
-themeColourIsUnignored: >-
-    La couleur du thème définie par le site web est utilisée, au lieu d'être
-    ignorée par défaut
-themeColourNotFound: >-
-    La couleur du thème n'est pas trouvée, la couleur est choisie à partir de la
-    page web
+themeColourIsUnignored:
+  La couleur du thème définie par le site web est utilisée, au lieu d'être
+  ignorée par défaut
+themeColourNotFound:
+  La couleur du thème n'est pas trouvée, la couleur est choisie à partir de la
+  page web
 toolbar: Barre d'outils
 urlBar: Barre d'URL
 urlDomainOrRegex: URL/regex/wildcard/domaine
@@ -116,23 +115,23 @@ usingColourForHomePage: Utilisation de la couleur pour la page d'accueil
 usingColourForJSONViewer: Utilisation de la couleur pour la visionneuse JSON
 usingColourForPDFViewer: Utilisation de la couleur pour la visionneuse PDF
 usingColourForPlainTextViewer:
-    Utilisation de la couleur pour la visionneuse de texte brut
+  Utilisation de la couleur pour la visionneuse de texte brut
 usingColourFromElement:
-    "La couleur est choisie à partir d'un élément HTML correspondant "
+  La couleur est choisie à partir d'un élément HTML correspondant
 usingColourFromElementEnd: "\0"
 usingColourFromWebpage: La couleur est choisie à partir de la page web
 usingDefaultColourForAddon:
-    "Utilisation de la couleur par défaut pour les pages liées à "
+  Utilisation de la couleur par défaut pour les pages liées à
 usingDefaultColourForAddonEnd: "\0"
 usingFallbackColour:
-    Aucune couleur n'est disponible, utilisation de la couleur de repli
+  Aucune couleur n'est disponible, utilisation de la couleur de repli
 usingImageViewer: Utilisation de la couleur pour la visionneuse d'images
 usingPresetColourForAddon:
-    "Utilisation de la couleur prédéfinie pour les pages liées à "
+  Utilisation de la couleur prédéfinie pour les pages liées à
 usingPresetColourForAddonEnd: "\0"
 usingSpecifiedColour: La couleur de ce site est spécifiée dans les paramètres
 usingSpecifiedColourForAddon:
-    "Utilisation de la couleur spécifiée pour les pages liées à "
+  Utilisation de la couleur spécifiée pour les pages liées à
 usingSpecifiedColourForAddonEnd: "\0"
 usingThemeColour: Utilisation de la couleur du thème définie par le site web
 yes: Oui

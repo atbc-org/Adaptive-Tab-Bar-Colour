@@ -1,23 +1,19 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 source "$(dirname "$0")/utils.sh"
-
 cd "$(dirname "$0")/.."
+
+mkdir -p .output
 rm -rf .output/*
 
-if [ "$1" == "--clean" ]; then
+if [ "${1:-}" == "--clean" ]; then
 	echo "Zipping extension without source..."
 	run_cmd wxt zip -b firefox --no-sources
 	rm -rf .output/atbc
 	print_success "Success: Extension zip is ready."
 	exit 0
-elif [ "$1" == "--beta" ]; then
-	echo "Building beta extension..."
-	run_cmd wxt build -b firefox --mode beta
-	print_success "Success: Beta extension build is ready."
-	exit 0
-elif [ -z "$1" ]; then
+elif [ -z "${1:-}" ]; then
 	echo "Zipping extension..."
 	run_cmd wxt zip -b firefox
 
@@ -33,6 +29,7 @@ elif [ -z "$1" ]; then
 	echo "Validating sources zip..."
 
 	SOURCES_DIR=$(mktemp -d)
+	trap 'rm -rf "$SOURCES_DIR"' EXIT
 	mkdir -p "$SOURCES_DIR"
 	unzip -q "$SOURCES_ZIP" -d "$SOURCES_DIR"
 
@@ -43,24 +40,17 @@ elif [ -z "$1" ]; then
 	)
 
 	SOURCES_BUILD_DIR="$SOURCES_DIR/.output/atbc"
-	[ ! -d "$SOURCES_BUILD_DIR" ] && {
-		rm -rf "$SOURCES_DIR"
-		print_error "Error: No build output from sources at $SOURCES_BUILD_DIR"
-	}
+	if [ ! -d "$SOURCES_BUILD_DIR" ]; then
+		print_error "Error: No build output at $SOURCES_BUILD_DIR"
+	fi
 
-	set +e
-	DIFF_OUTPUT=$(diff -ur "$BUILD_DIR" "$SOURCES_BUILD_DIR")
-	DIFF_EXIT_CODE=$?
-	set -e
-	rm -rf "$SOURCES_DIR"
-
-	if [ "$DIFF_EXIT_CODE" -ne 0 ]; then
+	if ! DIFF_OUTPUT=$(diff -ur "$BUILD_DIR" "$SOURCES_BUILD_DIR"); then
 		echo "$DIFF_OUTPUT"
-		print_error "Error: Build output from sources does not match the extension build."
+		print_error "Error: Build output from sources does not match extension."
 	else
 		print_success "Success: Extension build and sources zip are ready."
 		exit 0
 	fi
 else
-	print_error "Error: Unsupported flag '$1'."
+	print_error "Error: Unsupported flag '${1:-}'."
 fi

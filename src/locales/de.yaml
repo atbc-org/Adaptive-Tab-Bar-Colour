@@ -2,97 +2,95 @@ addANewRule: Neue Regel hinzufügen
 addonNotFound: Add-on nicht gefunden
 advanced: Erweitert
 allowDarkTabBar: Dunkle Tableiste erlauben
-allowDarkTabBarTooltip: >-
-    Erlaubt der Tableiste, dunkle Farben zu verwenden (heller Text auf dunkler
-    Tableiste).
+allowDarkTabBarTooltip:
+  Erlaubt der Tableiste, dunkle Farben zu verwenden (heller Text auf dunkler
+  Tableiste).
 allowLightTabBar: Helle Tableiste erlauben
-allowLightTabBarTooltip: >-
-    Erlaubt der Tableiste, helle Farben zu verwenden (dunkler Text auf heller
-    Tableiste).
+allowLightTabBarTooltip:
+  Erlaubt der Tableiste, helle Farben zu verwenden (dunkler Text auf heller
+  Tableiste).
 anyCSSColour: Jedes Format
 background: Hintergrund
 backgroundOnFocus: Hintergrund bei Fokus
 backupAndReset: Backup und zurücksetzen
 border: Rahmen
 colourIsAdjusted:
-    Die Originalfarbe wurde angepasst, um den minimalen Kontrast zu
-    gewährleisten
+  Die Originalfarbe wurde angepasst, um den minimalen Kontrast zu gewährleisten
 compatibilityMode: Kompatibilitätsmodus
-compatibilityModeTooltip: >-
-    Die „theme-color“-Metadaten der Website ändern, anstatt die Theme-API zu
-    verwenden. Unterstützte Browser passen die Farbe ihrer Tableiste
-    entsprechend an.
+compatibilityModeTooltip:
+  Die „theme-color“-Metadaten der Website ändern, anstatt die Theme-API zu
+  verwenden. Unterstützte Browser passen die Farbe ihrer Tableiste entsprechend
+  an.
 confirmResetAll:
-    Sind Sie sicher, dass Sie alle Einstellungen zurücksetzen möchten?
+  Sind Sie sicher, dass Sie alle Einstellungen zurücksetzen möchten?
 confirmResetThemeBuilder:
-    Sind Sie sicher, dass Sie den Theme-Editor zurücksetzen möchten?
-couldNotFindElement: "Das HTML-Element, das mit "
+  Sind Sie sicher, dass Sie den Theme-Editor zurücksetzen möchten?
+couldNotFindElement: Das HTML-Element, das mit
 couldNotFindElementEnd:
-    " übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
-    Webseite gewählte Farbe verwendet"
+  übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
+  Webseite gewählte Farbe verwendet
 delete: Löschen
 deleteRule: Regel löschen
 dynamicColourUpdate: Dynamische Farbaktualisierung
-dynamicModeTooltip: >-
-    Aktualisiert die Farbe der Tableiste während des Surfens auf einer Webseite
-    ständig.
+dynamicModeTooltip:
+  Aktualisiert die Farbe der Tableiste während des Surfens auf einer Webseite
+  ständig.
 errorOccured: Ein Fehler ist aufgetreten, Fallback-Farbe wird verwendet
-errorOccuredLocatingElement: >-
-    Ein Fehler ist aufgetreten, während nach dem HTML-Element gesucht wurde, das
-    mit
+errorOccuredLocatingElement:
+  Ein Fehler ist aufgetreten, während nach dem HTML-Element gesucht wurde, das
+  mit
 errorOccuredLocatingElementEnd:
-    " übereinstimmt. Die Farbe wird stattdessen von der Webseite gewählt"
+  übereinstimmt. Die Farbe wird stattdessen von der Webseite gewählt
 exportSettings: Einstellungen exportieren
-extensionDescription: >-
-    Ändert die Farbe des Firefox-Themes, um dem Erscheinungsbild der Website zu
-    entsprechen.
+extensionDescription:
+  Ändert die Farbe des Firefox-Themes, um dem Erscheinungsbild der Website zu
+  entsprechen.
 extensionName: Anpassende Tableistenfarbe
 fallbackColourDark: "Fallback-Farbe: dunkel"
 fallbackColourLight: "Fallback-Farbe: hell"
 frame: Fensterrahmen
 homepageColourDark: "Startseitenfarbe: dunkel"
 homepageColourLight: "Startseitenfarbe: hell"
-ifVerticalTabsAreEnabled: >-
-    Wenn „vertikale Tabs“ aktiviert sind, kann ein Wert ungleich Null dazu
-    führen, dass über den Fenstersteuerungen eine Lücke entsteht, was deren
-    Erreichbarkeit erschwert.
+ifVerticalTabsAreEnabled:
+  Wenn „vertikale Tabs“ aktiviert sind, kann ein Wert ungleich Null dazu führen,
+  dass über den Fenstersteuerungen eine Lücke entsteht, was deren Erreichbarkeit
+  erschwert.
 ignore: Aus
 ignoreDesignatedThemeColour: Theme-Farbe der Website ignorieren
-ignoreDesignatedThemeColourTooltip: >-
-    Einige Websites geben selbst eine Theme-Farbe an. Aktivieren Sie diese
-    Option, um diese Farben zu ignorieren.
+ignoreDesignatedThemeColourTooltip:
+  Einige Websites geben selbst eine Theme-Farbe an. Aktivieren Sie diese Option,
+  um diese Farben zu ignorieren.
 importFailed:
-    Einstellungen konnten nicht importiert werden. Bitte versuchen Sie es
-    erneut.
+  Einstellungen konnten nicht importiert werden. Bitte versuchen Sie es erneut.
 importSettings: Einstellungen importieren
 inDarkMode: Im dunklen Modus
 inLightMode: Im hellen Modus
 loading: Laden…
 minimumContrast: Minimaler Kontrast
-minimumContrastTooltip: >-
-    Stellt den minimalen Kontrast zwischen Tableiste und ihrem Text ein. Die
-    Farbe der Tableiste wird automatisch angepasst, wenn der Kontrast nicht
-    erreicht wird.
+minimumContrastTooltip:
+  Stellt den minimalen Kontrast zwischen Tableiste und ihrem Text ein. Die Farbe
+  der Tableiste wird automatisch angepasst, wenn der Kontrast nicht erreicht
+  wird.
 moreSettings: Weitere Einstellungen
 moreSettingsTooltip: Optionenseite öffnen
 no: Nein
 novaUi: Nova UI-Farben verwenden
 novaUiTooltip: Aktivieren, wenn Firefox die Nova-Benutzeroberfläche verwendet.
 overwriteAccentColour: Akzentfarbe überschreiben
-overwriteAccentColourTooltip: >-
-    Für die URL-Leiste und die Werkzeugleisten-Buttons eine benutzerdefinierte
-    Akzentfarbe anstelle Ihrer Systemfarbe verwenden.
+overwriteAccentColourTooltip:
+  Für die URL-Leiste und die Werkzeugleisten-Buttons eine benutzerdefinierte
+  Akzentfarbe anstelle Ihrer Systemfarbe verwenden.
 pageIsProtected: Diese Seite wird vom Browser geschützt
 pickColourFromElement: Farbe aus Element
 popUp: Pop-up
 querySelector: Query-Selector
 reportAnIssue:
-    Ein Problem melden / einen Vorschlag einreichen / dieses Add-on übersetzen
+  Ein Problem melden / einen Vorschlag einreichen / dieses Add-on übersetzen
 reset: Zurücksetzen
 resetAll: Alles zurücksetzen
 resetAllSettings: Alle Einstellungen zurücksetzen
 ruleAppliedInBothMode:
-    Die Regel wird sowohl im Hell- als auch im Dunkelmodus angewendet
+  Die Regel wird sowohl im Hell- als auch im Dunkelmodus angewendet
 ruleAppliedInDarkMode: Die Regel wird nur im Dunkelmodus angewendet
 ruleAppliedInLightMode: Die Regel wird nur im Lichtmodus angewendet
 ruleList: Regelliste
@@ -106,11 +104,11 @@ system: System
 tabBar: Tableiste
 themeBuilder: Theme-Editor
 themeColourIsIgnored: Die von der Website definierte Theme-Farbe wird ignoriert
-themeColourIsUnignored: >-
-    Die von der Website definierte Theme-Farbe wird verwendet, anstatt
-    standardmäßig ignoriert zu werden
+themeColourIsUnignored:
+  Die von der Website definierte Theme-Farbe wird verwendet, anstatt
+  standardmäßig ignoriert zu werden
 themeColourNotFound:
-    Theme-Farbe wurde nicht gefunden, Farbe wird von der Webseite gewählt
+  Theme-Farbe wurde nicht gefunden, Farbe wird von der Webseite gewählt
 toolbar: Werkzeugleiste
 urlBar: URL-Leiste
 urlDomainOrRegex: URL/Regex/Wildcard/Domain
@@ -121,18 +119,18 @@ usingColourForJSONViewer: Farbe für JSON-Viewer wird verwendet
 usingColourForPDFViewer: Farbe für PDF-Viewer wird verwendet
 usingColourForPlainTextViewer: Farbe für Plain-Text-Viewer wird verwendet
 usingColourFromElement:
-    "Die Farbe wird von einem HTML-Element ausgewählt, das mit "
-usingColourFromElementEnd: " übereinstimmt"
+  Die Farbe wird von einem HTML-Element ausgewählt, das mit
+usingColourFromElementEnd: übereinstimmt
 usingColourFromWebpage: Farbe erfolgreich von der Webseite gewählt
-usingDefaultColourForAddon: "Standardfarbe für Seiten, die zu "
-usingDefaultColourForAddonEnd: " gehören, wird verwendet"
+usingDefaultColourForAddon: Standardfarbe für Seiten, die zu
+usingDefaultColourForAddonEnd: gehören, wird verwendet
 usingFallbackColour: Keine Farbe verfügbar, Fallback-Farbe wird verwendet
 usingImageViewer: Farbe für Bild-Viewer wird verwendet
-usingPresetColourForAddon: "Voreingestellte Farbe für Seiten in Verbindung mit "
+usingPresetColourForAddon: Voreingestellte Farbe für Seiten in Verbindung mit
 usingPresetColourForAddonEnd: wird verwendet
 usingSpecifiedColour:
-    Die Farbe für diese Seite ist in den Einstellungen angegeben
-usingSpecifiedColourForAddon: "Spezifizierte Farbe für Seiten, die zu "
-usingSpecifiedColourForAddonEnd: " gehören, wird verwendet"
+  Die Farbe für diese Seite ist in den Einstellungen angegeben
+usingSpecifiedColourForAddon: Spezifizierte Farbe für Seiten, die zu
+usingSpecifiedColourForAddonEnd: gehören, wird verwendet
 usingThemeColour: Die von der Website definierte Theme-Farbe wird verwendet
 yes: Ja
