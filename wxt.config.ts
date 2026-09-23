@@ -103,7 +103,7 @@ export default defineConfig({
 			"CONTRIBUTING.md",
 			"README.md",
 			"prettier.config.ts",
-			"vitest.config.ts"
+			"vitest.config.ts",
 		],
 	},
 });
