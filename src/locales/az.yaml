@@ -23,6 +23,7 @@ confirmResetAll: Bütün parametrləri sıfırlamaq istədiyinizə əminsiniz?
 confirmResetThemeBuilder: Tema qurucusunu sıfırlamaq istədiyinizə əminsiniz?
 couldNotFindElement: "Uyğun gələn HTML elementi tapılmadı:"
 couldNotFindElementEnd: ", əvəzinə rəng veb səhifədən seçildi"
+currentPage: Cari səhifə
 delete: Sil
 deleteRule: Qaydanı sil
 dynamicColourUpdate: Dinamik rəng yeniləməsi

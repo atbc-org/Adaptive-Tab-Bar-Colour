@@ -26,6 +26,7 @@ confirmResetThemeBuilder:
 couldNotFindElement: Eşleşen HTML ögesi bulunamadı
 couldNotFindElementEnd:
   ", bunun yerine web sayfasından seçilen renk kullanılıyor"
+currentPage: Geçerli sayfa
 delete: Sil
 deleteRule: Kuralı sil
 dynamicColourUpdate: Dinamik renk güncellemesi

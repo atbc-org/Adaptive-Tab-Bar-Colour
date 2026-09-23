@@ -53,6 +53,7 @@ export default defineConfig({
 		name: "__MSG_extensionName__",
 		options_ui: { open_in_tab: false },
 		permissions: [
+			"activeTab",
 			"tabs",
 			"theme",
 			"storage",

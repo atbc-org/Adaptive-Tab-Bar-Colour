@@ -19,6 +19,7 @@ confirmResetAll: 是否确定重置所有设置？
 confirmResetThemeBuilder: 是否确定重置背景主题？
 couldNotFindElement: 找不到符合
 couldNotFindElementEnd: 的网页元素，改为使用从网页中提取的颜色
+currentPage: 当前网页
 delete: 删除
 deleteRule: 删除规则
 dynamicColourUpdate: 动态更新颜色

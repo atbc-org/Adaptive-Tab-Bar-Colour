@@ -25,6 +25,7 @@ confirmResetAll: Вы уверены, что хотите сбросить вс�
 confirmResetThemeBuilder: Вы уверены, что хотите сбросить конструктор темы?
 couldNotFindElement: Не удалось найти HTML-элемент, соответствующий
 couldNotFindElementEnd: ", цвет выбран со страницы вместо него"
+currentPage: Текущая страница
 delete: Удалить
 deleteRule: Удалить правило
 dynamicColourUpdate: Динамическое обновление цвета

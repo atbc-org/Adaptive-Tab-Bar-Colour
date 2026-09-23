@@ -23,6 +23,7 @@ confirmResetAll: Tem certeza de que deseja redefinir todas as configurações?
 confirmResetThemeBuilder: Você realmente deseja redefinir o criador de temas?
 couldNotFindElement: Não foi possível encontrar o elemento HTML que coincide com
 couldNotFindElementEnd: ", usando a cor extraída da página web em vez disso"
+currentPage: Página atual
 delete: Apagar
 deleteRule: Apagar regra
 dynamicColourUpdate: Atualização dinâmica de cor

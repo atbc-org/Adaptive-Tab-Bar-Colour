@@ -22,6 +22,7 @@ confirmResetAll: Are you sure you want to reset all settings?
 confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
 couldNotFindElement: Could not find the HTML element matching
 couldNotFindElementEnd: ", using color picked from the web page instead"
+currentPage: Current page
 delete: Delete
 deleteRule: Delete rule
 dynamicColourUpdate: Dynamic color update

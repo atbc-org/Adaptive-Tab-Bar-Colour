@@ -28,6 +28,7 @@ confirmResetThemeBuilder:
 couldNotFindElement: No se pudo encontrar el elemento HTML que coincide con
 couldNotFindElementEnd:
   ", utilizando en su lugar el color extraído de la página web"
+currentPage: Página actual
 delete: Eliminar
 deleteRule: Eliminar regla
 dynamicColourUpdate: Actualización dinámica de color

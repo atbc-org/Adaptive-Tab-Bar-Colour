@@ -29,6 +29,7 @@ couldNotFindElement: Das HTML-Element, das mit
 couldNotFindElementEnd:
   übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
   Webseite gewählte Farbe verwendet
+currentPage: Aktuelle Seite
 delete: Löschen
 deleteRule: Regel löschen
 dynamicColourUpdate: Dynamische Farbaktualisierung

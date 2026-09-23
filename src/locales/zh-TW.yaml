@@ -19,6 +19,7 @@ confirmResetAll: 是否確定重設所有設定？
 confirmResetThemeBuilder: 是否確定重設佈景主題設定？
 couldNotFindElement: 未能找到符合
 couldNotFindElementEnd: 的網頁元件，改為使用從網頁中提取的顏色
+currentPage: 目前網頁
 delete: 刪除
 deleteRule: 刪除規則
 dynamicColourUpdate: 動態更新顏色

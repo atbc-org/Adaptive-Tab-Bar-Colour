@@ -227,3 +227,8 @@ export function removeMessageListener(
 export function clamp(min: number, num: number, max: number): number {
 	return Math.max(min, Math.min(max, num));
 }
+
+/** Captures a snapshot of the active tab. */
+export async function captureActiveTabSnapshot(): Promise<string | null> {
+	return (await browser.tabs?.captureVisibleTab({ format: "png" })) ?? null;
+}
