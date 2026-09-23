@@ -54,11 +54,11 @@ export default defineConfig({
 		options_ui: { open_in_tab: false },
 		permissions: [
 			"activeTab",
-			"tabs",
-			"theme",
-			"storage",
 			"browserSettings",
 			"management",
+			"storage",
+			"tabs",
+			"theme",
 		],
 	},
 	manifestVersion: 3,
@@ -97,12 +97,13 @@ export default defineConfig({
 		artifactTemplate: "atbc.zip",
 		sourcesTemplate: "atbc-sources.zip",
 		excludeSources: [
-			"tests/**",
-			"scripts/**",
 			"amo/**",
-			"prettier.config.ts",
-			"README.md",
+			"scripts/**",
+			"tests/**",
 			"CONTRIBUTING.md",
+			"README.md",
+			"prettier.config.ts",
+			"vitest.config.ts"
 		],
 	},
 });
