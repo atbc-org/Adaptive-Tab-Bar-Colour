@@ -228,7 +228,7 @@ export function clamp(min: number, num: number, max: number): number {
 	return Math.max(min, Math.min(max, num));
 }
 
-/** Captures a snapshot of the active tab. */
-export async function captureActiveTabSnapshot(): Promise<string | null> {
+/** Captures an image of the active tab. */
+export async function captureActiveTabPage(): Promise<string | null> {
 	return (await browser.tabs?.captureVisibleTab({ format: "png" })) ?? null;
 }
