@@ -1,3 +1,4 @@
+accessibility: Специальные возможности
 addANewRule: Добавить новое правило
 addonNotFound: Дополнение не найдено
 advanced: Дополнительно
@@ -14,8 +15,10 @@ background: Фон
 backgroundOnFocus: Фон при фокусе
 backupAndReset: Резервное копирование и сброс
 border: Граница
+browserIntegration: Интеграция с браузером
 colourIsAdjusted:
   Исходный цвет скорректирован для обеспечения минимального контраста
+colourSelection: Выбор цвета
 compatibilityMode: Режим совместимости
 compatibilityModeTooltip:
   Изменить метаданные «theme-color» на веб-сайте вместо использования API темы.
@@ -26,6 +29,7 @@ confirmResetThemeBuilder: Вы уверены, что хотите сброси�
 couldNotFindElement: Не удалось найти HTML-элемент, соответствующий
 couldNotFindElementEnd: ", цвет выбран со страницы вместо него"
 currentPage: Текущая страница
+customColours: Пользовательские цвета
 delete: Удалить
 deleteRule: Удалить правило
 dynamicColourUpdate: Динамическое обновление цвета
@@ -39,11 +43,11 @@ exportSettings: Экспорт настроек
 extensionDescription:
   Меняет цвет темы Firefox в соответствии с внешним видом сайта.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Резервный цвет: тёмный"
-fallbackColourLight: "Резервный цвет: светлый"
+fallbackColour: Резервный цвет
+fallbackColourTooltip: Используется, когда невозможно определить цвет страницы.
 frame: Рамка
-homepageColourDark: "Цвет домашней страницы: тёмный"
-homepageColourLight: "Цвет домашней страницы: светлый"
+homepageColour: Цвет домашней страницы
+homepageColourTooltip: Используется для домашней страницы и новых вкладок.
 ifVerticalTabsAreEnabled:
   Если включены «вертикальные вкладки», любое ненулевое значение может привести
   к появлению зазора над элементами управления окном, что затрудняет доступ к

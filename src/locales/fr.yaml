@@ -1,3 +1,4 @@
+accessibility: Accessibilité
 addANewRule: Ajouter une nouvelle règle
 addonNotFound: Extension non trouvée
 advanced: Avancé
@@ -14,8 +15,10 @@ background: Arrière-plan
 backgroundOnFocus: Arrière-plan au focus
 backupAndReset: Sauvegarde et réinitialisation
 border: Bordure
+browserIntegration: Intégration au navigateur
 colourIsAdjusted:
   La couleur d'origine a été ajustée pour garantir un minimum de contraste
+colourSelection: Sélection des couleurs
 compatibilityMode: Mode de compatibilité
 compatibilityModeTooltip:
   Modifier les métadonnées « theme-color » du site Web au lieu d'utiliser l'API
@@ -28,6 +31,7 @@ couldNotFindElement: N'a pas pu trouver l'élément HTML correspondant
 couldNotFindElementEnd:
   ", utilisation de la couleur extraite de la page web à la place"
 currentPage: Page actuelle
+customColours: Couleurs personnalisées
 delete: Supprimer
 deleteRule: Supprimer la règle
 dynamicColourUpdate: Mise à jour dynamique des couleurs
@@ -44,11 +48,12 @@ extensionDescription:
   Change la couleur du thème de Firefox pour correspondre à l'apparence de
   sites.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Couleur de repli : sombre"
-fallbackColourLight: "Couleur de repli : claire"
+fallbackColour: Couleur de repli
+fallbackColourTooltip:
+  Utilisée lorsque la couleur d’une page ne peut pas être déterminée.
 frame: Cadre
-homepageColourDark: "Couleur de la page d'accueil : sombre"
-homepageColourLight: "Couleur de la page d'accueil : claire"
+homepageColour: Couleur de la page d'accueil
+homepageColourTooltip: Utilisée pour la page d’accueil et les nouveaux onglets.
 ifVerticalTabsAreEnabled:
   Si les « onglets verticaux » sont activés, toute valeur non nulle peut
   entraîner l'apparition d'un espace au-dessus des commandes de la fenêtre, les

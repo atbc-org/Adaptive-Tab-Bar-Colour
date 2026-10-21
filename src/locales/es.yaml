@@ -1,3 +1,4 @@
+accessibility: Accesibilidad
 addANewRule: Agregar una nueva regla
 addonNotFound: Extensión no encontrada
 advanced: Avanzado
@@ -14,8 +15,10 @@ background: Fondo
 backgroundOnFocus: Fondo en foco
 backupAndReset: Copia de seguridad y reinicio
 border: Borde
+browserIntegration: Integración con el navegador
 colourIsAdjusted:
   El color original ha sido ajustado para asegurar un contraste mínimo
+colourSelection: Selección de color
 compatibilityMode: Modo de compatibilidad
 compatibilityModeTooltip:
   Cambiar los metadatos “theme-color” del sitio web en lugar de utilizar la API
@@ -29,6 +32,7 @@ couldNotFindElement: No se pudo encontrar el elemento HTML que coincide con
 couldNotFindElementEnd:
   ", utilizando en su lugar el color extraído de la página web"
 currentPage: Página actual
+customColours: Colores personalizados
 delete: Eliminar
 deleteRule: Eliminar regla
 dynamicColourUpdate: Actualización dinámica de color
@@ -45,11 +49,12 @@ extensionDescription:
   Cambia el color del tema de Firefox para que coincida con la apariencia del
   sitio web.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Color de respaldo: oscuro"
-fallbackColourLight: "Color de respaldo: claro"
+fallbackColour: Color de respaldo
+fallbackColourTooltip:
+  Se usa cuando no se puede determinar el color de una página.
 frame: Marco
-homepageColourDark: "Color de la página de inicio: oscuro"
-homepageColourLight: "Color de la página de inicio: claro"
+homepageColour: Color de la página de inicio
+homepageColourTooltip: Se usa para la página de inicio y las pestañas nuevas.
 ifVerticalTabsAreEnabled:
   Si las “pestañas verticales” están habilitadas, cualquier valor distinto de
   cero puede causar que aparezca un espacio sobre los controles de la ventana,

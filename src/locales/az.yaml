@@ -1,3 +1,4 @@
+accessibility: Əlçatanlıq
 addANewRule: Yeni qayda əlavə et
 addonNotFound: Əlavə tapılmadı
 advanced: Qabaqcıl
@@ -14,7 +15,9 @@ background: Fon
 backgroundOnFocus: Fokusda fon
 backupAndReset: Ehtiyat nüsxə və sıfırlama
 border: Haşiyə
+browserIntegration: Brauzer inteqrasiyası
 colourIsAdjusted: Minimum kontrastı təmin etmək üçün ilkin rəng tənzimlənib
+colourSelection: Rəng seçimi
 compatibilityMode: Uyğunluq rejimi
 compatibilityModeTooltip:
   Tema API-si əvəzinə veb saytın “theme-color” metaməlumatı dəyişdirilir.
@@ -24,6 +27,7 @@ confirmResetThemeBuilder: Tema qurucusunu sıfırlamaq istədiyinizə əminsiniz
 couldNotFindElement: "Uyğun gələn HTML elementi tapılmadı:"
 couldNotFindElementEnd: ", əvəzinə rəng veb səhifədən seçildi"
 currentPage: Cari səhifə
+customColours: Fərdi rənglər
 delete: Sil
 deleteRule: Qaydanı sil
 dynamicColourUpdate: Dinamik rəng yeniləməsi
@@ -37,11 +41,12 @@ exportSettings: Parametrləri ixrac et
 extensionDescription:
   Firefox temasının rəngini veb saytın görünüşünə uyğunlaşdırır.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Ehtiyat rəng: tünd"
-fallbackColourLight: "Ehtiyat rəng: açıq"
+fallbackColour: Ehtiyat rəng
+fallbackColourTooltip:
+  Səhifənin rəngini müəyyən etmək mümkün olmadıqda istifadə olunur.
 frame: Çərçivə
-homepageColourDark: "Əsas səhifə rəngi: tünd"
-homepageColourLight: "Əsas səhifə rəngi: açıq"
+homepageColour: Əsas səhifə rəngi
+homepageColourTooltip: Əsas səhifə və yeni vərəqlər üçün istifadə olunur.
 ifVerticalTabsAreEnabled:
   “Şaquli tablar” aktivdirsə, sıfırdan fərqli istənilən dəyər pəncərə idarəetmə
   düymələrinin üstündə boşluq yarada və onlara çatmağı çətinləşdirə bilər.

@@ -1,3 +1,4 @@
+accessibility: 無障礙
 addANewRule: 新增自訂規則
 addonNotFound: 未找到該擴充套件
 advanced: 進階設定
@@ -10,7 +11,9 @@ background: 背景
 backgroundOnFocus: 聚焦時的背景
 backupAndReset: 備份和重設
 border: 邊界
+browserIntegration: 瀏覽器整合
 colourIsAdjusted: 為達到最小對比度，原顏色已被調整
+colourSelection: 顏色選取
 compatibilityMode: 相容模式
 compatibilityModeTooltip:
   更改網頁的「theme-color」元資料，而非使用 Theme
@@ -20,6 +23,7 @@ confirmResetThemeBuilder: 是否確定重設佈景主題設定？
 couldNotFindElement: 未能找到符合
 couldNotFindElementEnd: 的網頁元件，改為使用從網頁中提取的顏色
 currentPage: 目前網頁
+customColours: 自訂顏色
 delete: 刪除
 deleteRule: 刪除規則
 dynamicColourUpdate: 動態更新顏色
@@ -30,11 +34,11 @@ errorOccuredLocatingElementEnd: 的網頁元件時發生錯誤，標題列顏色
 exportSettings: 儲存偏好設定
 extensionDescription: 改變 Firefox 佈景主題色彩，使之與網頁融為一體。
 extensionName: 變色標題列
-fallbackColourDark: 備選顏色（暗色）
-fallbackColourLight: 備選顏色（亮色）
+fallbackColour: 備選顏色
+fallbackColourTooltip: 無法判定頁面顏色時使用。
 frame: 視窗背景
-homepageColourDark: 首頁背景色（暗色）
-homepageColourLight: 首頁背景色（亮色）
+homepageColour: 首頁背景色
+homepageColourTooltip: 用於首頁和新分頁。
 ifVerticalTabsAreEnabled: 如果啟用了「垂直分頁」，任何非零值都可能導致視窗控制按鈕上方出現間隙，使其難以觸及。
 ignore: 忽略
 ignoreDesignatedThemeColour: 總是忽略網站指定的主題色

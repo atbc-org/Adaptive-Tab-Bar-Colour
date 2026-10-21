@@ -5,6 +5,7 @@ export default function App() {
 	const [ready, setReady] = useState(false);
 
 	useEffect(() => {
+		document.documentElement.lang = browser.i18n.getUILanguage();
 		pref.initialise().then(() => {
 			setReady(true);
 		});

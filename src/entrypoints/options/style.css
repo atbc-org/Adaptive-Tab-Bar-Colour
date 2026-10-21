@@ -172,7 +172,8 @@ p {
 	color: var(--text-secondary);
 	font: inherit;
 	hyphens: auto;
-	word-break: break-word;
+	text-wrap: pretty;
+	word-break: normal;
 	overflow-wrap: break-word;
 }
 

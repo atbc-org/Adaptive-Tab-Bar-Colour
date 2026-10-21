@@ -1,3 +1,4 @@
+accessibility: Erişilebilirlik
 addANewRule: Yeni kural ekle
 addonNotFound: Eklenti bulunamadı
 advanced: Gelişmiş
@@ -14,7 +15,9 @@ background: Arka plan
 backgroundOnFocus: Odaklıyken arka plan
 backupAndReset: Yedekleme ve sıfırlama
 border: Kenar
+browserIntegration: Tarayıcı entegrasyonu
 colourIsAdjusted: Orijinal renk, asgari karşıtlıktan emin olmak için düzeltildi
+colourSelection: Renk seçimi
 compatibilityMode: Uyumluluk modu
 compatibilityModeTooltip:
   Tema API'sini kullanmak yerine web sitesinin “theme-color” metadata'sını
@@ -27,6 +30,7 @@ couldNotFindElement: Eşleşen HTML ögesi bulunamadı
 couldNotFindElementEnd:
   ", bunun yerine web sayfasından seçilen renk kullanılıyor"
 currentPage: Geçerli sayfa
+customColours: Özel renkler
 delete: Sil
 deleteRule: Kuralı sil
 dynamicColourUpdate: Dinamik renk güncellemesi
@@ -41,11 +45,11 @@ exportSettings: Ayarları dışarı aktar
 extensionDescription:
   Firefox tema rengini web sitesinin görünümüyle eşlemek için değiştirir.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Yedek renk: koyu"
-fallbackColourLight: "Yedek renk: açık"
+fallbackColour: Yedek renk
+fallbackColourTooltip: Bir sayfanın rengi belirlenemediğinde kullanılır.
 frame: Çerçeve
-homepageColourDark: "Giriş sayfası rengi: koyu"
-homepageColourLight: "Giriş sayfası rengi: açık"
+homepageColour: Giriş sayfası rengi
+homepageColourTooltip: Giriş sayfası ve yeni sekmeler için kullanılır.
 ifVerticalTabsAreEnabled:
   “Dikey sekmeler” devredeyse, sıfır olmayan herhangi bir değer pencere
   denetimlerinin üstünde bir boşluk belirip bu denetimlere ulaşmanın

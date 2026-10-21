@@ -1,3 +1,4 @@
+accessibility: Barrierefreiheit
 addANewRule: Neue Regel hinzufügen
 addonNotFound: Add-on nicht gefunden
 advanced: Erweitert
@@ -14,8 +15,10 @@ background: Hintergrund
 backgroundOnFocus: Hintergrund bei Fokus
 backupAndReset: Backup und zurücksetzen
 border: Rahmen
+browserIntegration: Browser-Integration
 colourIsAdjusted:
   Die Originalfarbe wurde angepasst, um den minimalen Kontrast zu gewährleisten
+colourSelection: Farbauswahl
 compatibilityMode: Kompatibilitätsmodus
 compatibilityModeTooltip:
   Die „theme-color“-Metadaten der Website ändern, anstatt die Theme-API zu
@@ -30,6 +33,7 @@ couldNotFindElementEnd:
   übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
   Webseite gewählte Farbe verwendet
 currentPage: Aktuelle Seite
+customColours: Benutzerdefinierte Farben
 delete: Löschen
 deleteRule: Regel löschen
 dynamicColourUpdate: Dynamische Farbaktualisierung
@@ -47,11 +51,12 @@ extensionDescription:
   Ändert die Farbe des Firefox-Themes, um dem Erscheinungsbild der Website zu
   entsprechen.
 extensionName: Anpassende Tableistenfarbe
-fallbackColourDark: "Fallback-Farbe: dunkel"
-fallbackColourLight: "Fallback-Farbe: hell"
+fallbackColour: Fallback-Farbe
+fallbackColourTooltip:
+  Wird verwendet, wenn die Farbe einer Seite nicht ermittelt werden kann.
 frame: Fensterrahmen
-homepageColourDark: "Startseitenfarbe: dunkel"
-homepageColourLight: "Startseitenfarbe: hell"
+homepageColour: Startseitenfarbe
+homepageColourTooltip: Wird für die Startseite und neue Tabs verwendet.
 ifVerticalTabsAreEnabled:
   Wenn „vertikale Tabs“ aktiviert sind, kann ein Wert ungleich Null dazu führen,
   dass über den Fenstersteuerungen eine Lücke entsteht, was deren Erreichbarkeit

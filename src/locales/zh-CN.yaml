@@ -1,3 +1,4 @@
+accessibility: 无障碍
 addANewRule: 新建自定义规则
 addonNotFound: 未找到该插件
 advanced: 高级设置
@@ -10,7 +11,9 @@ background: 背景
 backgroundOnFocus: 被选中时的背景
 backupAndReset: 备份和重置
 border: 边界
+browserIntegration: 浏览器集成
 colourIsAdjusted: 为达到最小对比度设置，原颜色已被调整
+colourSelection: 颜色选取
 compatibilityMode: 兼容模式
 compatibilityModeTooltip:
   更改网页的「theme-color」元数据，而非使用 Theme
@@ -20,6 +23,7 @@ confirmResetThemeBuilder: 是否确定重置背景主题？
 couldNotFindElement: 找不到符合
 couldNotFindElementEnd: 的网页元素，改为使用从网页中提取的颜色
 currentPage: 当前网页
+customColours: 自定义颜色
 delete: 删除
 deleteRule: 删除规则
 dynamicColourUpdate: 动态更新颜色
@@ -30,11 +34,11 @@ errorOccuredLocatingElementEnd: 的网页元素时发生错误，标签栏的颜
 exportSettings: 保存偏好设置至文件
 extensionDescription: 改变 Firefox 背景主题，使其与网页融为一体。
 extensionName: 变色标签栏
-fallbackColourDark: 备选颜色（暗色）
-fallbackColourLight: 备选颜色（亮色）
+fallbackColour: 备选颜色
+fallbackColourTooltip: 无法确定页面颜色时使用。
 frame: 窗口背景
-homepageColourDark: 首页背景色（暗色）
-homepageColourLight: 首页背景色（亮色）
+homepageColour: 首页背景色
+homepageColourTooltip: 用于首页和新标签页。
 ifVerticalTabsAreEnabled: 如果启用了「垂直标签页」，任何非零值都可能导致窗口控制按钮上方出现间隙，使其难以触及。
 ignore: 忽略
 ignoreDesignatedThemeColour: 总是忽略网站指定的主题色

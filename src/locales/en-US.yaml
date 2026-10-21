@@ -1,3 +1,4 @@
+accessibility: Accessibility
 addANewRule: Add a new rule
 addonNotFound: Add-on not found
 advanced: Advanced
@@ -12,8 +13,10 @@ background: Background
 backgroundOnFocus: Background on focus
 backupAndReset: Backup and reset
 border: Border
+browserIntegration: Browser integration
 colourIsAdjusted:
   The original color has been adjusted to ensure minimum contrast
+colourSelection: Color selection
 compatibilityMode: Compatibility mode
 compatibilityModeTooltip:
   Change the website’s “theme-color” metadata instead of using the theme API.
@@ -23,6 +26,7 @@ confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
 couldNotFindElement: Could not find the HTML element matching
 couldNotFindElementEnd: ", using color picked from the web page instead"
 currentPage: Current page
+customColours: Custom colors
 delete: Delete
 deleteRule: Delete rule
 dynamicColourUpdate: Dynamic color update
@@ -36,11 +40,11 @@ exportSettings: Export settings
 extensionDescription:
   Changes the color of Firefox theme to match the website’s appearance.
 extensionName: Adaptive Tab Bar Color
-fallbackColourDark: "Fallback color: dark"
-fallbackColourLight: "Fallback color: light"
+fallbackColour: Fallback color
+fallbackColourTooltip: Used when a page’s color cannot be determined.
 frame: Frame
-homepageColourDark: "Home page color: dark"
-homepageColourLight: "Home page color: light"
+homepageColour: Home page color
+homepageColourTooltip: Used for the home page and new tabs.
 ifVerticalTabsAreEnabled:
   If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
   above the window controls, making them harder to reach.

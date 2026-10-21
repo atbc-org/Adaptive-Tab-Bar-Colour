@@ -1,69 +1,55 @@
 main.advanced-tab {
+	--description-gap: var(--unit-8);
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	align-items: start;
 	gap: var(--unit-16);
 
 	@media screen and (max-width: 550px) {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.column {
 		display: flex;
 		flex-direction: column;
 		gap: var(--unit-16);
+		min-width: 0;
 	}
 
 	.card-section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: var(--unit-8);
 		box-shadow: var(--shadow-small), var(--shadow-large);
 		border-radius: var(--unit-16);
 		background-color: var(--panel);
-		padding: var(--unit-16);
+		min-width: 0;
+
+		& > h2 {
+			justify-content: start;
+			padding: var(--unit-16);
+			font-size: 110%;
+		}
 	}
 
-	.list-section {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		box-shadow: var(--shadow-small), var(--shadow-large);
-		border-radius: var(--unit-16);
+	.card-content,
+	.setting-group {
+		margin: 0;
+		border: 0;
+		padding: 0;
+		min-width: 0;
+	}
 
-		& > div {
-			display: grid;
-			grid-template-columns: subgrid;
-			grid-column: 1 / -1;
-			gap: var(--unit-8);
-			background-color: var(--panel);
-			padding: var(--unit-8);
-			white-space: nowrap;
+	.setting-group {
+		display: flex;
+		flex-direction: column;
+		gap: var(--unit-12);
+		border-block-start: var(--unit) solid var(--panel-active);
+		padding: var(--unit-16);
 
-			&:first-of-type {
-				border-start-start-radius: inherit;
-				border-start-end-radius: inherit;
-			}
+		& > h3 {
+			justify-content: start;
+		}
 
-			&:last-of-type {
-				border-end-start-radius: inherit;
-				border-end-end-radius: inherit;
-			}
-
-			&:nth-of-type(even) {
-				background-color: var(--panel-alt);
-			}
-
-			& > :first-child {
-				display: block;
-				align-self: center;
-				padding-inline-start: var(--unit-8);
-				min-width: 0;
-				overflow: hidden;
-				font-weight: inherit;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-			}
+		& > p {
+			margin-block-start: calc(var(--description-gap) - var(--unit-12));
 		}
 	}
 
@@ -71,20 +57,24 @@ main.advanced-tab {
 		display: flex;
 		flex-direction: column;
 		gap: var(--unit-8);
-		margin-block-start: var(--unit-8);
 		width: 100%;
 	}
 
 	.colour-wrapper {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: var(--unit-8);
-		margin-block-start: var(--unit-8);
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--unit-12);
 
 		& > div {
 			display: flex;
 			flex-direction: column;
 			gap: var(--unit-8);
+			min-width: 0;
+		}
+
+		h4 {
+			flex-wrap: wrap;
+			align-items: center;
 		}
 
 		.reset-button {
@@ -92,7 +82,7 @@ main.advanced-tab {
 			transition-property: color, transform;
 			transition-timing-function: ease;
 			background-color: transparent;
-			padding: 0;
+			padding: var(--unit-4);
 			color: inherit;
 
 			&:hover {
@@ -108,26 +98,59 @@ main.advanced-tab {
 	}
 
 	.switch-wrapper {
-		display: flex;
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
-		gap: var(--unit-16);
+		gap: var(--description-gap) var(--unit-16);
 		width: 100%;
 
+		& > button {
+			grid-row: 1;
+			grid-column: 2;
+		}
+
 		& > div:last-child {
-			display: flex;
-			flex: 1;
-			flex-direction: column;
-			align-items: center;
-			gap: var(--unit-8);
+			display: contents;
+
+			h3 {
+				grid-row: 1;
+				grid-column: 1;
+				justify-content: start;
+				min-width: 0;
+				text-wrap: pretty;
+			}
+
+			p {
+				grid-row: 2;
+				grid-column: 1 / -1;
+			}
 		}
 	}
 
 	.text-button {
 		justify-content: start;
+		gap: var(--unit-8);
 		box-sizing: border-box;
-		padding-inline: var(--unit-8);
+		padding: var(--unit-8);
 		width: 100%;
 		min-height: var(--unit-32);
+		text-align: start;
+	}
+
+	button:focus-visible {
+		outline: var(--unit-2) solid var(--accent);
+		outline-offset: var(--unit-2);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.colour-wrapper .reset-button {
+			transition: none;
+
+			&,
+			&:hover,
+			&:active {
+				transform: none;
+			}
+		}
 	}
 }

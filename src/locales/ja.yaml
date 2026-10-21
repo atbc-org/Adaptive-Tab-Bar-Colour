@@ -1,3 +1,4 @@
+accessibility: アクセシビリティ
 addANewRule: 新しいルールを追加する
 addonNotFound: アドオンが見つかりません
 advanced: 詳細設定
@@ -10,7 +11,9 @@ background: 背景
 backgroundOnFocus: フォーカス時の背景
 backupAndReset: バックアップとリセット
 border: 枠線
+browserIntegration: ブラウザーとの連携
 colourIsAdjusted: 元の色は最小コントラストを確保するために調整されました
+colourSelection: 色の選択
 compatibilityMode: 互換モード
 compatibilityModeTooltip:
   ウェブサイトの「theme-color」メタデータを変更し、テーマ API
@@ -20,6 +23,7 @@ confirmResetThemeBuilder: テーマビルダーをリセットしてもよろし
 couldNotFindElement: 一致する HTML 要素
 couldNotFindElementEnd: が見つかりませんでした。代わりにウェブページから取得した色を使用します
 currentPage: 現在のページ
+customColours: カスタムカラー
 delete: 削除
 deleteRule: ルールを削除
 dynamicColourUpdate: 動的な色の更新
@@ -31,11 +35,11 @@ exportSettings: 設定をエクスポート
 extensionDescription:
   Firefox のテーマの色をウェブサイトの外観に合わせて変更します。
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: フォールバック色：ダーク
-fallbackColourLight: フォールバック色：ライト
+fallbackColour: フォールバック色
+fallbackColourTooltip: ページの色を判定できない場合に使用します。
 frame: フレーム
-homepageColourDark: ホームページの色：ダーク
-homepageColourLight: ホームページの色：ライト
+homepageColour: ホームページの色
+homepageColourTooltip: ホームページと新しいタブに使用します。
 ifVerticalTabsAreEnabled: 「垂直タブ」が有効な場合、０以外の値を設定するとウィンドウコントロール上部に隙間ができ、操作しづらくなることがあります。
 ignore: 無視
 ignoreDesignatedThemeColour: ウェブサイトのテーマカラーを無視
