@@ -30,6 +30,21 @@ export default defineConfig({
 			}
 		},
 	},
+	imports: {
+		dirs: ["entrypoints/options/tabs", "entrypoints/popup/widgets"],
+		presets: [
+			{
+				from: "react",
+				imports: [
+					"useSyncExternalStore",
+					{ name: "CSSProperties", type: true },
+					{ name: "ReactNode", type: true },
+				],
+			},
+			{ from: "clsx", imports: [["default", "clsx"]] },
+		],
+	},
+
 	manifest: {
 		action: { default_title: "__MSG_extensionName__" },
 		browser_specific_settings: {

@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import styles from "./Switch.module.css";
 
 interface SwitchProps {

@@ -1,5 +1,3 @@
-import { getAppConfig } from "#imports";
-
 /** The version of ATBC. */
 export const version = getAppConfig().version;
 

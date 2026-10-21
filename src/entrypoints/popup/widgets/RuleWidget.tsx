@@ -1,4 +1,3 @@
-import { useSyncExternalStore } from "react";
 import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {

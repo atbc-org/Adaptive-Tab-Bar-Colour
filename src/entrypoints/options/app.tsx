@@ -1,7 +1,3 @@
-import AdvancedTab from "./tabs/AdvancedTab";
-import RuleTab from "./tabs/RuleTab";
-import ThemeTab from "./tabs/ThemeTab";
-
 const pref = new Preference();
 
 export default function App() {

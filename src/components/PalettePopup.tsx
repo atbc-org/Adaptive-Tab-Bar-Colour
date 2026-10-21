@@ -1,5 +1,3 @@
-import clsx from "clsx";
-import { type CSSProperties } from "react";
 import styles from "./PalettePopup.module.css";
 
 export interface PopupLocation {

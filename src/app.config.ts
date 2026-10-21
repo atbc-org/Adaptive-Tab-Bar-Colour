@@ -1,5 +1,3 @@
-import { defineAppConfig } from "#imports";
-
 declare const __EXT_VERSION__: string;
 
 declare module "wxt/utils/define-app-config" {

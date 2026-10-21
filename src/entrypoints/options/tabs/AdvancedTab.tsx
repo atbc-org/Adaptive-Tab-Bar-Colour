@@ -1,5 +1,3 @@
-import clsx from "clsx";
-import { useSyncExternalStore } from "react";
 import styles from "./AdvancedTab.module.css";
 
 interface AdvancedTabProps {

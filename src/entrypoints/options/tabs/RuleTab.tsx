@@ -1,5 +1,3 @@
-import clsx from "clsx";
-import { useSyncExternalStore } from "react";
 import styles from "./RuleTab.module.css";
 
 interface RuleTabProps {

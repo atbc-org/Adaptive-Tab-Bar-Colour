@@ -1,4 +1,3 @@
-import { type ReactNode } from "react";
 import styles from "./Confirm.module.css";
 
 interface ConfirmProps {
