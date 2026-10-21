@@ -11,7 +11,7 @@ export default function RuleTab({ pref, ready }: RuleTabProps) {
 		() => pref.getLastSave(),
 	);
 
-	const ruleList = Object.entries(pref.ruleList).filter(
+	const ruleList = Object.entries(pref.get("ruleList")).filter(
 		([_, rule]) => rule !== null,
 	);
 

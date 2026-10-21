@@ -24,6 +24,8 @@ compatibilityModeTooltip:
   Dəstəkləyən brauzerlər tab panelinin rəngini buna uyğun tənzimləyir.
 confirmResetAll: Bütün parametrləri sıfırlamaq istədiyinizə əminsiniz?
 confirmResetThemeBuilder: Tema qurucusunu sıfırlamaq istədiyinizə əminsiniz?
+confirmSyncSettings:
+  Yerli və bulud parametrləri fərqlidir. Hansını saxlamaq istəyirsiniz?
 couldNotFindElement: "Uyğun gələn HTML elementi tapılmadı:"
 couldNotFindElementEnd: ", əvəzinə rəng veb səhifədən seçildi"
 currentPage: Cari səhifə
@@ -60,6 +62,8 @@ importFailed:
 importSettings: Parametrləri idxal et
 inDarkMode: Tünd rejimdə
 inLightMode: Açıq rejimdə
+keepCloudSettings: Buluddan saxla
+keepLocalSettings: Yerli saxla
 loading: Yüklənir…
 minimumContrast: Minimum kontrast
 minimumContrastTooltip:
@@ -90,6 +94,11 @@ settingsAreExported: Parametrlər endirmələr qovluğunuza ixrac edildi.
 settingsAreImported: Parametrlər idxal edildi.
 sidebar: Yan panel
 specifyAColour: rəng təyin et
+syncSettings: Parametrləri buludla sinxronlaşdır
+syncSettingsFailed:
+  Sinxronlaşdırma parametrlərini dəyişmək mümkün olmadı. Yenidən cəhd edin.
+syncSettingsTooltip:
+  Brauzer hesabınız vasitəsilə parametrləri cihazlar arasında sinxronlaşdırın.
 system: Sistem
 tabBar: Tab paneli
 themeBuilder: Tema qurucusu

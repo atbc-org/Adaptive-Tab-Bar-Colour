@@ -48,7 +48,8 @@
 		button {
 			flex: 1;
 			justify-content: center;
-			height: var(--unit-32);
+			padding: var(--unit-4);
+			min-height: var(--unit-32);
 		}
 	}
 }

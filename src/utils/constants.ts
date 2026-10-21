@@ -124,6 +124,7 @@ export const defaultPreferenceContent = Object.freeze({
 	minContrast_light: 90,
 	noThemeColour: true,
 	overwriteAccentColour: false,
+	syncSettings: true,
 	// state
 	lastSave: 0,
 	version,
@@ -157,13 +158,13 @@ export function createBrowserColour(
 		},
 		get FALLBACK() {
 			return getScheme() === "light"
-				? new Colour(pref.fallbackColour_light)
-				: new Colour(pref.fallbackColour_dark);
+				? new Colour(pref.get("fallbackColour_light"))
+				: new Colour(pref.get("fallbackColour_dark"));
 		},
 		get HOME() {
 			return getScheme() === "light"
-				? new Colour(pref.homeBackground_light)
-				: new Colour(pref.homeBackground_dark);
+				? new Colour(pref.get("homeBackground_light"))
+				: new Colour(pref.get("homeBackground_dark"));
 		},
 		get IMAGE_VIEWER() {
 			return new Colour("#212121");

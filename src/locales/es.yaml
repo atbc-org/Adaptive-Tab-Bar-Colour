@@ -28,6 +28,8 @@ confirmResetAll:
   ¿Está seguro de que desea restablecer todas las configuraciones?
 confirmResetThemeBuilder:
   ¿Estás seguro de que quieres restablecer el creador de temas?
+confirmSyncSettings:
+  Los ajustes locales y de la nube son distintos. ¿Cuáles quieres conservar?
 couldNotFindElement: No se pudo encontrar el elemento HTML que coincide con
 couldNotFindElementEnd:
   ", utilizando en su lugar el color extraído de la página web"
@@ -68,6 +70,8 @@ importFailed: Error al importar configuraciones. Por favor, inténtalo de nuevo.
 importSettings: Importar configuraciones
 inDarkMode: En modo oscuro
 inLightMode: En modo claro
+keepCloudSettings: Conservar nube
+keepLocalSettings: Conservar locales
 loading: Cargando…
 minimumContrast: Contraste mínimo
 minimumContrastTooltip:
@@ -101,6 +105,11 @@ settingsAreExported:
 settingsAreImported: Las configuraciones han sido importadas.
 sidebar: Barra lateral
 specifyAColour: especificar un color
+syncSettings: Sincronizar ajustes con la nube
+syncSettingsFailed:
+  No se pudieron cambiar los ajustes de sincronización. Inténtalo de nuevo.
+syncSettingsTooltip:
+  Sincroniza los ajustes entre dispositivos con tu cuenta del navegador.
 system: Sistema
 tabBar: Barra de pestañas
 themeBuilder: Creador de temas

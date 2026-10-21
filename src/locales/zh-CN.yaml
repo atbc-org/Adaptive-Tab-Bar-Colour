@@ -20,6 +20,7 @@ compatibilityModeTooltip:
   API。支持该功能的浏览器会相应地调整其标签栏颜色。
 confirmResetAll: 是否确定重置所有设置？
 confirmResetThemeBuilder: 是否确定重置背景主题？
+confirmSyncSettings: 本地与云端设置不同。您想保留哪一份？
 couldNotFindElement: 找不到符合
 couldNotFindElementEnd: 的网页元素，改为使用从网页中提取的颜色
 currentPage: 当前网页
@@ -47,6 +48,8 @@ importFailed: 导入偏好设置失败。请检查文件是否正确并重试。
 importSettings: 从文件导入偏好设置
 inDarkMode: 在暗色模式下
 inLightMode: 在亮色模式下
+keepCloudSettings: 保留云端
+keepLocalSettings: 保留本地
 loading: 加载中⋯⋯
 minimumContrast: 最小对比度设置
 minimumContrastTooltip: 在此设置标签栏和文字的最小对比度。如果未达到该指标，标签栏的颜色将会被调整，使之达到设置的最小对比度。
@@ -73,6 +76,9 @@ settingsAreExported: 偏好设置已经被保存到下载文件夹。
 settingsAreImported: 已导入偏好设置。
 sidebar: 侧栏
 specifyAColour: 指定颜色
+syncSettings: 同步设置到云端
+syncSettingsFailed: 无法更改同步设置，请重试。
+syncSettingsTooltip: 通过浏览器账户在设备之间同步设置。
 system: 系统内置
 tabBar: 标签栏
 themeBuilder: 背景主题
