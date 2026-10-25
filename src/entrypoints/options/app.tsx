@@ -1,14 +1,9 @@
-const pref = new Preference();
-
 export default function App() {
 	const [activeTab, setActiveTab] = useState(0);
-	const [ready, setReady] = useState(false);
+	const { prefs, ready, updatePref } = usePrefs();
 
 	useEffect(() => {
 		document.documentElement.lang = browser.i18n.getUILanguage();
-		pref.initialise().then(() => {
-			setReady(true);
-		});
 	}, []);
 
 	return (
@@ -29,11 +24,23 @@ export default function App() {
 			{(() => {
 				switch (activeTab) {
 					case 0:
-						return <ThemeTab pref={pref} ready={ready} />;
+						return (
+							<ThemeTab
+								prefs={prefs}
+								ready={ready}
+								updatePref={updatePref}
+							/>
+						);
 					case 1:
-						return <RuleTab pref={pref} ready={ready} />;
+						return <RuleTab prefs={prefs} ready={ready} />;
 					case 2:
-						return <AdvancedTab pref={pref} ready={ready} />;
+						return (
+							<AdvancedTab
+								prefs={prefs}
+								ready={ready}
+								updatePref={updatePref}
+							/>
+						);
 					default:
 						return null;
 				}

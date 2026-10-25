@@ -36,7 +36,6 @@ export default defineConfig({
 			{
 				from: "react",
 				imports: [
-					"useSyncExternalStore",
 					{ name: "CSSProperties", type: true },
 					{ name: "ReactNode", type: true },
 				],
@@ -81,7 +80,6 @@ export default defineConfig({
 	outDirTemplate: "atbc",
 	srcDir: "src",
 	vite: () => ({
-		define: { __EXT_VERSION__: JSON.stringify(appVersion) },
 		css: {
 			modules: {
 				generateScopedName: "[hash:base64:6]",

@@ -2,16 +2,17 @@ import styles from "./ThemeWidget.module.css";
 
 interface ThemeWidgetProps {
 	ready: boolean;
-	pref: Preference;
+	prefs: Prefs;
+	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
 	scheme: Scheme;
 }
 
-export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
-	useSyncExternalStore(
-		(listener) => pref.addOnChangeListener(listener),
-		() => pref.getLastSave(),
-	);
-
+export default function ThemeWidget({
+	ready,
+	prefs,
+	updatePref,
+	scheme,
+}: ThemeWidgetProps) {
 	const [hover, setHover] = useState<GlyphHighlight>("none");
 
 	const leftIconType = scheme === "light" ? "sun" : "moon";
@@ -47,7 +48,7 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 					<div
 						className={clsx(
 							styles.panel,
-							pref.compatibilityMode && "disabled",
+							prefs.compatibilityMode && "disabled",
 						)}
 						onMouseEnter={() => setHover("selectedTab")}
 					>
@@ -56,11 +57,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="background" />
 							<Slider
 								inPopup
-								value={pref.tabSelected}
+								value={prefs.tabSelected}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.tabSelected = newValue)
+									updatePref("tabSelected", newValue)
 								}
 							/>
 						</div>
@@ -68,11 +69,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="border" />
 							<Slider
 								inPopup
-								value={pref.tabSelectedBorder}
+								value={prefs.tabSelectedBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.tabSelectedBorder = newValue)
+									updatePref("tabSelectedBorder", newValue)
 								}
 							/>
 						</div>
@@ -80,7 +81,7 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 					<div
 						className={clsx(
 							styles.panel,
-							pref.compatibilityMode && "disabled",
+							prefs.compatibilityMode && "disabled",
 						)}
 						onMouseEnter={() => setHover("toolbar")}
 					>
@@ -89,11 +90,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="background" />
 							<Slider
 								inPopup
-								value={pref.toolbar}
+								value={prefs.toolbar}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.toolbar = newValue)
+									updatePref("toolbar", newValue)
 								}
 							/>
 						</div>
@@ -101,11 +102,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="border" />
 							<Slider
 								inPopup
-								value={pref.toolbarBorder}
+								value={prefs.toolbarBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.toolbarBorder = newValue)
+									updatePref("toolbarBorder", newValue)
 								}
 							/>
 						</div>
@@ -113,7 +114,7 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 					<div
 						className={clsx(
 							styles.panel,
-							pref.compatibilityMode && "disabled",
+							prefs.compatibilityMode && "disabled",
 						)}
 						onMouseEnter={() => setHover("sidebar")}
 					>
@@ -122,11 +123,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="background" />
 							<Slider
 								inPopup
-								value={pref.sidebar}
+								value={prefs.sidebar}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.sidebar = newValue)
+									updatePref("sidebar", newValue)
 								}
 							/>
 						</div>
@@ -134,11 +135,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="border" />
 							<Slider
 								inPopup
-								value={pref.sidebarBorder}
+								value={prefs.sidebarBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.sidebarBorder = newValue)
+									updatePref("sidebarBorder", newValue)
 								}
 							/>
 						</div>
@@ -157,7 +158,7 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 						className={styles.panel}
 						onMouseEnter={() => setHover("tabBar")}
 						onMouseLeave={() => {
-							if (pref.compatibilityMode) setHover("none");
+							if (prefs.compatibilityMode) setHover("none");
 						}}
 					>
 						<h3>{i18n.t("tabBar")}</h3>
@@ -165,27 +166,27 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="background" />
 							<Slider
 								inPopup
-								value={pref.tabbar}
+								value={prefs.tabbar}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.tabbar = newValue)
+									updatePref("tabbar", newValue)
 								}
 							/>
 						</div>
 						<div
 							className={clsx(
-								pref.compatibilityMode && "disabled",
+								prefs.compatibilityMode && "disabled",
 							)}
 						>
 							<Icon type="border" />
 							<Slider
 								inPopup
-								value={pref.tabbarBorder}
+								value={prefs.tabbarBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.tabbarBorder = newValue)
+									updatePref("tabbarBorder", newValue)
 								}
 							/>
 						</div>
@@ -193,7 +194,7 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 					<div
 						className={clsx(
 							styles.panel,
-							pref.compatibilityMode && "disabled",
+							prefs.compatibilityMode && "disabled",
 						)}
 						onMouseEnter={() => setHover("urlBar")}
 					>
@@ -202,11 +203,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="background" />
 							<Slider
 								inPopup
-								value={pref.toolbarField}
+								value={prefs.toolbarField}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.toolbarField = newValue)
+									updatePref("toolbarField", newValue)
 								}
 							/>
 						</div>
@@ -214,11 +215,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="backgroundOnFocus" />
 							<Slider
 								inPopup
-								value={pref.toolbarFieldOnFocus}
+								value={prefs.toolbarFieldOnFocus}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.toolbarFieldOnFocus = newValue)
+									updatePref("toolbarFieldOnFocus", newValue)
 								}
 							/>
 						</div>
@@ -226,11 +227,11 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="border" />
 							<Slider
 								inPopup
-								value={pref.toolbarFieldBorder}
+								value={prefs.toolbarFieldBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.toolbarFieldBorder = newValue)
+									updatePref("toolbarFieldBorder", newValue)
 								}
 							/>
 						</div>
@@ -239,7 +240,7 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 						className={styles.panel}
 						onMouseEnter={() => setHover("popup")}
 						onMouseLeave={() => {
-							if (pref.compatibilityMode) setHover("none");
+							if (prefs.compatibilityMode) setHover("none");
 						}}
 					>
 						<h3>{i18n.t("popUp")}</h3>
@@ -247,25 +248,27 @@ export default function ThemeWidget({ ready, pref, scheme }: ThemeWidgetProps) {
 							<Icon type="background" />
 							<Slider
 								inPopup
-								value={pref.popup}
+								value={prefs.popup}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) => (pref.popup = newValue)}
+								onChange={(newValue) =>
+									updatePref("popup", newValue)
+								}
 							/>
 						</div>
 						<div
 							className={clsx(
-								pref.compatibilityMode && "disabled",
+								prefs.compatibilityMode && "disabled",
 							)}
 						>
 							<Icon type="border" />
 							<Slider
 								inPopup
-								value={pref.popupBorder}
+								value={prefs.popupBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									(pref.popupBorder = newValue)
+									updatePref("popupBorder", newValue)
 								}
 							/>
 						</div>

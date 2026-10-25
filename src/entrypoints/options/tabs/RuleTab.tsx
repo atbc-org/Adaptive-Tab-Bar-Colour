@@ -1,31 +1,24 @@
 import styles from "./RuleTab.module.css";
 
 interface RuleTabProps {
-	pref: Preference;
+	prefs: Prefs;
 	ready: boolean;
 }
 
-export default function RuleTab({ pref, ready }: RuleTabProps) {
-	useSyncExternalStore(
-		(listener) => pref.addOnChangeListener(listener),
-		() => pref.getLastSave(),
-	);
-
-	const ruleList = Object.entries(pref.ruleList).filter(
-		([_, rule]) => rule !== null,
+export default function RuleTab({ prefs, ready }: RuleTabProps) {
+	const rules = Object.entries(prefs.rules).sort(
+		([, first], [, second]) => first.order - second.order,
 	);
 
 	return (
 		<main className={clsx(styles.ruleTab, !ready && "disabled")}>
 			<div className={styles.ruleList}>
-				{ruleList.map(([rawId, rule]) => {
+				{rules.map(([id, rule]) => {
 					return (
 						<RuleCard
-							key={`rule${rawId}`}
+							key={`rule-${id}`}
 							rule={rule}
-							onChange={(newRule) =>
-								pref.setRule(Number(rawId), newRule)
-							}
+							onChange={(newRule) => void setRule(id, newRule)}
 						/>
 					);
 				})}
@@ -33,17 +26,16 @@ export default function RuleTab({ pref, ready }: RuleTabProps) {
 			<button
 				className={clsx(
 					styles.addRuleButton,
-					ruleList.length > 0 && styles.marginTop,
+					rules.length > 0 && styles.marginTop,
 				)}
 				onClick={() => {
-					pref.addRule({
-						headerType: "URL",
+					void addRule({
+						target: "URL",
 						header: "",
 						type: "COLOUR",
 						value: new Colour().random().toHex(),
 						scheme: "both",
 					});
-					pref.syncUI();
 				}}
 			>
 				{i18n.t("addANewRule")}

@@ -22,35 +22,50 @@ export type BrowserColour =
 	| "SYSTEM"
 	| "TOOLBOX";
 
+export type Theme = Manifest.ThemeType;
+
 export interface ColourRule {
-	headerType: "URL" | "ADDON_ID";
+	target: "URL" | "ADDON_ID";
 	header: string;
 	type: "COLOUR";
 	value: string;
 	scheme: "both" | Scheme;
+	order: number;
 }
 
 export interface ThemeColourRule {
-	headerType: "URL";
+	target: "URL";
 	header: string;
 	type: "THEME_COLOUR";
 	value: boolean;
 	scheme: "both" | Scheme;
+	order: number;
 }
 
 export interface QuerySelectorRule {
-	headerType: "URL";
+	target: "URL";
 	header: string;
 	type: "QUERY_SELECTOR";
 	value: string;
 	scheme: "both" | Scheme;
+	order: number;
 }
 
-export type Rule = ColourRule | ThemeColourRule | QuerySelectorRule | null;
+export type Rule = ColourRule | ThemeColourRule | QuerySelectorRule;
 
-export type RuleList = Record<number, Rule>;
+export type NewRule =
+	| Omit<ColourRule, "order">
+	| Omit<ThemeColourRule, "order">
+	| Omit<QuerySelectorRule, "order">;
 
-export interface ThemeBuilderPreferenceContent {
+export interface RuleQueryResult {
+	id?: string;
+	url: string;
+	webExtId?: string;
+	rule?: Rule;
+}
+
+export interface ThemePrefs {
 	popup: number;
 	popupBorder: number;
 	sidebar: number;
@@ -66,11 +81,11 @@ export interface ThemeBuilderPreferenceContent {
 	toolbarFieldOnFocus: number;
 }
 
-export interface RuleListPreferenceContent {
-	ruleList: RuleList;
+export interface RulePrefs {
+	rules: Record<string, Rule>;
 }
 
-export interface AdvancedPreferenceContent {
+export interface AdvancedPrefs {
 	accentColour_dark: string;
 	accentColour_light: string;
 	allowDarkLight: boolean;
@@ -86,15 +101,15 @@ export interface AdvancedPreferenceContent {
 	overwriteAccentColour: boolean;
 }
 
-export interface PreferenceContent
-	extends
-		ThemeBuilderPreferenceContent,
-		RuleListPreferenceContent,
-		AdvancedPreferenceContent {
-	lastSave: number;
-	version: number[];
-	[key: string]: PreferenceContent[keyof PreferenceContent];
+export interface Prefs extends ThemePrefs, RulePrefs, AdvancedPrefs {
+	[key: string]: Prefs[keyof Prefs];
 }
+
+export type PrefKey = keyof ThemePrefs | keyof AdvancedPrefs;
+
+export type PrefStorageItems = {
+	[K in PrefKey]: WxtStorageItem<Prefs[K], Record<string, unknown>>;
+};
 
 export interface TabThemeColourData {
 	light?: string;
@@ -114,13 +129,6 @@ export interface TabColourData {
 	theme: TabThemeColourData;
 	query?: TabElementColourData;
 	special: TabSpecialColourData;
-}
-
-export interface RuleQueryResult {
-	id: number;
-	url: string;
-	webExtId?: string;
-	rule: Rule;
 }
 
 export type TabMetaReason =
@@ -157,19 +165,17 @@ export interface ApplyThemeResult {
 	corrected: boolean;
 }
 
-export interface CacheData {
-	ruleData: RuleQueryResult;
-	metaData: MetaQueryResult;
-	themeData: ApplyThemeResult;
-}
-
 export interface ColourCorrectionResult {
 	colour: Colour;
 	scheme: Scheme;
 	corrected: boolean;
 }
 
-export type Theme = Manifest.ThemeType;
+export interface CacheData {
+	ruleData: RuleQueryResult;
+	metaData: MetaQueryResult;
+	themeData: ApplyThemeResult;
+}
 
 export type MessageForBackground =
 	| { header: "UPDATE_COLOUR"; colour: TabColourData }

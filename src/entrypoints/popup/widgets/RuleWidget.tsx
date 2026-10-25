@@ -1,21 +1,18 @@
 import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {
-	pref: Preference;
+	prefs: Prefs;
+	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
 
 export default function RuleWidget({
-	pref,
+	prefs,
+	updatePref,
 	ruleData,
 	metaData,
 }: RuleWidgetProps) {
-	useSyncExternalStore(
-		(listener) => pref.addOnChangeListener(listener),
-		() => pref.getLastSave(),
-	);
-
 	return (
 		<section className={styles.ruleWidget}>
 			<div className={styles.infoMessage}>
@@ -24,7 +21,12 @@ export default function RuleWidget({
 					<ReasonText reason={metaData.reason} info={metaData.info} />
 				</span>
 			</div>
-			<RuleControls pref={pref} ruleData={ruleData} metaData={metaData} />
+			<RuleControls
+				prefs={prefs}
+				updatePref={updatePref}
+				ruleData={ruleData}
+				metaData={metaData}
+			/>
 		</section>
 	);
 }
@@ -122,24 +124,31 @@ function ReasonText({ reason, info }: ReasonTextProps) {
 }
 
 interface RuleControlsProps {
-	pref: Preference;
+	prefs: Prefs;
+	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
 
-function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
-	if (ruleData.id !== 0) {
+function RuleControls({
+	prefs,
+	updatePref,
+	ruleData,
+	metaData,
+}: RuleControlsProps) {
+	if (ruleData.id !== undefined && ruleData.rule !== undefined) {
+		const id = ruleData.id;
 		return (
 			<>
 				<RuleCard
 					inPopup
 					rule={ruleData.rule}
-					onChange={(newRule) => pref.setRule(ruleData.id, newRule)}
+					onChange={(newRule) => void setRule(id, newRule)}
 				/>
 				<button
 					className={styles.controlButton}
 					onClick={() => {
-						pref.setRule(ruleData.id, null);
+						void setRule(id, null);
 					}}
 				>
 					{i18n.t("deleteRule")}
@@ -157,8 +166,8 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 			<button
 				className={styles.controlButton}
 				onClick={() => {
-					pref.addRule({
-						headerType: "URL",
+					void addRule({
+						target: "URL",
 						header: hostname,
 						type: "COLOUR",
 						value: new Colour().random().toHex(),
@@ -178,8 +187,8 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 			<button
 				className={styles.controlButton}
 				onClick={() => {
-					pref.addRule({
-						headerType: "ADDON_ID",
+					void addRule({
+						target: "ADDON_ID",
 						header: webExtId,
 						type: "COLOUR",
 						value: new Colour().random().toHex(),
@@ -196,9 +205,9 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				<div>
 					<Palette
 						inPopup
-						value={pref.homeBackground_light}
+						value={prefs.homeBackground_light}
 						onChange={(value) =>
-							(pref.homeBackground_light = value)
+							updatePref("homeBackground_light", value)
 						}
 					/>
 					<h4>
@@ -206,7 +215,9 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 						<button
 							className={styles.resetButton}
 							title={i18n.t("reset")}
-							onClick={() => pref.reset(["homeBackground_light"])}
+							onClick={() =>
+								void resetPrefs(["homeBackground_light"])
+							}
 						>
 							<Icon type="reset" size="text" />
 						</button>
@@ -215,15 +226,19 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				<div>
 					<Palette
 						inPopup
-						value={pref.homeBackground_dark}
-						onChange={(value) => (pref.homeBackground_dark = value)}
+						value={prefs.homeBackground_dark}
+						onChange={(value) =>
+							updatePref("homeBackground_dark", value)
+						}
 					/>
 					<h4>
 						{i18n.t("inDarkMode")}
 						<button
 							className={styles.resetButton}
 							title={i18n.t("reset")}
-							onClick={() => pref.reset(["homeBackground_dark"])}
+							onClick={() =>
+								void resetPrefs(["homeBackground_dark"])
+							}
 						>
 							<Icon type="reset" size="text" />
 						</button>

@@ -44,54 +44,6 @@ export function addSchemeChangeListener(
 	);
 }
 
-/** Retrieves local storage content. */
-export async function getStorageContent(): Promise<Record<string, unknown>> {
-	try {
-		return (await browser.storage?.local.get()) ?? {};
-	} catch {
-		return {};
-	}
-}
-
-/** Saves content to local storage. */
-export async function setStorageContent(
-	content: Partial<PreferenceContent>,
-): Promise<boolean> {
-	try {
-		await browser.storage?.local.set(content);
-		return true;
-	} catch {
-		return false;
-	}
-}
-
-/** Removes local storage keys. */
-export async function removeStorageKeys(keys: string[]): Promise<void> {
-	await Promise.all(
-		keys.map(async (key) => await browser.storage?.local.remove(key)),
-	);
-}
-
-/** Registers a listener for local storage changes. */
-export function addStorageChangeListener(
-	listener: (
-		changes: { [key: string]: Browser.storage.StorageChange },
-		areaName: Browser.storage.AreaName,
-	) => void,
-): void {
-	browser.storage?.onChanged?.addListener(listener);
-}
-
-/** Removes a listener for local storage changes. */
-export function removeStorageChangeListener(
-	listener: (
-		changes: { [key: string]: Browser.storage.StorageChange },
-		areaName: Browser.storage.AreaName,
-	) => void,
-): void {
-	browser.storage?.onChanged?.removeListener(listener);
-}
-
 /** Registers a listener for tab and window change events. */
 export function addTabChangeListener(listener: () => void): void {
 	browser.tabs?.onAttached?.addListener(listener);

@@ -1,6 +1,3 @@
-/** The version of ATBC. */
-export const version = getAppConfig().version;
-
 /** Default light homepage colour. */
 export const default_homeBackground_light = "#ffffff";
 /** Default dark homepage colour. */
@@ -92,8 +89,8 @@ export const plainTextExtension = [
 	".txt",
 ];
 
-/** Default content of the preference. */
-export const defaultPreferenceContent = Object.freeze({
+/** Default content of prefs. */
+export const defaultPrefs = Object.freeze({
 	// theme builder
 	popup: 5,
 	popupBorder: 10,
@@ -109,7 +106,7 @@ export const defaultPreferenceContent = Object.freeze({
 	toolbarFieldBorder: 5,
 	toolbarFieldOnFocus: 5,
 	// rule list
-	ruleList: {},
+	rules: {},
 	// advanced
 	accentColour_dark: default_accentColour_dark,
 	accentColour_light: default_accentColour_light,
@@ -124,15 +121,12 @@ export const defaultPreferenceContent = Object.freeze({
 	minContrast_light: 90,
 	noThemeColour: true,
 	overwriteAccentColour: false,
-	// state
-	lastSave: 0,
-	version,
-} as PreferenceContent);
+} as Prefs);
 
 /** Creates a `browserColour` object. */
 export function createBrowserColour(
 	getScheme: () => Scheme,
-	pref: Preference,
+	getPrefs: () => Prefs,
 ): Record<BrowserColour, Colour> {
 	return Object.freeze({
 		get ADDON() {
@@ -156,14 +150,16 @@ export function createBrowserColour(
 				: new Colour("#131215");
 		},
 		get FALLBACK() {
+			const prefs = getPrefs();
 			return getScheme() === "light"
-				? new Colour(pref.fallbackColour_light)
-				: new Colour(pref.fallbackColour_dark);
+				? new Colour(prefs.fallbackColour_light)
+				: new Colour(prefs.fallbackColour_dark);
 		},
 		get HOME() {
+			const prefs = getPrefs();
 			return getScheme() === "light"
-				? new Colour(pref.homeBackground_light)
-				: new Colour(pref.homeBackground_dark);
+				? new Colour(prefs.homeBackground_light)
+				: new Colour(prefs.homeBackground_dark);
 		},
 		get IMAGE_VIEWER() {
 			return new Colour("#212121");

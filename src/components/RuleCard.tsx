@@ -7,9 +7,9 @@ const defaultValue = {
 };
 
 interface RuleCardProps {
-	rule: Rule;
+	rule?: Rule;
 	inPopup?: boolean;
-	onChange: (newRule: Rule) => void;
+	onChange: (newRule: Rule | null) => void;
 }
 
 export default function RuleCard({
@@ -22,16 +22,16 @@ export default function RuleCard({
 	const [webExtName, setWebExtName] = useState(rule?.header);
 
 	useEffect(() => {
-		if (rule?.headerType === "ADDON_ID")
+		if (rule?.target === "ADDON_ID")
 			getWebExtName(rule.header).then((name) =>
 				setWebExtName(name ?? i18n.t("addonNotFound")),
 			);
-	}, [rule?.header, rule?.headerType]);
+	}, [rule?.header, rule?.target]);
 
 	return (
 		<section className={clsx(styles.ruleCard, inPopup && styles.inPopup)}>
 			{!inPopup &&
-				(rule.headerType === "ADDON_ID" ? (
+				(rule.target === "ADDON_ID" ? (
 					<div className={styles.webExtHeader}>{webExtName}</div>
 				) : (
 					<Input
@@ -67,7 +67,7 @@ export default function RuleCard({
 						case "THEME_COLOUR":
 							onChange({
 								...rule,
-								headerType: "URL",
+								target: "URL",
 								type: "THEME_COLOUR",
 								value: defaultValue.THEME_COLOUR,
 							});
@@ -75,7 +75,7 @@ export default function RuleCard({
 						default:
 							onChange({
 								...rule,
-								headerType: "URL",
+								target: "URL",
 								type: "QUERY_SELECTOR",
 								value: defaultValue.QUERY_SELECTOR,
 							});
@@ -84,7 +84,7 @@ export default function RuleCard({
 				}}
 			>
 				<option value="COLOUR">{i18n.t("specifyAColour")}</option>
-				{rule.headerType === "URL" ? (
+				{rule.target === "URL" ? (
 					<>
 						<option value="THEME_COLOUR">
 							{i18n.t("useIgnoreThemeColour")}

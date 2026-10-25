@@ -1,16 +1,16 @@
 import styles from "./AdvancedTab.module.css";
 
 interface AdvancedTabProps {
-	pref: Preference;
+	prefs: Prefs;
 	ready: boolean;
+	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
 }
 
-export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
-	useSyncExternalStore(
-		(listener) => pref.addOnChangeListener(listener),
-		() => pref.getLastSave(),
-	);
-
+export default function AdvancedTab({
+	prefs,
+	ready,
+	updatePref,
+}: AdvancedTabProps) {
 	const scheme = useCurrentScheme();
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -28,8 +28,10 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 						<div className={styles.switchWrapper}>
 							<Switch
 								label={i18n.t("dynamicColourUpdate")}
-								active={pref.dynamic}
-								onChange={(value) => (pref.dynamic = value)}
+								active={prefs.dynamic}
+								onChange={(value) =>
+									updatePref("dynamic", value)
+								}
 							/>
 							<div>
 								<h3>{i18n.t("dynamicColourUpdate")}</h3>
@@ -41,9 +43,9 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 						<div className={styles.switchWrapper}>
 							<Switch
 								label={i18n.t("ignoreDesignatedThemeColour")}
-								active={pref.noThemeColour}
+								active={prefs.noThemeColour}
 								onChange={(value) =>
-									(pref.noThemeColour = value)
+									updatePref("noThemeColour", value)
 								}
 							/>
 							<div>
@@ -60,7 +62,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 				<section
 					className={clsx(
 						styles.cardSection,
-						pref.compatibilityMode && "disabled",
+						prefs.compatibilityMode && "disabled",
 					)}
 					aria-labelledby="advanced-custom-colours"
 				>
@@ -69,7 +71,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 					</h2>
 					<fieldset
 						className={styles.cardContent}
-						disabled={pref.compatibilityMode}
+						disabled={prefs.compatibilityMode}
 					>
 						<div className={styles.settingGroup}>
 							<h3>{i18n.t("homepageColour")}</h3>
@@ -77,9 +79,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 							<div className={styles.colourWrapper}>
 								<div>
 									<Palette
-										value={pref.homeBackground_light}
+										value={prefs.homeBackground_light}
 										onChange={(value) =>
-											(pref.homeBackground_light = value)
+											updatePref(
+												"homeBackground_light",
+												value,
+											)
 										}
 									/>
 									<h4>
@@ -88,7 +93,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 											className={styles.resetButton}
 											title={i18n.t("reset")}
 											onClick={() => {
-												pref.reset([
+												void resetPrefs([
 													"homeBackground_light",
 												]);
 											}}
@@ -99,9 +104,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 								</div>
 								<div>
 									<Palette
-										value={pref.homeBackground_dark}
+										value={prefs.homeBackground_dark}
 										onChange={(value) =>
-											(pref.homeBackground_dark = value)
+											updatePref(
+												"homeBackground_dark",
+												value,
+											)
 										}
 									/>
 									<h4>
@@ -110,7 +118,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 											className={styles.resetButton}
 											title={i18n.t("reset")}
 											onClick={() => {
-												pref.reset([
+												void resetPrefs([
 													"homeBackground_dark",
 												]);
 											}}
@@ -127,9 +135,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 							<div className={styles.colourWrapper}>
 								<div>
 									<Palette
-										value={pref.fallbackColour_light}
+										value={prefs.fallbackColour_light}
 										onChange={(value) =>
-											(pref.fallbackColour_light = value)
+											updatePref(
+												"fallbackColour_light",
+												value,
+											)
 										}
 									/>
 									<h4>
@@ -138,7 +149,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 											className={styles.resetButton}
 											title={i18n.t("reset")}
 											onClick={() => {
-												pref.reset([
+												void resetPrefs([
 													"fallbackColour_light",
 												]);
 											}}
@@ -149,9 +160,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 								</div>
 								<div>
 									<Palette
-										value={pref.fallbackColour_dark}
+										value={prefs.fallbackColour_dark}
 										onChange={(value) =>
-											(pref.fallbackColour_dark = value)
+											updatePref(
+												"fallbackColour_dark",
+												value,
+											)
 										}
 									/>
 									<h4>
@@ -160,7 +174,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 											className={styles.resetButton}
 											title={i18n.t("reset")}
 											onClick={() => {
-												pref.reset([
+												void resetPrefs([
 													"fallbackColour_dark",
 												]);
 											}}
@@ -175,11 +189,16 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 							<div className={styles.switchWrapper}>
 								<Switch
 									label={i18n.t("overwriteAccentColour")}
-									active={pref.overwriteAccentColour}
+									active={prefs.overwriteAccentColour}
 									onChange={(value) => {
-										pref.reset(["accentColour_light"]);
-										pref.reset(["accentColour_dark"]);
-										pref.overwriteAccentColour = value;
+										void resetPrefs([
+											"accentColour_light",
+											"accentColour_dark",
+										]);
+										updatePref(
+											"overwriteAccentColour",
+											value,
+										);
 									}}
 								/>
 								<div>
@@ -189,14 +208,16 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 									</p>
 								</div>
 							</div>
-							{pref.overwriteAccentColour && (
+							{prefs.overwriteAccentColour && (
 								<div className={styles.colourWrapper}>
 									<div>
 										<Palette
-											value={pref.accentColour_light}
+											value={prefs.accentColour_light}
 											onChange={(value) =>
-												(pref.accentColour_light =
-													value)
+												updatePref(
+													"accentColour_light",
+													value,
+												)
 											}
 										/>
 										<h4>
@@ -205,7 +226,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 												className={styles.resetButton}
 												title={i18n.t("reset")}
 												onClick={() => {
-													pref.reset([
+													void resetPrefs([
 														"accentColour_light",
 													]);
 												}}
@@ -219,9 +240,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 									</div>
 									<div>
 										<Palette
-											value={pref.accentColour_dark}
+											value={prefs.accentColour_dark}
 											onChange={(value) =>
-												(pref.accentColour_dark = value)
+												updatePref(
+													"accentColour_dark",
+													value,
+												)
 											}
 										/>
 										<h4>
@@ -230,7 +254,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 												className={styles.resetButton}
 												title={i18n.t("reset")}
 												onClick={() => {
-													pref.reset([
+													void resetPrefs([
 														"accentColour_dark",
 													]);
 												}}
@@ -259,9 +283,9 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 					<fieldset
 						className={clsx(
 							styles.settingGroup,
-							pref.compatibilityMode && "disabled",
+							prefs.compatibilityMode && "disabled",
 						)}
-						disabled={pref.compatibilityMode}
+						disabled={prefs.compatibilityMode}
 					>
 						<div className={styles.switchWrapper}>
 							<Switch
@@ -270,9 +294,9 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 										? "allowDarkTabBar"
 										: "allowLightTabBar",
 								)}
-								active={pref.allowDarkLight}
+								active={prefs.allowDarkLight}
 								onChange={(value) =>
-									(pref.allowDarkLight = value)
+									updatePref("allowDarkLight", value)
 								}
 							/>
 							{scheme === "light" ? (
@@ -297,12 +321,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 								maxValue={210}
 								minorStep={5}
 								majorStep={15}
-								value={pref.minContrast_light}
+								value={prefs.minContrast_light}
 								leftIconType="circle"
 								rightIconType="contrast"
 								onDisplay={(value) => (value / 10).toFixed(1)}
 								onChange={(value) =>
-									(pref.minContrast_light = value)
+									updatePref("minContrast_light", value)
 								}
 							/>
 							<h4>{i18n.t("inLightMode")}</h4>
@@ -313,12 +337,12 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 								maxValue={210}
 								minorStep={5}
 								majorStep={15}
-								value={pref.minContrast_dark}
+								value={prefs.minContrast_dark}
 								leftIconType="circle"
 								rightIconType="contrast"
 								onDisplay={(value) => (value / 10).toFixed(1)}
 								onChange={(value) =>
-									(pref.minContrast_dark = value)
+									updatePref("minContrast_dark", value)
 								}
 							/>
 							<h4>{i18n.t("inDarkMode")}</h4>
@@ -336,9 +360,9 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 						<div className={styles.switchWrapper}>
 							<Switch
 								label={i18n.t("compatibilityMode")}
-								active={pref.compatibilityMode}
+								active={prefs.compatibilityMode}
 								onChange={(value) =>
-									(pref.compatibilityMode = value)
+									updatePref("compatibilityMode", value)
 								}
 							/>
 							<div>
@@ -357,8 +381,8 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 					<div className={styles.settingGroup}>
 						<button
 							className={styles.textButton}
-							onClick={() => {
-								const data = pref.exportJSON();
+							onClick={async () => {
+								const data = await exportPrefs();
 								const blob = new Blob([data], {
 									type: "application/json",
 								});
@@ -392,7 +416,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 								reader.onload = () => {
 									const result = reader.result;
 									if (typeof result !== "string") return;
-									pref.importPref(result);
+									void importPrefs(result);
 									e.target.value = "";
 								};
 								reader.readAsText(file);
@@ -400,7 +424,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 						/>
 						<Confirm
 							confirmText={i18n.t("confirmResetAll")}
-							onConfirm={() => pref.reset()}
+							onConfirm={() => void resetPrefs()}
 						>
 							{(open) => (
 								<button

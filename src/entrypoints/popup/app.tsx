@@ -1,5 +1,3 @@
-const pref = new Preference();
-
 async function getCache(): Promise<CacheData | undefined> {
 	return await sendMessageToBackground<CacheData | undefined>({
 		header: "CACHE_REQUEST",
@@ -7,7 +5,7 @@ async function getCache(): Promise<CacheData | undefined> {
 }
 
 export default function App() {
-	const [ready, setReady] = useState(false);
+	const { prefs, ready, updatePref } = usePrefs();
 	const [cache, setCache] = useState<CacheData | undefined>();
 	const windowIdRef = useRef<number | undefined>(0);
 	const currentScheme = useCurrentScheme();
@@ -21,9 +19,6 @@ export default function App() {
 	}
 
 	useEffect(() => {
-		pref.initialise().then(() => {
-			setReady(true);
-		});
 		getCache().then(async (newCache) => {
 			const windowId = await getActiveWindowId();
 			windowIdRef.current = windowId;
@@ -45,7 +40,8 @@ export default function App() {
 			{ready && cache ? (
 				<>
 					<RuleWidget
-						pref={pref}
+						prefs={prefs}
+						updatePref={updatePref}
 						ruleData={cache.ruleData}
 						metaData={cache.metaData}
 					/>
@@ -56,7 +52,8 @@ export default function App() {
 			)}
 			<ThemeWidget
 				ready={ready}
-				pref={pref}
+				prefs={prefs}
+				updatePref={updatePref}
 				scheme={cache?.themeData?.scheme ?? currentScheme}
 			/>
 		</>
