@@ -19,11 +19,9 @@ export default function Confirm({
 			if (!containerRef.current?.contains(event.target as Node))
 				setIsOpen(false);
 		};
-		if (isOpen) {
-			document.addEventListener("pointerdown", onPointerDown);
-			return () =>
-				document.removeEventListener("pointerdown", onPointerDown);
-		}
+		if (!isOpen) return;
+		document.addEventListener("pointerdown", onPointerDown);
+		return () => document.removeEventListener("pointerdown", onPointerDown);
 	}, [isOpen]);
 
 	useEffect(() => {

@@ -63,11 +63,11 @@ export const presetAddonPageColour = Object.freeze({
 	"addon@darkreader.org": { light: new Colour("#141e24"), dark: new Colour("#141e24") }, // Dark Reader
 	"adguardadblocker@adguard.com": { light: new Colour("#ffffff"), dark: new Colour("#1f1f1f") }, // AdGuard AdBlocker
 	"copyplaintext@eros.man": { light: new Colour("#ffffff"), dark: new Colour("#000000") }, // Copy PlainText
-	"deArrow@ajay.app": { light: new Colour("f9f9f9"), dark: new Colour("#333333") }, // DeArrow
+	"deArrow@ajay.app": { light: new Colour("#f9f9f9"), dark: new Colour("#333333") }, // DeArrow
 	"enhancerforyoutube@maximerf.addons.mozilla.org": { light: new Colour("#eeeeee"), dark: new Colour("#292a2d")}, // Enhancer for YouTube™
 	"gdpr@cavi.au.dk": { light: new Colour("#00237a"), dark: new Colour("#00237a") }, // Consent-O-Matic
 	"jid1-KdTtiCj6wxVAFA@jetpack": { light: new Colour("#f9f9f8"), dark: new Colour("#171a18") }, // Swift Selection Search
-	"sponsorBlocker@ajay.app": { light: new Colour("f9f9f9"), dark: new Colour("#333333") }, // SponsorBlock for YouTube
+	"sponsorBlocker@ajay.app": { light: new Colour("#f9f9f9"), dark: new Colour("#333333") }, // SponsorBlock for YouTube
 	"uBlock0@raymondhill.net": { light: new Colour("#f0f0f2"), dark: new Colour("#1b1b24") }, // uBlock Origin
 } as Record<string, Record<Scheme, Colour> | undefined>);
 

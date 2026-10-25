@@ -17,8 +17,6 @@ export default function RuleCard({
 	inPopup = false,
 	onChange,
 }: RuleCardProps) {
-	if (!rule) return null;
-
 	const [webExtName, setWebExtName] = useState(rule?.header);
 
 	useEffect(() => {
@@ -27,6 +25,8 @@ export default function RuleCard({
 				setWebExtName(name ?? i18n.t("addonNotFound")),
 			);
 	}, [rule?.header, rule?.target]);
+
+	if (!rule) return null;
 
 	return (
 		<section className={clsx(styles.ruleCard, inPopup && styles.inPopup)}>

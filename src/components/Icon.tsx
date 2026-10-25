@@ -1,6 +1,6 @@
 import styles from "./Icon.module.css";
 
-interface InputProps {
+interface IconProps {
 	type: IconType;
 	inline?: boolean;
 	size?: "default" | "small" | "text";
@@ -10,7 +10,7 @@ export default function Icon({
 	type,
 	inline = false,
 	size = "default",
-}: InputProps) {
+}: IconProps) {
 	return (
 		<svg
 			className={clsx(

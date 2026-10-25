@@ -125,6 +125,7 @@ function getElementColour(
 				filter: style.filter,
 			};
 	}
+	return undefined;
 }
 
 const darkReaderObserver = new MutationObserver(sendColour);

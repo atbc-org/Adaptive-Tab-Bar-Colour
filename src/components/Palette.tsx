@@ -43,11 +43,9 @@ export default function Palette({
 			)
 				setIsPopupOpen(false);
 		};
-		if (isPopupOpen) {
-			document.addEventListener("pointerdown", onPointerDown);
-			return () =>
-				document.removeEventListener("pointerdown", onPointerDown);
-		}
+		if (!isPopupOpen) return;
+		document.addEventListener("pointerdown", onPointerDown);
+		return () => document.removeEventListener("pointerdown", onPointerDown);
 	}, [isPopupOpen]);
 
 	useEffect(() => {

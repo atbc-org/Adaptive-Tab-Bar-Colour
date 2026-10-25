@@ -33,7 +33,7 @@ export default function RuleWidget({
 
 interface ReasonTextProps {
 	reason: TabMetaReason;
-	info?: string;
+	info?: string | undefined;
 }
 
 function ReasonText({ reason, info }: ReasonTextProps) {

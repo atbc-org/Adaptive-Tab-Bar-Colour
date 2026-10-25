@@ -59,10 +59,10 @@ export type NewRule =
 	| Omit<QuerySelectorRule, "order">;
 
 export interface RuleQueryResult {
-	id?: string;
+	id?: string | undefined;
 	url: string;
-	webExtId?: string;
-	rule?: Rule;
+	webExtId?: string | undefined;
+	rule?: Rule | undefined;
 }
 
 export interface ThemePrefs {
@@ -112,8 +112,8 @@ export type PrefStorageItems = {
 };
 
 export interface TabThemeColourData {
-	light?: string;
-	dark?: string;
+	light?: string | undefined;
+	dark?: string | undefined;
 }
 
 export interface TabElementColourData {
@@ -127,7 +127,7 @@ export type TabSpecialColourData = "image" | "plaintext" | "svg" | "none";
 export interface TabColourData {
 	page: TabElementColourData[];
 	theme: TabThemeColourData;
-	query?: TabElementColourData;
+	query?: TabElementColourData | undefined;
 	special: TabSpecialColourData;
 }
 
@@ -191,7 +191,7 @@ export type MessageForTab =
 	| {
 			header: "SETUP_SCRIPT";
 			mode: "suspend" | "static" | "dynamic";
-			query?: string;
+			query?: string | undefined;
 	  }
 	| { header: "SET_THEME_COLOUR"; colour: string };
 

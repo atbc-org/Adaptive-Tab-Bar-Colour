@@ -45,10 +45,7 @@ function definePrefItem<K extends PrefKey>(
 	key: K,
 ): WxtStorageItem<Prefs[K], Record<string, unknown>> {
 	const fallback = defaultPrefs[key];
-	return storage.defineItem<Prefs[K]>(`local:${prefix}:${key}`, {
-		fallback,
-		init: () => fallback,
-	});
+	return storage.defineItem<Prefs[K]>(`local:${prefix}:${key}`, { fallback });
 }
 
 /** Gets (and lazily defines) WXT storage items for all theme and advanced prefs. */
@@ -337,8 +334,6 @@ async function syncStorage(
  * needed.
  */
 export async function getPrefs(): Promise<Prefs> {
-	const items = Object.values(getPrefItems());
-	await Promise.all(items.map((item) => item.getValue()));
 	const snapshot = await storage.snapshot("local");
 	const prefs = normalisePrefs(snapshot);
 	await syncStorage(prefs, snapshot);

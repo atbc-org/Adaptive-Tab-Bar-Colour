@@ -1,10 +1,5 @@
 import "@wxt-dev/browser";
-import type {
-	BrowserSettings,
-	Manifest,
-	Tabs,
-	Theme,
-} from "webextension-polyfill";
+import type { BrowserSettings, Tabs, Theme } from "webextension-polyfill";
 
 declare module "@wxt-dev/browser" {
 	namespace Browser {

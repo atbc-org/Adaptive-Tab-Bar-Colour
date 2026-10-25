@@ -8,6 +8,7 @@ const getDarkSchemeDetection = (): MediaQueryList | undefined => {
 		typeof window.matchMedia === "function"
 	)
 		return window.matchMedia("(prefers-color-scheme: dark)");
+	return undefined;
 };
 
 /** Detects the system colour scheme. */
@@ -135,6 +136,7 @@ export async function getWebExtName(id: string): Promise<string | undefined> {
 		const addon = await browser.management?.get(id);
 		if (addon?.type === "extension") return addon.name;
 	} catch {}
+	return undefined;
 }
 
 /** Sends a message to the background script. */
