@@ -1,6 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { TestContext } from "../types.js";
-import { compareRecord, setupTestContext, sleep } from "../utils.js";
+import {
+	compareRecord,
+	normaliseRuleKeys,
+	setupTestContext,
+	sleep,
+} from "../utils.js";
 
 const legacyUnversionedPrefs: Record<string, unknown> = {
 	accentColour_dark: "#b89cff",
@@ -63,6 +68,22 @@ const expectedMigratedPrefs: Record<string, unknown> = {
 	"advanced:minContrast_light": 95,
 	"advanced:noThemeColour": false,
 	"advanced:overwriteAccentColour": true,
+	"rule:1": {
+		header: "legacy-addon-id@example.com",
+		order: 1,
+		scheme: "both",
+		target: "ADDON_ID",
+		type: "COLOUR",
+		value: "#123456",
+	},
+	"rule:2": {
+		header: "example.org",
+		order: 2,
+		scheme: "dark",
+		target: "URL",
+		type: "QUERY_SELECTOR",
+		value: "#header",
+	},
 	"theme:popup": 8,
 	"theme:popupBorder": 12,
 	"theme:sidebar": 7,
@@ -96,70 +117,44 @@ describe("Migrate Legacy Prefs", () => {
 		await context.driver.navigate().refresh();
 		await sleep(1000);
 
-		actualPrefs = (await context.driver.executeScript(async () => {
-			return await browser.storage.local.get();
-		})) as Record<string, unknown>;
+		actualPrefs = normaliseRuleKeys(
+			(await context.driver.executeScript(async () => {
+				return await browser.storage.local.get();
+			})) as Record<string, unknown>,
+		);
+
+		expectedMigratedPrefs["advanced:compatibilityMode"] =
+			actualPrefs["advanced:compatibilityMode"];
 	});
 
 	afterAll(async () => {
 		if (cleanup) await cleanup();
 	});
 
-	it("purges old legacy unnamespaced and unversioned keys", () => {
-		expect(actualPrefs["lastSave"]).toBeUndefined();
-		expect(actualPrefs["version"]).toBeUndefined();
-		expect(actualPrefs["ruleList"]).toBeUndefined();
-		expect(actualPrefs["popup"]).toBeUndefined();
-		expect(actualPrefs["dynamic"]).toBeUndefined();
+	it("has no missing migrated pref keys", () => {
+		const { extraKeys1: missingKeys } = compareRecord(
+			expectedMigratedPrefs,
+			actualPrefs,
+		);
+		expect(missingKeys, `Missing: ${missingKeys.join(", ")}`).toEqual([]);
 	});
 
-	it("migrates all setting keys to namespaced theme:* and advanced:* items", () => {
-		const nonRuleActual: Record<string, unknown> = {};
-		for (const [key, value] of Object.entries(actualPrefs)) {
-			if (!key.startsWith("rule:")) {
-				nonRuleActual[key] = value;
-			}
-		}
-
-		expectedMigratedPrefs["advanced:compatibilityMode"] =
-			actualPrefs["advanced:compatibilityMode"];
-
-		const { missingKeys, mismatchedValues } = (() => {
-			const { extraKeys1, mismatchedValues } = compareRecord(
-				expectedMigratedPrefs,
-				nonRuleActual,
-			);
-			return { missingKeys: extraKeys1, mismatchedValues };
-		})();
-
-		expect(missingKeys).toEqual([]);
-		expect(mismatchedValues).toEqual([]);
+	it("has no extra migrated pref keys", () => {
+		const { extraKeys2: extraKeys } = compareRecord(
+			expectedMigratedPrefs,
+			actualPrefs,
+		);
+		expect(extraKeys, `Extra: ${extraKeys.join(", ")}`).toEqual([]);
 	});
 
-	it("migrates legacy ruleList to flattened rule:<id> items with order and target", () => {
-		const rules = Object.entries(actualPrefs)
-			.filter(([key]) => key.startsWith("rule:"))
-			.map(([, value]) => value as Record<string, unknown>)
-			.sort((a, b) => (a.order as number) - (b.order as number));
-
-		expect(rules.length).toBe(2);
-
-		expect(rules[0]).toEqual({
-			header: "legacy-addon-id@example.com",
-			order: 1,
-			scheme: "both",
-			target: "ADDON_ID",
-			type: "COLOUR",
-			value: "#123456",
-		});
-
-		expect(rules[1]).toEqual({
-			header: "example.org",
-			order: 2,
-			scheme: "dark",
-			target: "URL",
-			type: "QUERY_SELECTOR",
-			value: "#header",
-		});
+	it("matches all expected migrated pref values", () => {
+		const { mismatchedValues } = compareRecord(
+			expectedMigratedPrefs,
+			actualPrefs,
+		);
+		expect(
+			mismatchedValues,
+			`Mismatches: ${mismatchedValues.join(", ")}`,
+		).toEqual([]);
 	});
 });

@@ -391,3 +391,27 @@ export function compareRecord(
 	}
 	return { extraKeys1, extraKeys2, mismatchedValues };
 }
+
+/**
+ * Normalises dynamic rule IDs to deterministic order-based keys for comparison,
+ * validating that original IDs conform to 21-character nanoid format.
+ */
+export function normaliseRuleKeys(
+	prefs: Record<string, unknown>,
+): Record<string, unknown> {
+	const result: Record<string, unknown> = {};
+	for (const [key, value] of Object.entries(prefs)) {
+		if (
+			/^rule:[A-Za-z0-9_-]{21}$/.test(key) &&
+			value &&
+			typeof value === "object" &&
+			"order" in value
+		) {
+			const order = (value as { order: number }).order;
+			result[`rule:${order}`] = value;
+		} else {
+			result[key] = value;
+		}
+	}
+	return result;
+}

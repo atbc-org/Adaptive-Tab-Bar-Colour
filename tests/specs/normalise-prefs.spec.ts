@@ -14,7 +14,7 @@ const importedPrefs: Record<string, unknown> = {
 	"advanced:minContrast_light": 90,
 	"advanced:noThemeColour": true,
 	extra: true, // Extra key
-	"rule:rule-1": {
+	"rule:1": {
 		header: "example-1.com",
 		order: 1,
 		scheme: "both",
@@ -22,7 +22,7 @@ const importedPrefs: Record<string, unknown> = {
 		type: "COLOUR",
 		value: "#33214e",
 	},
-	"rule:rule-2": {
+	"rule:2": {
 		header: "example-2.com",
 		order: 2,
 		scheme: "both",
@@ -30,7 +30,7 @@ const importedPrefs: Record<string, unknown> = {
 		type: "THEME_COLOUR",
 		value: false,
 	},
-	"rule:rule-3": {
+	"rule:3": {
 		header: "example-3.com",
 		order: 3,
 		scheme: "both",
@@ -38,7 +38,7 @@ const importedPrefs: Record<string, unknown> = {
 		type: "QUERY_SELECTOR",
 		value: "body",
 	},
-	"rule:rule-4": {
+	"rule:4": {
 		header: "example-4.com",
 		order: 4,
 		scheme: "both",
@@ -46,7 +46,7 @@ const importedPrefs: Record<string, unknown> = {
 		type: "COLOUR",
 		value: "red", // Non-standard colour
 	},
-	"rule:rule-null": null, // Null rule to purge
+	"rule:null": null, // Null rule to purge
 	"theme:popup": 10,
 	"theme:popupBorder": 100, // Out of bounds
 	"theme:sidebar": 10,
@@ -76,7 +76,7 @@ const expectedPrefs: Record<string, unknown> = {
 	"advanced:minContrast_light": 90,
 	"advanced:noThemeColour": true,
 	"advanced:overwriteAccentColour": false,
-	"rule:rule-1": {
+	"rule:1": {
 		header: "example-1.com",
 		order: 1,
 		scheme: "both",
@@ -84,7 +84,7 @@ const expectedPrefs: Record<string, unknown> = {
 		type: "COLOUR",
 		value: "#33214e",
 	},
-	"rule:rule-2": {
+	"rule:2": {
 		header: "example-2.com",
 		order: 2,
 		scheme: "both",
@@ -92,7 +92,7 @@ const expectedPrefs: Record<string, unknown> = {
 		type: "THEME_COLOUR",
 		value: false,
 	},
-	"rule:rule-3": {
+	"rule:3": {
 		header: "example-3.com",
 		order: 3,
 		scheme: "both",
@@ -100,7 +100,7 @@ const expectedPrefs: Record<string, unknown> = {
 		type: "QUERY_SELECTOR",
 		value: "body",
 	},
-	"rule:rule-4": {
+	"rule:4": {
 		header: "example-4.com",
 		order: 4,
 		scheme: "both",
