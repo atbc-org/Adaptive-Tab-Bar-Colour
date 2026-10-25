@@ -196,9 +196,9 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				<div>
 					<Palette
 						inPopup
-						value={pref.get("homeBackground_light")}
+						value={pref.homeBackground_light}
 						onChange={(value) =>
-							pref.set("homeBackground_light", value)
+							(pref.homeBackground_light = value)
 						}
 					/>
 					<h4>
@@ -215,10 +215,8 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				<div>
 					<Palette
 						inPopup
-						value={pref.get("homeBackground_dark")}
-						onChange={(value) =>
-							pref.set("homeBackground_dark", value)
-						}
+						value={pref.homeBackground_dark}
+						onChange={(value) => (pref.homeBackground_dark = value)}
 					/>
 					<h4>
 						{i18n.t("inDarkMode")}

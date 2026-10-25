@@ -24,8 +24,6 @@ compatibilityModeTooltip:
   navegadores suportados ajustarão a cor da barra de abas de acordo.
 confirmResetAll: Tem certeza de que deseja redefinir todas as configurações?
 confirmResetThemeBuilder: Você realmente deseja redefinir o criador de temas?
-confirmSyncSettings:
-  As configurações locais e da nuvem são diferentes. Quais deseja manter?
 couldNotFindElement: Não foi possível encontrar o elemento HTML que coincide com
 couldNotFindElementEnd: ", usando a cor extraída da página web em vez disso"
 currentPage: Página atual
@@ -63,8 +61,6 @@ importFailed: Erro ao importar configurações. Por favor, tente novamente.
 importSettings: Importar configurações
 inDarkMode: Em modo escuro
 inLightMode: Em modo claro
-keepCloudSettings: Manter da nuvem
-keepLocalSettings: Manter locais
 loading: Carregando…
 minimumContrast: Contraste mínimo
 minimumContrastTooltip:
@@ -97,11 +93,6 @@ settingsAreExported:
 settingsAreImported: As configurações foram importadas.
 sidebar: Painel lateral
 specifyAColour: Especificar uma cor
-syncSettings: Sincronizar configurações na nuvem
-syncSettingsFailed:
-  Não foi possível alterar as configurações de sincronização. Tente novamente.
-syncSettingsTooltip:
-  Sincroniza configurações entre dispositivos usando sua conta do navegador.
 system: Sistema
 tabBar: Barra de abas
 themeBuilder: Criador de temas

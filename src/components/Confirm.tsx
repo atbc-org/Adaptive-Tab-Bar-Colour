@@ -4,18 +4,12 @@ interface ConfirmProps {
 	children: (open: () => void) => ReactNode;
 	confirmText: string;
 	onConfirm: () => void;
-	onCancel?: () => void;
-	confirmLabel?: string;
-	cancelLabel?: string;
 }
 
 export default function Confirm({
 	children,
 	confirmText,
 	onConfirm,
-	onCancel,
-	confirmLabel,
-	cancelLabel,
 }: ConfirmProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const containerRef = useRef<HTMLDivElement | null>(null);
@@ -25,16 +19,10 @@ export default function Confirm({
 			if (!containerRef.current?.contains(event.target as Node))
 				setIsOpen(false);
 		};
-		const onKeyDown = (event: KeyboardEvent) => {
-			if (event.key === "Escape") setIsOpen(false);
-		};
 		if (isOpen) {
-			document.addEventListener("keydown", onKeyDown);
 			document.addEventListener("pointerdown", onPointerDown);
-			return () => {
+			return () =>
 				document.removeEventListener("pointerdown", onPointerDown);
-				document.removeEventListener("keydown", onKeyDown);
-			};
 		}
 	}, [isOpen]);
 
@@ -57,15 +45,10 @@ export default function Confirm({
 								setIsOpen(false);
 							}}
 						>
-							{confirmLabel ?? i18n.t("yes")}
+							{i18n.t("yes")}
 						</button>
-						<button
-							onClick={() => {
-								onCancel?.();
-								setIsOpen(false);
-							}}
-						>
-							{cancelLabel ?? i18n.t("no")}
+						<button onClick={() => setIsOpen(false)}>
+							{i18n.t("no")}
 						</button>
 					</div>
 				</div>

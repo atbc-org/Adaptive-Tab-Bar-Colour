@@ -8,7 +8,7 @@
  * `cache.scheme`:
  * Derived from system and browser colour scheme and decides whether the light theme or dark theme is preferred.
  *
- * `pref.get("allowDarkLight")`:
+ * `pref.allowDarkLight`:
  * A setting that decides if a light theme is allowed to be used when current.scheme is dark, or vice versa.
  *
  * meta tag theme:
@@ -21,7 +21,6 @@
 
 /** Preference instance. */
 const pref = new Preference();
-let syncReady: Promise<void>;
 
 /** Blank tab IDs. */
 const blankTabIds = new Set<number>();
@@ -62,9 +61,6 @@ async function handleMessage(
 ): Promise<unknown> {
 	const tab = sender.tab;
 	switch (message.header) {
-		case "SETTINGS_SYNC":
-			await syncReady;
-			return pref.setSyncEnabled(message.enabled, message.choice);
 		case "SCRIPT_READY":
 			if (tab === undefined || !tab.active) break;
 			updateTab(tab);
@@ -183,7 +179,7 @@ async function getTabMeta(
 		return parseTabColourData(
 			await sendMessageToTab<TabColourData>(id, {
 				header: "SETUP_SCRIPT",
-				mode: pref.get("dynamic") ? "dynamic" : "static",
+				mode: pref.dynamic ? "dynamic" : "static",
 				query: rule?.type === "QUERY_SELECTOR" ? rule.value : undefined,
 			}),
 			rule,
@@ -266,7 +262,7 @@ function parseTabColourData(
 				? rule?.value
 					? {
 							colour: themeColour,
-							reason: pref.get("noThemeColour")
+							reason: pref.noThemeColour
 								? "THEME_UNIGNORED"
 								: "THEME_USED",
 						}
@@ -293,7 +289,7 @@ function parseTabColourData(
 		default: {
 			const themeColour = parseThemeColour();
 			return themeColour.isOpaque()
-				? !pref.get("noThemeColour")
+				? !pref.noThemeColour
 					? { colour: themeColour, reason: "THEME_USED" }
 					: { colour: getFallbackColour(), reason: "THEME_IGNORED" }
 				: {
@@ -387,16 +383,16 @@ function setFrameColour(
 	const windowId = tab.windowId;
 	const { colour, scheme, corrected } = meta.colour.contrastCorrection(
 		cache.scheme,
-		!pref.get("compatibilityMode") && pref.get("allowDarkLight"),
-		pref.get("minContrast_light"),
-		pref.get("minContrast_dark"),
+		!pref.compatibilityMode && pref.allowDarkLight,
+		pref.minContrast_light,
+		pref.minContrast_dark,
 	);
-	pref.get("compatibilityMode")
+	pref.compatibilityMode
 		? setTabThemeColour(tab, colour)
 		: applyTheme(windowId, colour, scheme);
 	return {
 		popupColour: colour
-			.brightness((scheme === "light" ? -1.5 : 1) * pref.get("popup"))
+			.brightness((scheme === "light" ? -1.5 : 1) * pref.popup)
 			.toRGBA(),
 		scheme: scheme,
 		corrected: corrected,
@@ -416,7 +412,7 @@ async function setTabThemeColour(
 	try {
 		await sendMessageToTab(tab.id, {
 			header: "SET_THEME_COLOUR",
-			colour: colour.brightness(pref.get("tabbar")).toRGBA(),
+			colour: colour.brightness(pref.tabbar).toRGBA(),
 		});
 	} catch {
 		console.warn("Could not apply theme colour to tab:", tab.url);
@@ -438,43 +434,34 @@ function applyTheme(windowId: number, colour: Colour, scheme: Scheme): void {
 
 	const primaryColour = lightDark("#000000", "#ffffff");
 	const secondaryColour = lightDark("#0000001c", "#ffffff1c");
-	const accentColour = pref.get("overwriteAccentColour")
-		? lightDark(
-				pref.get("accentColour_light"),
-				pref.get("accentColour_dark"),
-			)
+	const accentColour = pref.overwriteAccentColour
+		? lightDark(pref.accentColour_light, pref.accentColour_dark)
 		: "AccentColor";
 
 	const theme: Theme = {
 		colors: {
 			// adaptive
-			button_background_active: css(pref.get("tabSelected")),
-			frame: css(pref.get("tabbar")),
-			frame_inactive: css(pref.get("tabbar")),
+			button_background_active: css(pref.tabSelected),
+			frame: css(pref.tabbar),
+			frame_inactive: css(pref.tabbar),
 			ntp_background: browserColour.HOME.toRGBA(),
-			popup: css(pref.get("popup")),
-			popup_border: css(pref.get("popup") + pref.get("popupBorder")),
-			sidebar: css(pref.get("sidebar")),
-			sidebar_border: css(
-				pref.get("sidebar") + pref.get("sidebarBorder"),
-			),
-			tab_line: css(
-				pref.get("tabSelectedBorder") + pref.get("tabSelected"),
-			),
-			tab_selected: css(pref.get("tabSelected")),
-			toolbar: css(pref.get("toolbar")),
-			toolbar_bottom_separator: css(
-				pref.get("toolbarBorder") + pref.get("toolbar"),
-			),
-			toolbar_field: css(pref.get("toolbarField")),
+			popup: css(pref.popup),
+			popup_border: css(pref.popup + pref.popupBorder),
+			sidebar: css(pref.sidebar),
+			sidebar_border: css(pref.sidebar + pref.sidebarBorder),
+			tab_line: css(pref.tabSelectedBorder + pref.tabSelected),
+			tab_selected: css(pref.tabSelected),
+			toolbar: css(pref.toolbar),
+			toolbar_bottom_separator: css(pref.toolbarBorder + pref.toolbar),
+			toolbar_field: css(pref.toolbarField),
 			toolbar_field_border: css(
-				pref.get("toolbarFieldBorder") + pref.get("toolbarField"),
+				pref.toolbarFieldBorder + pref.toolbarField,
 			),
-			toolbar_field_focus: css(pref.get("toolbarFieldOnFocus")),
+			toolbar_field_focus: css(pref.toolbarFieldOnFocus),
 			toolbar_top_separator:
-				pref.get("tabbarBorder") === 0
+				pref.tabbarBorder === 0
 					? "transparent"
-					: css(pref.get("tabbarBorder") + pref.get("tabbar") + 5),
+					: css(pref.tabbarBorder + pref.tabbar + 5),
 			// static
 			icons: primaryColour,
 			ntp_text: primaryColour,
@@ -497,10 +484,7 @@ function applyTheme(windowId: number, colour: Colour, scheme: Scheme): void {
 }
 
 export default defineBackground(() => {
-	syncReady = pref.initialise().then(async () => {
-		if (await pref.flush()) await pref.initialiseSync();
-		await run();
-	});
+	pref.initialise().then(run);
 	pref.addOnChangeListener(run);
 	addSchemeChangeListener(run);
 	addTabChangeListener(run);

@@ -17,7 +17,6 @@ const expectedPrefs: Record<string, unknown> = {
 	minContrast_light: 90,
 	noThemeColour: true,
 	overwriteAccentColour: false,
-	syncSettings: true,
 	popup: 5,
 	popupBorder: 10,
 	ruleList: {},
@@ -51,10 +50,11 @@ describe("Initialise Preferences", () => {
 			},
 		)) as boolean;
 
-		const { lastSave, syncBaseline, ...prefs } =
-			(await context.driver.executeScript(async () => {
+		const { lastSave, ...prefs } = (await context.driver.executeScript(
+			async () => {
 				return await browser.storage.local.get();
-			})) as Record<string, unknown>;
+			},
+		)) as Record<string, unknown>;
 
 		actualPrefs = prefs;
 	});

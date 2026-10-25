@@ -20,7 +20,6 @@ compatibilityModeTooltip:
   の代わりに使用します。対応するブラウザーはそれに応じてタブバーの色を調整します。
 confirmResetAll: すべての設定をリセットしてもよろしいですか？
 confirmResetThemeBuilder: テーマビルダーをリセットしてもよろしいですか？
-confirmSyncSettings: ローカルとクラウドの設定が異なります。どちらを残しますか？
 couldNotFindElement: 一致する HTML 要素
 couldNotFindElementEnd: が見つかりませんでした。代わりにウェブページから取得した色を使用します
 currentPage: 現在のページ
@@ -49,8 +48,6 @@ importFailed: 設定のインポートに失敗しました。もう一度お試
 importSettings: 設定をインポート
 inDarkMode: ダークモード時
 inLightMode: ライトモード時
-keepCloudSettings: クラウドを残す
-keepLocalSettings: ローカルを残す
 loading: 読み込み中⋯⋯
 minimumContrast: 最小コントラスト
 minimumContrastTooltip: タブバーとテキストの最小コントラスト比を設定します。比率が満たされない場合、タブバーの色が自動的に調整されます。
@@ -79,9 +76,6 @@ settingsAreExported: 設定がダウンロードフォルダーにエクスポ�
 settingsAreImported: 設定がインポートされました。
 sidebar: サイドバー
 specifyAColour: 色を指定
-syncSettings: 設定をクラウドに同期
-syncSettingsFailed: 同期設定を変更できませんでした。もう一度お試しください。
-syncSettingsTooltip: ブラウザーのアカウントを使ってデバイス間で設定を同期します。
 system: システム
 tabBar: タブバー
 themeBuilder: テーマビルダー

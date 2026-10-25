@@ -84,7 +84,6 @@ export interface AdvancedPreferenceContent {
 	minContrast_light: number;
 	noThemeColour: boolean;
 	overwriteAccentColour: boolean;
-	syncSettings: boolean;
 }
 
 export interface PreferenceContent
@@ -94,51 +93,8 @@ export interface PreferenceContent
 		AdvancedPreferenceContent {
 	lastSave: number;
 	version: number[];
+	[key: string]: PreferenceContent[keyof PreferenceContent];
 }
-
-/** All persisted preference keys, including device metadata. */
-export type PreferenceKey = keyof PreferenceContent;
-
-/** Keys editable directly, excluding cloud controls and metadata. */
-export type EditablePreferenceKey = Exclude<
-	PreferenceKey,
-	"syncSettings" | "lastSave" | "version"
->;
-
-/** WXT storage items indexed by preference key. */
-export type PreferenceStorageItems = {
-	[Key in PreferenceKey]: WxtStorageItem<PreferenceContent[Key], {}>;
-};
-
-/** Local preference lifecycle and pending writes. */
-export interface PreferenceState {
-	isInitialised: boolean;
-	lastWrite: number;
-	isDisposed: boolean;
-	writeTimeout?: ReturnType<typeof setTimeout>;
-	pendingUpdates: Partial<PreferenceContent>;
-}
-
-/** Migrated preferences and obsolete storage keys to remove. */
-export interface PreferenceNormalisationResult {
-	result: PreferenceContent;
-	removedKeys: string[];
-}
-
-/** Bounds and increment used to normalise numeric preferences. */
-export interface NumberConstraints {
-	min: number;
-	max: number;
-	step: number;
-}
-
-/** Which settings to retain when enabling sync with a conflict. */
-export type SettingsSyncChoice = "local" | "cloud";
-
-/** Outcome of changing the local cloud sync setting. */
-export type SettingsSyncResult = {
-	status: "enabled" | "disabled" | "conflict" | "error";
-};
 
 export interface TabThemeColourData {
 	light?: string;
@@ -216,7 +172,6 @@ export interface ColourCorrectionResult {
 export type Theme = Manifest.ThemeType;
 
 export type MessageForBackground =
-	| { header: "SETTINGS_SYNC"; enabled: boolean; choice?: SettingsSyncChoice }
 	| { header: "UPDATE_COLOUR"; colour: TabColourData }
 	| { header: "SCRIPT_READY" | "CACHE_REQUEST" };
 

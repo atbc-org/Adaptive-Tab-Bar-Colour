@@ -27,9 +27,6 @@ compatibilityModeTooltip:
 confirmResetAll: Êtes-vous sûr de vouloir réinitialiser tous les paramètres ?
 confirmResetThemeBuilder:
   Êtes-vous sûr de vouloir réinitialiser le constructeur de thèmes ?
-confirmSyncSettings:
-  Les paramètres locaux et du cloud diffèrent. Lesquels souhaitez-vous conserver
-  ?
 couldNotFindElement: N'a pas pu trouver l'élément HTML correspondant
 couldNotFindElementEnd:
   ", utilisation de la couleur extraite de la page web à la place"
@@ -70,8 +67,6 @@ importFailed: Échec de l'importation des paramètres. Veuillez réessayer.
 importSettings: Importer les paramètres
 inDarkMode: En mode sombre
 inLightMode: En mode clair
-keepCloudSettings: Garder le cloud
-keepLocalSettings: Garder en local
 loading: Chargement…
 minimumContrast: Contraste minimum
 minimumContrastTooltip:
@@ -105,11 +100,6 @@ settingsAreExported:
 settingsAreImported: Les paramètres ont été importés.
 sidebar: Barre latérale
 specifyAColour: spécifier une couleur
-syncSettings: Synchroniser les paramètres dans le cloud
-syncSettingsFailed:
-  Impossible de modifier les paramètres de synchronisation. Veuillez réessayer.
-syncSettingsTooltip:
-  Synchronise les paramètres entre appareils via votre compte de navigateur.
 system: Système
 tabBar: Barre d'onglets
 themeBuilder: Constructeur de thème
