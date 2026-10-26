@@ -3,7 +3,10 @@ import styles from "./AdvancedTab.module.css";
 interface AdvancedTabProps {
 	prefs: Prefs;
 	ready: boolean;
-	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
+	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+		key: K,
+		value: Prefs[K],
+	) => void;
 }
 
 export default function AdvancedTab({

@@ -301,7 +301,7 @@ export class Colour {
 	}
 
 	/** Returns the colour as a hex string. */
-	toHex(): string {
+	toHex(): HexColour {
 		const hexR = Math.round(this.#r).toString(16).padStart(2, "0");
 		const hexG = Math.round(this.#g).toString(16).padStart(2, "0");
 		const hexB = Math.round(this.#b).toString(16).padStart(2, "0");
@@ -309,7 +309,7 @@ export class Colour {
 	}
 
 	/** Returns the colour as a hex string with alpha. */
-	toHexa(): string {
+	toHexa(): HexColour {
 		const hexR = Math.round(this.#r).toString(16).padStart(2, "0");
 		const hexG = Math.round(this.#g).toString(16).padStart(2, "0");
 		const hexB = Math.round(this.#b).toString(16).padStart(2, "0");

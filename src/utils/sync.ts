@@ -57,10 +57,9 @@ export async function setSyncSettings(
 }
 
 /** Synchronises a single pref item to sync storage if sync is active. */
-export async function syncPrefToCloud<K extends PrefKey>(
-	key: K,
-	value: Prefs[K],
-): Promise<void> {
+export async function syncPrefToCloud<
+	K extends keyof ThemePrefs | keyof AdvancedPrefs,
+>(key: K, value: Prefs[K]): Promise<void> {
 	if (key === "syncSettings") return;
 	const syncSettings = await isSyncSettingsEnabled();
 	if (!syncSettings) return;
@@ -72,7 +71,9 @@ export async function syncPrefToCloud<K extends PrefKey>(
 }
 
 /** Synchronises reset preferences to sync storage if sync is active. */
-export async function syncResetToCloud(keys?: PrefKey[]): Promise<void> {
+export async function syncResetToCloud(
+	keys?: (keyof ThemePrefs | keyof AdvancedPrefs)[],
+): Promise<void> {
 	const syncSettings = await isSyncSettingsEnabled();
 	if (!syncSettings) return;
 
@@ -133,7 +134,9 @@ export async function handleSyncStorageChanges(changes: {
 	if (!syncSettings) return;
 
 	const relevant = Object.keys(changes).some(
-		(key) => keyToPrefKeyMap.has(key) || key.startsWith("rule:"),
+		(key) =>
+			keyToPrefKeyMap.has(key as ThemeStorageKey | AdvancedStorageKey) ||
+			key.startsWith("rule:"),
 	);
 	if (!relevant) return;
 
@@ -153,7 +156,8 @@ export async function handleLocalStorageChanges(changes: {
 
 	for (const [key, change] of Object.entries(changes)) {
 		const isPref =
-			keyToPrefKeyMap.has(key) && key !== "advanced:syncSettings";
+			keyToPrefKeyMap.has(key as ThemeStorageKey | AdvancedStorageKey) &&
+			key !== "advanced:syncSettings";
 		const isRule = key.startsWith("rule:");
 		const isSyncable = isPref || isRule;
 		if (!isSyncable) continue;

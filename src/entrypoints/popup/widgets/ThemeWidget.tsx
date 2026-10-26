@@ -3,7 +3,10 @@ import styles from "./ThemeWidget.module.css";
 interface ThemeWidgetProps {
 	ready: boolean;
 	prefs: Prefs;
-	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
+	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+		key: K,
+		value: Prefs[K],
+	) => void;
 	scheme: Scheme;
 }
 

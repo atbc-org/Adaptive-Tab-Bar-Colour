@@ -33,62 +33,77 @@ export const advancedKeys: (keyof AdvancedPrefs)[] = [
 	"syncSettings",
 ];
 
-export const keyToPrefKeyMap = new Map<string, PrefKey>([
-	...themeKeys.map((key): [string, PrefKey] => [`theme:${key}`, key]),
-	...advancedKeys.map((key): [string, PrefKey] => [`advanced:${key}`, key]),
+export const keyToPrefKeyMap = new Map<
+	ThemeStorageKey | AdvancedStorageKey,
+	keyof ThemePrefs | keyof AdvancedPrefs
+>([
+	...themeKeys.map(
+		(key): [ThemeStorageKey, keyof ThemePrefs | keyof AdvancedPrefs] => [
+			`theme:${key}`,
+			key,
+		],
+	),
+	...advancedKeys.map(
+		(key): [AdvancedStorageKey, keyof ThemePrefs | keyof AdvancedPrefs] => [
+			`advanced:${key}`,
+			key,
+		],
+	),
 ]);
 
 let cachedPrefItems: PrefStorageItems | undefined;
 
-/** Defines a single WXT storage item for a pref key. */
-function definePrefItem<K extends PrefKey>(
-	prefix: "theme" | "advanced",
+/** Defines a single WXT storage item for a theme pref key. */
+function defineThemePref<K extends keyof ThemePrefs>(
 	key: K,
-): WxtStorageItem<Prefs[K], Record<string, unknown>> {
+): WxtStorageItem<ThemePrefs[K], Record<string, unknown>> {
 	const fallback = defaultPrefs[key];
-	return storage.defineItem<Prefs[K]>(`local:${prefix}:${key}`, { fallback });
+	return storage.defineItem<ThemePrefs[K]>(`local:theme:${key}`, {
+		fallback,
+	});
+}
+
+/** Defines a single WXT storage item for an advanced pref key. */
+function defineAdvancedPref<K extends keyof AdvancedPrefs>(
+	key: K,
+): WxtStorageItem<AdvancedPrefs[K], Record<string, unknown>> {
+	const fallback = defaultPrefs[key];
+	return storage.defineItem<AdvancedPrefs[K]>(`local:advanced:${key}`, {
+		fallback,
+	});
 }
 
 /** Gets (and lazily defines) WXT storage items for all theme and advanced prefs. */
 function getPrefItems(): PrefStorageItems {
 	if (cachedPrefItems) return cachedPrefItems;
 	cachedPrefItems = {
-		popup: definePrefItem("theme", "popup"),
-		popupBorder: definePrefItem("theme", "popupBorder"),
-		sidebar: definePrefItem("theme", "sidebar"),
-		sidebarBorder: definePrefItem("theme", "sidebarBorder"),
-		tabSelected: definePrefItem("theme", "tabSelected"),
-		tabSelectedBorder: definePrefItem("theme", "tabSelectedBorder"),
-		tabbar: definePrefItem("theme", "tabbar"),
-		tabbarBorder: definePrefItem("theme", "tabbarBorder"),
-		toolbar: definePrefItem("theme", "toolbar"),
-		toolbarBorder: definePrefItem("theme", "toolbarBorder"),
-		toolbarField: definePrefItem("theme", "toolbarField"),
-		toolbarFieldBorder: definePrefItem("theme", "toolbarFieldBorder"),
-		toolbarFieldOnFocus: definePrefItem("theme", "toolbarFieldOnFocus"),
-		accentColour_dark: definePrefItem("advanced", "accentColour_dark"),
-		accentColour_light: definePrefItem("advanced", "accentColour_light"),
-		allowDarkLight: definePrefItem("advanced", "allowDarkLight"),
-		compatibilityMode: definePrefItem("advanced", "compatibilityMode"),
-		dynamic: definePrefItem("advanced", "dynamic"),
-		fallbackColour_dark: definePrefItem("advanced", "fallbackColour_dark"),
-		fallbackColour_light: definePrefItem(
-			"advanced",
-			"fallbackColour_light",
-		),
-		homeBackground_dark: definePrefItem("advanced", "homeBackground_dark"),
-		homeBackground_light: definePrefItem(
-			"advanced",
-			"homeBackground_light",
-		),
-		minContrast_dark: definePrefItem("advanced", "minContrast_dark"),
-		minContrast_light: definePrefItem("advanced", "minContrast_light"),
-		noThemeColour: definePrefItem("advanced", "noThemeColour"),
-		overwriteAccentColour: definePrefItem(
-			"advanced",
-			"overwriteAccentColour",
-		),
-		syncSettings: definePrefItem("advanced", "syncSettings"),
+		popup: defineThemePref("popup"),
+		popupBorder: defineThemePref("popupBorder"),
+		sidebar: defineThemePref("sidebar"),
+		sidebarBorder: defineThemePref("sidebarBorder"),
+		tabSelected: defineThemePref("tabSelected"),
+		tabSelectedBorder: defineThemePref("tabSelectedBorder"),
+		tabbar: defineThemePref("tabbar"),
+		tabbarBorder: defineThemePref("tabbarBorder"),
+		toolbar: defineThemePref("toolbar"),
+		toolbarBorder: defineThemePref("toolbarBorder"),
+		toolbarField: defineThemePref("toolbarField"),
+		toolbarFieldBorder: defineThemePref("toolbarFieldBorder"),
+		toolbarFieldOnFocus: defineThemePref("toolbarFieldOnFocus"),
+		accentColour_dark: defineAdvancedPref("accentColour_dark"),
+		accentColour_light: defineAdvancedPref("accentColour_light"),
+		allowDarkLight: defineAdvancedPref("allowDarkLight"),
+		compatibilityMode: defineAdvancedPref("compatibilityMode"),
+		dynamic: defineAdvancedPref("dynamic"),
+		fallbackColour_dark: defineAdvancedPref("fallbackColour_dark"),
+		fallbackColour_light: defineAdvancedPref("fallbackColour_light"),
+		homeBackground_dark: defineAdvancedPref("homeBackground_dark"),
+		homeBackground_light: defineAdvancedPref("homeBackground_light"),
+		minContrast_dark: defineAdvancedPref("minContrast_dark"),
+		minContrast_light: defineAdvancedPref("minContrast_light"),
+		noThemeColour: defineAdvancedPref("noThemeColour"),
+		overwriteAccentColour: defineAdvancedPref("overwriteAccentColour"),
+		syncSettings: defineAdvancedPref("syncSettings"),
 	};
 	return cachedPrefItems;
 }
@@ -126,7 +141,7 @@ function normaliseNumber(
 }
 
 /** Normalises a pref value for a specific key. */
-export function normalisePref<K extends PrefKey>(
+export function normalisePref<K extends keyof ThemePrefs | keyof AdvancedPrefs>(
 	key: K,
 	value: unknown,
 ): Prefs[K] {
@@ -272,7 +287,7 @@ export function hasStorageData(snapshot: Record<string, unknown>): boolean {
 		(key) =>
 			key !== "version" &&
 			key !== "lastSave" &&
-			(keyToPrefKeyMap.has(key) ||
+			(keyToPrefKeyMap.has(key as ThemeStorageKey | AdvancedStorageKey) ||
 				key.startsWith("rule:") ||
 				themeKeys.includes(key as keyof ThemePrefs) ||
 				advancedKeys.includes(key as keyof AdvancedPrefs) ||
@@ -306,7 +321,7 @@ export async function getPrefs(): Promise<Prefs> {
 }
 
 /** Sets a single theme or advanced pref in WXT Storage. */
-export async function setPref<K extends PrefKey>(
+export async function setPref<K extends keyof ThemePrefs | keyof AdvancedPrefs>(
 	key: K,
 	value: Prefs[K],
 ): Promise<void> {
@@ -318,7 +333,9 @@ export async function setPref<K extends PrefKey>(
 }
 
 /** Resets specified keys (or all prefs and rules) to default values. */
-export async function resetPrefs(keys?: PrefKey[]): Promise<void> {
+export async function resetPrefs(
+	keys?: (keyof ThemePrefs | keyof AdvancedPrefs)[],
+): Promise<void> {
 	const items = getPrefItems();
 
 	if (keys) {
@@ -352,7 +369,10 @@ export function watchPrefs(callback: (prefs: Prefs) => void): () => void {
 		const isRelevantLocal =
 			areaName === "local" &&
 			Object.keys(changes).some(
-				(key) => keyToPrefKeyMap.has(key) || key.startsWith("rule:"),
+				(key) =>
+					keyToPrefKeyMap.has(
+						key as ThemeStorageKey | AdvancedStorageKey,
+					) || key.startsWith("rule:"),
 			);
 
 		if (isRelevantLocal) {

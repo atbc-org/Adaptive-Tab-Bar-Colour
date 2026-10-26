@@ -10,7 +10,7 @@ export interface PalettePopupProps {
 	inPopup: boolean;
 	location: PopupLocation;
 	openColourInput: () => void;
-	onChange: (hex: string) => void;
+	onChange: (hex: HexColour) => void;
 }
 
 export type ColourFormat = "HEX" | "RGB" | "HWB" | "CSS" | "PAGE";

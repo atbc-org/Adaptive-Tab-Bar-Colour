@@ -3,7 +3,7 @@ import styles from "./Palette.module.css";
 interface PaletteProps {
 	value?: string;
 	inPopup?: boolean;
-	onChange: (newValue: string) => void;
+	onChange: (newValue: HexColour) => void;
 }
 
 export default function Palette({

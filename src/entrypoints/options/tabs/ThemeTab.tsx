@@ -3,7 +3,10 @@ import styles from "./ThemeTab.module.css";
 interface ThemeTabProps {
 	prefs: Prefs;
 	ready: boolean;
-	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
+	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+		key: K,
+		value: Prefs[K],
+	) => void;
 }
 
 interface History {

@@ -2,7 +2,10 @@ import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {
 	prefs: Prefs;
-	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
+	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+		key: K,
+		value: Prefs[K],
+	) => void;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
@@ -125,7 +128,10 @@ function ReasonText({ reason, info }: ReasonTextProps) {
 
 interface RuleControlsProps {
 	prefs: Prefs;
-	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
+	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+		key: K,
+		value: Prefs[K],
+	) => void;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }

@@ -2,6 +2,8 @@ import type { Manifest } from "webextension-polyfill";
 
 export type Scheme = "light" | "dark";
 
+export type HexColour = `#${string}`;
+
 export type BrowserColour =
 	| "ADDON"
 	| "BLANK"
@@ -28,7 +30,7 @@ export interface ColourRule {
 	target: "URL" | "ADDON_ID";
 	header: string;
 	type: "COLOUR";
-	value: string;
+	value: HexColour;
 	scheme: "both" | Scheme;
 	order: number;
 }
@@ -86,15 +88,15 @@ export interface RulePrefs {
 }
 
 export interface AdvancedPrefs {
-	accentColour_dark: string;
-	accentColour_light: string;
+	accentColour_dark: HexColour;
+	accentColour_light: HexColour;
 	allowDarkLight: boolean;
 	compatibilityMode: boolean;
 	dynamic: boolean;
-	fallbackColour_dark: string;
-	fallbackColour_light: string;
-	homeBackground_dark: string;
-	homeBackground_light: string;
+	fallbackColour_dark: HexColour;
+	fallbackColour_light: HexColour;
+	homeBackground_dark: HexColour;
+	homeBackground_light: HexColour;
 	minContrast_dark: number;
 	minContrast_light: number;
 	noThemeColour: boolean;
@@ -102,19 +104,26 @@ export interface AdvancedPrefs {
 	syncSettings: boolean;
 }
 
-export type SyncChoice = "local" | "cloud";
-
-export type SyncResult = "enabled" | "disabled" | "conflict";
-
 export interface Prefs extends ThemePrefs, RulePrefs, AdvancedPrefs {
 	[key: string]: Prefs[keyof Prefs];
 }
 
-export type PrefKey = keyof ThemePrefs | keyof AdvancedPrefs;
+export type ThemeStorageKey = `theme:${keyof ThemePrefs}`;
+
+export type AdvancedStorageKey = `advanced:${keyof AdvancedPrefs}`;
+
+export type RuleStorageKey = `rule:${string}`;
 
 export type PrefStorageItems = {
-	[K in PrefKey]: WxtStorageItem<Prefs[K], Record<string, unknown>>;
+	[K in keyof ThemePrefs | keyof AdvancedPrefs]: WxtStorageItem<
+		Prefs[K],
+		Record<string, unknown>
+	>;
 };
+
+export type SyncChoice = "local" | "cloud";
+
+export type SyncResult = "enabled" | "disabled" | "conflict";
 
 export interface TabThemeColourData {
 	light?: string | undefined;

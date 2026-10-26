@@ -5,7 +5,10 @@
 export default function usePrefs(): {
 	prefs: Prefs;
 	ready: boolean;
-	updatePref: <K extends PrefKey>(key: K, value: Prefs[K]) => void;
+	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+		key: K,
+		value: Prefs[K],
+	) => void;
 } {
 	const [prefs, setPrefs] = useState<Prefs>({ ...defaultPrefs });
 	const [ready, setReady] = useState(false);
@@ -19,7 +22,10 @@ export default function usePrefs(): {
 	}, []);
 
 	const updatePref = useCallback(
-		<K extends PrefKey>(key: K, value: Prefs[K]) => {
+		<K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+			key: K,
+			value: Prefs[K],
+		) => {
 			const normalised = normalisePref(key, value);
 			setPrefs((prev) => ({ ...prev, [key]: normalised }));
 			void setPref(key, normalised);
