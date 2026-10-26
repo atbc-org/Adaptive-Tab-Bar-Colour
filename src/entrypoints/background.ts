@@ -501,5 +501,5 @@ export default defineBackground(() => {
 		if (isBlank) blankTabIds.add(tabId);
 		else blankTabIds.delete(tabId);
 	});
-	setInterval(() => void browser.runtime.getPlatformInfo(), 2e4);
+	setInterval(() => void getPlatformInfo(), 2e4);
 });

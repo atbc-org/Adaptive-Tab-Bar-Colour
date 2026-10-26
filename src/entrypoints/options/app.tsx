@@ -3,7 +3,7 @@ export default function App() {
 	const { prefs, ready, updatePref } = usePrefs();
 
 	useEffect(() => {
-		document.documentElement.lang = browser.i18n.getUILanguage();
+		document.documentElement.lang = getUILanguage();
 	}, []);
 
 	return (

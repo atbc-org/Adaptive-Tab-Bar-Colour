@@ -177,12 +177,42 @@ export function removeMessageListener(
 	browser.runtime?.onMessage?.removeListener(listener);
 }
 
-/** Clamps a number between a minimum and maximum value. */
-export function clamp(min: number, num: number, max: number): number {
-	return Math.max(min, Math.min(max, num));
-}
-
 /** Captures an image of the active tab. */
 export async function captureActiveTabPage(): Promise<string | null> {
 	return (await browser.tabs?.captureVisibleTab({ format: "png" })) ?? null;
+}
+
+/** Registers a storage change listener and returns an unlisten function. */
+export function addStorageChangeListener(
+	listener: (
+		changes: { [key: string]: Browser.storage.StorageChange },
+		areaName: Browser.storage.AreaName,
+	) => void,
+): () => void {
+	browser.storage?.onChanged?.addListener(listener);
+	return () => {
+		browser.storage?.onChanged?.removeListener(listener);
+	};
+}
+
+/** Retrieves the current platform information. */
+export async function getPlatformInfo(): Promise<
+	Browser.runtime.PlatformInfo | undefined
+> {
+	return await browser.runtime?.getPlatformInfo();
+}
+
+/** Retrieves the browser UI language. */
+export function getUILanguage(): string {
+	return browser.i18n?.getUILanguage?.() ?? "en";
+}
+
+/** Opens the extension options page. */
+export async function openOptionsPage(): Promise<void> {
+	await browser.runtime?.openOptionsPage();
+}
+
+/** Clamps a number between a minimum and maximum value. */
+export function clamp(min: number, num: number, max: number): number {
+	return Math.max(min, Math.min(max, num));
 }

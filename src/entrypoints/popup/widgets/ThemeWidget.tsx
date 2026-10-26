@@ -147,7 +147,7 @@ export default function ThemeWidget({
 					<button
 						className={styles.moreSettingsButton}
 						onMouseEnter={() => setHover("none")}
-						onClick={() => browser.runtime.openOptionsPage()}
+						onClick={() => void openOptionsPage()}
 					>
 						<span>{i18n.t("moreSettings")}</span>
 						<Icon type="redirect" inline size="text" />

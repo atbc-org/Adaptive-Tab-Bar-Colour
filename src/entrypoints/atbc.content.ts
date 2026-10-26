@@ -227,7 +227,7 @@ async function sendColour() {
 		if (document.visibilityState !== "visible") return;
 		lastSentAt = Date.now();
 		try {
-			await browser.runtime.sendMessage({
+			await sendMessageToBackground({
 				header: "UPDATE_COLOUR",
 				colour: getColourData(),
 			});
