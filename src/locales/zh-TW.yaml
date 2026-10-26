@@ -20,6 +20,7 @@ compatibilityModeTooltip:
   API。支援該功能的瀏覽器會相應地調整其標題列顏色。
 confirmResetAll: 是否確定重設所有設定？
 confirmResetThemeBuilder: 是否確定重設佈景主題設定？
+confirmSyncSettings: 本機與雲端設定不同。您想保留哪一份？
 couldNotFindElement: 未能找到符合
 couldNotFindElementEnd: 的網頁元件，改為使用從網頁中提取的顏色
 currentPage: 目前網頁
@@ -47,6 +48,8 @@ importFailed: 載入偏好設定失敗。請重試。
 importSettings: 載入偏好設定
 inDarkMode: 在暗色模式下
 inLightMode: 在亮色模式下
+keepCloudSettings: 保留雲端
+keepLocalSettings: 保留本機
 loading: 載入中⋯⋯
 minimumContrast: 最小對比度設定
 minimumContrastTooltip: 在此設定標題列和文字的最小對比度。若該指標未達到，標題列會調整其顏色，使之達到設定的最小對比度。
@@ -73,6 +76,9 @@ settingsAreExported: 偏好設定已儲存至下載資料夾。
 settingsAreImported: 已載入偏好設定。
 sidebar: 側邊欄
 specifyAColour: 指定顏色
+syncSettings: 同步設定至雲端
+syncSettingsFailed: 無法變更同步設定，請重試。
+syncSettingsTooltip: 透過瀏覽器帳戶在裝置之間同步設定。
 system: 系統內建
 tabBar: 分頁標題列
 themeBuilder: 佈景主題

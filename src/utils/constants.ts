@@ -121,6 +121,7 @@ export const defaultPrefs = Object.freeze({
 	minContrast_light: 90,
 	noThemeColour: true,
 	overwriteAccentColour: false,
+	syncSettings: true,
 } as Prefs);
 
 /** Creates a `browserColour` object. */

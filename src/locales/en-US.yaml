@@ -23,6 +23,8 @@ compatibilityModeTooltip:
   Supported browsers will adjust their tab bar color accordingly.
 confirmResetAll: Are you sure you want to reset all settings?
 confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
+confirmSyncSettings:
+  Local and cloud settings differ. Which settings do you want to keep?
 couldNotFindElement: Could not find the HTML element matching
 couldNotFindElementEnd: ", using color picked from the web page instead"
 currentPage: Current page
@@ -57,6 +59,8 @@ importFailed: Failed to import settings. Please try again.
 importSettings: Import settings
 inDarkMode: In dark mode
 inLightMode: In light mode
+keepCloudSettings: Keep cloud
+keepLocalSettings: Keep local
 loading: Loading…
 minimumContrast: Minimum contrast
 minimumContrastTooltip:
@@ -87,6 +91,9 @@ settingsAreExported: Settings have been exported to your download folder.
 settingsAreImported: Settings have been imported.
 sidebar: Sidebar
 specifyAColour: specify a color
+syncSettings: Sync settings to cloud
+syncSettingsFailed: Could not change sync settings. Please try again.
+syncSettingsTooltip: Sync settings across devices using your browser account.
 system: System
 tabBar: Tab bar
 themeBuilder: Theme builder

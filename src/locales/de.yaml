@@ -28,6 +28,9 @@ confirmResetAll:
   Sind Sie sicher, dass Sie alle Einstellungen zurücksetzen möchten?
 confirmResetThemeBuilder:
   Sind Sie sicher, dass Sie den Theme-Editor zurücksetzen möchten?
+confirmSyncSettings:
+  Lokale und Cloud-Einstellungen unterscheiden sich. Welche möchten Sie
+  behalten?
 couldNotFindElement: Das HTML-Element, das mit
 couldNotFindElementEnd:
   übereinstimmt, konnte nicht gefunden werden. Stattdessen wird die von der
@@ -71,6 +74,8 @@ importFailed:
 importSettings: Einstellungen importieren
 inDarkMode: Im dunklen Modus
 inLightMode: Im hellen Modus
+keepCloudSettings: Cloud behalten
+keepLocalSettings: Lokal behalten
 loading: Laden…
 minimumContrast: Minimaler Kontrast
 minimumContrastTooltip:
@@ -104,6 +109,12 @@ settingsAreExported: Einstellungen wurden in Ihren Download-Ordner exportiert.
 settingsAreImported: Einstellungen wurden importiert.
 sidebar: Seitenleiste
 specifyAColour: eine Farbe angeben
+syncSettings: Einstellungen mit der Cloud synchronisieren
+syncSettingsFailed:
+  Synchronisierungseinstellungen konnten nicht geändert werden. Bitte versuchen
+  Sie es erneut.
+syncSettingsTooltip:
+  Synchronisiert Einstellungen über Ihr Browser-Konto zwischen Geräten.
 system: System
 tabBar: Tableiste
 themeBuilder: Theme-Editor

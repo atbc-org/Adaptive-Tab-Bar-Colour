@@ -26,6 +26,8 @@ compatibilityModeTooltip:
 confirmResetAll: Tüm ayarları sıfırlamak istediğinizden emin misiniz?
 confirmResetThemeBuilder:
   Tema oluşturucuyu sıfırlamak istediğinize emin misiniz?
+confirmSyncSettings:
+  Yerel ve bulut ayarları farklı. Hangilerini tutmak istiyorsunuz?
 couldNotFindElement: Eşleşen HTML ögesi bulunamadı
 couldNotFindElementEnd:
   ", bunun yerine web sayfasından seçilen renk kullanılıyor"
@@ -63,6 +65,8 @@ importFailed: Ayarlar içe aktarılamadı. Lütfen tekrar deneyin.
 importSettings: Ayarları içe aktar
 inDarkMode: Koyu modda
 inLightMode: Açık modda
+keepCloudSettings: Bulutu tut
+keepLocalSettings: Yereli tut
 loading: Yükleniyor…
 minimumContrast: Asgari karşıtlık
 minimumContrastTooltip:
@@ -93,6 +97,9 @@ settingsAreExported: Ayarlar indirilenler klasörünüze aktarıldı.
 settingsAreImported: Ayarlar içe aktarıldı.
 sidebar: Kenar çubuğu
 specifyAColour: bir renk belirt
+syncSettings: Ayarları buluta eşitle
+syncSettingsFailed: Eşitleme ayarları değiştirilemedi. Lütfen tekrar deneyin.
+syncSettingsTooltip: Tarayıcı hesabınızla ayarları cihazlar arasında eşitleyin.
 system: Sistem
 tabBar: Sekme çubuğu
 themeBuilder: Tema oluşturucu

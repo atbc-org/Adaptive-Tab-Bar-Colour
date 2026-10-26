@@ -379,6 +379,44 @@ export default function AdvancedTab({
 					<h2 id="advanced-backup">{i18n.t("backupAndReset")}</h2>
 
 					<div className={styles.settingGroup}>
+						<div className={styles.switchWrapper}>
+							<Confirm
+								confirmText={i18n.t("confirmSyncSettings")}
+								confirmLabel={i18n.t("keepCloudSettings")}
+								cancelLabel={i18n.t("keepLocalSettings")}
+								onConfirm={() =>
+									void setSyncSettings(true, "cloud")
+								}
+								onCancel={() =>
+									void setSyncSettings(true, "local")
+								}
+							>
+								{(open) => (
+									<Switch
+										label={i18n.t("syncSettings")}
+										active={prefs.syncSettings}
+										onChange={async (value) => {
+											if (!value) {
+												await setSyncSettings(false);
+												return;
+											}
+											const res =
+												await setSyncSettings(true);
+											if (res === "conflict") {
+												open();
+											}
+										}}
+									/>
+								)}
+							</Confirm>
+							<div>
+								<h3>{i18n.t("syncSettings")}</h3>
+								<p>{i18n.t("syncSettingsTooltip")}</p>
+							</div>
+						</div>
+					</div>
+
+					<div className={styles.settingGroup}>
 						<button
 							className={styles.textButton}
 							onClick={async () => {

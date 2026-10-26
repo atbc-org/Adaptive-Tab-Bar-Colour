@@ -26,6 +26,8 @@ compatibilityModeTooltip:
   вкладок.
 confirmResetAll: Вы уверены, что хотите сбросить все настройки?
 confirmResetThemeBuilder: Вы уверены, что хотите сбросить конструктор темы?
+confirmSyncSettings:
+  Локальные и облачные настройки различаются. Какие настройки сохранить?
 couldNotFindElement: Не удалось найти HTML-элемент, соответствующий
 couldNotFindElementEnd: ", цвет выбран со страницы вместо него"
 currentPage: Текущая страница
@@ -61,6 +63,8 @@ importFailed: Не удалось импортировать настройки.
 importSettings: Импорт настроек
 inDarkMode: В тёмном режиме
 inLightMode: В светлом режиме
+keepCloudSettings: Облачные
+keepLocalSettings: Локальные
 loading: Загрузка…
 minimumContrast: Минимальный контраст
 minimumContrastTooltip:
@@ -92,6 +96,11 @@ settingsAreExported: Настройки экспортированы в папк
 settingsAreImported: Настройки импортированы.
 sidebar: Боковая панель
 specifyAColour: указать цвет
+syncSettings: Синхронизировать настройки с облаком
+syncSettingsFailed:
+  Не удалось изменить настройки синхронизации. Попробуйте ещё раз.
+syncSettingsTooltip:
+  Синхронизация настроек между устройствами через учётную запись браузера.
 system: Система
 tabBar: Панель вкладок
 themeBuilder: Конструктор темы

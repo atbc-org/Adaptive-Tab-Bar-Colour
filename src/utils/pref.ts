@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 
-const themeKeys: (keyof ThemePrefs)[] = [
+export const themeKeys: (keyof ThemePrefs)[] = [
 	"popup",
 	"popupBorder",
 	"sidebar",
@@ -16,7 +16,7 @@ const themeKeys: (keyof ThemePrefs)[] = [
 	"toolbarFieldOnFocus",
 ];
 
-const advancedKeys: (keyof AdvancedPrefs)[] = [
+export const advancedKeys: (keyof AdvancedPrefs)[] = [
 	"accentColour_dark",
 	"accentColour_light",
 	"allowDarkLight",
@@ -30,9 +30,10 @@ const advancedKeys: (keyof AdvancedPrefs)[] = [
 	"minContrast_light",
 	"noThemeColour",
 	"overwriteAccentColour",
+	"syncSettings",
 ];
 
-const keyToPrefKeyMap = new Map<string, PrefKey>([
+export const keyToPrefKeyMap = new Map<string, PrefKey>([
 	...themeKeys.map((key): [string, PrefKey] => [`theme:${key}`, key]),
 	...advancedKeys.map((key): [string, PrefKey] => [`advanced:${key}`, key]),
 ]);
@@ -50,54 +51,45 @@ function definePrefItem<K extends PrefKey>(
 
 /** Gets (and lazily defines) WXT storage items for all theme and advanced prefs. */
 function getPrefItems(): PrefStorageItems {
-	if (!cachedPrefItems) {
-		cachedPrefItems = {
-			popup: definePrefItem("theme", "popup"),
-			popupBorder: definePrefItem("theme", "popupBorder"),
-			sidebar: definePrefItem("theme", "sidebar"),
-			sidebarBorder: definePrefItem("theme", "sidebarBorder"),
-			tabSelected: definePrefItem("theme", "tabSelected"),
-			tabSelectedBorder: definePrefItem("theme", "tabSelectedBorder"),
-			tabbar: definePrefItem("theme", "tabbar"),
-			tabbarBorder: definePrefItem("theme", "tabbarBorder"),
-			toolbar: definePrefItem("theme", "toolbar"),
-			toolbarBorder: definePrefItem("theme", "toolbarBorder"),
-			toolbarField: definePrefItem("theme", "toolbarField"),
-			toolbarFieldBorder: definePrefItem("theme", "toolbarFieldBorder"),
-			toolbarFieldOnFocus: definePrefItem("theme", "toolbarFieldOnFocus"),
-			accentColour_dark: definePrefItem("advanced", "accentColour_dark"),
-			accentColour_light: definePrefItem(
-				"advanced",
-				"accentColour_light",
-			),
-			allowDarkLight: definePrefItem("advanced", "allowDarkLight"),
-			compatibilityMode: definePrefItem("advanced", "compatibilityMode"),
-			dynamic: definePrefItem("advanced", "dynamic"),
-			fallbackColour_dark: definePrefItem(
-				"advanced",
-				"fallbackColour_dark",
-			),
-			fallbackColour_light: definePrefItem(
-				"advanced",
-				"fallbackColour_light",
-			),
-			homeBackground_dark: definePrefItem(
-				"advanced",
-				"homeBackground_dark",
-			),
-			homeBackground_light: definePrefItem(
-				"advanced",
-				"homeBackground_light",
-			),
-			minContrast_dark: definePrefItem("advanced", "minContrast_dark"),
-			minContrast_light: definePrefItem("advanced", "minContrast_light"),
-			noThemeColour: definePrefItem("advanced", "noThemeColour"),
-			overwriteAccentColour: definePrefItem(
-				"advanced",
-				"overwriteAccentColour",
-			),
-		};
-	}
+	if (cachedPrefItems) return cachedPrefItems;
+	cachedPrefItems = {
+		popup: definePrefItem("theme", "popup"),
+		popupBorder: definePrefItem("theme", "popupBorder"),
+		sidebar: definePrefItem("theme", "sidebar"),
+		sidebarBorder: definePrefItem("theme", "sidebarBorder"),
+		tabSelected: definePrefItem("theme", "tabSelected"),
+		tabSelectedBorder: definePrefItem("theme", "tabSelectedBorder"),
+		tabbar: definePrefItem("theme", "tabbar"),
+		tabbarBorder: definePrefItem("theme", "tabbarBorder"),
+		toolbar: definePrefItem("theme", "toolbar"),
+		toolbarBorder: definePrefItem("theme", "toolbarBorder"),
+		toolbarField: definePrefItem("theme", "toolbarField"),
+		toolbarFieldBorder: definePrefItem("theme", "toolbarFieldBorder"),
+		toolbarFieldOnFocus: definePrefItem("theme", "toolbarFieldOnFocus"),
+		accentColour_dark: definePrefItem("advanced", "accentColour_dark"),
+		accentColour_light: definePrefItem("advanced", "accentColour_light"),
+		allowDarkLight: definePrefItem("advanced", "allowDarkLight"),
+		compatibilityMode: definePrefItem("advanced", "compatibilityMode"),
+		dynamic: definePrefItem("advanced", "dynamic"),
+		fallbackColour_dark: definePrefItem("advanced", "fallbackColour_dark"),
+		fallbackColour_light: definePrefItem(
+			"advanced",
+			"fallbackColour_light",
+		),
+		homeBackground_dark: definePrefItem("advanced", "homeBackground_dark"),
+		homeBackground_light: definePrefItem(
+			"advanced",
+			"homeBackground_light",
+		),
+		minContrast_dark: definePrefItem("advanced", "minContrast_dark"),
+		minContrast_light: definePrefItem("advanced", "minContrast_light"),
+		noThemeColour: definePrefItem("advanced", "noThemeColour"),
+		overwriteAccentColour: definePrefItem(
+			"advanced",
+			"overwriteAccentColour",
+		),
+		syncSettings: definePrefItem("advanced", "syncSettings"),
+	};
 	return cachedPrefItems;
 }
 
@@ -113,13 +105,23 @@ function isRecord(
 	);
 }
 
+/** Checks whether syncSettings preference is currently enabled. */
+export async function isSyncSettingsEnabled(): Promise<boolean> {
+	return await (
+		getPrefItems().syncSettings as WxtStorageItem<
+			boolean,
+			Record<string, unknown>
+		>
+	).getValue();
+}
+
 /** Normalises a numeric pref within constraints. */
 function normaliseNumber(
 	num: number,
 	{ min, max, step }: { min: number; max: number; step: number },
 ): number {
-	if (num > -1 && num < 1) num = Math.round(num * 100);
-	const clamped = clamp(min, num, max);
+	const scaled = num > -1 && num < 1 ? Math.round(num * 100) : num;
+	const clamped = clamp(min, scaled, max);
 	return Math.round(Math.round((clamped - min) / step) * step + min);
 }
 
@@ -151,6 +153,7 @@ export function normalisePref<K extends PrefKey>(
 		case "dynamic":
 		case "noThemeColour":
 		case "overwriteAccentColour":
+		case "syncSettings":
 			return (
 				typeof value === "boolean" ? value : defaultPrefs[key]
 			) as Prefs[K];
@@ -180,24 +183,25 @@ export function normalisePref<K extends PrefKey>(
 
 /** Normalises a single rule object, or returns `null` if invalid. */
 export function normaliseRule(value: unknown, fallbackOrder = 1): Rule | null {
-	if (
-		!isRecord(value) ||
-		typeof value.header !== "string" ||
-		!["both", "dark", "light"].includes(value.scheme as string)
-	) {
-		return null;
-	}
+	const isValid =
+		isRecord(value) &&
+		typeof value.header === "string" &&
+		["both", "dark", "light"].includes(value.scheme as string);
+	if (!isValid) return null;
+
 	const order =
 		typeof value.order === "number" && Number.isInteger(value.order)
 			? value.order
 			: fallbackOrder;
 	const scheme = value.scheme as "both" | Scheme;
-	const header = value.header;
+	const header = value.header as string;
 	const target = value.target ?? value.headerType;
 
-	if (target === "ADDON_ID") {
-		if (value.type !== "COLOUR" || typeof value.value !== "string")
-			return null;
+	if (
+		target === "ADDON_ID" &&
+		value.type === "COLOUR" &&
+		typeof value.value === "string"
+	) {
 		return {
 			target: "ADDON_ID",
 			header,
@@ -206,43 +210,48 @@ export function normaliseRule(value: unknown, fallbackOrder = 1): Rule | null {
 			scheme,
 			order,
 		};
+	} else if (
+		target === "URL" &&
+		value.type === "COLOUR" &&
+		typeof value.value === "string"
+	) {
+		return {
+			target: "URL",
+			header,
+			type: "COLOUR",
+			value: new Colour(value.value).toHex(),
+			scheme,
+			order,
+		};
+	} else if (
+		target === "URL" &&
+		value.type === "THEME_COLOUR" &&
+		typeof value.value === "boolean"
+	) {
+		return {
+			target: "URL",
+			header,
+			type: "THEME_COLOUR",
+			value: value.value,
+			scheme,
+			order,
+		};
+	} else if (
+		target === "URL" &&
+		value.type === "QUERY_SELECTOR" &&
+		typeof value.value === "string"
+	) {
+		return {
+			target: "URL",
+			header,
+			type: "QUERY_SELECTOR",
+			value: value.value,
+			scheme,
+			order,
+		};
+	} else {
+		return null;
 	}
-	if (target === "URL") {
-		if (value.type === "COLOUR" && typeof value.value === "string") {
-			return {
-				target: "URL",
-				header,
-				type: "COLOUR",
-				value: new Colour(value.value).toHex(),
-				scheme,
-				order,
-			};
-		}
-		if (value.type === "THEME_COLOUR" && typeof value.value === "boolean") {
-			return {
-				target: "URL",
-				header,
-				type: "THEME_COLOUR",
-				value: value.value,
-				scheme,
-				order,
-			};
-		}
-		if (
-			value.type === "QUERY_SELECTOR" &&
-			typeof value.value === "string"
-		) {
-			return {
-				target: "URL",
-				header,
-				type: "QUERY_SELECTOR",
-				value: value.value,
-				scheme,
-				order,
-			};
-		}
-	}
-	return null;
 }
 
 /** Normalises a raw storage snapshot or imported record into a `Prefs` object. */
@@ -264,7 +273,8 @@ export function normalisePrefs(raw: Record<string, unknown>): Prefs {
 		if (!key.startsWith("rule:")) continue;
 		const id = key.slice(5);
 		const rule = normaliseRule(value, fallbackOrder++);
-		if (id && rule) rawRules.push({ id, rule });
+		if (!id || !rule) continue;
+		rawRules.push({ id, rule });
 	}
 
 	const legacyRules = isRecord(raw.rules)
@@ -278,7 +288,8 @@ export function normalisePrefs(raw: Record<string, unknown>): Prefs {
 		);
 		for (const [, value] of sortedEntries) {
 			const rule = normaliseRule(value, fallbackOrder++);
-			if (rule) rawRules.push({ id: nanoid(), rule });
+			if (!rule) continue;
+			rawRules.push({ id: nanoid(), rule });
 		}
 	}
 
@@ -291,13 +302,15 @@ export function normalisePrefs(raw: Record<string, unknown>): Prefs {
 	return prefs;
 }
 
-/** Synchronises a `Prefs` object with a local storage snapshot. */
-async function syncStorage(
+/** Synchronises a `Prefs` object with a storage snapshot. */
+export async function syncStorage(
 	prefs: Prefs,
 	snapshot: Record<string, unknown>,
+	area: "local" | "sync" = "local",
 ): Promise<void> {
 	const expected: Record<string, unknown> = {};
 	for (const [storageKey, prefKey] of keyToPrefKeyMap.entries()) {
+		if (area === "sync" && prefKey === "syncSettings") continue;
 		expected[storageKey] = prefs[prefKey];
 	}
 	for (const [id, rule] of Object.entries(prefs.rules)) {
@@ -306,8 +319,9 @@ async function syncStorage(
 
 	const keysToRemove: StorageItemKey[] = [];
 	for (const key of Object.keys(snapshot)) {
+		if (area === "sync" && key === "advanced:syncSettings") continue;
 		if (!(key in expected)) {
-			keysToRemove.push(`local:${key}`);
+			keysToRemove.push(`${area}:${key}` as StorageItemKey);
 		}
 	}
 
@@ -317,16 +331,27 @@ async function syncStorage(
 			!(key in snapshot) ||
 			JSON.stringify(snapshot[key]) !== JSON.stringify(value)
 		) {
-			itemsToSet.push({ key: `local:${key}` as StorageItemKey, value });
+			itemsToSet.push({ key: `${area}:${key}` as StorageItemKey, value });
 		}
 	}
 
-	if (keysToRemove.length > 0) {
-		await storage.removeItems(keysToRemove);
-	}
-	if (itemsToSet.length > 0) {
-		await storage.setItems(itemsToSet);
-	}
+	if (itemsToSet.length > 0) await storage.setItems(itemsToSet);
+	if (keysToRemove.length > 0) await storage.removeItems(keysToRemove);
+}
+
+/** Determines whether a storage snapshot contains any actual pref or rule data. */
+export function hasStorageData(snapshot: Record<string, unknown>): boolean {
+	return Object.keys(snapshot).some(
+		(key) =>
+			key !== "version" &&
+			key !== "lastSave" &&
+			(keyToPrefKeyMap.has(key) ||
+				key.startsWith("rule:") ||
+				themeKeys.includes(key as keyof ThemePrefs) ||
+				advancedKeys.includes(key as keyof AdvancedPrefs) ||
+				key === "rules" ||
+				key === "ruleList"),
+	);
 }
 
 /**
@@ -334,10 +359,23 @@ async function syncStorage(
  * needed.
  */
 export async function getPrefs(): Promise<Prefs> {
-	const snapshot = await storage.snapshot("local");
-	const prefs = normalisePrefs(snapshot);
-	await syncStorage(prefs, snapshot);
-	return prefs;
+	const localSnapshot = await storage.snapshot("local");
+	const syncSnapshot = await storage.snapshot("sync");
+	const localPrefs = normalisePrefs(localSnapshot);
+
+	if (!hasStorageData(localSnapshot) && hasStorageData(syncSnapshot)) {
+		const prefs = normalisePrefs(syncSnapshot);
+		prefs.syncSettings = true;
+		await syncStorage(prefs, localSnapshot, "local");
+		return prefs;
+	} else if (localPrefs.syncSettings) {
+		await syncStorage(localPrefs, localSnapshot, "local");
+		await syncStorage(localPrefs, syncSnapshot, "sync");
+		return localPrefs;
+	} else {
+		await syncStorage(localPrefs, localSnapshot, "local");
+		return localPrefs;
+	}
 }
 
 /** Sets a single theme or advanced pref in WXT Storage. */
@@ -349,43 +387,53 @@ export async function setPref<K extends PrefKey>(
 	await (
 		getPrefItems()[key] as WxtStorageItem<Prefs[K], Record<string, unknown>>
 	).setValue(normalised);
+	await syncPrefToCloud(key, normalised);
 }
 
 /** Resets specified keys (or all prefs and rules) to default values. */
 export async function resetPrefs(keys?: PrefKey[]): Promise<void> {
 	const items = getPrefItems();
+
 	if (keys) {
 		await storage.setItems(
 			keys.map((key) => ({ item: items[key], value: defaultPrefs[key] })),
 		);
-		return;
+		await syncResetToCloud(keys);
+	} else {
+		const localSnapshot = await storage.snapshot("local");
+		const ruleKeys = Object.keys(localSnapshot)
+			.filter((key) => key.startsWith("rule:"))
+			.map((key): StorageItemKey => `local:${key}`);
+		if (ruleKeys.length > 0) await storage.removeItems(ruleKeys);
+		const allKeys = [...themeKeys, ...advancedKeys];
+		await storage.setItems(
+			allKeys.map((key) => ({
+				item: items[key],
+				value: defaultPrefs[key],
+			})),
+		);
+		await syncResetToCloud();
 	}
-	const snapshot = await storage.snapshot("local");
-	const ruleKeys = Object.keys(snapshot)
-		.filter((key) => key.startsWith("rule:"))
-		.map((key): StorageItemKey => `local:${key}`);
-	if (ruleKeys.length > 0) {
-		await storage.removeItems(ruleKeys);
-	}
-	const allKeys = [...themeKeys, ...advancedKeys];
-	await storage.setItems(
-		allKeys.map((key) => ({ item: items[key], value: defaultPrefs[key] })),
-	);
 }
 
-/** Subscribes to any pref or rule change in local storage. */
+/** Subscribes to any pref or rule change in storage. */
 export function watchPrefs(callback: (prefs: Prefs) => void): () => void {
 	const listener = async (
 		changes: { [key: string]: Browser.storage.StorageChange },
 		areaName: Browser.storage.AreaName,
 	) => {
-		if (areaName !== "local") return;
-		const relevant = Object.keys(changes).some(
-			(key) => keyToPrefKeyMap.has(key) || key.startsWith("rule:"),
-		);
-		if (!relevant) return;
-		const snapshot = await storage.snapshot("local");
-		callback(normalisePrefs(snapshot));
+		const isRelevantLocal =
+			areaName === "local" &&
+			Object.keys(changes).some(
+				(key) => keyToPrefKeyMap.has(key) || key.startsWith("rule:"),
+			);
+
+		if (isRelevantLocal) {
+			const snapshot = await storage.snapshot("local");
+			callback(normalisePrefs(snapshot));
+		} else if (areaName === "sync") {
+			await handleSyncStorageChanges(changes);
+		}
 	};
 	browser.storage?.onChanged?.addListener(listener);
 	return () => {
@@ -409,8 +457,13 @@ export async function importPrefs(
 		if (!isRecord(parsed)) return false;
 
 		const prefs = normalisePrefs(parsed);
-		const snapshot = await storage.snapshot("local");
-		await syncStorage(prefs, snapshot);
+		const localSnapshot = await storage.snapshot("local");
+		await syncStorage(prefs, localSnapshot, "local");
+
+		if (prefs.syncSettings) {
+			const syncSnapshot = await storage.snapshot("sync");
+			await syncStorage(prefs, syncSnapshot, "sync");
+		}
 		return true;
 	} catch {
 		return false;
@@ -424,25 +477,26 @@ export async function addRule(newRule: NewRule): Promise<void> {
 	for (const [key, value] of Object.entries(snapshot)) {
 		if (!key.startsWith("rule:")) continue;
 		const rule = normaliseRule(value);
-		if (rule && rule.order > maxOrder) maxOrder = rule.order;
+		if (!rule || rule.order <= maxOrder) continue;
+		maxOrder = rule.order;
 	}
 	let id = nanoid();
 	while (`rule:${id}` in snapshot) id = nanoid();
 	const rule = normaliseRule({ ...newRule, order: maxOrder + 1 });
-	if (rule) {
-		await storage.setItem(`local:rule:${id}`, rule);
-	}
+	if (!rule) return;
+	await storage.setItem(`local:rule:${id}`, rule);
+	await syncRuleToCloud(id, rule);
 }
 
 /** Updates an existing rule or removes it when `rule` is `null`. */
 export async function setRule(id: string, rule: Rule | null): Promise<void> {
+	const normalised = rule ? normaliseRule(rule, rule.order) : null;
 	if (rule === null) {
 		await storage.removeItem(`local:rule:${id}`);
-		return;
-	}
-	const normalised = normaliseRule(rule, rule.order);
-	if (normalised) {
+		await syncRuleToCloud(id, null);
+	} else if (normalised) {
 		await storage.setItem(`local:rule:${id}`, normalised);
+		await syncRuleToCloud(id, normalised);
 	}
 }
 
@@ -507,28 +561,23 @@ export async function getRule(
 	);
 
 	for (const [id, rule] of sortedRules) {
-		if (
-			!rule.header ||
-			(rule.scheme !== "both" && rule.scheme !== scheme)
-		) {
-			continue;
-		} else if (
+		const isSchemeValid = rule.scheme === "both" || rule.scheme === scheme;
+		if (!rule.header || !isSchemeValid) continue;
+
+		const isAddonMatch =
 			webExtId !== undefined &&
 			rule.target === "ADDON_ID" &&
-			rule.header === webExtId
-		) {
-			match = { id, url, webExtId, rule };
-		} else if (rule.target === "URL") {
-			const cleanHeader = rule.header.replace(/\/$/, "");
-			if (
-				cleanUrl === cleanHeader ||
+			rule.header === webExtId;
+
+		const cleanHeader = rule.header.replace(/\/$/, "");
+		const isUrlMatch =
+			rule.target === "URL" &&
+			(cleanUrl === cleanHeader ||
 				testRegex(cleanUrl, cleanHeader) ||
 				testWildcard(cleanUrl, cleanHeader) ||
-				testHostname(cleanUrl, cleanHeader)
-			) {
-				match = { id, url, webExtId, rule };
-			}
-		}
+				testHostname(cleanUrl, cleanHeader));
+
+		if (isAddonMatch || isUrlMatch) match = { id, url, webExtId, rule };
 	}
 
 	return match;

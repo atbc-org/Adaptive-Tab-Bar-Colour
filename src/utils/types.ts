@@ -99,7 +99,12 @@ export interface AdvancedPrefs {
 	minContrast_light: number;
 	noThemeColour: boolean;
 	overwriteAccentColour: boolean;
+	syncSettings: boolean;
 }
+
+export type SyncChoice = "local" | "cloud";
+
+export type SyncResult = "enabled" | "disabled" | "conflict";
 
 export interface Prefs extends ThemePrefs, RulePrefs, AdvancedPrefs {
 	[key: string]: Prefs[keyof Prefs];
