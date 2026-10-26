@@ -24,7 +24,9 @@ export function getSystemScheme(): Scheme {
 export async function getCurrentScheme(): Promise<Scheme> {
 	try {
 		const webAppearanceSetting =
-			await browser.browserSettings?.overrideContentColorScheme?.get({});
+			await browser?.browserSettings?.overrideContentColorScheme?.get?.(
+				{},
+			);
 		const webAppearance = webAppearanceSetting?.value;
 		return webAppearance === "light" || webAppearance === "dark"
 			? (webAppearance as Scheme)
@@ -39,62 +41,15 @@ export function addSchemeChangeListener(
 	listener: (scheme: Scheme) => void,
 ): void {
 	const onChange = async () => listener(await getCurrentScheme());
-	getDarkSchemeDetection()?.addEventListener("change", onChange);
-	browser?.browserSettings?.overrideContentColorScheme?.onChange?.addListener(
+	getDarkSchemeDetection()?.addEventListener?.("change", onChange);
+	browser?.browserSettings?.overrideContentColorScheme?.onChange?.addListener?.(
 		onChange,
-	);
-}
-
-/** Registers a listener for tab and window change events. */
-export function addTabChangeListener(listener: () => void): void {
-	browser.tabs?.onAttached?.addListener(listener);
-	browser.tabs?.onActivated?.addListener(listener);
-	browser.tabs?.onUpdated?.addListener(listener, { properties: ["status"] });
-	browser.windows?.onFocusChanged?.addListener(listener);
-	browser.windows?.onBoundsChanged?.addListener(listener);
-}
-
-/** Registers a listener for blank page tab events. */
-export function addBlankPageListener(
-	listener: (tabId: number, isBlank: boolean) => void,
-): void {
-	browser.tabs?.onCreated?.addListener((tab) => {
-		if (tab.id !== undefined && (!tab.url || tab.url === "about:blank")) {
-			listener(tab.id, true);
-		}
-	});
-	browser.tabs?.onRemoved?.addListener((tabId) => {
-		listener(tabId, false);
-	});
-}
-
-/** Checks whether the tab's window is incognito. */
-export async function isWindowIncognito(windowId: number): Promise<boolean> {
-	try {
-		return (await browser.windows?.get(windowId))?.incognito ?? false;
-	} catch {
-		return false;
-	}
-}
-
-/** Retrieves the ID of the current or last active window. */
-export async function getActiveWindowId(): Promise<number | undefined> {
-	return (
-		(await browser.tabs?.query({ active: true, currentWindow: true }))?.[0]
-			?.windowId ?? (await browser.windows?.getLastFocused())?.id
-	);
-}
-
-/** Retrieves all active and fully loaded tabs. */
-export async function getActiveTabList(): Promise<Browser.tabs.Tab[]> {
-	return (
-		(await browser.tabs?.query({ active: true, status: "complete" })) ?? []
 	);
 }
 
 /** Checks whether the browser exposes theme API. */
 export function supportsThemeAPI(): boolean {
-	return typeof browser.theme?.update === "function";
+	return typeof browser?.theme?.update === "function";
 }
 
 /** Updates the browser theme for a specific window. */
@@ -103,7 +58,7 @@ export async function updateBrowserTheme(
 	theme: Theme,
 ): Promise<boolean> {
 	try {
-		await browser.theme?.update(windowId, theme);
+		await browser?.theme?.update?.(windowId, theme);
 		return true;
 	} catch {
 		console.error(
@@ -113,11 +68,69 @@ export async function updateBrowserTheme(
 	}
 }
 
+/** Retrieves the ID of the current or last active window. */
+export async function getActiveWindowId(): Promise<number | undefined> {
+	return (
+		(
+			await browser?.tabs?.query?.({ active: true, currentWindow: true })
+		)?.[0]?.windowId ?? (await browser?.windows?.getLastFocused?.())?.id
+	);
+}
+
+/** Retrieves all active and fully loaded tabs. */
+export async function getActiveTabList(): Promise<Browser.tabs.Tab[]> {
+	return (
+		(await browser?.tabs?.query?.({ active: true, status: "complete" })) ??
+		[]
+	);
+}
+
+/** Checks whether the tab's window is incognito. */
+export async function isWindowIncognito(windowId: number): Promise<boolean> {
+	try {
+		return (await browser?.windows?.get?.(windowId))?.incognito ?? false;
+	} catch {
+		return false;
+	}
+}
+
+/** Captures an image of the active tab. */
+export async function captureActiveTabPage(): Promise<string | null> {
+	return (
+		(await browser?.tabs?.captureVisibleTab?.({ format: "png" })) ?? null
+	);
+}
+
+/** Registers a listener for tab and window change events. */
+export function addTabChangeListener(listener: () => void): void {
+	browser?.tabs?.onAttached?.addListener?.(listener);
+	browser?.tabs?.onActivated?.addListener?.(listener);
+	browser?.tabs?.onUpdated?.addListener?.(listener, {
+		properties: ["status"],
+	});
+	browser?.windows?.onFocusChanged?.addListener?.(listener);
+	browser?.windows?.onBoundsChanged?.addListener?.(listener);
+}
+
+/** Registers a listener for blank page tab events. */
+export function addBlankPageListener(
+	listener: (tabId: number, isBlank: boolean) => void,
+): void {
+	browser?.tabs?.onCreated?.addListener?.((tab) => {
+		if (tab.id !== undefined && (!tab.url || tab.url === "about:blank")) {
+			listener(tab.id, true);
+		}
+	});
+	browser?.tabs?.onRemoved?.addListener?.((tabId) => {
+		listener(tabId, false);
+	});
+}
+
 /** Resolves the extension ID from a `moz-extension:` URL. */
 export async function getWebExtId(url: string): Promise<string | undefined> {
 	if (!url.startsWith("moz-extension:") || !URL.canParse(url)) return;
 	const targetHost = new URL(url).hostname;
-	const addonList = (await browser.management?.getAll()) ?? [];
+	const addonList = (await browser?.management?.getAll?.()) ?? [];
 	return addonList.find(
 		(addon) =>
 			addon.type === "extension" &&
@@ -133,24 +146,41 @@ export async function getWebExtId(url: string): Promise<string | undefined> {
 /** Resolves the extension name from an add-on ID. */
 export async function getWebExtName(id: string): Promise<string | undefined> {
 	try {
-		const addon = await browser.management?.get(id);
+		const addon = await browser?.management?.get?.(id);
 		if (addon?.type === "extension") return addon.name;
 	} catch {}
 	return undefined;
+}
+
+/** Retrieves the current platform information. */
+export async function getPlatformInfo(): Promise<
+	Browser.runtime.PlatformInfo | undefined
+> {
+	return await browser?.runtime?.getPlatformInfo?.();
+}
+
+/** Retrieves the browser UI language. */
+export function getUILanguage(): string {
+	return browser?.i18n?.getUILanguage?.() ?? "en";
+}
+
+/** Opens the extension options page. */
+export async function openOptionsPage(): Promise<void> {
+	await browser?.runtime?.openOptionsPage?.();
 }
 
 /** Sends a message to the background script. */
 export async function sendMessageToBackground<T = unknown>(
 	message: MessageForBackground,
 ): Promise<T> {
-	return await browser.runtime?.sendMessage(message);
+	return await browser?.runtime?.sendMessage?.(message);
 }
 
 /** Sends a message to popup listeners. */
 export async function sendMessageToPopup<T = unknown>(
 	message: MessageForPopup,
 ): Promise<T> {
-	return await browser.runtime?.sendMessage(message).catch(() => {});
+	return await browser?.runtime?.sendMessage?.(message)?.catch?.(() => {});
 }
 
 /** Sends a message to a specific tab. */
@@ -158,7 +188,7 @@ export async function sendMessageToTab<T = unknown>(
 	tabId: number,
 	message: MessageForTab,
 ): Promise<T> {
-	return await browser.tabs?.sendMessage(tabId, message);
+	return await browser?.tabs?.sendMessage?.(tabId, message);
 }
 
 /** Registers a runtime message listener. */
@@ -166,7 +196,7 @@ export function addMessageListener(
 	listener:
 		BackgroundMessageListener | PopupMessageListener | TabMessageListener,
 ): void {
-	browser.runtime?.onMessage?.addListener(listener);
+	browser?.runtime?.onMessage?.addListener?.(listener);
 }
 
 /** Removes a runtime message listener. */
@@ -174,12 +204,7 @@ export function removeMessageListener(
 	listener:
 		BackgroundMessageListener | PopupMessageListener | TabMessageListener,
 ): void {
-	browser.runtime?.onMessage?.removeListener(listener);
-}
-
-/** Captures an image of the active tab. */
-export async function captureActiveTabPage(): Promise<string | null> {
-	return (await browser.tabs?.captureVisibleTab({ format: "png" })) ?? null;
+	browser?.runtime?.onMessage?.removeListener?.(listener);
 }
 
 /** Registers a storage change listener and returns an unlisten function. */
@@ -189,27 +214,10 @@ export function addStorageChangeListener(
 		areaName: Browser.storage.AreaName,
 	) => void,
 ): () => void {
-	browser.storage?.onChanged?.addListener(listener);
+	browser?.storage?.onChanged?.addListener?.(listener);
 	return () => {
-		browser.storage?.onChanged?.removeListener(listener);
+		browser?.storage?.onChanged?.removeListener?.(listener);
 	};
-}
-
-/** Retrieves the current platform information. */
-export async function getPlatformInfo(): Promise<
-	Browser.runtime.PlatformInfo | undefined
-> {
-	return await browser.runtime?.getPlatformInfo();
-}
-
-/** Retrieves the browser UI language. */
-export function getUILanguage(): string {
-	return browser.i18n?.getUILanguage?.() ?? "en";
-}
-
-/** Opens the extension options page. */
-export async function openOptionsPage(): Promise<void> {
-	await browser.runtime?.openOptionsPage();
 }
 
 /** Clamps a number between a minimum and maximum value. */
