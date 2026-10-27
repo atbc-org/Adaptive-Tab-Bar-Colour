@@ -12,7 +12,6 @@ export interface ConfirmProps {
 	onCancel?: () => void;
 	confirmLabel?: string;
 	cancelLabel?: string;
-	location?: ConfirmLocation;
 }
 
 export default function Confirm({
@@ -22,7 +21,6 @@ export default function Confirm({
 	onCancel,
 	confirmLabel,
 	cancelLabel,
-	location: customLocation,
 }: ConfirmProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [location, setLocation] = useState<ConfirmLocation>({
@@ -77,8 +75,6 @@ export default function Confirm({
 		};
 	}, [isOpen]);
 
-	const activeLocation = customLocation ?? location;
-
 	return (
 		<div className={styles.confirm} ref={containerRef}>
 			{children(() => {
@@ -89,14 +85,10 @@ export default function Confirm({
 				<div
 					className={clsx(
 						styles.confirmMenu,
-						activeLocation.orientation === "north" &&
-							styles.confirmNorth,
-						activeLocation.orientation === "south" &&
-							styles.confirmSouth,
-						activeLocation.deviation === "left" &&
-							styles.confirmLeft,
-						activeLocation.deviation === "right" &&
-							styles.confirmRight,
+						location.orientation === "north" && styles.confirmNorth,
+						location.orientation === "south" && styles.confirmSouth,
+						location.deviation === "left" && styles.confirmLeft,
+						location.deviation === "right" && styles.confirmRight,
 					)}
 				>
 					<div className={styles.confirmText}>{confirmText}</div>
