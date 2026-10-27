@@ -6,6 +6,7 @@ export interface PopupLocation {
 }
 
 export interface PalettePopupProps {
+	ref?: React.Ref<HTMLDivElement | null>;
 	value: Colour;
 	inPopup: boolean;
 	location: PopupLocation;
@@ -16,6 +17,7 @@ export interface PalettePopupProps {
 export type ColourFormat = "HEX" | "RGB" | "HWB" | "CSS" | "PAGE";
 
 export default function PalettePopup({
+	ref,
 	value,
 	inPopup,
 	location,
@@ -179,6 +181,7 @@ export default function PalettePopup({
 
 	return (
 		<div
+			ref={ref}
 			className={clsx(
 				styles.palettePopup,
 				inPopup && styles.inPopup,

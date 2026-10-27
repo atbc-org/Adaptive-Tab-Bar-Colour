@@ -36,6 +36,7 @@ export default defineConfig({
 			{
 				from: "react",
 				imports: [
+					"useLayoutEffect",
 					{ name: "CSSProperties", type: true },
 					{ name: "ReactNode", type: true },
 				],

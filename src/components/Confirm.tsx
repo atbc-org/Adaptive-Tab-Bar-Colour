@@ -28,17 +28,17 @@ export default function Confirm({
 		deviation: "none",
 	});
 	const containerRef = useRef<HTMLDivElement | null>(null);
+	const menuRef = useRef<HTMLDivElement | null>(null);
 
-	const updateLocation = useCallback(() => {
-		const container = containerRef.current;
-		if (!container)
-			return setLocation({ orientation: "south", deviation: "none" });
-		const rect = container.getBoundingClientRect();
-		const width = 120;
-		const height = 120;
-		const top = rect.top;
-		const bottom = window.innerHeight - rect.bottom;
-		const left = rect.left + rect.width / 2;
+	useLayoutEffect(() => {
+		if (!isOpen || !containerRef.current || !menuRef.current) return;
+		const containerRect = containerRef.current.getBoundingClientRect();
+		const menuRect = menuRef.current.getBoundingClientRect();
+		const width = (menuRect.width || 240) / 2;
+		const height = menuRect.height || 120;
+		const top = containerRect.top;
+		const bottom = window.innerHeight - containerRect.bottom;
+		const left = containerRect.left + containerRect.width / 2;
 		const right = window.innerWidth - left;
 		const orientation =
 			bottom >= height || top < height ? "south" : "north";
@@ -49,7 +49,7 @@ export default function Confirm({
 					? "right"
 					: "left";
 		setLocation({ orientation, deviation });
-	}, []);
+	}, [isOpen]);
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -77,12 +77,10 @@ export default function Confirm({
 
 	return (
 		<div className={styles.confirm} ref={containerRef}>
-			{children(() => {
-				if (!isOpen) updateLocation();
-				setIsOpen(!isOpen);
-			})}
+			{children(() => setIsOpen(!isOpen))}
 			{isOpen && (
 				<div
+					ref={menuRef}
 					className={clsx(
 						styles.confirmMenu,
 						location.orientation === "north" && styles.confirmNorth,
