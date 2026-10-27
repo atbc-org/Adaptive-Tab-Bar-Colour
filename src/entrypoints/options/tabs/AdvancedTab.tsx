@@ -26,36 +26,39 @@ export default function AdvancedTab({
 					</h2>
 					<div className={styles.settingGroup}>
 						<div className={styles.switchWrapper}>
-							<Switch
-								label={i18n.t("dynamicColourUpdate")}
-								active={prefs.dynamic}
-								onChange={(value) =>
-									updatePref("advanced:dynamic", value)
-								}
-							/>
-							<div>
+							<label>
 								<h3>{i18n.t("dynamicColourUpdate")}</h3>
-								<p>{i18n.t("dynamicModeTooltip")}</p>
-							</div>
+								<Switch
+									label={i18n.t("dynamicColourUpdate")}
+									active={prefs.dynamic}
+									onChange={(value) =>
+										updatePref("advanced:dynamic", value)
+									}
+								/>
+							</label>
+							<p>{i18n.t("dynamicModeTooltip")}</p>
 						</div>
 					</div>
 					<div className={styles.settingGroup}>
 						<div className={styles.switchWrapper}>
-							<Switch
-								label={i18n.t("ignoreDesignatedThemeColour")}
-								active={prefs.noThemeColour}
-								onChange={(value) =>
-									updatePref("advanced:noThemeColour", value)
-								}
-							/>
-							<div>
+							<label>
 								<h3>{i18n.t("ignoreDesignatedThemeColour")}</h3>
-								<p>
-									{i18n.t(
-										"ignoreDesignatedThemeColourTooltip",
+								<Switch
+									label={i18n.t(
+										"ignoreDesignatedThemeColour",
 									)}
-								</p>
-							</div>
+									active={prefs.noThemeColour}
+									onChange={(value) =>
+										updatePref(
+											"advanced:noThemeColour",
+											value,
+										)
+									}
+								/>
+							</label>
+							<p>
+								{i18n.t("ignoreDesignatedThemeColourTooltip")}
+							</p>
 						</div>
 					</div>
 				</section>
@@ -187,26 +190,24 @@ export default function AdvancedTab({
 						</div>
 						<div className={styles.settingGroup}>
 							<div className={styles.switchWrapper}>
-								<Switch
-									label={i18n.t("overwriteAccentColour")}
-									active={prefs.overwriteAccentColour}
-									onChange={(value) => {
-										void resetPrefs([
-											"advanced:accentColour_light",
-											"advanced:accentColour_dark",
-										]);
-										updatePref(
-											"advanced:overwriteAccentColour",
-											value,
-										);
-									}}
-								/>
-								<div>
+								<label>
 									<h3>{i18n.t("overwriteAccentColour")}</h3>
-									<p>
-										{i18n.t("overwriteAccentColourTooltip")}
-									</p>
-								</div>
+									<Switch
+										label={i18n.t("overwriteAccentColour")}
+										active={prefs.overwriteAccentColour}
+										onChange={(value) => {
+											void resetPrefs([
+												"advanced:accentColour_light",
+												"advanced:accentColour_dark",
+											]);
+											updatePref(
+												"advanced:overwriteAccentColour",
+												value,
+											);
+										}}
+									/>
+								</label>
+								<p>{i18n.t("overwriteAccentColourTooltip")}</p>
 							</div>
 							{prefs.overwriteAccentColour && (
 								<div className={styles.colourWrapper}>
@@ -288,28 +289,36 @@ export default function AdvancedTab({
 						disabled={prefs.compatibilityMode}
 					>
 						<div className={styles.switchWrapper}>
-							<Switch
-								label={i18n.t(
+							<label>
+								<h3>
+									{i18n.t(
+										scheme === "light"
+											? "allowDarkTabBar"
+											: "allowLightTabBar",
+									)}
+								</h3>
+								<Switch
+									label={i18n.t(
+										scheme === "light"
+											? "allowDarkTabBar"
+											: "allowLightTabBar",
+									)}
+									active={prefs.allowDarkLight}
+									onChange={(value) =>
+										updatePref(
+											"advanced:allowDarkLight",
+											value,
+										)
+									}
+								/>
+							</label>
+							<p>
+								{i18n.t(
 									scheme === "light"
-										? "allowDarkTabBar"
-										: "allowLightTabBar",
+										? "allowDarkTabBarTooltip"
+										: "allowLightTabBarTooltip",
 								)}
-								active={prefs.allowDarkLight}
-								onChange={(value) =>
-									updatePref("advanced:allowDarkLight", value)
-								}
-							/>
-							{scheme === "light" ? (
-								<div>
-									<h3>{i18n.t("allowDarkTabBar")}</h3>
-									<p>{i18n.t("allowDarkTabBarTooltip")}</p>
-								</div>
-							) : (
-								<div>
-									<h3>{i18n.t("allowLightTabBar")}</h3>
-									<p>{i18n.t("allowLightTabBarTooltip")}</p>
-								</div>
-							)}
+							</p>
 						</div>
 					</fieldset>
 					<div className={styles.settingGroup}>
@@ -364,20 +373,20 @@ export default function AdvancedTab({
 					</h2>
 					<div className={styles.settingGroup}>
 						<div className={styles.switchWrapper}>
-							<Switch
-								label={i18n.t("compatibilityMode")}
-								active={prefs.compatibilityMode}
-								onChange={(value) =>
-									updatePref(
-										"advanced:compatibilityMode",
-										value,
-									)
-								}
-							/>
-							<div>
+							<label>
 								<h3>{i18n.t("compatibilityMode")}</h3>
-								<p>{i18n.t("compatibilityModeTooltip")}</p>
-							</div>
+								<Switch
+									label={i18n.t("compatibilityMode")}
+									active={prefs.compatibilityMode}
+									onChange={(value) =>
+										updatePref(
+											"advanced:compatibilityMode",
+											value,
+										)
+									}
+								/>
+							</label>
+							<p>{i18n.t("compatibilityModeTooltip")}</p>
 						</div>
 					</div>
 				</section>
@@ -397,24 +406,27 @@ export default function AdvancedTab({
 								onCancel={() => void setSync(true, "local")}
 							>
 								{(open) => (
-									<Switch
-										label={i18n.t("syncSettings")}
-										active={prefs.sync}
-										onChange={(value) => {
-											void setSync(value).then(
-												(result) => {
-													if (result === "conflict")
-														open();
-												},
-											);
-										}}
-									/>
+									<label>
+										<h3>{i18n.t("syncSettings")}</h3>
+										<Switch
+											label={i18n.t("syncSettings")}
+											active={prefs.sync}
+											onChange={(value) => {
+												void setSync(value).then(
+													(result) => {
+														if (
+															result ===
+															"conflict"
+														)
+															open();
+													},
+												);
+											}}
+										/>
+									</label>
 								)}
 							</Confirm>
-							<div>
-								<h3>{i18n.t("syncSettings")}</h3>
-								<p>{i18n.t("syncSettingsTooltip")}</p>
-							</div>
+							<p>{i18n.t("syncSettingsTooltip")}</p>
 						</div>
 					</div>
 

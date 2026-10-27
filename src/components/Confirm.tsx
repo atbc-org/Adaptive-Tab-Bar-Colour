@@ -1,12 +1,18 @@
 import styles from "./Confirm.module.css";
 
-interface ConfirmProps {
+export interface ConfirmLocation {
+	orientation: "north" | "south";
+	deviation: "none" | "left" | "right";
+}
+
+export interface ConfirmProps {
 	children: (open: () => void) => ReactNode;
 	confirmText: string;
 	onConfirm: () => void;
 	onCancel?: () => void;
 	confirmLabel?: string;
 	cancelLabel?: string;
+	location?: ConfirmLocation;
 }
 
 export default function Confirm({
@@ -16,9 +22,36 @@ export default function Confirm({
 	onCancel,
 	confirmLabel,
 	cancelLabel,
+	location: customLocation,
 }: ConfirmProps) {
 	const [isOpen, setIsOpen] = useState(false);
+	const [location, setLocation] = useState<ConfirmLocation>({
+		orientation: "south",
+		deviation: "none",
+	});
 	const containerRef = useRef<HTMLDivElement | null>(null);
+
+	const updateLocation = useCallback(() => {
+		const container = containerRef.current;
+		if (!container)
+			return setLocation({ orientation: "south", deviation: "none" });
+		const rect = container.getBoundingClientRect();
+		const width = 120;
+		const height = 120;
+		const top = rect.top;
+		const bottom = window.innerHeight - rect.bottom;
+		const left = rect.left + rect.width / 2;
+		const right = window.innerWidth - left;
+		const orientation =
+			bottom >= height || top < height ? "south" : "north";
+		const deviation =
+			left >= width && right >= width
+				? "none"
+				: left < width
+					? "right"
+					: "left";
+		setLocation({ orientation, deviation });
+	}, []);
 
 	useEffect(() => {
 		if (!isOpen) return;
@@ -44,11 +77,28 @@ export default function Confirm({
 		};
 	}, [isOpen]);
 
+	const activeLocation = customLocation ?? location;
+
 	return (
 		<div className={styles.confirm} ref={containerRef}>
-			{children(() => setIsOpen(!isOpen))}
+			{children(() => {
+				if (!isOpen) updateLocation();
+				setIsOpen(!isOpen);
+			})}
 			{isOpen && (
-				<div className={styles.confirmMenu}>
+				<div
+					className={clsx(
+						styles.confirmMenu,
+						activeLocation.orientation === "north" &&
+							styles.confirmNorth,
+						activeLocation.orientation === "south" &&
+							styles.confirmSouth,
+						activeLocation.deviation === "left" &&
+							styles.confirmLeft,
+						activeLocation.deviation === "right" &&
+							styles.confirmRight,
+					)}
+				>
 					<div className={styles.confirmText}>{confirmText}</div>
 					<div className={styles.confirmActions}>
 						<button
