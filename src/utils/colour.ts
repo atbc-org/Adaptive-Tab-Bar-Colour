@@ -11,6 +11,7 @@ export class Colour {
 	#g = 0;
 	#b = 0;
 	#a = 0;
+	#valid = true;
 
 	/** Parses the initialiser to set the colour. */
 	constructor(initialiser: string | Colour | undefined = undefined) {
@@ -22,9 +23,22 @@ export class Colour {
 		if (typeof value === "string") {
 			const canvas = new OffscreenCanvas(1, 1);
 			const canvasContext = canvas.getContext("2d");
-			if (!canvasContext) return this;
+			if (!canvasContext) {
+				this.#valid = false;
+				return this;
+			}
 			canvasContext.fillStyle = value;
-			const parsedColour = canvasContext.fillStyle;
+			let parsedColour = canvasContext.fillStyle;
+			if (parsedColour === "#000000") {
+				canvasContext.fillStyle = "#ffffff";
+				canvasContext.fillStyle = value;
+				if (canvasContext.fillStyle !== "#000000") {
+					this.#valid = false;
+					return this;
+				}
+				parsedColour = "#000000";
+			}
+			this.#valid = true;
 			if (parsedColour.startsWith("#")) {
 				return this.rgba(
 					parseInt(parsedColour.slice(1, 3), 16),
@@ -43,14 +57,17 @@ export class Colour {
 				);
 			}
 		} else if (value instanceof Colour) {
+			this.#valid = value.isValid();
 			return this.rgba(value.r, value.g, value.b, value.a);
 		} else {
+			this.#valid = value === undefined;
 			return this;
 		}
 	}
 
 	/** Assigns RGBA values. */
 	rgba(r: number, g: number, b: number, a: number): this {
+		this.#valid = true;
 		this.r = r;
 		this.g = g;
 		this.b = b;
@@ -342,6 +359,11 @@ export class Colour {
 	/** Checks if the colour is fully opaque. */
 	isOpaque(): boolean {
 		return this.#a === 1;
+	}
+
+	/** Checks if the parsed colour is valid. */
+	isValid(): boolean {
+		return this.#valid;
 	}
 
 	/** Gets the red channel value. */

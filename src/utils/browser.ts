@@ -220,6 +220,18 @@ export function addStorageChangeListener(
 	};
 }
 
+/** Checks whether a value is a plain record. */
+export function isRecord(
+	value: unknown,
+): value is Record<string | number | symbol, unknown> {
+	return (
+		value !== undefined &&
+		value !== null &&
+		typeof value === "object" &&
+		!Array.isArray(value)
+	);
+}
+
 /** Clamps a number between a minimum and maximum value. */
 export function clamp(min: number, num: number, max: number): number {
 	return Math.max(min, Math.min(max, num));

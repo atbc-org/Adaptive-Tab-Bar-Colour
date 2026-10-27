@@ -3,10 +3,7 @@ import styles from "./ThemeWidget.module.css";
 interface ThemeWidgetProps {
 	ready: boolean;
 	prefs: Prefs;
-	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
-		key: K,
-		value: Prefs[K],
-	) => void;
+	updatePref: typeof setPref;
 	scheme: Scheme;
 }
 
@@ -64,7 +61,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabSelected", newValue)
+									updatePref("theme:tabSelected", newValue)
 								}
 							/>
 						</div>
@@ -76,7 +73,10 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabSelectedBorder", newValue)
+									updatePref(
+										"theme:tabSelectedBorder",
+										newValue,
+									)
 								}
 							/>
 						</div>
@@ -97,7 +97,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbar", newValue)
+									updatePref("theme:toolbar", newValue)
 								}
 							/>
 						</div>
@@ -109,7 +109,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarBorder", newValue)
+									updatePref("theme:toolbarBorder", newValue)
 								}
 							/>
 						</div>
@@ -130,7 +130,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("sidebar", newValue)
+									updatePref("theme:sidebar", newValue)
 								}
 							/>
 						</div>
@@ -142,7 +142,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("sidebarBorder", newValue)
+									updatePref("theme:sidebarBorder", newValue)
 								}
 							/>
 						</div>
@@ -173,7 +173,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabbar", newValue)
+									updatePref("theme:tabbar", newValue)
 								}
 							/>
 						</div>
@@ -189,7 +189,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabbarBorder", newValue)
+									updatePref("theme:tabbarBorder", newValue)
 								}
 							/>
 						</div>
@@ -210,7 +210,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarField", newValue)
+									updatePref("theme:toolbarField", newValue)
 								}
 							/>
 						</div>
@@ -222,7 +222,10 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarFieldOnFocus", newValue)
+									updatePref(
+										"theme:toolbarFieldOnFocus",
+										newValue,
+									)
 								}
 							/>
 						</div>
@@ -234,7 +237,10 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarFieldBorder", newValue)
+									updatePref(
+										"theme:toolbarFieldBorder",
+										newValue,
+									)
 								}
 							/>
 						</div>
@@ -255,7 +261,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("popup", newValue)
+									updatePref("theme:popup", newValue)
 								}
 							/>
 						</div>
@@ -271,7 +277,7 @@ export default function ThemeWidget({
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("popupBorder", newValue)
+									updatePref("theme:popupBorder", newValue)
 								}
 							/>
 						</div>

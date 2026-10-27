@@ -1,397 +1,227 @@
 import { nanoid } from "nanoid";
 
-export const themeKeys: (keyof ThemePrefs)[] = [
-	"popup",
-	"popupBorder",
-	"sidebar",
-	"sidebarBorder",
-	"tabSelected",
-	"tabSelectedBorder",
-	"tabbar",
-	"tabbarBorder",
-	"toolbar",
-	"toolbarBorder",
-	"toolbarField",
-	"toolbarFieldBorder",
-	"toolbarFieldOnFocus",
-];
+/** Defines a boolean normaliser with a fallback. */
+const defineBoolean =
+	(fallback: boolean) =>
+	(value: unknown): boolean =>
+		typeof value === "boolean" ? value : fallback;
 
-export const advancedKeys: (keyof AdvancedPrefs)[] = [
-	"accentColour_dark",
-	"accentColour_light",
-	"allowDarkLight",
-	"compatibilityMode",
-	"dynamic",
-	"fallbackColour_dark",
-	"fallbackColour_light",
-	"homeBackground_dark",
-	"homeBackground_light",
-	"minContrast_dark",
-	"minContrast_light",
-	"noThemeColour",
-	"overwriteAccentColour",
-	"syncSettings",
-];
-
-export const keyToPrefKeyMap = new Map<
-	ThemeStorageKey | AdvancedStorageKey,
-	keyof ThemePrefs | keyof AdvancedPrefs
->([
-	...themeKeys.map(
-		(key): [ThemeStorageKey, keyof ThemePrefs | keyof AdvancedPrefs] => [
-			`theme:${key}`,
-			key,
-		],
-	),
-	...advancedKeys.map(
-		(key): [AdvancedStorageKey, keyof ThemePrefs | keyof AdvancedPrefs] => [
-			`advanced:${key}`,
-			key,
-		],
-	),
-]);
-
-let cachedPrefItems: PrefStorageItems | undefined;
-
-/** Defines a single WXT storage item for a theme pref key. */
-function defineThemePref<K extends keyof ThemePrefs>(
-	key: K,
-): WxtStorageItem<ThemePrefs[K], Record<string, unknown>> {
-	const fallback = defaultPrefs[key];
-	return storage.defineItem<ThemePrefs[K]>(`local:theme:${key}`, {
-		fallback,
-	});
-}
-
-/** Defines a single WXT storage item for an advanced pref key. */
-function defineAdvancedPref<K extends keyof AdvancedPrefs>(
-	key: K,
-): WxtStorageItem<AdvancedPrefs[K], Record<string, unknown>> {
-	const fallback = defaultPrefs[key];
-	return storage.defineItem<AdvancedPrefs[K]>(`local:advanced:${key}`, {
-		fallback,
-	});
-}
-
-/** Gets (and lazily defines) WXT storage items for all theme and advanced prefs. */
-function getPrefItems(): PrefStorageItems {
-	if (cachedPrefItems) return cachedPrefItems;
-	cachedPrefItems = {
-		popup: defineThemePref("popup"),
-		popupBorder: defineThemePref("popupBorder"),
-		sidebar: defineThemePref("sidebar"),
-		sidebarBorder: defineThemePref("sidebarBorder"),
-		tabSelected: defineThemePref("tabSelected"),
-		tabSelectedBorder: defineThemePref("tabSelectedBorder"),
-		tabbar: defineThemePref("tabbar"),
-		tabbarBorder: defineThemePref("tabbarBorder"),
-		toolbar: defineThemePref("toolbar"),
-		toolbarBorder: defineThemePref("toolbarBorder"),
-		toolbarField: defineThemePref("toolbarField"),
-		toolbarFieldBorder: defineThemePref("toolbarFieldBorder"),
-		toolbarFieldOnFocus: defineThemePref("toolbarFieldOnFocus"),
-		accentColour_dark: defineAdvancedPref("accentColour_dark"),
-		accentColour_light: defineAdvancedPref("accentColour_light"),
-		allowDarkLight: defineAdvancedPref("allowDarkLight"),
-		compatibilityMode: defineAdvancedPref("compatibilityMode"),
-		dynamic: defineAdvancedPref("dynamic"),
-		fallbackColour_dark: defineAdvancedPref("fallbackColour_dark"),
-		fallbackColour_light: defineAdvancedPref("fallbackColour_light"),
-		homeBackground_dark: defineAdvancedPref("homeBackground_dark"),
-		homeBackground_light: defineAdvancedPref("homeBackground_light"),
-		minContrast_dark: defineAdvancedPref("minContrast_dark"),
-		minContrast_light: defineAdvancedPref("minContrast_light"),
-		noThemeColour: defineAdvancedPref("noThemeColour"),
-		overwriteAccentColour: defineAdvancedPref("overwriteAccentColour"),
-		syncSettings: defineAdvancedPref("syncSettings"),
+/** Defines a numeric normaliser with a fallback, range, and step. */
+const defineNumber =
+	(fallback: number, min = -50, max = 50, step = 1) =>
+	(value: unknown): number => {
+		if (typeof value !== "number" || !Number.isFinite(value))
+			return fallback;
+		const clamped = clamp(min, value, max);
+		return Math.round(min + Math.round((clamped - min) / step) * step);
 	};
-	return cachedPrefItems;
+
+/** Defines a colour normaliser with a fallback. */
+const defineColour =
+	(fallback: HexColour) =>
+	(value: unknown): HexColour => {
+		if (typeof value !== "string") return fallback;
+		const colour = new Colour(value.trim());
+		return colour.isValid() ? colour.toHex() : fallback;
+	};
+
+/** Defines a compatibility mode normaliser. */
+const defineCompatibilityMode =
+	() =>
+	(value: unknown): boolean =>
+		!supportsThemeAPI() ||
+		(typeof value === "boolean" ? value : default_compatibilityMode);
+
+/** The exhaustive schema for static preference keys. */
+export const prefSchema = {
+	"theme:popup": defineNumber(5),
+	"theme:popupBorder": defineNumber(10),
+	"theme:sidebar": defineNumber(5),
+	"theme:sidebarBorder": defineNumber(10),
+	"theme:tabSelected": defineNumber(15),
+	"theme:tabSelectedBorder": defineNumber(0),
+	"theme:tabbar": defineNumber(0),
+	"theme:tabbarBorder": defineNumber(0),
+	"theme:toolbar": defineNumber(0),
+	"theme:toolbarBorder": defineNumber(0),
+	"theme:toolbarField": defineNumber(5),
+	"theme:toolbarFieldBorder": defineNumber(5),
+	"theme:toolbarFieldOnFocus": defineNumber(5),
+	"advanced:accentColour_dark": defineColour(default_accentColour_dark),
+	"advanced:accentColour_light": defineColour(default_accentColour_light),
+	"advanced:allowDarkLight": defineBoolean(true),
+	"advanced:compatibilityMode": defineCompatibilityMode(),
+	"advanced:dynamic": defineBoolean(true),
+	"advanced:fallbackColour_dark": defineColour(default_fallbackColour_dark),
+	"advanced:fallbackColour_light": defineColour(default_fallbackColour_light),
+	"advanced:homeBackground_dark": defineColour(default_homeBackground_dark),
+	"advanced:homeBackground_light": defineColour(default_homeBackground_light),
+	"advanced:minContrast_dark": defineNumber(45, 0, 210, 5),
+	"advanced:minContrast_light": defineNumber(90, 0, 210, 5),
+	"advanced:noThemeColour": defineBoolean(true),
+	"advanced:overwriteAccentColour": defineBoolean(false),
+	"device:sync": defineBoolean(true),
+} satisfies { [K in StaticPrefKey]: (value: unknown) => PrefValues[K] };
+
+export const staticPrefKeys = Object.keys(prefSchema) as StaticPrefKey[];
+
+export const defaultPrefs: Readonly<Prefs> = Object.freeze(normalisePrefs({}));
+
+/** Checks if a string is a valid rule storage key. */
+export function isRuleKey(key: string): key is `rule:${string}` {
+	return /^rule:[A-Za-z0-9_-]+$/.test(key);
 }
 
-/** Checks whether a value is a plain record. */
-function isRecord(
-	value: unknown,
-): value is Record<string | number | symbol, unknown> {
-	return (
-		value !== undefined &&
-		value !== null &&
-		typeof value === "object" &&
-		!Array.isArray(value)
-	);
+/** Checks if a string is a valid preference key. */
+export function isPrefKey(key: string): key is PrefKey {
+	return Object.hasOwn(prefSchema, key) || isRuleKey(key);
 }
 
-/** Checks whether syncSettings preference is currently enabled. */
-export async function isSyncSettingsEnabled(): Promise<boolean> {
-	return await (
-		getPrefItems().syncSettings as WxtStorageItem<
-			boolean,
-			Record<string, unknown>
-		>
-	).getValue();
-}
-
-/** Normalises a numeric pref within constraints. */
-function normaliseNumber(
-	num: number,
-	{ min, max, step }: { min: number; max: number; step: number },
-): number {
-	const scaled = num > -1 && num < 1 ? Math.round(num * 100) : num;
-	const clamped = clamp(min, scaled, max);
-	return Math.round(Math.round((clamped - min) / step) * step + min);
-}
-
-/** Normalises a pref value for a specific key. */
-export function normalisePref<K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+/** Normalises a single preference value by key. */
+export function normalisePref<K extends StaticPrefKey>(
 	key: K,
 	value: unknown,
-): Prefs[K] {
-	switch (key) {
-		case "popup":
-		case "popupBorder":
-		case "sidebar":
-		case "sidebarBorder":
-		case "tabSelected":
-		case "tabSelectedBorder":
-		case "tabbar":
-		case "tabbarBorder":
-		case "toolbar":
-		case "toolbarBorder":
-		case "toolbarField":
-		case "toolbarFieldBorder":
-		case "toolbarFieldOnFocus":
-			return (
-				typeof value === "number" && !isNaN(value)
-					? normaliseNumber(value, { min: -50, max: 50, step: 1 })
-					: defaultPrefs[key]
-			) as Prefs[K];
-		case "allowDarkLight":
-		case "dynamic":
-		case "noThemeColour":
-		case "overwriteAccentColour":
-		case "syncSettings":
-			return (
-				typeof value === "boolean" ? value : defaultPrefs[key]
-			) as Prefs[K];
-		case "compatibilityMode":
-			return (!supportsThemeAPI() ||
-				(typeof value === "boolean"
-					? value
-					: defaultPrefs[key])) as Prefs[K];
-		case "accentColour_dark":
-		case "accentColour_light":
-		case "fallbackColour_dark":
-		case "fallbackColour_light":
-		case "homeBackground_dark":
-		case "homeBackground_light":
-			return (
-				typeof value === "string" ? value : defaultPrefs[key]
-			) as Prefs[K];
-		case "minContrast_light":
-		case "minContrast_dark":
-			return (
-				typeof value === "number" && !isNaN(value)
-					? normaliseNumber(value, { min: 0, max: 210, step: 5 })
-					: defaultPrefs[key]
-			) as Prefs[K];
-	}
+): PrefValues[K];
+export function normalisePref<K extends PrefKey>(
+	key: K,
+	value: unknown,
+): PrefValues[K] | undefined;
+export function normalisePref(key: PrefKey, value: unknown): unknown {
+	return isRuleKey(key) ? normaliseRule(value) : prefSchema[key](value);
 }
 
-/** Normalises a raw storage snapshot or imported record into a `Prefs` object. */
+/** Legacy formats are converted before current-schema normalisation. */
+export function migratePrefs(
+	raw: Record<string, unknown>,
+): Record<string, unknown> {
+	const result = { ...raw };
+	for (const key of staticPrefKeys) {
+		if (key.startsWith("device:")) continue;
+		const name = key.slice(key.indexOf(":") + 1);
+		if (Object.hasOwn(result, key) || !Object.hasOwn(raw, name)) continue;
+		const value = raw[name];
+		result[key] =
+			typeof value === "number" && value > -1 && value < 1
+				? value * 100
+				: value;
+		delete result[name];
+	}
+	delete result.version;
+	delete result.lastSave;
+	const legacy = isRecord(raw.ruleList) ? raw.ruleList : {};
+	delete result.ruleList;
+	let order = 1;
+	for (const [, value] of Object.entries(legacy).sort(([a], [b]) =>
+		a.localeCompare(b, undefined, { numeric: true }),
+	)) {
+		if (!isRecord(value)) continue;
+		let key: `rule:${string}` = `rule:${nanoid()}`;
+		while (Object.hasOwn(result, key)) key = `rule:${nanoid()}`;
+		result[key] = {
+			...value,
+			target: value.target ?? value.headerType,
+			order: order++,
+		};
+	}
+	return result;
+}
+
+/** Normalises a raw snapshot into a clean storage record. */
+export function normaliseSnapshot(
+	raw: Record<string, unknown>,
+	includeDevice = true,
+): Record<string, unknown> {
+	const migrated = migratePrefs(raw);
+	const result: Record<string, unknown> = {};
+	const keys = [
+		...staticPrefKeys.filter((key) => key.startsWith("theme:")),
+		...Object.keys(migrated).filter(isRuleKey).sort(),
+		...staticPrefKeys.filter(
+			(key) =>
+				!key.startsWith("theme:") &&
+				(includeDevice || !key.startsWith("device:")),
+		),
+	];
+	for (const key of keys) {
+		const value = normalisePref(key, migrated[key]);
+		if (value !== undefined) result[key] = value;
+	}
+	return result;
+}
+
+/** Projects a storage snapshot into the UI/theme `Prefs` view model. */
 export function normalisePrefs(raw: Record<string, unknown>): Prefs {
-	const prefs: Prefs = { ...defaultPrefs, rules: {} };
-
-	for (const [storageKey, prefKey] of keyToPrefKeyMap.entries()) {
-		const rawValue = storageKey in raw ? raw[storageKey] : raw[prefKey];
-		(prefs as Record<string, unknown>)[prefKey] = normalisePref(
-			prefKey,
-			rawValue,
-		);
+	const snapshot = normaliseSnapshot(raw);
+	const rules: Record<string, Rule> = {};
+	const prefs: Record<string, unknown> = { rules };
+	for (const [key, value] of Object.entries(snapshot)) {
+		if (isRuleKey(key)) rules[key.slice(5)] = value as Rule;
+		else prefs[key.slice(key.indexOf(":") + 1)] = value;
 	}
-
-	const rawRules: { id: string; rule: Rule }[] = [];
-	let fallbackOrder = 1;
-
-	for (const [key, value] of Object.entries(raw)) {
-		if (!key.startsWith("rule:")) continue;
-		const id = key.slice(5);
-		const rule = normaliseRule(value, fallbackOrder++);
-		if (!id || !rule) continue;
-		rawRules.push({ id, rule });
-	}
-
-	const legacyRules = isRecord(raw.rules)
-		? raw.rules
-		: isRecord(raw.ruleList)
-			? raw.ruleList
-			: null;
-	if (legacyRules) {
-		const sortedEntries = Object.entries(legacyRules).sort(
-			([first], [second]) => Number(first) - Number(second),
-		);
-		for (const [, value] of sortedEntries) {
-			const rule = normaliseRule(value, fallbackOrder++);
-			if (!rule) continue;
-			rawRules.push({ id: nanoid(), rule });
-		}
-	}
-
-	rawRules
-		.sort((first, second) => first.rule.order - second.rule.order)
-		.forEach(({ id, rule }, index) => {
-			prefs.rules[id] = { ...rule, order: index + 1 };
-		});
-
-	return prefs;
+	return prefs as unknown as Prefs;
 }
 
-/** Synchronises a `Prefs` object with a storage snapshot. */
-export async function syncStorage(
-	prefs: Prefs,
-	snapshot: Record<string, unknown>,
-	area: "local" | "sync" = "local",
-): Promise<void> {
-	const expected: Record<string, unknown> = {};
-	for (const [storageKey, prefKey] of keyToPrefKeyMap.entries()) {
-		if (area === "sync" && prefKey === "syncSettings") continue;
-		expected[storageKey] = prefs[prefKey];
-	}
-	for (const [id, rule] of Object.entries(prefs.rules)) {
-		expected[`rule:${id}`] = rule;
-	}
-
-	const keysToRemove: StorageItemKey[] = [];
-	for (const key of Object.keys(snapshot)) {
-		if (area === "sync" && key === "advanced:syncSettings") continue;
-		if (!(key in expected)) {
-			keysToRemove.push(`${area}:${key}` as StorageItemKey);
-		}
-	}
-
-	const itemsToSet: { key: StorageItemKey; value: unknown }[] = [];
-	for (const [key, value] of Object.entries(expected)) {
-		if (
-			!(key in snapshot) ||
-			JSON.stringify(snapshot[key]) !== JSON.stringify(value)
-		) {
-			itemsToSet.push({ key: `${area}:${key}` as StorageItemKey, value });
-		}
-	}
-
-	if (itemsToSet.length > 0) await storage.setItems(itemsToSet);
-	if (keysToRemove.length > 0) await storage.removeItems(keysToRemove);
-}
-
-/** Determines whether a storage snapshot contains any actual pref or rule data. */
-export function hasStorageData(snapshot: Record<string, unknown>): boolean {
-	return Object.keys(snapshot).some(
-		(key) =>
-			key !== "version" &&
-			key !== "lastSave" &&
-			(keyToPrefKeyMap.has(key as ThemeStorageKey | AdvancedStorageKey) ||
-				key.startsWith("rule:") ||
-				themeKeys.includes(key as keyof ThemePrefs) ||
-				advancedKeys.includes(key as keyof AdvancedPrefs) ||
-				key === "rules" ||
-				key === "ruleList"),
-	);
-}
-
-/**
- * Retrieves all prefs from WXT Storage, normalising and cleaning up storage if
- * needed.
- */
+/** Reads local preferences and normalises storage. */
 export async function getPrefs(): Promise<Prefs> {
-	const localSnapshot = await storage.snapshot("local");
-	const syncSnapshot = await storage.snapshot("sync");
-	const localPrefs = normalisePrefs(localSnapshot);
+	const snapshot = normaliseSnapshot(await storage.snapshot("local"));
+	await applySnapshot(snapshot, "local");
+	return normalisePrefs(snapshot);
+}
 
-	if (!hasStorageData(localSnapshot) && hasStorageData(syncSnapshot)) {
-		const prefs = normalisePrefs(syncSnapshot);
-		prefs.syncSettings = true;
-		await syncStorage(prefs, localSnapshot, "local");
-		return prefs;
-	} else if (localPrefs.syncSettings) {
-		await syncStorage(localPrefs, localSnapshot, "local");
-		await syncStorage(localPrefs, syncSnapshot, "sync");
-		return localPrefs;
-	} else {
-		await syncStorage(localPrefs, localSnapshot, "local");
-		return localPrefs;
+/** Writes a single normalised preference to the given storage area. */
+export async function writePrefValue(
+	key: PrefKey,
+	input: unknown,
+	area: "local" | "sync",
+): Promise<void> {
+	if (area === "sync" && key.startsWith("device:")) return;
+	const value = normalisePref(key, input);
+	const current = await storage.getItem<unknown>(`${area}:${key}`);
+	if (value === undefined) {
+		if (
+			current !== null ||
+			Object.hasOwn(await storage.snapshot(area), key)
+		)
+			await storage.removeItem(`${area}:${key}`);
+	} else if (JSON.stringify(current) !== JSON.stringify(value)) {
+		await storage.setItem(`${area}:${key}`, value);
 	}
 }
 
-/** Sets a single theme or advanced pref in WXT Storage. */
-export async function setPref<K extends keyof ThemePrefs | keyof AdvancedPrefs>(
+/** Updates a single preference in local storage and mirrors to sync if enabled. */
+export async function setPref<K extends PrefKey>(
 	key: K,
-	value: Prefs[K],
+	value: PrefValues[K] | undefined,
 ): Promise<void> {
-	const normalised = normalisePref(key, value);
-	await (
-		getPrefItems()[key] as WxtStorageItem<Prefs[K], Record<string, unknown>>
-	).setValue(normalised);
-	await syncPrefToCloud(key, normalised);
+	await writePrefValue(key, value, "local");
+	if (!key.startsWith("device:") && (await isSyncEnabled()))
+		await writePrefValue(key, value, "sync");
 }
 
-/** Resets specified keys (or all prefs and rules) to default values. */
-export async function resetPrefs(
-	keys?: (keyof ThemePrefs | keyof AdvancedPrefs)[],
-): Promise<void> {
-	const items = getPrefItems();
-
-	if (keys) {
-		await storage.setItems(
-			keys.map((key) => ({ item: items[key], value: defaultPrefs[key] })),
-		);
-		await syncResetToCloud(keys);
-	} else {
-		const localSnapshot = await storage.snapshot("local");
-		const ruleKeys = Object.keys(localSnapshot)
-			.filter((key) => key.startsWith("rule:"))
-			.map((key): StorageItemKey => `local:${key}`);
-		if (ruleKeys.length > 0) await storage.removeItems(ruleKeys);
-		const allKeys = [...themeKeys, ...advancedKeys];
-		await storage.setItems(
-			allKeys.map((key) => ({
-				item: items[key],
-				value: defaultPrefs[key],
-			})),
-		);
-		await syncResetToCloud();
-	}
-}
-
-/** Subscribes to any pref or rule change in storage. */
+/** Subscribes to local preference changes. */
 export function watchPrefs(callback: (prefs: Prefs) => void): () => void {
-	const listener = async (
-		changes: { [key: string]: Browser.storage.StorageChange },
-		areaName: Browser.storage.AreaName,
-	) => {
-		const isRelevantLocal =
-			areaName === "local" &&
-			Object.keys(changes).some(
-				(key) =>
-					keyToPrefKeyMap.has(
-						key as ThemeStorageKey | AdvancedStorageKey,
-					) || key.startsWith("rule:"),
-			);
-
-		if (isRelevantLocal) {
-			const snapshot = await storage.snapshot("local");
-			callback(normalisePrefs(snapshot));
-		} else if (areaName === "sync") {
-			await handleSyncStorageChanges(changes);
-		}
-	};
-	return addStorageChangeListener(listener);
+	return addStorageChangeListener(async (changes, area) => {
+		if (area !== "local" || !Object.keys(changes).some(isPrefKey)) return;
+		callback(normalisePrefs(await storage.snapshot("local")));
+	});
 }
 
-/** Exports current local storage snapshot as JSON. */
+/** Resets shared preferences, or the explicitly requested items. */
+export async function resetPrefs(keys?: PrefKey[]): Promise<void> {
+	if (keys) {
+		for (const key of keys) await setPref(key, undefined);
+		return;
+	}
+	await importPrefs({});
+}
+
+/** Exports shared preferences as JSON. */
 export async function exportPrefs(): Promise<string> {
-	const snapshot = await storage.snapshot("local");
+	const snapshot = normaliseSnapshot(await storage.snapshot("local"), false);
 	return JSON.stringify(snapshot);
 }
 
-/** Imports, normalises, and persists prefs from a JSON string or record. */
+/** Imports and replaces all shared preferences from a JSON string or record. */
 export async function importPrefs(
 	input: string | Record<string, unknown>,
 ): Promise<boolean> {
@@ -399,15 +229,9 @@ export async function importPrefs(
 		const parsed: unknown =
 			typeof input === "string" ? JSON.parse(input) : input;
 		if (!isRecord(parsed)) return false;
-
-		const prefs = normalisePrefs(parsed);
-		const localSnapshot = await storage.snapshot("local");
-		await syncStorage(prefs, localSnapshot, "local");
-
-		if (prefs.syncSettings) {
-			const syncSnapshot = await storage.snapshot("sync");
-			await syncStorage(prefs, syncSnapshot, "sync");
-		}
+		const snapshot = normaliseSnapshot(parsed, false);
+		await applySnapshot(snapshot, "local");
+		if (await isSyncEnabled()) await applySnapshot(snapshot, "sync");
 		return true;
 	} catch {
 		return false;

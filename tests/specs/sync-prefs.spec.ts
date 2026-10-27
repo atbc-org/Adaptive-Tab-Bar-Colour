@@ -23,7 +23,7 @@ describe("Sync Prefs", () => {
 		if (cleanup) await cleanup();
 	});
 
-	it("mirrors local changes to sync storage when syncSettings is true", async () => {
+	it("mirrors local changes to sync storage when sync is true", async () => {
 		const dynamicSwitch = await context.driver.findElement(
 			By.css('button[role="switch"][aria-label="Dynamic colour update"]'),
 		);
@@ -38,16 +38,14 @@ describe("Sync Prefs", () => {
 
 		const syncSettingsInSync = await context.driver.executeScript(
 			async () => {
-				const res = await browser.storage.sync.get(
-					"advanced:syncSettings",
-				);
-				return res["advanced:syncSettings"] ?? null;
+				const res = await browser.storage.sync.get("device:sync");
+				return res["device:sync"] ?? null;
 			},
 		);
 		expect(syncSettingsInSync).toBeNull();
 	});
 
-	it("does not mirror to sync storage when syncSettings is false", async () => {
+	it("does not mirror to sync storage when sync is false", async () => {
 		const syncSwitch = await context.driver.findElement(
 			By.css(
 				'button[role="switch"][aria-label="Sync settings to cloud"]',
@@ -57,10 +55,8 @@ describe("Sync Prefs", () => {
 		await sleep(300);
 
 		const localSyncState = await context.driver.executeScript(async () => {
-			const res = await browser.storage.local.get(
-				"advanced:syncSettings",
-			);
-			return res["advanced:syncSettings"];
+			const res = await browser.storage.local.get("device:sync");
+			return res["device:sync"];
 		});
 		expect(localSyncState).toBe(false);
 
@@ -151,5 +147,38 @@ describe("Sync Prefs", () => {
 			return res["advanced:homeBackground_light"];
 		});
 		expect(localValue).toBe("#fedcba");
+	});
+
+	it("remains off when sync preference is disabled and user clicks outside", async () => {
+		const syncSwitch = await context.driver.findElement(
+			By.css(
+				'button[role="switch"][aria-label="Sync settings to cloud"]',
+			),
+		);
+		const isChecked =
+			(await syncSwitch.getAttribute("aria-checked")) === "true";
+		if (!isChecked) {
+			await syncSwitch.click();
+			await sleep(300);
+		}
+
+		await syncSwitch.click();
+		await sleep(300);
+
+		const heading = await context.driver.findElement(
+			By.id("advanced-backup"),
+		);
+		await heading.click();
+		await context.driver.executeScript(() => {
+			window.dispatchEvent(new Event("blur"));
+			document.dispatchEvent(new Event("blur"));
+		});
+		await sleep(300);
+
+		const localSyncState = await context.driver.executeScript(async () => {
+			const res = await browser.storage.local.get("device:sync");
+			return res["device:sync"];
+		});
+		expect(localSyncState).toBe(false);
 	});
 });

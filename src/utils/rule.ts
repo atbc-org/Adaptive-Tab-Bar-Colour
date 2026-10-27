@@ -1,118 +1,61 @@
 import { nanoid } from "nanoid";
 
-/** Checks whether a value is a plain record. */
-function isRecord(
+/** Normalises a single rule object, or returns undefined if invalid. */
+export function normaliseRule(
 	value: unknown,
-): value is Record<string | number | symbol, unknown> {
-	return (
-		value !== undefined &&
-		value !== null &&
-		typeof value === "object" &&
-		!Array.isArray(value)
-	);
-}
-
-/** Normalises a single rule object, or returns `null` if invalid. */
-export function normaliseRule(value: unknown, fallbackOrder = 1): Rule | null {
-	const isValid =
-		isRecord(value) &&
-		typeof value.header === "string" &&
-		["both", "dark", "light"].includes(value.scheme as string);
-	if (!isValid) return null;
-
+	fallbackOrder = 1,
+): Rule | undefined {
+	if (!isRecord(value) || typeof value.header !== "string") return undefined;
+	const { header, scheme, target, type } = value;
+	if (scheme !== "both" && scheme !== "dark" && scheme !== "light")
+		return undefined;
 	const order =
-		typeof value.order === "number" && Number.isInteger(value.order)
+		typeof value.order === "number" &&
+		Number.isSafeInteger(value.order) &&
+		value.order > 0
 			? value.order
 			: fallbackOrder;
-	const scheme = value.scheme as "both" | Scheme;
-	const header = value.header as string;
-	const target = value.target ?? value.headerType;
-
 	if (
-		target === "ADDON_ID" &&
-		value.type === "COLOUR" &&
+		(target === "URL" || target === "ADDON_ID") &&
+		type === "COLOUR" &&
 		typeof value.value === "string"
 	) {
-		return {
-			target: "ADDON_ID",
-			header,
-			type: "COLOUR",
-			value: new Colour(value.value).toHex(),
-			scheme,
-			order,
-		};
+		const colour = new Colour(value.value.trim());
+		if (!colour.isValid()) return undefined;
+		return { target, header, scheme, type, value: colour.toHex(), order };
 	} else if (
 		target === "URL" &&
-		value.type === "COLOUR" &&
-		typeof value.value === "string"
-	) {
-		return {
-			target: "URL",
-			header,
-			type: "COLOUR",
-			value: new Colour(value.value).toHex(),
-			scheme,
-			order,
-		};
-	} else if (
-		target === "URL" &&
-		value.type === "THEME_COLOUR" &&
+		type === "THEME_COLOUR" &&
 		typeof value.value === "boolean"
 	) {
-		return {
-			target: "URL",
-			header,
-			type: "THEME_COLOUR",
-			value: value.value,
-			scheme,
-			order,
-		};
+		return { target, header, scheme, type, value: value.value, order };
 	} else if (
 		target === "URL" &&
-		value.type === "QUERY_SELECTOR" &&
+		type === "QUERY_SELECTOR" &&
 		typeof value.value === "string"
 	) {
-		return {
-			target: "URL",
-			header,
-			type: "QUERY_SELECTOR",
-			value: value.value,
-			scheme,
-			order,
-		};
+		return { target, header, scheme, type, value: value.value, order };
 	} else {
-		return null;
+		return undefined;
 	}
 }
 
-/** Adds a new rule with a generated nanoid and next order number. */
-export async function addRule(newRule: NewRule): Promise<void> {
-	const snapshot = await storage.snapshot("local");
+/** Adds a new rule with a generated ID and next order number. */
+export async function addRule(rule: NewRule): Promise<void> {
+	const raw = await storage.snapshot("local");
 	let maxOrder = 0;
-	for (const [key, value] of Object.entries(snapshot)) {
-		if (!key.startsWith("rule:")) continue;
-		const rule = normaliseRule(value);
-		if (!rule || rule.order <= maxOrder) continue;
-		maxOrder = rule.order;
+	for (const [key, value] of Object.entries(raw)) {
+		if (isRuleKey(key))
+			maxOrder = Math.max(maxOrder, normaliseRule(value)?.order ?? 0);
 	}
-	let id = nanoid();
-	while (`rule:${id}` in snapshot) id = nanoid();
-	const rule = normaliseRule({ ...newRule, order: maxOrder + 1 });
-	if (!rule) return;
-	await storage.setItem(`local:rule:${id}`, rule);
-	await syncRuleToCloud(id, rule);
+	let key: `rule:${string}` = `rule:${nanoid()}`;
+	while (Object.hasOwn(raw, key)) key = `rule:${nanoid()}`;
+	await setPref(key, { ...rule, order: maxOrder + 1 });
 }
 
-/** Updates an existing rule or removes it when `rule` is `null`. */
+/** Updates a rule or removes its key when null. */
 export async function setRule(id: string, rule: Rule | null): Promise<void> {
-	const normalised = rule ? normaliseRule(rule, rule.order) : null;
-	if (rule === null) {
-		await storage.removeItem(`local:rule:${id}`);
-		await syncRuleToCloud(id, null);
-	} else if (normalised) {
-		await storage.setItem(`local:rule:${id}`, normalised);
-		await syncRuleToCloud(id, normalised);
-	}
+	await setPref(`rule:${id}`, rule ?? undefined);
 }
 
 /** Tests whether a URL matches a regex pattern. */

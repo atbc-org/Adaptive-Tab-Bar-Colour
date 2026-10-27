@@ -1,174 +1,91 @@
-/** Checks whether two `Prefs` objects have identical syncable contents. */
-export function areSyncedPrefsEqual(first: Prefs, second: Prefs): boolean {
-	for (const prefKey of themeKeys) {
-		if (first[prefKey] !== second[prefKey]) return false;
-	}
-	for (const prefKey of advancedKeys) {
-		if (prefKey === "syncSettings") continue;
-		if (first[prefKey] !== second[prefKey]) return false;
-	}
-
-	const firstRuleEntries = Object.entries(first.rules);
-	const secondRuleEntries = Object.entries(second.rules);
-	if (firstRuleEntries.length !== secondRuleEntries.length) return false;
-
-	for (const [id, rule] of firstRuleEntries) {
-		const secondRule = second.rules[id];
-		if (!secondRule) return false;
-		if (JSON.stringify(rule) !== JSON.stringify(secondRule)) return false;
-	}
-
-	return true;
+/** Checks whether cloud sync is currently enabled on this device. */
+export async function isSyncEnabled(): Promise<boolean> {
+	return normalisePref(
+		"device:sync",
+		await storage.getItem("local:device:sync"),
+	);
 }
 
-/** Toggles cloud sync settings and handles conflict resolution. */
-export async function setSyncSettings(
+/** Initialises preferences on background startup and listens for sync updates. */
+export async function initPrefs(): Promise<Prefs> {
+	const local = await storage.snapshot("local");
+	const enabled = normalisePref("device:sync", local["device:sync"]);
+	if (enabled) {
+		const cloud = await storage.snapshot("sync");
+		const bootstrap =
+			!Object.hasOwn(local, "device:sync") && !hasSharedPrefs(cloud);
+		const source = normaliseSnapshot(bootstrap ? local : cloud, false);
+		await applySnapshot(source, "sync");
+		await applySnapshot({ ...source, "device:sync": true }, "local");
+	} else {
+		await applySnapshot(normaliseSnapshot(local), "local");
+	}
+
+	addStorageChangeListener(async (changes, area) => {
+		if (area !== "sync" || !(await isSyncEnabled())) return;
+		for (const key of Object.keys(changes).filter(isPrefKey)) {
+			if (key.startsWith("device:")) continue;
+			const raw = await storage.getItem<unknown>(`sync:${key}`);
+			await writePrefValue(key, raw, "sync");
+			await writePrefValue(key, raw, "local");
+		}
+	});
+
+	return getPrefs();
+}
+
+/** Toggles cloud sync settings and resolves conflicts. */
+export async function setSync(
 	enabled: boolean,
 	choice?: SyncChoice,
 ): Promise<SyncResult> {
-	const localSnapshot = await storage.snapshot("local");
-	const localPrefs = normalisePrefs(localSnapshot);
-	const syncSnapshot = await storage.snapshot("sync");
-	const cloudPrefs = normalisePrefs(syncSnapshot);
-	const hasSync = hasStorageData(syncSnapshot);
-
 	if (!enabled) {
-		await setPref("syncSettings", false);
+		await writePrefValue("device:sync", false, "local");
 		return "disabled";
-	} else if (!hasSync) {
-		await setPref("syncSettings", true);
-		await syncStorage(localPrefs, syncSnapshot, "sync");
-		return "enabled";
-	} else if (areSyncedPrefsEqual(localPrefs, cloudPrefs)) {
-		await setPref("syncSettings", true);
-		return "enabled";
-	} else if (!choice) {
+	}
+	const local = normaliseSnapshot(await storage.snapshot("local"), false);
+	const cloudRaw = await storage.snapshot("sync");
+	const cloud = normaliseSnapshot(cloudRaw, false);
+	const hasCloud = hasSharedPrefs(cloudRaw);
+	if (hasCloud && JSON.stringify(local) !== JSON.stringify(cloud) && !choice)
 		return "conflict";
-	} else if (choice === "cloud") {
-		cloudPrefs.syncSettings = true;
-		await syncStorage(cloudPrefs, localSnapshot, "local");
-		return "enabled";
-	} else {
-		localPrefs.syncSettings = true;
-		await setPref("syncSettings", true);
-		await syncStorage(localPrefs, syncSnapshot, "sync");
-		return "enabled";
-	}
+	const source = choice === "cloud" && hasCloud ? cloud : local;
+	await applySnapshot(source, "sync");
+	await applySnapshot({ ...source, "device:sync": true }, "local");
+	return "enabled";
 }
 
-/** Synchronises a single pref item to sync storage if sync is active. */
-export async function syncPrefToCloud<
-	K extends keyof ThemePrefs | keyof AdvancedPrefs,
->(key: K, value: Prefs[K]): Promise<void> {
-	if (key === "syncSettings") return;
-	const syncSettings = await isSyncSettingsEnabled();
-	if (!syncSettings) return;
-
-	const prefix = themeKeys.includes(key as keyof ThemePrefs)
-		? "theme"
-		: "advanced";
-	await storage.setItem(`sync:${prefix}:${key}` as StorageItemKey, value);
-}
-
-/** Synchronises reset preferences to sync storage if sync is active. */
-export async function syncResetToCloud(
-	keys?: (keyof ThemePrefs | keyof AdvancedPrefs)[],
+/** Replaces preferences in the specified storage area to match a snapshot. */
+export async function applySnapshot(
+	snapshot: Record<string, unknown>,
+	area: "local" | "sync",
 ): Promise<void> {
-	const syncSettings = await isSyncSettingsEnabled();
-	if (!syncSettings) return;
-
-	if (keys) {
-		const syncItemsToSet: { key: StorageItemKey; value: unknown }[] = [];
-		for (const key of keys) {
-			if (key === "syncSettings") continue;
-			const prefix = themeKeys.includes(key as keyof ThemePrefs)
-				? "theme"
-				: "advanced";
-			syncItemsToSet.push({
-				key: `sync:${prefix}:${key}` as StorageItemKey,
-				value: defaultPrefs[key],
-			});
-		}
-		if (syncItemsToSet.length > 0) await storage.setItems(syncItemsToSet);
-	} else {
-		const syncSnapshot = await storage.snapshot("sync");
-		const syncRuleKeys = Object.keys(syncSnapshot)
-			.filter((key) => key.startsWith("rule:"))
-			.map((key): StorageItemKey => `sync:${key}`);
-		if (syncRuleKeys.length > 0) await storage.removeItems(syncRuleKeys);
-		const syncPrefsToSet = [...themeKeys, ...advancedKeys]
-			.filter((key) => key !== "syncSettings")
-			.map((key) => {
-				const prefix = themeKeys.includes(key as keyof ThemePrefs)
-					? "theme"
-					: "advanced";
-				return {
-					key: `sync:${prefix}:${key}` as StorageItemKey,
-					value: defaultPrefs[key],
-				};
-			});
-		await storage.setItems(syncPrefsToSet);
-	}
+	const includeDevice =
+		area === "local" && Object.hasOwn(snapshot, "device:sync");
+	const current = await storage.snapshot(area);
+	const updates = Object.entries(snapshot)
+		.filter(
+			([key, value]) =>
+				isPrefKey(key) &&
+				(includeDevice || !key.startsWith("device:")) &&
+				JSON.stringify(current[key]) !== JSON.stringify(value),
+		)
+		.map(([key, value]) => ({ key: `${area}:${key}` as const, value }));
+	const removals = Object.keys(current)
+		.filter(
+			(key) =>
+				(includeDevice || !key.startsWith("device:")) &&
+				!key.endsWith("$") &&
+				!Object.hasOwn(snapshot, key),
+		)
+		.map((key) => `${area}:${key}` as const);
+	if (updates.length) await storage.setItems(updates);
+	if (removals.length) await storage.removeItems(removals);
 }
 
-/** Synchronises rule update to sync storage if sync is active. */
-export async function syncRuleToCloud(
-	id: string,
-	rule: Rule | null,
-): Promise<void> {
-	const syncSettings = await isSyncSettingsEnabled();
-	if (!syncSettings) return;
-
-	if (rule === null) {
-		await storage.removeItem(`sync:rule:${id}`);
-	} else {
-		await storage.setItem(`sync:rule:${id}`, rule);
-	}
-}
-
-/** Handles incoming sync storage changes and applies them to local storage. */
-export async function handleSyncStorageChanges(changes: {
-	[key: string]: Browser.storage.StorageChange;
-}): Promise<void> {
-	const syncSettings = await isSyncSettingsEnabled();
-	if (!syncSettings) return;
-
-	const relevant = Object.keys(changes).some(
-		(key) =>
-			keyToPrefKeyMap.has(key as ThemeStorageKey | AdvancedStorageKey) ||
-			key.startsWith("rule:"),
+/** Checks whether raw storage data contains shared preferences. */
+function hasSharedPrefs(raw: Record<string, unknown>): boolean {
+	return Object.keys(migratePrefs(raw)).some(
+		(key) => isPrefKey(key) && !key.startsWith("device:"),
 	);
-	if (!relevant) return;
-
-	const syncSnapshot = await storage.snapshot("sync");
-	const syncedPrefs = normalisePrefs(syncSnapshot);
-	syncedPrefs.syncSettings = true;
-	const localSnapshot = await storage.snapshot("local");
-	await syncStorage(syncedPrefs, localSnapshot, "local");
-}
-
-/** Handles incoming local storage changes and mirrors them to sync storage. */
-export async function handleLocalStorageChanges(changes: {
-	[key: string]: Browser.storage.StorageChange;
-}): Promise<void> {
-	const syncSettings = await isSyncSettingsEnabled();
-	if (!syncSettings) return;
-
-	for (const [key, change] of Object.entries(changes)) {
-		const isPref =
-			keyToPrefKeyMap.has(key as ThemeStorageKey | AdvancedStorageKey) &&
-			key !== "advanced:syncSettings";
-		const isRule = key.startsWith("rule:");
-		const isSyncable = isPref || isRule;
-		if (!isSyncable) continue;
-
-		if (change.newValue !== undefined) {
-			await storage.setItem(
-				`sync:${key}` as StorageItemKey,
-				change.newValue,
-			);
-		} else {
-			await storage.removeItem(`sync:${key}` as StorageItemKey);
-		}
-	}
 }

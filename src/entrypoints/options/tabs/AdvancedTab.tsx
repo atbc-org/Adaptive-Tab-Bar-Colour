@@ -3,10 +3,7 @@ import styles from "./AdvancedTab.module.css";
 interface AdvancedTabProps {
 	prefs: Prefs;
 	ready: boolean;
-	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
-		key: K,
-		value: Prefs[K],
-	) => void;
+	updatePref: typeof setPref;
 }
 
 export default function AdvancedTab({
@@ -33,7 +30,7 @@ export default function AdvancedTab({
 								label={i18n.t("dynamicColourUpdate")}
 								active={prefs.dynamic}
 								onChange={(value) =>
-									updatePref("dynamic", value)
+									updatePref("advanced:dynamic", value)
 								}
 							/>
 							<div>
@@ -48,7 +45,7 @@ export default function AdvancedTab({
 								label={i18n.t("ignoreDesignatedThemeColour")}
 								active={prefs.noThemeColour}
 								onChange={(value) =>
-									updatePref("noThemeColour", value)
+									updatePref("advanced:noThemeColour", value)
 								}
 							/>
 							<div>
@@ -85,7 +82,7 @@ export default function AdvancedTab({
 										value={prefs.homeBackground_light}
 										onChange={(value) =>
 											updatePref(
-												"homeBackground_light",
+												"advanced:homeBackground_light",
 												value,
 											)
 										}
@@ -97,7 +94,7 @@ export default function AdvancedTab({
 											title={i18n.t("reset")}
 											onClick={() => {
 												void resetPrefs([
-													"homeBackground_light",
+													"advanced:homeBackground_light",
 												]);
 											}}
 										>
@@ -110,7 +107,7 @@ export default function AdvancedTab({
 										value={prefs.homeBackground_dark}
 										onChange={(value) =>
 											updatePref(
-												"homeBackground_dark",
+												"advanced:homeBackground_dark",
 												value,
 											)
 										}
@@ -122,7 +119,7 @@ export default function AdvancedTab({
 											title={i18n.t("reset")}
 											onClick={() => {
 												void resetPrefs([
-													"homeBackground_dark",
+													"advanced:homeBackground_dark",
 												]);
 											}}
 										>
@@ -141,7 +138,7 @@ export default function AdvancedTab({
 										value={prefs.fallbackColour_light}
 										onChange={(value) =>
 											updatePref(
-												"fallbackColour_light",
+												"advanced:fallbackColour_light",
 												value,
 											)
 										}
@@ -153,7 +150,7 @@ export default function AdvancedTab({
 											title={i18n.t("reset")}
 											onClick={() => {
 												void resetPrefs([
-													"fallbackColour_light",
+													"advanced:fallbackColour_light",
 												]);
 											}}
 										>
@@ -166,7 +163,7 @@ export default function AdvancedTab({
 										value={prefs.fallbackColour_dark}
 										onChange={(value) =>
 											updatePref(
-												"fallbackColour_dark",
+												"advanced:fallbackColour_dark",
 												value,
 											)
 										}
@@ -178,7 +175,7 @@ export default function AdvancedTab({
 											title={i18n.t("reset")}
 											onClick={() => {
 												void resetPrefs([
-													"fallbackColour_dark",
+													"advanced:fallbackColour_dark",
 												]);
 											}}
 										>
@@ -195,11 +192,11 @@ export default function AdvancedTab({
 									active={prefs.overwriteAccentColour}
 									onChange={(value) => {
 										void resetPrefs([
-											"accentColour_light",
-											"accentColour_dark",
+											"advanced:accentColour_light",
+											"advanced:accentColour_dark",
 										]);
 										updatePref(
-											"overwriteAccentColour",
+											"advanced:overwriteAccentColour",
 											value,
 										);
 									}}
@@ -218,7 +215,7 @@ export default function AdvancedTab({
 											value={prefs.accentColour_light}
 											onChange={(value) =>
 												updatePref(
-													"accentColour_light",
+													"advanced:accentColour_light",
 													value,
 												)
 											}
@@ -230,7 +227,7 @@ export default function AdvancedTab({
 												title={i18n.t("reset")}
 												onClick={() => {
 													void resetPrefs([
-														"accentColour_light",
+														"advanced:accentColour_light",
 													]);
 												}}
 											>
@@ -246,7 +243,7 @@ export default function AdvancedTab({
 											value={prefs.accentColour_dark}
 											onChange={(value) =>
 												updatePref(
-													"accentColour_dark",
+													"advanced:accentColour_dark",
 													value,
 												)
 											}
@@ -258,7 +255,7 @@ export default function AdvancedTab({
 												title={i18n.t("reset")}
 												onClick={() => {
 													void resetPrefs([
-														"accentColour_dark",
+														"advanced:accentColour_dark",
 													]);
 												}}
 											>
@@ -299,7 +296,7 @@ export default function AdvancedTab({
 								)}
 								active={prefs.allowDarkLight}
 								onChange={(value) =>
-									updatePref("allowDarkLight", value)
+									updatePref("advanced:allowDarkLight", value)
 								}
 							/>
 							{scheme === "light" ? (
@@ -329,7 +326,10 @@ export default function AdvancedTab({
 								rightIconType="contrast"
 								onDisplay={(value) => (value / 10).toFixed(1)}
 								onChange={(value) =>
-									updatePref("minContrast_light", value)
+									updatePref(
+										"advanced:minContrast_light",
+										value,
+									)
 								}
 							/>
 							<h4>{i18n.t("inLightMode")}</h4>
@@ -345,7 +345,10 @@ export default function AdvancedTab({
 								rightIconType="contrast"
 								onDisplay={(value) => (value / 10).toFixed(1)}
 								onChange={(value) =>
-									updatePref("minContrast_dark", value)
+									updatePref(
+										"advanced:minContrast_dark",
+										value,
+									)
 								}
 							/>
 							<h4>{i18n.t("inDarkMode")}</h4>
@@ -365,7 +368,10 @@ export default function AdvancedTab({
 								label={i18n.t("compatibilityMode")}
 								active={prefs.compatibilityMode}
 								onChange={(value) =>
-									updatePref("compatibilityMode", value)
+									updatePref(
+										"advanced:compatibilityMode",
+										value,
+									)
 								}
 							/>
 							<div>
@@ -387,27 +393,20 @@ export default function AdvancedTab({
 								confirmText={i18n.t("confirmSyncSettings")}
 								confirmLabel={i18n.t("keepCloudSettings")}
 								cancelLabel={i18n.t("keepLocalSettings")}
-								onConfirm={() =>
-									void setSyncSettings(true, "cloud")
-								}
-								onCancel={() =>
-									void setSyncSettings(true, "local")
-								}
+								onConfirm={() => void setSync(true, "cloud")}
+								onCancel={() => void setSync(true, "local")}
 							>
 								{(open) => (
 									<Switch
 										label={i18n.t("syncSettings")}
-										active={prefs.syncSettings}
-										onChange={async (value) => {
-											if (!value) {
-												await setSyncSettings(false);
-												return;
-											}
-											const res =
-												await setSyncSettings(true);
-											if (res === "conflict") {
-												open();
-											}
+										active={prefs.sync}
+										onChange={(value) => {
+											void setSync(value).then(
+												(result) => {
+													if (result === "conflict")
+														open();
+												},
+											);
 										}}
 									/>
 								)}
@@ -422,18 +421,19 @@ export default function AdvancedTab({
 					<div className={styles.settingGroup}>
 						<button
 							className={styles.textButton}
-							onClick={async () => {
-								const data = await exportPrefs();
-								const blob = new Blob([data], {
-									type: "application/json",
-								});
-								const url = URL.createObjectURL(blob);
-								const a = document.createElement("a");
-								a.href = url;
-								a.download = "atbc_pref.json";
-								a.click();
-								URL.revokeObjectURL(url);
-							}}
+							onClick={() =>
+								void exportPrefs().then((data) => {
+									const blob = new Blob([data], {
+										type: "application/json",
+									});
+									const url = URL.createObjectURL(blob);
+									const a = document.createElement("a");
+									a.href = url;
+									a.download = "atbc_pref.json";
+									a.click();
+									URL.revokeObjectURL(url);
+								})
+							}
 						>
 							<Icon type="download" />
 							<span>{i18n.t("exportSettings")}</span>

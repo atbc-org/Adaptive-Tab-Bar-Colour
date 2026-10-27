@@ -16,7 +16,7 @@ const expectedPrefs: Record<string, unknown> = {
 	"advanced:minContrast_light": 90,
 	"advanced:noThemeColour": true,
 	"advanced:overwriteAccentColour": false,
-	"advanced:syncSettings": true,
+	"device:sync": true,
 	"theme:popup": 5,
 	"theme:popupBorder": 10,
 	"theme:sidebar": 5,

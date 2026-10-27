@@ -2,10 +2,7 @@ import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {
 	prefs: Prefs;
-	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
-		key: K,
-		value: Prefs[K],
-	) => void;
+	updatePref: typeof setPref;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
@@ -128,10 +125,7 @@ function ReasonText({ reason, info }: ReasonTextProps) {
 
 interface RuleControlsProps {
 	prefs: Prefs;
-	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
-		key: K,
-		value: Prefs[K],
-	) => void;
+	updatePref: typeof setPref;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
@@ -213,7 +207,7 @@ function RuleControls({
 						inPopup
 						value={prefs.homeBackground_light}
 						onChange={(value) =>
-							updatePref("homeBackground_light", value)
+							updatePref("advanced:homeBackground_light", value)
 						}
 					/>
 					<h4>
@@ -222,7 +216,9 @@ function RuleControls({
 							className={styles.resetButton}
 							title={i18n.t("reset")}
 							onClick={() =>
-								void resetPrefs(["homeBackground_light"])
+								void resetPrefs([
+									"advanced:homeBackground_light",
+								])
 							}
 						>
 							<Icon type="reset" size="text" />
@@ -234,7 +230,7 @@ function RuleControls({
 						inPopup
 						value={prefs.homeBackground_dark}
 						onChange={(value) =>
-							updatePref("homeBackground_dark", value)
+							updatePref("advanced:homeBackground_dark", value)
 						}
 					/>
 					<h4>
@@ -243,7 +239,9 @@ function RuleControls({
 							className={styles.resetButton}
 							title={i18n.t("reset")}
 							onClick={() =>
-								void resetPrefs(["homeBackground_dark"])
+								void resetPrefs([
+									"advanced:homeBackground_dark",
+								])
 							}
 						>
 							<Icon type="reset" size="text" />

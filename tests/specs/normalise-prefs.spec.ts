@@ -76,7 +76,7 @@ const expectedPrefs: Record<string, unknown> = {
 	"advanced:minContrast_light": 90,
 	"advanced:noThemeColour": true,
 	"advanced:overwriteAccentColour": false,
-	"advanced:syncSettings": true,
+	"device:sync": true,
 	"rule:1": {
 		header: "example-1.com",
 		order: 1,

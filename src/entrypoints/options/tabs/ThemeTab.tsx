@@ -3,10 +3,7 @@ import styles from "./ThemeTab.module.css";
 interface ThemeTabProps {
 	prefs: Prefs;
 	ready: boolean;
-	updatePref: <K extends keyof ThemePrefs | keyof AdvancedPrefs>(
-		key: K,
-		value: Prefs[K],
-	) => void;
+	updatePref: typeof setPref;
 }
 
 interface History {
@@ -58,7 +55,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabSelected", newValue)
+									updatePref("theme:tabSelected", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -76,7 +73,10 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabSelectedBorder", newValue)
+									updatePref(
+										"theme:tabSelectedBorder",
+										newValue,
+									)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -102,7 +102,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbar", newValue)
+									updatePref("theme:toolbar", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory("toolbar", oldValue, newValue)
@@ -116,7 +116,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarBorder", newValue)
+									updatePref("theme:toolbarBorder", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -142,7 +142,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("sidebar", newValue)
+									updatePref("theme:sidebar", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory("sidebar", oldValue, newValue)
@@ -156,7 +156,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("sidebarBorder", newValue)
+									updatePref("theme:sidebarBorder", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -177,7 +177,10 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 							if (!canUndo) return;
 							const item = historyRef.current[headRef.current];
 							if (item) {
-								updatePref(item.handle, item.oldValue);
+								updatePref(
+									`theme:${item.handle}`,
+									item.oldValue,
+								);
 								headRef.current -= 1;
 							}
 						}}
@@ -191,7 +194,10 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 							const item =
 								historyRef.current[headRef.current + 1];
 							if (item) {
-								updatePref(item.handle, item.newValue);
+								updatePref(
+									`theme:${item.handle}`,
+									item.newValue,
+								);
 								headRef.current += 1;
 							}
 						}}
@@ -202,19 +208,19 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						confirmText={i18n.t("confirmResetThemeBuilder")}
 						onConfirm={() => {
 							void resetPrefs([
-								"tabbar",
-								"tabbarBorder",
-								"tabSelected",
-								"tabSelectedBorder",
-								"toolbar",
-								"toolbarBorder",
-								"toolbarField",
-								"toolbarFieldBorder",
-								"toolbarFieldOnFocus",
-								"sidebar",
-								"sidebarBorder",
-								"popup",
-								"popupBorder",
+								"theme:tabbar",
+								"theme:tabbarBorder",
+								"theme:tabSelected",
+								"theme:tabSelectedBorder",
+								"theme:toolbar",
+								"theme:toolbarBorder",
+								"theme:toolbarField",
+								"theme:toolbarFieldBorder",
+								"theme:toolbarFieldOnFocus",
+								"theme:sidebar",
+								"theme:sidebarBorder",
+								"theme:popup",
+								"theme:popupBorder",
 							]);
 							historyRef.current = [];
 							headRef.current = -1;
@@ -242,7 +248,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabbar", newValue)
+									updatePref("theme:tabbar", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory("tabbar", oldValue, newValue)
@@ -261,7 +267,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("tabbarBorder", newValue)
+									updatePref("theme:tabbarBorder", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -295,7 +301,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarField", newValue)
+									updatePref("theme:toolbarField", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -313,7 +319,10 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarFieldOnFocus", newValue)
+									updatePref(
+										"theme:toolbarFieldOnFocus",
+										newValue,
+									)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -331,7 +340,10 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("toolbarFieldBorder", newValue)
+									updatePref(
+										"theme:toolbarFieldBorder",
+										newValue,
+									)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
@@ -355,7 +367,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("popup", newValue)
+									updatePref("theme:popup", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory("popup", oldValue, newValue)
@@ -374,7 +386,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
 								onChange={(newValue) =>
-									updatePref("popupBorder", newValue)
+									updatePref("theme:popupBorder", newValue)
 								}
 								onCommit={(oldValue, newValue) =>
 									addHistory(

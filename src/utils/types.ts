@@ -26,6 +26,59 @@ export type BrowserColour =
 
 export type Theme = Manifest.ThemeType;
 
+export interface ThemePrefs {
+	popup: number;
+	popupBorder: number;
+	sidebar: number;
+	sidebarBorder: number;
+	tabSelected: number;
+	tabSelectedBorder: number;
+	tabbar: number;
+	tabbarBorder: number;
+	toolbar: number;
+	toolbarBorder: number;
+	toolbarField: number;
+	toolbarFieldBorder: number;
+	toolbarFieldOnFocus: number;
+}
+
+export interface RulePrefs {
+	rules: Record<string, Rule>;
+}
+
+export interface AdvancedPrefs {
+	accentColour_dark: HexColour;
+	accentColour_light: HexColour;
+	allowDarkLight: boolean;
+	compatibilityMode: boolean;
+	dynamic: boolean;
+	fallbackColour_dark: HexColour;
+	fallbackColour_light: HexColour;
+	homeBackground_dark: HexColour;
+	homeBackground_light: HexColour;
+	minContrast_dark: number;
+	minContrast_light: number;
+	noThemeColour: boolean;
+	overwriteAccentColour: boolean;
+}
+
+export interface DevicePrefs {
+	sync: boolean;
+}
+
+export interface Prefs
+	extends ThemePrefs, RulePrefs, AdvancedPrefs, DevicePrefs {}
+
+export type PrefValues = {
+	[K in keyof ThemePrefs as `theme:${K}`]: ThemePrefs[K];
+} & { [K in `rule:${string}`]: Rule } & {
+	[K in keyof AdvancedPrefs as `advanced:${K}`]: AdvancedPrefs[K];
+} & { [K in keyof DevicePrefs as `device:${K}`]: DevicePrefs[K] };
+
+export type PrefKey = keyof PrefValues;
+
+export type StaticPrefKey = Exclude<PrefKey, `rule:${string}`>;
+
 export interface ColourRule {
 	target: "URL" | "ADDON_ID";
 	header: string;
@@ -66,60 +119,6 @@ export interface RuleQueryResult {
 	webExtId?: string | undefined;
 	rule?: Rule | undefined;
 }
-
-export interface ThemePrefs {
-	popup: number;
-	popupBorder: number;
-	sidebar: number;
-	sidebarBorder: number;
-	tabSelected: number;
-	tabSelectedBorder: number;
-	tabbar: number;
-	tabbarBorder: number;
-	toolbar: number;
-	toolbarBorder: number;
-	toolbarField: number;
-	toolbarFieldBorder: number;
-	toolbarFieldOnFocus: number;
-}
-
-export interface RulePrefs {
-	rules: Record<string, Rule>;
-}
-
-export interface AdvancedPrefs {
-	accentColour_dark: HexColour;
-	accentColour_light: HexColour;
-	allowDarkLight: boolean;
-	compatibilityMode: boolean;
-	dynamic: boolean;
-	fallbackColour_dark: HexColour;
-	fallbackColour_light: HexColour;
-	homeBackground_dark: HexColour;
-	homeBackground_light: HexColour;
-	minContrast_dark: number;
-	minContrast_light: number;
-	noThemeColour: boolean;
-	overwriteAccentColour: boolean;
-	syncSettings: boolean;
-}
-
-export interface Prefs extends ThemePrefs, RulePrefs, AdvancedPrefs {
-	[key: string]: Prefs[keyof Prefs];
-}
-
-export type ThemeStorageKey = `theme:${keyof ThemePrefs}`;
-
-export type AdvancedStorageKey = `advanced:${keyof AdvancedPrefs}`;
-
-export type RuleStorageKey = `rule:${string}`;
-
-export type PrefStorageItems = {
-	[K in keyof ThemePrefs | keyof AdvancedPrefs]: WxtStorageItem<
-		Prefs[K],
-		Record<string, unknown>
-	>;
-};
 
 export type SyncChoice = "local" | "cloud";
 

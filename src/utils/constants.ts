@@ -89,41 +89,6 @@ export const plainTextExtension = [
 	".txt",
 ];
 
-/** Default content of prefs. */
-export const defaultPrefs = Object.freeze({
-	// theme builder
-	popup: 5,
-	popupBorder: 10,
-	sidebar: 5,
-	sidebarBorder: 10,
-	tabbar: 0,
-	tabbarBorder: 0,
-	tabSelected: 15,
-	tabSelectedBorder: 0,
-	toolbar: 0,
-	toolbarBorder: 0,
-	toolbarField: 5,
-	toolbarFieldBorder: 5,
-	toolbarFieldOnFocus: 5,
-	// rule list
-	rules: {},
-	// advanced
-	accentColour_dark: default_accentColour_dark,
-	accentColour_light: default_accentColour_light,
-	allowDarkLight: true,
-	compatibilityMode: default_compatibilityMode,
-	dynamic: true,
-	fallbackColour_dark: default_fallbackColour_dark,
-	fallbackColour_light: default_fallbackColour_light,
-	homeBackground_dark: default_homeBackground_dark,
-	homeBackground_light: default_homeBackground_light,
-	minContrast_dark: 45,
-	minContrast_light: 90,
-	noThemeColour: true,
-	overwriteAccentColour: false,
-	syncSettings: true,
-} as Prefs);
-
 /** Creates a `browserColour` object. */
 export function createBrowserColour(
 	getScheme: () => Scheme,

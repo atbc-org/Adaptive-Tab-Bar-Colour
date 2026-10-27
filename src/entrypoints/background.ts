@@ -485,7 +485,7 @@ function applyTheme(windowId: number, colour: Colour, scheme: Scheme): void {
 }
 
 export default defineBackground(() => {
-	getPrefs().then((initial) => {
+	initPrefs().then((initial) => {
 		prefs = initial;
 		isReady = true;
 		void run();

@@ -20,36 +20,29 @@ export default function Confirm({
 	const [isOpen, setIsOpen] = useState(false);
 	const containerRef = useRef<HTMLDivElement | null>(null);
 
-	const handleClose = useCallback(() => {
-		onCancel?.();
-		setIsOpen(false);
-	}, [onCancel]);
-
 	useEffect(() => {
+		if (!isOpen) return;
 		const onPointerDown = (event: PointerEvent) => {
 			if (!containerRef.current?.contains(event.target as Node)) {
-				handleClose();
+				setIsOpen(false);
 			}
 		};
 		const onKeyDown = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
-				handleClose();
+				setIsOpen(false);
 			}
 		};
-		if (!isOpen) return;
+		const onBlur = () => setIsOpen(false);
+
 		document.addEventListener("pointerdown", onPointerDown);
 		document.addEventListener("keydown", onKeyDown);
+		document.addEventListener("blur", onBlur);
 		return () => {
 			document.removeEventListener("pointerdown", onPointerDown);
 			document.removeEventListener("keydown", onKeyDown);
+			document.removeEventListener("blur", onBlur);
 		};
-	}, [isOpen, handleClose]);
-
-	useEffect(() => {
-		const onBlur = () => handleClose();
-		document.addEventListener("blur", onBlur);
-		return () => document.removeEventListener("blur", onBlur);
-	}, [handleClose]);
+	}, [isOpen]);
 
 	return (
 		<div className={styles.confirm} ref={containerRef}>
@@ -66,7 +59,12 @@ export default function Confirm({
 						>
 							{confirmLabel ?? i18n.t("yes")}
 						</button>
-						<button onClick={handleClose}>
+						<button
+							onClick={() => {
+								onCancel?.();
+								setIsOpen(false);
+							}}
+						>
 							{cancelLabel ?? i18n.t("no")}
 						</button>
 					</div>

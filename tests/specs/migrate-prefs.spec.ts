@@ -68,7 +68,7 @@ const expectedMigratedPrefs: Record<string, unknown> = {
 	"advanced:minContrast_light": 95,
 	"advanced:noThemeColour": false,
 	"advanced:overwriteAccentColour": true,
-	"advanced:syncSettings": true,
+	"device:sync": true,
 	"rule:1": {
 		header: "legacy-addon-id@example.com",
 		order: 1,
