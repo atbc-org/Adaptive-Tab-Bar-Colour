@@ -71,13 +71,27 @@ build_and_sign_beta() {
 	mkdir -p .output
 	rm -f .output/*.xpi
 	npx wxt build -b firefox --mode beta
-	npx web-ext sign \
-		--api-key "$FIREFOX_JWT_ISSUER" \
-		--api-secret "$FIREFOX_JWT_SECRET" \
-		--channel unlisted \
-		--source-dir .output/atbc \
-		--artifacts-dir .output \
-		--approval-timeout 300000 || true
+
+	local sign_output exit_code=0
+	sign_output=$(
+		npx web-ext sign \
+			--api-key "$FIREFOX_JWT_ISSUER" \
+			--api-secret "$FIREFOX_JWT_SECRET" \
+			--channel unlisted \
+			--source-dir .output/atbc \
+			--artifacts-dir .output \
+			--approval-timeout 300000 2>&1
+	) || exit_code=$?
+
+	echo "$sign_output"
+
+	if [ "$exit_code" -ne 0 ]; then
+		if grep -qiE "waiting for review|approval timed out|validation timed out" <<<"$sign_output"; then
+			print_warning "Warning: Beta build submitted to AMO but timed out waiting for approval."
+		else
+			print_error "Error: Failed to sign beta extension."
+		fi
+	fi
 }
 
 # Tag release, locate and rename XPI asset, and create GitHub pre-release

@@ -147,8 +147,8 @@ export function createBrowserColour(
 		},
 		get PDF_VIEWER() {
 			return getScheme() === "light"
-				? new Colour("#f9f9f8")
-				: new Colour("#38383d");
+				? new Colour("#eeeef0")
+				: new Colour("#0f0e11");
 		},
 		get PLAINTEXT() {
 			return getScheme() === "light"

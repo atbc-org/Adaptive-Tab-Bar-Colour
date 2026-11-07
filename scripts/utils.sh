@@ -18,6 +18,11 @@ print_success() {
 	echo -e "\033[32m$1\033[0m"
 }
 
+# Print warning message in yellow
+print_warning() {
+	echo -e "\033[33m$1\033[0m" >&2
+}
+
 # Print error message in red and exit 1
 print_error() {
 	echo -e "\033[31m$1\033[0m" >&2
