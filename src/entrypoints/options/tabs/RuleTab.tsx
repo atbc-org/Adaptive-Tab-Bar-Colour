@@ -1,12 +1,12 @@
 import styles from "./RuleTab.module.css";
 
 interface RuleTabProps {
-	prefs: Prefs;
+	pref: Prefs;
 	ready: boolean;
 }
 
-export default function RuleTab({ prefs, ready }: RuleTabProps) {
-	const rules = Object.entries(prefs.rules).sort(
+export default function RuleTab({ pref, ready }: RuleTabProps) {
+	const rules = Object.entries(pref.rule).sort(
 		([, first], [, second]) => first.order - second.order,
 	);
 
@@ -18,7 +18,10 @@ export default function RuleTab({ prefs, ready }: RuleTabProps) {
 						<RuleCard
 							key={`rule-${id}`}
 							rule={rule}
-							onChange={(newRule) => void setRule(id, newRule)}
+							onChange={(newRule) => {
+								if (newRule) pref.rule[id] = newRule;
+								else delete pref.rule[id];
+							}}
 						/>
 					);
 				})}

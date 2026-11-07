@@ -1,16 +1,11 @@
 import styles from "./AdvancedTab.module.css";
 
 interface AdvancedTabProps {
-	prefs: Prefs;
+	pref: Prefs;
 	ready: boolean;
-	updatePref: typeof setPref;
 }
 
-export default function AdvancedTab({
-	prefs,
-	ready,
-	updatePref,
-}: AdvancedTabProps) {
+export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 	const scheme = useCurrentScheme();
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -30,10 +25,10 @@ export default function AdvancedTab({
 								<h3>{i18n.t("dynamicColourUpdate")}</h3>
 								<Switch
 									label={i18n.t("dynamicColourUpdate")}
-									active={prefs.dynamic}
-									onChange={(value) =>
-										updatePref("advanced:dynamic", value)
-									}
+									active={pref.advanced.dynamic}
+									onChange={(value) => {
+										pref.advanced.dynamic = value;
+									}}
 								/>
 							</label>
 							<p>{i18n.t("dynamicModeTooltip")}</p>
@@ -47,13 +42,10 @@ export default function AdvancedTab({
 									label={i18n.t(
 										"ignoreDesignatedThemeColour",
 									)}
-									active={prefs.noThemeColour}
-									onChange={(value) =>
-										updatePref(
-											"advanced:noThemeColour",
-											value,
-										)
-									}
+									active={pref.advanced.noThemeColour}
+									onChange={(value) => {
+										pref.advanced.noThemeColour = value;
+									}}
 								/>
 							</label>
 							<p>
@@ -65,7 +57,7 @@ export default function AdvancedTab({
 				<section
 					className={clsx(
 						styles.cardSection,
-						prefs.compatibilityMode && "disabled",
+						pref.advanced.compatibilityMode && "disabled",
 					)}
 					aria-labelledby="advanced-custom-colours"
 				>
@@ -74,7 +66,7 @@ export default function AdvancedTab({
 					</h2>
 					<fieldset
 						className={styles.cardContent}
-						disabled={prefs.compatibilityMode}
+						disabled={pref.advanced.compatibilityMode}
 					>
 						<div className={styles.settingGroup}>
 							<h3>{i18n.t("homepageColour")}</h3>
@@ -82,13 +74,13 @@ export default function AdvancedTab({
 							<div className={styles.colourWrapper}>
 								<div>
 									<Palette
-										value={prefs.homeBackground_light}
-										onChange={(value) =>
-											updatePref(
-												"advanced:homeBackground_light",
-												value,
-											)
+										value={
+											pref.advanced.homeBackground_light
 										}
+										onChange={(value) => {
+											pref.advanced.homeBackground_light =
+												value;
+										}}
 									/>
 									<h4>
 										{i18n.t("inLightMode")}
@@ -107,13 +99,13 @@ export default function AdvancedTab({
 								</div>
 								<div>
 									<Palette
-										value={prefs.homeBackground_dark}
-										onChange={(value) =>
-											updatePref(
-												"advanced:homeBackground_dark",
-												value,
-											)
+										value={
+											pref.advanced.homeBackground_dark
 										}
+										onChange={(value) => {
+											pref.advanced.homeBackground_dark =
+												value;
+										}}
 									/>
 									<h4>
 										{i18n.t("inDarkMode")}
@@ -138,13 +130,13 @@ export default function AdvancedTab({
 							<div className={styles.colourWrapper}>
 								<div>
 									<Palette
-										value={prefs.fallbackColour_light}
-										onChange={(value) =>
-											updatePref(
-												"advanced:fallbackColour_light",
-												value,
-											)
+										value={
+											pref.advanced.fallbackColour_light
 										}
+										onChange={(value) => {
+											pref.advanced.fallbackColour_light =
+												value;
+										}}
 									/>
 									<h4>
 										{i18n.t("inLightMode")}
@@ -163,13 +155,13 @@ export default function AdvancedTab({
 								</div>
 								<div>
 									<Palette
-										value={prefs.fallbackColour_dark}
-										onChange={(value) =>
-											updatePref(
-												"advanced:fallbackColour_dark",
-												value,
-											)
+										value={
+											pref.advanced.fallbackColour_dark
 										}
+										onChange={(value) => {
+											pref.advanced.fallbackColour_dark =
+												value;
+										}}
 									/>
 									<h4>
 										{i18n.t("inDarkMode")}
@@ -194,32 +186,32 @@ export default function AdvancedTab({
 									<h3>{i18n.t("overwriteAccentColour")}</h3>
 									<Switch
 										label={i18n.t("overwriteAccentColour")}
-										active={prefs.overwriteAccentColour}
+										active={
+											pref.advanced.overwriteAccentColour
+										}
 										onChange={(value) => {
 											void resetPrefs([
 												"advanced:accentColour_light",
 												"advanced:accentColour_dark",
 											]);
-											updatePref(
-												"advanced:overwriteAccentColour",
-												value,
-											);
+											pref.advanced.overwriteAccentColour =
+												value;
 										}}
 									/>
 								</label>
 								<p>{i18n.t("overwriteAccentColourTooltip")}</p>
 							</div>
-							{prefs.overwriteAccentColour && (
+							{pref.advanced.overwriteAccentColour && (
 								<div className={styles.colourWrapper}>
 									<div>
 										<Palette
-											value={prefs.accentColour_light}
-											onChange={(value) =>
-												updatePref(
-													"advanced:accentColour_light",
-													value,
-												)
+											value={
+												pref.advanced.accentColour_light
 											}
+											onChange={(value) => {
+												pref.advanced.accentColour_light =
+													value;
+											}}
 										/>
 										<h4>
 											{i18n.t("inLightMode")}
@@ -241,13 +233,13 @@ export default function AdvancedTab({
 									</div>
 									<div>
 										<Palette
-											value={prefs.accentColour_dark}
-											onChange={(value) =>
-												updatePref(
-													"advanced:accentColour_dark",
-													value,
-												)
+											value={
+												pref.advanced.accentColour_dark
 											}
+											onChange={(value) => {
+												pref.advanced.accentColour_dark =
+													value;
+											}}
 										/>
 										<h4>
 											{i18n.t("inDarkMode")}
@@ -284,9 +276,9 @@ export default function AdvancedTab({
 					<fieldset
 						className={clsx(
 							styles.settingGroup,
-							prefs.compatibilityMode && "disabled",
+							pref.advanced.compatibilityMode && "disabled",
 						)}
-						disabled={prefs.compatibilityMode}
+						disabled={pref.advanced.compatibilityMode}
 					>
 						<div className={styles.switchWrapper}>
 							<label>
@@ -303,13 +295,10 @@ export default function AdvancedTab({
 											? "allowDarkTabBar"
 											: "allowLightTabBar",
 									)}
-									active={prefs.allowDarkLight}
-									onChange={(value) =>
-										updatePref(
-											"advanced:allowDarkLight",
-											value,
-										)
-									}
+									active={pref.advanced.allowDarkLight}
+									onChange={(value) => {
+										pref.advanced.allowDarkLight = value;
+									}}
 								/>
 							</label>
 							<p>
@@ -330,16 +319,13 @@ export default function AdvancedTab({
 								maxValue={210}
 								minorStep={5}
 								majorStep={15}
-								value={prefs.minContrast_light}
+								value={pref.advanced.minContrast_light}
 								leftIconType="circle"
 								rightIconType="contrast"
 								onDisplay={(value) => (value / 10).toFixed(1)}
-								onChange={(value) =>
-									updatePref(
-										"advanced:minContrast_light",
-										value,
-									)
-								}
+								onChange={(value) => {
+									pref.advanced.minContrast_light = value;
+								}}
 							/>
 							<h4>{i18n.t("inLightMode")}</h4>
 						</div>
@@ -349,16 +335,13 @@ export default function AdvancedTab({
 								maxValue={210}
 								minorStep={5}
 								majorStep={15}
-								value={prefs.minContrast_dark}
+								value={pref.advanced.minContrast_dark}
 								leftIconType="circle"
 								rightIconType="contrast"
 								onDisplay={(value) => (value / 10).toFixed(1)}
-								onChange={(value) =>
-									updatePref(
-										"advanced:minContrast_dark",
-										value,
-									)
-								}
+								onChange={(value) => {
+									pref.advanced.minContrast_dark = value;
+								}}
 							/>
 							<h4>{i18n.t("inDarkMode")}</h4>
 						</div>
@@ -377,13 +360,10 @@ export default function AdvancedTab({
 								<h3>{i18n.t("compatibilityMode")}</h3>
 								<Switch
 									label={i18n.t("compatibilityMode")}
-									active={prefs.compatibilityMode}
-									onChange={(value) =>
-										updatePref(
-											"advanced:compatibilityMode",
-											value,
-										)
-									}
+									active={pref.advanced.compatibilityMode}
+									onChange={(value) => {
+										pref.advanced.compatibilityMode = value;
+									}}
 								/>
 							</label>
 							<p>{i18n.t("compatibilityModeTooltip")}</p>
@@ -410,7 +390,7 @@ export default function AdvancedTab({
 										<h3>{i18n.t("syncSettings")}</h3>
 										<Switch
 											label={i18n.t("syncSettings")}
-											active={prefs.sync}
+											active={pref.device.sync}
 											onChange={(value) => {
 												void setSync(value).then(
 													(result) => {

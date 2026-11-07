@@ -1,9 +1,8 @@
 import styles from "./ThemeTab.module.css";
 
 interface ThemeTabProps {
-	prefs: Prefs;
+	pref: Prefs;
 	ready: boolean;
-	updatePref: typeof setPref;
 }
 
 interface History {
@@ -12,7 +11,7 @@ interface History {
 	newValue: number;
 }
 
-export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
+export default function ThemeTab({ pref, ready }: ThemeTabProps) {
 	const scheme = useCurrentScheme();
 	const leftIconType = scheme === "light" ? "sun" : "moon";
 	const rightIconType = scheme === "light" ? "moon" : "sun";
@@ -44,19 +43,21 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 		<main className={clsx(styles.themeTab, !ready && "disabled")}>
 			<div className={styles.column}>
 				<section
-					className={clsx(prefs.compatibilityMode && "disabled")}
+					className={clsx(
+						pref.advanced.compatibilityMode && "disabled",
+					)}
 				>
 					<Glyph highlight="selectedTab" />
 					<div>
 						<h3>{i18n.t("selectedTab")}</h3>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.tabSelected}
+								value={pref.theme.tabSelected}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:tabSelected", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.tabSelected = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"tabSelected",
@@ -69,15 +70,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						</div>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.tabSelectedBorder}
+								value={pref.theme.tabSelectedBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref(
-										"theme:tabSelectedBorder",
-										newValue,
-									)
-								}
+								onChange={(newValue) => {
+									pref.theme.tabSelectedBorder = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"tabSelectedBorder",
@@ -91,19 +89,21 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 					</div>
 				</section>
 				<section
-					className={clsx(prefs.compatibilityMode && "disabled")}
+					className={clsx(
+						pref.advanced.compatibilityMode && "disabled",
+					)}
 				>
 					<Glyph highlight="toolbar" />
 					<div>
 						<h3>{i18n.t("toolbar")}</h3>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.toolbar}
+								value={pref.theme.toolbar}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:toolbar", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.toolbar = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory("toolbar", oldValue, newValue)
 								}
@@ -112,12 +112,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						</div>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.toolbarBorder}
+								value={pref.theme.toolbarBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:toolbarBorder", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.toolbarBorder = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"toolbarBorder",
@@ -131,19 +131,21 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 					</div>
 				</section>
 				<section
-					className={clsx(prefs.compatibilityMode && "disabled")}
+					className={clsx(
+						pref.advanced.compatibilityMode && "disabled",
+					)}
 				>
 					<Glyph highlight="sidebar" />
 					<div>
 						<h3>{i18n.t("sidebar")}</h3>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.sidebar}
+								value={pref.theme.sidebar}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:sidebar", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.sidebar = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory("sidebar", oldValue, newValue)
 								}
@@ -152,12 +154,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						</div>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.sidebarBorder}
+								value={pref.theme.sidebarBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:sidebarBorder", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.sidebarBorder = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"sidebarBorder",
@@ -177,10 +179,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 							if (!canUndo) return;
 							const item = historyRef.current[headRef.current];
 							if (item) {
-								updatePref(
-									`theme:${item.handle}`,
-									item.oldValue,
-								);
+								pref.theme[item.handle] = item.oldValue;
 								headRef.current -= 1;
 							}
 						}}
@@ -194,10 +193,7 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 							const item =
 								historyRef.current[headRef.current + 1];
 							if (item) {
-								updatePref(
-									`theme:${item.handle}`,
-									item.newValue,
-								);
+								pref.theme[item.handle] = item.newValue;
 								headRef.current += 1;
 							}
 						}}
@@ -244,12 +240,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						<h3>{i18n.t("tabBar")}</h3>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.tabbar}
+								value={pref.theme.tabbar}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:tabbar", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.tabbar = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory("tabbar", oldValue, newValue)
 								}
@@ -259,16 +255,16 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						<div
 							className={clsx(
 								styles.sliderWrapper,
-								prefs.compatibilityMode && "disabled",
+								pref.advanced.compatibilityMode && "disabled",
 							)}
 						>
 							<Slider
-								value={prefs.tabbarBorder}
+								value={pref.theme.tabbarBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:tabbarBorder", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.tabbarBorder = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"tabbarBorder",
@@ -290,19 +286,21 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 					</div>
 				</section>
 				<section
-					className={clsx(prefs.compatibilityMode && "disabled")}
+					className={clsx(
+						pref.advanced.compatibilityMode && "disabled",
+					)}
 				>
 					<Glyph highlight="urlBar" />
 					<div>
 						<h3>{i18n.t("urlBar")}</h3>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.toolbarField}
+								value={pref.theme.toolbarField}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:toolbarField", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.toolbarField = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"toolbarField",
@@ -315,15 +313,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						</div>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.toolbarFieldOnFocus}
+								value={pref.theme.toolbarFieldOnFocus}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref(
-										"theme:toolbarFieldOnFocus",
-										newValue,
-									)
-								}
+								onChange={(newValue) => {
+									pref.theme.toolbarFieldOnFocus = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"toolbarFieldOnFocus",
@@ -336,15 +331,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						</div>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.toolbarFieldBorder}
+								value={pref.theme.toolbarFieldBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref(
-										"theme:toolbarFieldBorder",
-										newValue,
-									)
-								}
+								onChange={(newValue) => {
+									pref.theme.toolbarFieldBorder = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"toolbarFieldBorder",
@@ -363,12 +355,12 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						<h3>{i18n.t("popUp")}</h3>
 						<div className={styles.sliderWrapper}>
 							<Slider
-								value={prefs.popup}
+								value={pref.theme.popup}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:popup", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.popup = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory("popup", oldValue, newValue)
 								}
@@ -378,16 +370,16 @@ export default function ThemeTab({ prefs, ready, updatePref }: ThemeTabProps) {
 						<div
 							className={clsx(
 								styles.sliderWrapper,
-								prefs.compatibilityMode && "disabled",
+								pref.advanced.compatibilityMode && "disabled",
 							)}
 						>
 							<Slider
-								value={prefs.popupBorder}
+								value={pref.theme.popupBorder}
 								leftIconType={leftIconType}
 								rightIconType={rightIconType}
-								onChange={(newValue) =>
-									updatePref("theme:popupBorder", newValue)
-								}
+								onChange={(newValue) => {
+									pref.theme.popupBorder = newValue;
+								}}
 								onCommit={(oldValue, newValue) =>
 									addHistory(
 										"popupBorder",

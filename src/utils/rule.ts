@@ -6,35 +6,37 @@ export function normaliseRule(
 	fallbackOrder = 1,
 ): Rule | undefined {
 	if (!isRecord(value) || typeof value.header !== "string") return undefined;
-	const { header, scheme, target, type } = value;
+	const { header, scheme, target, type, value: ruleValue } = value;
 	if (scheme !== "both" && scheme !== "dark" && scheme !== "light")
 		return undefined;
+
 	const order =
 		typeof value.order === "number" &&
 		Number.isSafeInteger(value.order) &&
 		value.order > 0
 			? value.order
 			: fallbackOrder;
+
 	if (
 		(target === "URL" || target === "ADDON_ID") &&
 		type === "COLOUR" &&
-		typeof value.value === "string"
+		typeof ruleValue === "string"
 	) {
-		const colour = new Colour(value.value.trim());
+		const colour = new Colour(ruleValue.trim());
 		if (!colour.isValid()) return undefined;
 		return { target, header, scheme, type, value: colour.toHex(), order };
 	} else if (
 		target === "URL" &&
 		type === "THEME_COLOUR" &&
-		typeof value.value === "boolean"
+		typeof ruleValue === "boolean"
 	) {
-		return { target, header, scheme, type, value: value.value, order };
+		return { target, header, scheme, type, value: ruleValue, order };
 	} else if (
 		target === "URL" &&
 		type === "QUERY_SELECTOR" &&
-		typeof value.value === "string"
+		typeof ruleValue === "string"
 	) {
-		return { target, header, scheme, type, value: value.value, order };
+		return { target, header, scheme, type, value: ruleValue, order };
 	} else {
 		return undefined;
 	}
@@ -42,14 +44,14 @@ export function normaliseRule(
 
 /** Adds a new rule with a generated ID and next order number. */
 export async function addRule(rule: NewRule): Promise<void> {
-	const raw = await storage.snapshot("local");
+	const localStorage = await storage.snapshot("local");
 	let maxOrder = 0;
-	for (const [key, value] of Object.entries(raw)) {
+	for (const [key, value] of Object.entries(localStorage)) {
 		if (isRuleKey(key))
 			maxOrder = Math.max(maxOrder, normaliseRule(value)?.order ?? 0);
 	}
 	let key: `rule:${string}` = `rule:${nanoid()}`;
-	while (Object.hasOwn(raw, key)) key = `rule:${nanoid()}`;
+	while (Object.hasOwn(localStorage, key)) key = `rule:${nanoid()}`;
 	await setPref(key, { ...rule, order: maxOrder + 1 });
 }
 
@@ -59,19 +61,19 @@ export async function setRule(id: string, rule: Rule | null): Promise<void> {
 }
 
 /** Tests whether a URL matches a regex pattern. */
-function testRegex(url: string, test: string): boolean {
+function testRegex(url: string, pattern: string): boolean {
 	try {
-		return new RegExp(`^${test}$`, "i").test(url);
+		return new RegExp(`^${pattern}$`, "i").test(url);
 	} catch {
 		return false;
 	}
 }
 
 /** Tests whether a URL matches a wildcard pattern. */
-function testWildcard(url: string, test: string): boolean {
-	if (!test.includes("*") && !test.includes("?")) return false;
+function testWildcard(url: string, wildcard: string): boolean {
+	if (!wildcard.includes("*") && !wildcard.includes("?")) return false;
 	try {
-		const wildcardPattern = test
+		const pattern = wildcard
 			.replace(/[.+^${}()|[\]\\]/g, "\\$&")
 			.replace(/\*\*/g, "\0")
 			.replace(/\*/g, "[^/.:]*")
@@ -79,7 +81,7 @@ function testWildcard(url: string, test: string): boolean {
 			.replace(/\0/g, ".*")
 			.replace(/^([a-z]+:\/\/)/i, "$1")
 			.replace(/^((?![a-z]+:\/\/).)/i, "(?:[a-z]+:\\/\\/)?$1");
-		return new RegExp(`^${wildcardPattern}/?$`, "i").test(url);
+		return new RegExp(`^${pattern}/?$`, "i").test(url);
 	} catch {
 		return false;
 	}
@@ -89,14 +91,14 @@ function testWildcard(url: string, test: string): boolean {
  * Tests if a URL matches a specific hostname (with optional subdomains) or
  * hostname with path.
  */
-function testHostname(url: string, test: string): boolean {
+function testHostname(url: string, targetHost: string): boolean {
 	try {
 		const { hostname, pathname } = new URL(url);
-		const hostPart = test.split("/")[0];
+		const hostPart = targetHost.split("/")[0];
 		if (hostname !== hostPart && !hostname.endsWith(`.${hostPart}`))
 			return false;
 		const urlPath = hostPart + pathname;
-		return urlPath === test || urlPath.startsWith(`${test}/`);
+		return urlPath === targetHost || urlPath.startsWith(`${targetHost}/`);
 	} catch {
 		return false;
 	}
@@ -104,7 +106,7 @@ function testHostname(url: string, test: string): boolean {
 
 /** Finds the last matching rule for a URL ordered by `rule.order`. */
 export async function getRule(
-	url: string = "",
+	url = "",
 	scheme: Scheme,
 	rules: Record<string, Rule>,
 ): Promise<RuleQueryResult> {
@@ -115,7 +117,7 @@ export async function getRule(
 	let match: RuleQueryResult = { url, webExtId };
 
 	const sortedRules = Object.entries(rules).sort(
-		([, first], [, second]) => first.order - second.order,
+		([, ruleA], [, ruleB]) => ruleA.order - ruleB.order,
 	);
 
 	for (const [id, rule] of sortedRules) {

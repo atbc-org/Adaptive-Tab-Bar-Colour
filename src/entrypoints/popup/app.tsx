@@ -5,7 +5,7 @@ async function getCache(): Promise<CacheData | undefined> {
 }
 
 export default function App() {
-	const { prefs, ready, updatePref } = usePrefs();
+	const { pref, ready } = usePrefs();
 	const [cache, setCache] = useState<CacheData | undefined>();
 	const windowIdRef = useRef<number | undefined>(0);
 	const currentScheme = useCurrentScheme();
@@ -40,8 +40,7 @@ export default function App() {
 			{ready && cache ? (
 				<>
 					<RuleWidget
-						prefs={prefs}
-						updatePref={updatePref}
+						pref={pref}
 						ruleData={cache.ruleData}
 						metaData={cache.metaData}
 					/>
@@ -52,8 +51,7 @@ export default function App() {
 			)}
 			<ThemeWidget
 				ready={ready}
-				prefs={prefs}
-				updatePref={updatePref}
+				pref={pref}
 				scheme={cache?.themeData?.scheme ?? currentScheme}
 			/>
 		</>

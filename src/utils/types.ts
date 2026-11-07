@@ -42,10 +42,6 @@ export interface ThemePrefs {
 	toolbarFieldOnFocus: number;
 }
 
-export interface RulePrefs {
-	rules: Record<string, Rule>;
-}
-
 export interface AdvancedPrefs {
 	accentColour_dark: HexColour;
 	accentColour_light: HexColour;
@@ -66,8 +62,12 @@ export interface DevicePrefs {
 	sync: boolean;
 }
 
-export interface Prefs
-	extends ThemePrefs, RulePrefs, AdvancedPrefs, DevicePrefs {}
+export interface Prefs {
+	theme: ThemePrefs;
+	rule: Record<string, Rule>;
+	advanced: AdvancedPrefs;
+	device: DevicePrefs;
+}
 
 export type PrefValues = {
 	[K in keyof ThemePrefs as `theme:${K}`]: ThemePrefs[K];

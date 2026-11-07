@@ -1,19 +1,17 @@
-/** Reads local preferences and writes updates to storage. */
-export default function usePrefs(): {
-	prefs: Prefs;
-	ready: boolean;
-	updatePref: typeof setPref;
-} {
-	const [prefs, setPrefs] = useState<Prefs>({ ...defaultPrefs, rules: {} });
+/** Reads local preferences and provides reactive pref proxy. */
+export default function usePrefs(): { pref: Prefs; ready: boolean } {
+	const [prefs, setPrefs] = useState<Prefs>(defaultPrefs);
 	const [ready, setReady] = useState(false);
 
 	useEffect(() => {
-		getPrefs().then((initial) => {
-			setPrefs(initial);
+		async function initialise(): Promise<void> {
+			setPrefs(await getPrefs());
 			setReady(true);
-		});
+		}
+		void initialise();
 		return watchPrefs(setPrefs);
 	}, []);
 
-	return { prefs, ready, updatePref: setPref };
+	const pref = useMemo(() => createPrefsProxy(prefs, setPrefs), [prefs]);
+	return { pref, ready };
 }

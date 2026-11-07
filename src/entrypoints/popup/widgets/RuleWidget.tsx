@@ -1,15 +1,13 @@
 import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {
-	prefs: Prefs;
-	updatePref: typeof setPref;
+	pref: Prefs;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
 
 export default function RuleWidget({
-	prefs,
-	updatePref,
+	pref,
 	ruleData,
 	metaData,
 }: RuleWidgetProps) {
@@ -21,12 +19,7 @@ export default function RuleWidget({
 					<ReasonText reason={metaData.reason} info={metaData.info} />
 				</span>
 			</div>
-			<RuleControls
-				prefs={prefs}
-				updatePref={updatePref}
-				ruleData={ruleData}
-				metaData={metaData}
-			/>
+			<RuleControls pref={pref} ruleData={ruleData} metaData={metaData} />
 		</section>
 	);
 }
@@ -124,18 +117,12 @@ function ReasonText({ reason, info }: ReasonTextProps) {
 }
 
 interface RuleControlsProps {
-	prefs: Prefs;
-	updatePref: typeof setPref;
+	pref: Prefs;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
 
-function RuleControls({
-	prefs,
-	updatePref,
-	ruleData,
-	metaData,
-}: RuleControlsProps) {
+function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 	if (ruleData.id !== undefined && ruleData.rule !== undefined) {
 		const id = ruleData.id;
 		return (
@@ -143,12 +130,15 @@ function RuleControls({
 				<RuleCard
 					inPopup
 					rule={ruleData.rule}
-					onChange={(newRule) => void setRule(id, newRule)}
+					onChange={(newRule) => {
+						if (newRule) pref.rule[id] = newRule;
+						else delete pref.rule[id];
+					}}
 				/>
 				<button
 					className={styles.controlButton}
 					onClick={() => {
-						void setRule(id, null);
+						delete pref.rule[id];
 					}}
 				>
 					{i18n.t("deleteRule")}
@@ -205,10 +195,10 @@ function RuleControls({
 				<div>
 					<Palette
 						inPopup
-						value={prefs.homeBackground_light}
-						onChange={(value) =>
-							updatePref("advanced:homeBackground_light", value)
-						}
+						value={pref.advanced.homeBackground_light}
+						onChange={(value) => {
+							pref.advanced.homeBackground_light = value;
+						}}
 					/>
 					<h4>
 						{i18n.t("inLightMode")}
@@ -228,10 +218,10 @@ function RuleControls({
 				<div>
 					<Palette
 						inPopup
-						value={prefs.homeBackground_dark}
-						onChange={(value) =>
-							updatePref("advanced:homeBackground_dark", value)
-						}
+						value={pref.advanced.homeBackground_dark}
+						onChange={(value) => {
+							pref.advanced.homeBackground_dark = value;
+						}}
 					/>
 					<h4>
 						{i18n.t("inDarkMode")}

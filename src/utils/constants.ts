@@ -118,14 +118,14 @@ export function createBrowserColour(
 		get FALLBACK() {
 			const prefs = getPrefs();
 			return getScheme() === "light"
-				? new Colour(prefs.fallbackColour_light)
-				: new Colour(prefs.fallbackColour_dark);
+				? new Colour(prefs.advanced.fallbackColour_light)
+				: new Colour(prefs.advanced.fallbackColour_dark);
 		},
 		get HOME() {
 			const prefs = getPrefs();
 			return getScheme() === "light"
-				? new Colour(prefs.homeBackground_light)
-				: new Colour(prefs.homeBackground_dark);
+				? new Colour(prefs.advanced.homeBackground_light)
+				: new Colour(prefs.advanced.homeBackground_dark);
 		},
 		get IMAGE_VIEWER() {
 			return new Colour("#212121");

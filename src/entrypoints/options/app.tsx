@@ -1,6 +1,6 @@
 export default function App() {
 	const [activeTab, setActiveTab] = useState(0);
-	const { prefs, ready, updatePref } = usePrefs();
+	const { pref, ready } = usePrefs();
 
 	useEffect(() => {
 		document.documentElement.lang = getUILanguage();
@@ -24,23 +24,11 @@ export default function App() {
 			{(() => {
 				switch (activeTab) {
 					case 0:
-						return (
-							<ThemeTab
-								prefs={prefs}
-								ready={ready}
-								updatePref={updatePref}
-							/>
-						);
+						return <ThemeTab pref={pref} ready={ready} />;
 					case 1:
-						return <RuleTab prefs={prefs} ready={ready} />;
+						return <RuleTab pref={pref} ready={ready} />;
 					case 2:
-						return (
-							<AdvancedTab
-								prefs={prefs}
-								ready={ready}
-								updatePref={updatePref}
-							/>
-						);
+						return <AdvancedTab pref={pref} ready={ready} />;
 					default:
 						return null;
 				}
