@@ -58,7 +58,7 @@ When adding a new language, provide a translated store description in [`.github/
 
 Ensure the following software is installed:
 
-- [Node.js](https://nodejs.org/) (v20 or higher)
+- [Node.js](https://nodejs.org/) (v22 or higher)
 - [Firefox](https://www.firefox.com/) or [Firefox Developer Edition](https://www.mozilla.org/firefox/developer/)
 
 To set up the project locally:
@@ -70,6 +70,24 @@ npm install
 ```
 
 Run `npm start` to test changes in Firefox, or `npm run start:dev` for Firefox Developer Edition. This builds and launches the add-on in the browser.
+
+### Quality & Testing
+
+Before opening a pull request, ensure static analysis and automated tests pass:
+
+```bash
+# Typecheck TypeScript
+npm run typecheck
+
+# Check code formatting
+npm run lint
+
+# Fix code formatting
+npm run format
+
+# Run headless tests
+npm run test:headless
+```
 
 ## Release Workflow (Maintainer)
 

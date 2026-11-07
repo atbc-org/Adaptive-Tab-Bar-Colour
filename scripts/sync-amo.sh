@@ -55,6 +55,7 @@ sync_amo_descriptions() {
 		body=$(jq -n --argjson desc "$description" '{"description": $desc}')
 		http_code=$(
 			curl -s -o "$response_file" -w "%{http_code}" -X PATCH \
+				--retry 3 --retry-connrefused --retry-delay 2 \
 				"https://addons.mozilla.org/api/v5/addons/addon/adaptive-tab-bar-colour/" \
 				-H "Authorization: JWT ${token}" \
 				-H "Content-Type: application/json" \

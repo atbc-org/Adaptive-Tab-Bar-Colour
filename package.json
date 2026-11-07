@@ -7,11 +7,13 @@
 	"scripts": {
 		"build": "wxt build -b firefox",
 		"format": "prettier --write --list-different .",
+		"lint": "prettier --check .",
 		"postinstall": "wxt prepare",
 		"start": "cross-env BINARY=firefox wxt --mode beta",
 		"start:dev": "cross-env BINARY=deved wxt --mode beta",
 		"test": "vitest run",
 		"test:headless": "cross-env HEADLESS=true vitest run",
+		"typecheck": "tsc --noEmit",
 		"zip": "bash scripts/zip.sh"
 	},
 	"repository": {

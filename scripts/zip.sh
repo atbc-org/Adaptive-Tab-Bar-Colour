@@ -35,7 +35,7 @@ elif [ -z "${1:-}" ]; then
 
 	(
 		cd "$SOURCES_DIR"
-		run_cmd npm install --no-audit --no-fund
+		run_cmd npm ci --no-audit --no-fund
 		run_cmd wxt build -b firefox
 	)
 

@@ -12,6 +12,7 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
+      actions: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
@@ -22,6 +23,10 @@ jobs:
           cache: npm
       - name: Install Dependencies
         run: npm ci --silent
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Lint Code Style
+        run: npm run lint
       - name: Setup Firefox
         uses: browser-actions/setup-firefox@v1
       - name: Build Clean Extension
