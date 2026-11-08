@@ -176,6 +176,8 @@ export async function launchBrowser(
 	firefoxOptions.setPreference("browser.tabs.warnOnClose", false);
 	firefoxOptions.setPreference("browser.warnOnQuit", false);
 	firefoxOptions.setPreference("browser.tabs.closeWindowWithLastTab", false);
+	firefoxOptions.setPreference("intl.locale.requested", "en");
+	firefoxOptions.setPreference("intl.accept_languages", "en");
 	firefoxOptions.setPreference("services.sync.engine.tabs", false);
 	firefoxOptions.setPreference("services.sync.engine.prefs", false);
 	firefoxOptions.setPreference("toolkit.startup.max_resumed_crashes", -1);
