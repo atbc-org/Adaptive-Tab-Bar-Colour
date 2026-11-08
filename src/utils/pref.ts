@@ -140,20 +140,25 @@ function normaliseSnapshot(
 	return snapshot;
 }
 
-/** Projects a storage record into the grouped `Prefs` model. */
-export function normalisePrefs(raw: Record<string, unknown>): Prefs {
+/** Projects a normalised snapshot record into the grouped `Prefs` model. */
+function projectSnapshot(snapshot: Record<string, unknown>): Prefs {
 	const prefs: Prefs = {
 		theme: {} as ThemePrefs,
 		rule: {},
 		advanced: {} as AdvancedPrefs,
 		device: {} as DevicePrefs,
 	};
-	for (const [key, value] of Object.entries(normaliseSnapshot(raw))) {
+	for (const [key, value] of Object.entries(snapshot)) {
 		const sep = key.indexOf(":");
 		const group = key.slice(0, sep) as keyof Prefs;
 		Reflect.set(prefs[group], key.slice(sep + 1), value);
 	}
 	return prefs;
+}
+
+/** Projects a storage record into the grouped `Prefs` model. */
+export function normalisePrefs(raw: Record<string, unknown>): Prefs {
+	return projectSnapshot(normaliseSnapshot(raw));
 }
 
 export const defaultPrefs: Readonly<Prefs> = Object.freeze(normalisePrefs({}));
@@ -198,7 +203,7 @@ export async function isSyncEnabled(): Promise<boolean> {
 export async function getPrefs(): Promise<Prefs> {
 	const snapshot = normaliseSnapshot(await storage.snapshot("local"));
 	await applySnapshot(snapshot, "local");
-	return normalisePrefs(snapshot);
+	return projectSnapshot(snapshot);
 }
 
 /** Updates a single preference in local storage and mirrors to sync if enabled. */
@@ -330,24 +335,21 @@ export function createPrefsProxy(
 				if (typeof prop !== "string") return false;
 				const key = `${group}:${prop}`;
 				if (!isPrefKey(key)) return false;
-				const normalised =
-					value === null || value === undefined
-						? undefined
-						: normalisePref(key, value);
-				if (normalised === undefined) {
+				const normalised = normalisePref(key, value);
+				if (group === "rule" && normalised === undefined) {
 					Reflect.deleteProperty(groupTarget, prop);
 				} else {
 					Reflect.set(groupTarget, prop, normalised);
 				}
 				void setPref(key, normalised);
-				onUpdate?.({ ...target });
+				onUpdate?.({ ...target, [group]: { ...groupTarget } });
 				return true;
 			},
 			deleteProperty(groupTarget, prop) {
 				if (group !== "rule" || typeof prop !== "string") return false;
 				Reflect.deleteProperty(groupTarget, prop);
 				void setPref(`rule:${prop}`, undefined);
-				onUpdate?.({ ...target });
+				onUpdate?.({ ...target, [group]: { ...groupTarget } });
 				return true;
 			},
 		});
