@@ -31,10 +31,11 @@ add_release_branch() {
 	validate_version_format "$version"
 	local branch="release/v${version}"
 	git checkout -b "$branch"
-	npm version "$version" --no-git-tag-version
+	bun -e "const fs = require('fs'); const p = JSON.parse(fs.readFileSync('package.json', 'utf8')); p.version = process.argv[1]; fs.writeFileSync('package.json', JSON.stringify(p, null, '\t') + '\n');" "$version"
+	bun install
 	setup_git_author
 	git add package.json
-	[ -f package-lock.json ] && git add package-lock.json
+	[ -f bun.lock ] && git add bun.lock
 	git commit -m "chore: add release branch v${version}"
 	git push origin "$branch"
 }
@@ -70,11 +71,11 @@ build_and_sign_beta() {
 	export EXT_VERSION="$beta_version"
 	mkdir -p .output
 	rm -f .output/*.xpi
-	npx wxt build -b firefox --mode beta
+	bunx wxt build -b firefox --mode beta
 
 	local sign_output exit_code=0
 	sign_output=$(
-		npx web-ext sign \
+		bunx web-ext sign \
 			--api-key "$FIREFOX_JWT_ISSUER" \
 			--api-secret "$FIREFOX_JWT_SECRET" \
 			--channel unlisted \
@@ -129,7 +130,7 @@ build_and_sign_production() {
 		'{"version": {"release_notes": {"en-GB": $notes}}}' \
 		>"$metadata_file"
 
-	npx web-ext sign \
+	bunx web-ext sign \
 		--api-key "$FIREFOX_JWT_ISSUER" \
 		--api-secret "$FIREFOX_JWT_SECRET" \
 		--channel listed \

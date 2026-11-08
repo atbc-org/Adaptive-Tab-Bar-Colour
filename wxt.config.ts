@@ -1,4 +1,5 @@
 import { defineConfig } from "wxt";
+
 import pkg from "./package.json";
 
 const appVersion = process.env.EXT_VERSION || pkg.version;
@@ -102,8 +103,7 @@ export default defineConfig({
 			"tests/**",
 			"CONTRIBUTING.md",
 			"README.md",
-			"prettier.config.ts",
-			"vitest.config.ts",
+			"bunfig.toml",
 		],
 	},
 });

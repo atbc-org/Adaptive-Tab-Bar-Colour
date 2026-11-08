@@ -4,10 +4,12 @@ import os from "node:os";
 import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
+
 import { Builder } from "selenium-webdriver";
 import firefox, {
 	type Driver as FirefoxDriver,
 } from "selenium-webdriver/firefox.js";
+
 import type { TestContext } from "./types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

@@ -36,13 +36,13 @@ base64url() {
 
 # Get current version from package.json
 get_package_version() {
-	node -p "require('./package.json').version"
+	bun -e "console.log(require('./package.json').version)"
 }
 
 # Execute integration tests locally
 execute_integration_tests() {
 	bash scripts/zip.sh --clean
-	npm run test:headless
+	bun run test:headless
 }
 
 # Extract locale identifier from a README file path
