@@ -13,7 +13,7 @@ setup_git_author() {
 # Tag repository with specified tag name and push to origin
 git_tag_and_push() {
 	local tag="$1"
-	git tag "$tag"
+	git rev-parse -q --verify "refs/tags/$tag" >/dev/null || git tag "$tag"
 	git push origin "$tag"
 }
 
@@ -30,6 +30,12 @@ add_release_branch() {
 	local version="$1"
 	validate_version_format "$version"
 	local branch="release/v${version}"
+	if git ls-remote --exit-code --heads origin "$branch" >/dev/null 2>&1; then
+		print_error "Error: Branch $branch already exists on origin."
+	fi
+	if git ls-remote --exit-code --tags origin "refs/tags/v${version}" >/dev/null 2>&1; then
+		print_error "Error: Tag v${version} already exists on origin."
+	fi
 	git checkout -b "$branch"
 	bun -e "const fs = require('fs'); const p = JSON.parse(fs.readFileSync('package.json', 'utf8')); p.version = process.argv[1]; fs.writeFileSync('package.json', JSON.stringify(p, null, '\t') + '\n');" "$version"
 	bun install
@@ -87,19 +93,30 @@ create_beta_release() {
 	local beta_version="$2"
 	local xpi_asset
 	xpi_asset=$(find .output -name "*.xpi" 2>/dev/null | head -n 1 || true)
+	if [ -n "$xpi_asset" ] && ! unzip -tq "$xpi_asset" >/dev/null 2>&1; then
+		rm -f "$xpi_asset"
+		xpi_asset=""
+	fi
 	git_tag_and_push "$beta_tag"
 
 	if [ -z "$xpi_asset" ]; then
-		gh release create "$beta_tag" \
-			--title "$beta_tag" \
-			--notes "Build is waiting for approval on AMO." \
-			--prerelease
+		gh release view "$beta_tag" >/dev/null 2>&1 ||
+			gh release create "$beta_tag" \
+				--verify-tag \
+				--title "$beta_tag" \
+				--notes "Build is waiting for approval on AMO." \
+				--prerelease
 	else
 		local renamed_asset=".output/atbc-${beta_version}.xpi"
 		[ "$xpi_asset" != "$renamed_asset" ] && mv "$xpi_asset" "$renamed_asset"
-		gh release create "$beta_tag" "$renamed_asset" \
-			--title "$beta_tag" \
-			--prerelease
+		if gh release view "$beta_tag" >/dev/null 2>&1; then
+			gh release upload "$beta_tag" "$renamed_asset" --clobber
+		else
+			gh release create "$beta_tag" "$renamed_asset" \
+				--verify-tag \
+				--title "$beta_tag" \
+				--prerelease
+		fi
 	fi
 }
 
@@ -123,7 +140,8 @@ build_and_sign_production() {
 		--source-dir .output/atbc \
 		--upload-source-code .output/atbc-sources.zip \
 		--amo-metadata "$metadata_file" \
-		--approval-timeout 0
+		--approval-timeout 0 ||
+		print_warning "Warning: AMO submission did not complete cleanly; proceeding with GitHub release."
 }
 
 # Tag repository and create GitHub production release
@@ -138,9 +156,11 @@ create_production_release() {
 	fi
 	local tag="v${version}"
 	git_tag_and_push "$tag"
-	gh release create "$tag" \
-		--title "$tag" \
-		--notes "$notes"
+	gh release view "$tag" >/dev/null 2>&1 ||
+		gh release create "$tag" \
+			--verify-tag \
+			--title "$tag" \
+			--notes "$notes"
 	git push origin --delete "release/${tag}" 2>/dev/null || true
 }
 

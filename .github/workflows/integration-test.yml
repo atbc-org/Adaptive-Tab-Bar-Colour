@@ -12,7 +12,6 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
-      actions: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
