@@ -1,4 +1,5 @@
 import clsx from "clsx";
+
 import styles from "./Input.module.css";
 
 interface InputProps {

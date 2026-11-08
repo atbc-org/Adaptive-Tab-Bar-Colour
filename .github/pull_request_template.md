@@ -12,5 +12,5 @@ Briefly describe the change and its rationale.
 
 ## Verification
 
-- [ ] Extension builds cleanly (`npm run build`)
-- [ ] Tests pass (`npm run test`)
+- [ ] Extension builds cleanly (`bun run build`)
+- [ ] Tests pass (`bun run test`)

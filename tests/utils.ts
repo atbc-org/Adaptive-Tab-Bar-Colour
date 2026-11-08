@@ -4,10 +4,12 @@ import os from "node:os";
 import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
+
 import { Builder } from "selenium-webdriver";
 import firefox, {
 	type Driver as FirefoxDriver,
 } from "selenium-webdriver/firefox.js";
+
 import type { TestContext } from "./types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -176,6 +178,8 @@ export async function launchBrowser(
 	firefoxOptions.setPreference("browser.tabs.warnOnClose", false);
 	firefoxOptions.setPreference("browser.warnOnQuit", false);
 	firefoxOptions.setPreference("browser.tabs.closeWindowWithLastTab", false);
+	firefoxOptions.setPreference("intl.locale.requested", "en");
+	firefoxOptions.setPreference("intl.accept_languages", "en");
 	firefoxOptions.setPreference("services.sync.engine.tabs", false);
 	firefoxOptions.setPreference("services.sync.engine.prefs", false);
 	firefoxOptions.setPreference("toolkit.startup.max_resumed_crashes", -1);
@@ -390,4 +394,15 @@ export function compareRecord(
 		}
 	}
 	return { extraKeys1, extraKeys2, mismatchedValues };
+}
+
+/** Retrieves a translated message from the extension runtime. */
+export async function getI18n(
+	driver: FirefoxDriver,
+	key: string,
+): Promise<string> {
+	return (await driver.executeScript(
+		(msgKey: string) => browser.i18n.getMessage(msgKey),
+		key,
+	)) as string;
 }

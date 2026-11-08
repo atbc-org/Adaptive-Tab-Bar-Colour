@@ -1,0 +1,13 @@
+[fmt]
+useTabs = true
+tabWidth = 4
+printWidth = 80
+objectWrap = "collapse"
+endOfLine = "lf"
+sortImports = true
+sortPackageJson = true
+jsdoc = true
+
+[[fmt.overrides]]
+files = ["*.yml", "*.yaml"]
+options = { useTabs = false, tabWidth = 2, proseWrap = "always" }
