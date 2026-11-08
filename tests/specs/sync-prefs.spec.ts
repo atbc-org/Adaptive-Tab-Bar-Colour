@@ -1,5 +1,7 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "bun:test";
+
 import { By, until } from "selenium-webdriver";
+
 import type { TestContext } from "../types.js";
 import { getI18n, setupTestContext, sleep } from "../utils.js";
 

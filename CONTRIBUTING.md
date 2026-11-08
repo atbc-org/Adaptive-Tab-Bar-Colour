@@ -58,7 +58,7 @@ When adding a new language, provide a translated store description in [`.github/
 
 Ensure the following software is installed:
 
-- [Node.js](https://nodejs.org/) (v22 or higher)
+- [Bun](https://bun.com/) (v1.2 or higher)
 - [Firefox](https://www.firefox.com/) or [Firefox Developer Edition](https://www.mozilla.org/firefox/developer/)
 
 To set up the project locally:
@@ -66,10 +66,10 @@ To set up the project locally:
 ```bash
 git clone https://github.com/atbc-org/Adaptive-Tab-Bar-Colour.git
 cd Adaptive-Tab-Bar-Colour
-npm install
+bun install
 ```
 
-Run `npm start` to test changes in Firefox, or `npm run start:dev` for Firefox Developer Edition. This builds and launches the add-on in the browser.
+Run `bun start` to test changes in Firefox, or `bun run start:dev` for Firefox Developer Edition. This builds and launches the add-on in the browser.
 
 ### Quality & Testing
 
@@ -77,16 +77,16 @@ Before opening a pull request, ensure static analysis and automated tests pass:
 
 ```bash
 # Typecheck TypeScript
-npm run typecheck
+bun run typecheck
 
 # Check code formatting
-npm run lint
+bun run lint
 
 # Fix code formatting
-npm run format
+bun run format
 
 # Run headless tests
-npm run test:headless
+bun run test:headless
 ```
 
 ## Release Workflow (Maintainer)

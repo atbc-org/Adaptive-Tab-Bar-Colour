@@ -1,12 +1,5 @@
 {
 	"compilerOptions": { "allowJs": false, "jsx": "react-jsx", "strict": true },
 	"extends": "./.wxt/tsconfig.json",
-	"include": [
-		".wxt/wxt.d.ts",
-		"prettier.config.ts",
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		"vitest.config.ts",
-		"wxt.config.ts"
-	]
+	"include": [".wxt/wxt.d.ts", "src/**/*.ts", "src/**/*.tsx", "wxt.config.ts"]
 }
