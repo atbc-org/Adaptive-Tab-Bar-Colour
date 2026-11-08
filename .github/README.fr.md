@@ -1,7 +1,7 @@
 <!-- amo-ignore-start -->
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/atbc-org/Assets/refs/heads/main/atbc-rich-icon.svg" width="100">
+<img src="https://raw.githubusercontent.com/atbc-org/Assets/main/public/atbc-rich-icon.svg" width="100">
 
 <br>
 
@@ -18,7 +18,7 @@ Change la couleur du thème de Firefox pour correspondre à l'apparence de sites
 [English](README.md) | [English (US)](README.en-US.md) | [Azərbaycan](README.az.md) | [Deutsch](README.de.md) | [Español](README.es-ES.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [Português (Brasil)](README.pt-BR.md) | [Русский](README.ru.md) | [Türkçe](README.tr.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
 
 <a href="https://addons.mozilla.org/firefox/addon/adaptive-tab-bar-colour/" target="_blank">
-	<img src="https://raw.githubusercontent.com/atbc-org/Assets/refs/heads/main/amo-download-button.svg" width="150" alt="Get the Add-on">
+	<img src="https://raw.githubusercontent.com/atbc-org/Assets/main/public/amo-download-button.svg" width="150" alt="Get the Add-on">
 </a>
 
 </div>
