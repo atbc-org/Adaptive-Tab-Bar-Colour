@@ -1,18 +1,31 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { By, until } from "selenium-webdriver";
 import type { TestContext } from "../types.js";
-import { setupTestContext, sleep } from "../utils.js";
+import { getI18n, setupTestContext, sleep } from "../utils.js";
 
 describe("Sync Prefs", () => {
 	let context: TestContext;
 	let cleanup: () => Promise<void>;
+	let labelDynamic: string;
+	let labelSync: string;
+	let labelKeepLocal: string;
+	let labelKeepCloud: string;
 
 	beforeAll(async () => {
 		({ context, cleanup } = await setupTestContext());
 		await context.driver.get(context.optionsUrl);
 		await sleep(500);
+
+		const labelAdvanced = await getI18n(context.driver, "advanced");
+		labelDynamic = await getI18n(context.driver, "dynamicColourUpdate");
+		labelSync = await getI18n(context.driver, "syncSettings");
+		labelKeepLocal = await getI18n(context.driver, "keepLocalSettings");
+		labelKeepCloud = await getI18n(context.driver, "keepCloudSettings");
+
 		const advancedTabButton = await context.driver.wait(
-			until.elementLocated(By.css('nav button[title="Advanced"]')),
+			until.elementLocated(
+				By.css(`nav button[title="${labelAdvanced}"]`),
+			),
 			5000,
 		);
 		await advancedTabButton.click();
@@ -25,7 +38,7 @@ describe("Sync Prefs", () => {
 
 	it("mirrors local changes to sync storage when sync is true", async () => {
 		const dynamicSwitch = await context.driver.findElement(
-			By.css('button[role="switch"][aria-label="Dynamic colour update"]'),
+			By.css(`button[role="switch"][aria-label="${labelDynamic}"]`),
 		);
 		await dynamicSwitch.click();
 		await sleep(300);
@@ -47,9 +60,7 @@ describe("Sync Prefs", () => {
 
 	it("does not mirror to sync storage when sync is false", async () => {
 		const syncSwitch = await context.driver.findElement(
-			By.css(
-				'button[role="switch"][aria-label="Sync settings to cloud"]',
-			),
+			By.css(`button[role="switch"][aria-label="${labelSync}"]`),
 		);
 		await syncSwitch.click();
 		await sleep(300);
@@ -61,7 +72,7 @@ describe("Sync Prefs", () => {
 		expect(localSyncState).toBe(false);
 
 		const dynamicSwitch = await context.driver.findElement(
-			By.css('button[role="switch"][aria-label="Dynamic colour update"]'),
+			By.css(`button[role="switch"][aria-label="${labelDynamic}"]`),
 		);
 		await dynamicSwitch.click();
 		await sleep(300);
@@ -75,16 +86,14 @@ describe("Sync Prefs", () => {
 
 	it("detects conflict and keeps local settings when requested", async () => {
 		const syncSwitch = await context.driver.findElement(
-			By.css(
-				'button[role="switch"][aria-label="Sync settings to cloud"]',
-			),
+			By.css(`button[role="switch"][aria-label="${labelSync}"]`),
 		);
 		await syncSwitch.click();
 		await sleep(300);
 
 		const keepLocalButton = await context.driver.wait(
 			until.elementLocated(
-				By.xpath("//button[normalize-space()='Keep local']"),
+				By.xpath(`//button[normalize-space()='${labelKeepLocal}']`),
 			),
 			3000,
 		);
@@ -100,15 +109,13 @@ describe("Sync Prefs", () => {
 
 	it("resolves conflict and keeps cloud settings when requested", async () => {
 		const syncSwitch = await context.driver.findElement(
-			By.css(
-				'button[role="switch"][aria-label="Sync settings to cloud"]',
-			),
+			By.css(`button[role="switch"][aria-label="${labelSync}"]`),
 		);
 		await syncSwitch.click();
 		await sleep(300);
 
 		const dynamicSwitch = await context.driver.findElement(
-			By.css('button[role="switch"][aria-label="Dynamic colour update"]'),
+			By.css(`button[role="switch"][aria-label="${labelDynamic}"]`),
 		);
 		await dynamicSwitch.click();
 		await sleep(300);
@@ -118,7 +125,7 @@ describe("Sync Prefs", () => {
 
 		const keepCloudButton = await context.driver.wait(
 			until.elementLocated(
-				By.xpath("//button[normalize-space()='Keep cloud']"),
+				By.xpath(`//button[normalize-space()='${labelKeepCloud}']`),
 			),
 			3000,
 		);
@@ -151,9 +158,7 @@ describe("Sync Prefs", () => {
 
 	it("remains off when sync preference is disabled and user clicks outside", async () => {
 		const syncSwitch = await context.driver.findElement(
-			By.css(
-				'button[role="switch"][aria-label="Sync settings to cloud"]',
-			),
+			By.css(`button[role="switch"][aria-label="${labelSync}"]`),
 		);
 		const isChecked =
 			(await syncSwitch.getAttribute("aria-checked")) === "true";

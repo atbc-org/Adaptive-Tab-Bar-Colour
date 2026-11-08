@@ -417,3 +417,14 @@ export function normaliseRuleKeys(
 	}
 	return result;
 }
+
+/** Retrieves a translated message from the extension runtime. */
+export async function getI18n(
+	driver: FirefoxDriver,
+	key: string,
+): Promise<string> {
+	return (await driver.executeScript(
+		(msgKey: string) => browser.i18n.getMessage(msgKey),
+		key,
+	)) as string;
+}
