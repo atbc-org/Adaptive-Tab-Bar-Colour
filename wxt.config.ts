@@ -101,7 +101,6 @@ export default defineConfig({
 			".github/**",
 			"scripts/**",
 			"tests/**",
-			"CONTRIBUTING.md",
 			"README.md",
 			"bunfig.toml",
 		],
