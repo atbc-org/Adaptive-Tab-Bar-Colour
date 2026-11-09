@@ -55,6 +55,7 @@ sync_amo_descriptions() {
 		body=$(jq -n --argjson desc "$description" '{"description": $desc}')
 		http_code=$(
 			curl -s -o "$response_file" -w "%{http_code}" -X PATCH \
+				--connect-timeout 10 --max-time 60 \
 				--retry 3 --retry-connrefused --retry-delay 2 \
 				"https://addons.mozilla.org/api/v5/addons/addon/adaptive-tab-bar-colour/" \
 				-H "Authorization: JWT ${token}" \
@@ -67,7 +68,7 @@ sync_amo_descriptions() {
 		local invalid_locales
 		invalid_locales=$(
 			jq -r '.. | strings' "$response_file" 2>/dev/null |
-				sed -n -E 's/.*The language code "([^"]+)".*/\1/p'
+				sed -n -E 's/.*The language code "([^"]+)".*/\1/p' || true
 		)
 
 		if [ -z "$invalid_locales" ]; then
