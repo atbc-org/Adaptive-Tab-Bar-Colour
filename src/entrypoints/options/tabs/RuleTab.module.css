@@ -1,6 +1,17 @@
+:global(html.is-dragging-rule),
+:global(body.is-dragging-rule) {
+	cursor: grabbing !important;
+	user-select: none !important;
+
+	* {
+		cursor: grabbing !important;
+	}
+}
+
 main.rule-tab {
 	display: flex;
 	flex-direction: column;
+	position: relative;
 
 	.rule-list {
 		display: flex;
@@ -8,14 +19,44 @@ main.rule-tab {
 		box-shadow: var(--shadow-small), var(--shadow-large);
 		border-radius: var(--unit-16);
 
-		& > :first-child {
-			border-start-start-radius: inherit;
-			border-start-end-radius: inherit;
+		&.is-dragging {
+			* {
+				pointer-events: none !important;
+			}
+
+			& > section {
+				transition:
+					transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+					border-radius 0.2s cubic-bezier(0.2, 0, 0, 1);
+			}
+		}
+	}
+
+	.floating-card {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 1000;
+		pointer-events: none;
+		box-shadow: var(--shadow-small), var(--shadow-large);
+		border-radius: 0;
+		cursor: grabbing;
+		transform: translateY(var(--drag-y, 0px));
+		transition: border-radius 0.2s cubic-bezier(0.2, 0, 0, 1);
+
+		&.is-top {
+			border-start-start-radius: var(--unit-16);
+			border-start-end-radius: var(--unit-16);
 		}
 
-		& > :last-child {
-			border-end-start-radius: inherit;
-			border-end-end-radius: inherit;
+		&.is-bottom {
+			border-end-start-radius: var(--unit-16);
+			border-end-end-radius: var(--unit-16);
+		}
+
+		& > section {
+			border-radius: inherit;
 		}
 	}
 

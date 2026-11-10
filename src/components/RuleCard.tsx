@@ -9,12 +9,24 @@ const defaultValue = {
 interface RuleCardProps {
 	rule?: Rule;
 	inPopup?: boolean;
+	isPlaceholder?: boolean;
+	shiftState?: "up" | "down" | "none";
+	isTop?: boolean;
+	isBottom?: boolean;
+	isAlt?: boolean;
+	onGrab?: (e: React.PointerEvent<HTMLElement>) => void;
 	onChange: (newRule: Rule | null) => void;
 }
 
 export default function RuleCard({
 	rule,
 	inPopup = false,
+	isPlaceholder = false,
+	shiftState = "none",
+	isTop = false,
+	isBottom = false,
+	isAlt = false,
+	onGrab,
 	onChange,
 }: RuleCardProps) {
 	const [webExtName, setWebExtName] = useState(rule?.header);
@@ -29,7 +41,29 @@ export default function RuleCard({
 	if (!rule) return null;
 
 	return (
-		<section className={clsx(styles.ruleCard, inPopup && styles.inPopup)}>
+		<section
+			className={clsx(
+				styles.ruleCard,
+				inPopup && styles.inPopup,
+				isPlaceholder && styles.placeholder,
+				shiftState === "up" && styles.shiftUp,
+				shiftState === "down" && styles.shiftDown,
+				isTop && styles.isTop,
+				isBottom && styles.isBottom,
+				isAlt && styles.isAlt,
+			)}
+		>
+			{!inPopup && (
+				<div
+					className={styles.grabber}
+					onPointerDown={(e) => {
+						if (e.button !== 0) return;
+						onGrab?.(e);
+					}}
+				>
+					<Icon type="grabber" />
+				</div>
+			)}
 			{!inPopup &&
 				(rule.target === "ADDON_ID" ? (
 					<div className={styles.webExtHeader}>{webExtName}</div>

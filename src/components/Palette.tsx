@@ -70,6 +70,10 @@ export default function Palette({
 		setPopupLocation({ orientation, deviation });
 	}, [isPopupOpen]);
 
+	useLayoutEffect(() => {
+		previewRef.current?.style.setProperty("--preview-colour", displayValue);
+	}, [displayValue]);
+
 	useEffect(() => {
 		const onBlur = () => setIsPopupOpen(false);
 		document.addEventListener("blur", onBlur);
@@ -107,7 +111,6 @@ export default function Palette({
 			<div
 				ref={previewRef}
 				className={styles.preview}
-				style={{ backgroundColor: displayValue }}
 				onClick={() => setIsPopupOpen(!isPopupOpen)}
 			/>
 			{!inPopup && (

@@ -1,6 +1,7 @@
 .rule-card {
 	display: grid;
 	gap: var(--unit-8);
+	position: relative;
 
 	&.in-popup {
 		grid-template-columns: minmax(0, 1fr) calc(120 * var(--unit));
@@ -14,27 +15,82 @@
 
 	&:not(.in-popup) {
 		grid-template-columns:
-			minmax(30%, 1fr) minmax(0, max-content) calc(120 * var(--unit))
+			max-content minmax(30%, 1fr) minmax(0, max-content) calc(
+				120 * var(--unit)
+			)
 			max-content;
 		background-color: var(--panel);
 		padding: var(--unit-8);
 
-		&:nth-of-type(even) {
+		&.is-alt {
 			background-color: var(--panel-alt);
 		}
 
 		@media screen and (max-width: 550px) {
 			grid-template-columns:
-				minmax(max-content, 1fr) minmax(0, 1fr)
+				max-content minmax(max-content, 1fr) minmax(0, 1fr)
 				max-content;
 
-			& > :first-child {
-				grid-column: 1 / -1;
+			.grabber {
+				grid-column: 1;
+				grid-row: 1 / span 2;
+				align-self: center;
+				height: 100%;
+			}
+
+			.web-ext-header,
+			& > :nth-child(2) {
+				grid-column: 2 / -1;
+				grid-row: 1;
 			}
 
 			select {
+				grid-column: 2;
 				width: 100%;
 			}
+		}
+	}
+
+	&.placeholder {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	&.shift-up {
+		transform: translateY(-100%);
+	}
+
+	&.shift-down {
+		transform: translateY(100%);
+	}
+
+	&.is-top {
+		border-start-start-radius: var(--unit-16);
+		border-start-end-radius: var(--unit-16);
+	}
+
+	&.is-bottom {
+		border-end-start-radius: var(--unit-16);
+		border-end-end-radius: var(--unit-16);
+	}
+
+	.grabber {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		cursor: grab;
+		width: var(--unit-24);
+		height: var(--unit-32);
+		color: var(--text-secondary);
+		user-select: none;
+		touch-action: none;
+
+		&:hover {
+			color: var(--text-primary);
+		}
+
+		&:active {
+			cursor: grabbing;
 		}
 	}
 

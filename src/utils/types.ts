@@ -244,6 +244,7 @@ export type IconType =
 	| "contrast"
 	| "delete"
 	| "download"
+	| "grabber"
 	| "info"
 	| "moon"
 	| "redirect"

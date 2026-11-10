@@ -39,6 +39,7 @@
 		border-radius: 50%;
 		width: var(--unit-16);
 		height: var(--unit-16);
+		background-color: var(--preview-colour, #000);
 	}
 
 	input[type="color"] {
