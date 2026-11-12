@@ -24,9 +24,9 @@ Cambia el color del tema de Firefox para que coincida con la apariencia del siti
 </div>
 <!-- amo-ignore-end -->
 
-## ¿Qué Hace La Extensión?
+## ¿Qué hace la extensión?
 
-Esta extensión ajusta dinámicamente el tema de Firefox para que coincida con la apariencia del sitio web que estás viendo, similar a la función de teñido de la barra de pestañas en Safari en macOS.
+Adaptive Tab Bar Colour (ATBC) actualiza dinámicamente el color del tema de Firefox para que coincida con el sitio web que estás viendo.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -36,13 +36,19 @@ Esta extensión ajusta dinámicamente el tema de Firefox para que coincida con l
 </div>
 <!-- amo-ignore-end -->
 
-## Funciona Bien Con
+## Con ATBC, puedes
+
+- Hacer que la interfaz de Firefox se integre con la página que estás navegando o usar el color del tema proporcionado por el sitio web.
+- Personalizar diferentes partes de Firefox, incluidas la barra de pestañas, la barra de herramientas y la barra lateral, con el creador de temas integrado.
+- Establecer reglas de color personalizadas para sitios específicos mediante URL, expresiones regulares o comodines en modo claro, modo oscuro o ambos.
+
+## Funciona bien con
 
 - [Dark Reader](https://addons.mozilla.org/firefox/addon/darkreader/)
 - [Stylus](https://addons.mozilla.org/firefox/addon/styl-us/)
 - [Dark Mode Website Switcher](https://addons.mozilla.org/firefox/addon/dark-mode-website-switcher/)
 
-## Incompatible Con
+## Incompatible con
 
 - [Adaptive Theme Creator](https://addons.mozilla.org/firefox/addon/adaptive-theme-creator/)
 - [Chameleon Dynamic Theme](https://addons.mozilla.org/firefox/addon/chameleon-dynamic-theme-fixed/)
@@ -50,100 +56,10 @@ Esta extensión ajusta dinámicamente el tema de Firefox para que coincida con l
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Cualquier otra extensión que modifique el tema de Firefox
 
-## Personalizar las transiciones de color
+## Personalización y guías
 
-Firefox aplica de forma nativa un efecto de transición a los cambios de color de la barra de pestañas. Para desactivar este comportamiento y permitir que Adaptive Tab Bar Colour (ATBC) actualice los colores instantáneamente, añada el siguiente código a su tema CSS:
+Si utilizas un tema CSS personalizado, quieres ajustar las transiciones de color o necesitas otros ajustes, visita la [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki).
 
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
+## Advertencia de seguridad
 
-Alternativamente, puede que prefiera transiciones de color suaves para la barra de pestañas. Como esto no puede ser soportado de forma nativa debido a limitaciones técnicas, añada el siguiente código a su tema CSS (gracias a [@Moarram](https://github.com/Moarram/)):
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Para activar transiciones suaves de color en la interfaz de Sidebery, añade el siguiente código al Editor de Estilos de Sidebery (gracias a [@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)):
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Tema adaptativo en menús contextuales
-
-Para aplicar el tema adaptativo a los menús contextuales, añade el siguiente código a tu tema CSS:
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Además, se deben desactivar los menús contextuales nativos abriendo `about:config` y estableciendo las siguientes preferencias en `false`:
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Compatibilidad con Temas CSS de Terceros
-
-Un tema CSS de terceros funciona con Adaptive Tab Bar Colour (ATBC), siempre que utilicen las variables de color estándar de Firefox (por ejemplo, `--lwt-accent-color` para el color de la barra de pestañas). [Este](https://github.com/easonwong-de/Firefox-Simple-One-Line) es un ejemplo de un tema CSS compatible con ATBC.
-
-## Botones de la Barra de Título en Linux con un Tema GTK
-
-Los botones de la barra de título de Firefox pueden volver al estilo de Windows. Para evitar esto, abre las «Preferencias avanzadas» (`about:config`) y establece `widget.gtk.non-native-titlebar-buttons.enabled` en `false`. (Gracias a [@anselstetter](https://github.com/anselstetter/))
-
-## Advertencia De Seguridad
-
-Cuidado con las interfaces web maliciosas. Es importante distinguir entre la interfaz del navegador y la interfaz web. Para más información, consulta [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Gracias a [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
+Ten cuidado con las interfaces web maliciosas que fingen ser parte del navegador. Comprueba siempre dónde termina el marco del navegador y dónde empieza la página web; consulta [este artículo](https://textslashplain.com/2017/01/14/the-line-of-death/) para más información. (Gracias a [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))

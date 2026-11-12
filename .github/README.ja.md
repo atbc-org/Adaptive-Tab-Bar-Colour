@@ -24,9 +24,9 @@ Firefox のテーマの色をウェブサイトの外観に合わせて変更し
 </div>
 <!-- amo-ignore-end -->
 
-## アドオンは何をしますか？
+## アドオンの概要
 
-このアドオンは、Safari の macOS におけるタブバーの色調変化機能に似た形で、閲覧中のウェブサイトの外観に合わせて Firefox のテーマを動的に調整します。
+Adaptive Tab Bar Colour（ATBC）は、閲覧中のウェブサイトの外観に合わせて Firefox のテーマカラーを動的に調整します。
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,6 +35,12 @@ Firefox のテーマの色をウェブサイトの外観に合わせて変更し
 
 </div>
 <!-- amo-ignore-end -->
+
+## ATBC でできること
+
+- 閲覧中のウェブページに Firefox の UI を溶け込ませるか、ウェブサイトが指定したテーマカラーを適用できます。
+- 内蔵のテーマビルダーを使用して、タブバー、ツールバー、サイドバーなど Firefox の各部分の色を細かくカスタマイズできます。
+- URL、正規表現、ワイルドカードを使用してサイトごとにカスタム配色ルールを設定でき、ライトモード・ダークモードの個別指定にも対応します。
 
 ## 相性の良いアドオン
 
@@ -50,100 +56,10 @@ Firefox のテーマの色をウェブサイトの外観に合わせて変更し
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Firefox のテーマを変更するその他のアドオン
 
-## 色の遷移をカスタマイズする
+## カスタマイズと設定ガイド
 
-Firefox はタブバーの色変更にネイティブな遷移効果を適用します。この動作を無効にして Adaptive Tab Bar Colour（ATBC）が色を瞬時に更新できるようにするには、次のコードを CSS テーマに追加してください。
-
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-一方で、タブバーの滑らかな色遷移を好む場合もあります。技術的制限によりネイティブには対応できないため、次のコードを CSS テーマに追加してください。（提供: [@Moarram](https://github.com/Moarram/)）
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Sidebery UI で滑らかな色遷移を有効にするには、次のコードを Sidebery Style Editor に追加してください。（提供: [@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)）
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## コンテキストメニューへの適応テーマの適用
-
-コンテキストメニューに適応テーマを適用するには、次のコードを CSS テーマに追加してください：
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-さらに、`about:config` を開き、以下の設定を `false` に変更してネイティブコンテキストメニューを無効にする必要があります：
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## サードパーティ CSS テーマとの互換性
-
-サードパーティの CSS テーマは、Firefox の標準カラー変数（例：タブバーの色に `--lwt-accent-color`）を使用していれば Adaptive Tab Bar Colour（ATBC）と連携できます。[こちら](https://github.com/easonwong-de/Firefox-Simple-One-Line) は ATBC 対応 CSS テーマの例です。
-
-## GTK テーマ使用時の Linux のタイトルバーボタン
-
-Firefox のタイトルバーのボタンは Windows スタイルに戻ることがあります。これを防ぐには、「詳細設定」（`about:config`）を開き、`widget.gtk.non-native-titlebar-buttons.enabled` を `false` に設定してください。（提供: [@anselstetter](https://github.com/anselstetter/)）
+カスタム CSS テーマを使用している場合や、色の遷移効果の調整、その他の設定変更を行いたい場合は、[Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki) をご覧ください。
 
 ## 安全に関する注意喚起
 
-悪意のあるウェブ UI に注意してください。ブラウザー UI とウェブ UI を区別することが重要です。詳細は [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/) を参照してください。（提供: [u/KazaHesto](https://www.reddit.com/user/KazaHesto/)）
+ブラウザー UI を偽装した悪意あるウェブサイトに注意してください。ブラウザーの枠組みとウェブページ自体の境界を常に確認することが重要です。詳細は [こちらの記事](https://textslashplain.com/2017/01/14/the-line-of-death/) をご覧ください。（提供: [u/KazaHesto](https://www.reddit.com/user/KazaHesto/）)

@@ -26,7 +26,7 @@
 
 ## Что делает это дополнение?
 
-Это дополнение динамически настраивает тему Firefox в соответствии с внешним видом просматриваемого вами сайта, аналогично функции тонирования панели вкладок в Safari на macOS.
+Adaptive Tab Bar Colour (ATBC) динамически обновляет цвет темы Firefox в соответствии с просматриваемым веб-сайтом.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,6 +35,12 @@
 
 </div>
 <!-- amo-ignore-end -->
+
+## С ATBC вы можете
+
+- Объединить интерфейс Firefox с просматриваемой страницей или использовать цвет темы, предоставленный веб-сайтом.
+- Настраивать цвет различных элементов Firefox, включая панель вкладок, панель инструментов и боковую панель, с помощью встроенного конструктора темы.
+- Устанавливать индивидуальные правила окрашивания сайтов по URL, регулярному выражению или маске для светлого режима, тёмного режима или обоих.
 
 ## Отлично работает вместе с
 
@@ -50,100 +56,10 @@
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Любыми другими дополнениями, которые изменяют тему Firefox
 
-## Настройка цветовых переходов
+## Настройка и руководства
 
-Firefox изначально применяет эффект перехода к изменениям цвета панели вкладок. Чтобы отключить это поведение и позволить Adaptive Tab Bar Colour (ATBC) обновлять цвета мгновенно, добавьте следующий код в вашу CSS-тему:
-
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-В качестве альтернативы, вы можете предпочесть плавные цветовые переходы для панели вкладок. Поскольку это не может поддерживаться изначально из-за технических ограничений, добавьте следующий код в вашу CSS-тему (спасибо [@Moarram](https://github.com/Moarram/)):
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Чтобы включить плавные переходы цвета в интерфейсе Sidebery, добавьте следующий код в редактор стилей Sidebery (спасибо [@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)):
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Адаптивная тема в контекстных меню
-
-Чтобы применить адаптивную тему к контекстным меню, добавьте следующий код в вашу CSS-тему:
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Кроме того, необходимо отключить нативные контекстные меню, открыв `about:config` и установив следующие параметры в значение `false`:
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Совместимость со сторонними CSS-темами
-
-Сторонняя CSS-тема работает с Adaptive Tab Bar Colour (ATBC), если они используют стандартные цветовые переменные Firefox (например, `--lwt-accent-color` для цвета панели вкладок). [Вот пример](https://github.com/easonwong-de/Firefox-Simple-One-Line) CSS-темы, совместимой с ATBC.
-
-## Кнопки заголовка в Linux с темой GTK
-
-Кнопки заголовка Firefox могут вернуться к стилю Windows. Чтобы этого избежать, откройте «расширенные настройки» (`about:config`) и установите параметр `widget.gtk.non-native-titlebar-buttons.enabled` в значение `false`. (Спасибо [@anselstetter](https://github.com/anselstetter/))
+Если вы используете пользовательскую CSS-тему, хотите настроить плавность перехода цветов или нуждаетесь в других изменениях, посетите [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki).
 
 ## Напоминание о безопасности
 
-Остерегайтесь вредоносных веб-интерфейсов. Важно различать интерфейс браузера и веб-интерфейс. Для получения дополнительной информации см. [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Спасибо [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
+Остерегайтесь вредоносных интерфейсов, маскирующихся под браузер. Всегда обращайте внимание на границу между рамкой браузера и веб-страницей — подробнее см. в [этой статье](https://textslashplain.com/2017/01/14/the-line-of-death/). (Спасибо [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))

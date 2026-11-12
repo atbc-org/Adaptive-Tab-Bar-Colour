@@ -26,7 +26,7 @@ Change la couleur du thème de Firefox pour correspondre à l'apparence de sites
 
 ## Que fait cette extension ?
 
-Cette extension ajuste dynamiquement le thème de Firefox pour correspondre à l’apparence du site web que vous consultez, de manière similaire à la fonction de teinte de la barre d’onglets dans Safari sur macOS.
+Adaptive Tab Bar Colour (ATBC) ajuste dynamiquement la couleur du thème Firefox pour correspondre au site web que vous consultez.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,6 +35,12 @@ Cette extension ajuste dynamiquement le thème de Firefox pour correspondre à l
 
 </div>
 <!-- amo-ignore-end -->
+
+## Avec ATBC, vous pouvez
+
+- Faire en sorte que l’interface de Firefox s’intègre à la page que vous consultez, ou utiliser la couleur de thème fournie par le site web.
+- Personnaliser les différentes parties de Firefox, y compris la barre d’onglets, la barre d’outils et la barre latérale, grâce au constructeur de thème intégré.
+- Définir des règles de coloration personnalisées par URL, regex ou caractère générique pour des sites spécifiques, en mode clair, sombre ou les deux.
 
 ## Compatible avec
 
@@ -50,100 +56,10 @@ Cette extension ajuste dynamiquement le thème de Firefox pour correspondre à l
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Toute autre extension qui modifie le thème Firefox
 
-## Personnaliser les transitions de couleur
+## Personnalisation et guides
 
-Firefox applique nativement un effet de transition aux changements de couleur de la barre d’onglets. Pour désactiver ce comportement et permettre à Adaptive Tab Bar Colour (ATBC) de mettre à jour les couleurs instantanément, ajoutez le code suivant à votre thème CSS :
-
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Alternativement, vous préférerez peut-être des transitions de couleur fluides pour la barre d’onglets. Comme cela ne peut pas être pris en charge nativement en raison de limitations techniques, ajoutez le code suivant à votre thème CSS (merci à [@Moarram](https://github.com/Moarram/)) :
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Pour activer les transitions douces des couleurs dans l’interface de Sidebery, ajoutez le code suivant à l’éditeur de style de Sidebery (merci à [@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)) :
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Thème adaptatif dans les menus contextuels
-
-Pour appliquer le thème adaptatif aux menus contextuels, ajoutez le code suivant à votre thème CSS :
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-De plus, les menus contextuels natifs doivent être désactivés en ouvrant `about:config` et en définissant les préférences suivantes sur `false` :
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Compatibilité avec les thèmes CSS tiers
-
-Un thème CSS tiers fonctionne avec Adaptive Tab Bar Colour (ATBC), à condition qu’ils utilisent les variables de couleur standard de Firefox (par exemple, `--lwt-accent-color` pour la couleur de la barre d’onglets). [Ceci](https://github.com/easonwong-de/Firefox-Simple-One-Line) est un exemple de thème CSS compatible avec ATBC.
-
-## Boutons de la barre de titre sur Linux avec un thème GTK
-
-Les boutons de la barre de titre de Firefox peuvent revenir au style de Windows. Pour éviter cela, ouvrez les « Préférences avancées » (`about:config`) et définissez `widget.gtk.non-native-titlebar-buttons.enabled` sur `false`. (Merci à [@anselstetter](https://github.com/anselstetter/))
+Si vous utilisez un thème CSS personnalisé, souhaitez ajuster les transitions de couleur ou avez besoin d’autres réglages, consultez le [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki).
 
 ## Rappel de sécurité
 
-Attention aux interfaces web malveillantes. Il est important de faire la distinction entre l’interface du navigateur et l’interface web. Pour plus d’informations, veuillez consulter [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Merci à [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
+Méfiez-vous des interfaces web malveillantes imitant l’interface du navigateur. Pensez toujours à vérifier où s’arrête le cadre du navigateur et où commence la page web — consultez [cet article](https://textslashplain.com/2017/01/14/the-line-of-death/) pour en savoir plus. (Merci à [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
