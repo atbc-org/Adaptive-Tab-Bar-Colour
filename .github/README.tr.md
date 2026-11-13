@@ -24,9 +24,11 @@ Firefox tema rengini web sitesinin görünümüyle eşlemek için değiştirir.
 </div>
 <!-- amo-ignore-end -->
 
-## Bu Eklenti Ne İşe Yarar?
+## Bu Eklenti ile Neler Yapabilirsiniz?
 
-Bu eklenti, Firefox temasını dinamik olarak görüntülediğiniz web sitesinin görünümüyle eşlemek için değiştirir. macOS'teki Safari'nin site rengini sekme çubuğunda gösterme özelliğine benzer.
+- Firefox arayüzünün gezindiğiniz sayfayla bütünleşmesini sağlayabilir veya web sitesinin belirlediği tema rengini kullanabilirsiniz.
+- Yerleşik tema oluşturucu ile sekme çubuğu, araç çubuğu ve kenar çubuğu dahil Firefox'un farklı bölümlerini özelleştirebilirsiniz.
+- Açık mod, koyu mod veya her ikisi için URL, regex veya joker karakterlerle sitelere özel renklendirme kuralları belirleyebilirsiniz.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -50,100 +52,10 @@ Bu eklenti, Firefox temasını dinamik olarak görüntülediğiniz web sitesinin
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Firefox temasını değiştiren herhangi bir diğer eklenti
 
-## Renk Geçişlerini Özelleştirme
+## Özelleştirme ve Kılavuzlar
 
-Firefox sekme çubuğu renk değişikliklerine yerel olarak bir geçiş efekti uygular. Bu davranışı devre dışı bırakmak ve Adaptive Tab Bar Colour (ATBC)'nin renkleri anında güncellemesini sağlamak için aşağıdaki kodu CSS temanıza ekleyin:
+Özel bir CSS teması kullanıyorsanız, renk geçişlerini ayarlamak istiyorsanız veya başka ayarlara ihtiyaç duyuyorsanız [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki) sayfasını ziyaret edin.
 
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
+## Güvenlik Hatırlatması
 
-Alternatif olarak sekme çubuğu için yumuşak renk geçişlerini tercih edebilirsiniz. Teknik sınırlamalar nedeniyle bu yerel olarak desteklenemediğinden aşağıdaki kodu CSS temanıza ekleyin ([@Moarram](https://github.com/Moarram/)'a teşekkürler):
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Sidebery arayüzünde yumuşak renk geçişlerini devreye almak için aşağıdaki kodu Sidebery Style Editor'e ekleyin ([@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)'a teşekkürler):
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Sağ Tık Menülerinde Uyumlu Tema
-
-Uyumlu temayı sağ tık (bağlam) menülerine uygulamak için aşağıdaki kodu CSS temanıza ekleyin:
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Ayrıca `about:config` sayfasını açıp aşağıdaki tercihleri `false` olarak ayarlayarak yerel sağ tık menülerini devre dışı bırakmalısınız:
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Üçüncü Taraf CSS Temalarıyla Uyumluluk
-
-Firefox'un standart renk değişkenlerini (örneğin sekme çubuğu rengi için `--lwt-accent-color`) kullandığı sürece üçüncü taraf bir CSS teması Adaptive Tab Bar Colour (ATBC) ile beraber çalışır. [Burada](https://github.com/easonwong-de/Firefox-Simple-One-Line) ATBC ile uyumlu bir CSS temasının örneğini bulabilirsiniz.
-
-## GTK Temalı Linux'ta Başlık Çubuğu Düğmeleri
-
-Firefox'un başlık çubuğu düğmeleri Windows tarzına geri dönebilir. Bunu önlemek için, “Gelişmiş Tercihler”i (`about:config`) açın ve `widget.gtk.non-native-titlebar-buttons.enabled` özelliğini `false` olarak ayarlayın. ([@anselstetter](https://github.com/anselstetter/)'e teşekkürler)
-
-## Güvenlik İçin Hatırlatma
-
-Kötü niyetli web arayüzlerine karşı dikkatli olun. Tarayıcı arayüzüyle web sayfasının arayüzü arasındaki ayrımın farkında olmak önemlidir. Daha fazla bilgi için lütfen [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/) makalesine başvurun. ([u/KazaHesto](https://www.reddit.com/user/KazaHesto/)'ya teşekkürler)
+Tarayıcı arayüzünü taklit eden kötü niyetli web arayüzlerine karşı dikkatli olun. Tarayıcı çerçevesinin nerede bittiğini ve web sayfasının nerede başladığını her zaman kontrol edin; ayrıntılar için [bu makaleye](https://textslashplain.com/2017/01/14/the-line-of-death/) göz atın. ([u/KazaHesto](https://www.reddit.com/user/KazaHesto/)'ya teşekkürler)

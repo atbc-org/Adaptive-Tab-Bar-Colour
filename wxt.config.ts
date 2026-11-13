@@ -42,7 +42,7 @@ export default defineConfig({
 		},
 		default_locale: "en",
 		description: "__MSG_extensionDescription__",
-		developer: { name: "Eason & Yue", url: "https://easonwong.de/" },
+		developer: { name: "Eason & Yue", url: "https://github.com/atbc-org/" },
 		homepage_url: "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/",
 		icons: {
 			16: "/icon/icon-16.png",

@@ -24,9 +24,11 @@ Firefox temasının rəngini veb saytın görünüşünə uyğunlaşdırır.
 </div>
 <!-- amo-ignore-end -->
 
-## Bu əlavə nə edir?
+## Bu əlavə ilə nə edə bilərsiniz?
 
-Bu əlavə Firefox temasını baxdığınız veb saytın görünüşünə uyğun olaraq dinamik şəkildə tənzimləyir. Davranış macOS-dakı Safari brauzerinin tab panelini rəngləmə imkanına bənzəyir.
+- Firefox interfeysini baxdığınız səhifə ilə uyğunlaşdıra və ya veb sayt tərəfindən təqdim olunan tema rəngindən istifadə edə bilərsiniz.
+- Daxili tema qurucusu ilə tab paneli, alət paneli və yan panel daxil olmaqla Firefox-un müxtəlif hissələrini fərdiləşdirə bilərsiniz.
+- İşıqlı rejim, qaranlıq rejim və ya hər ikisi üçün URL, regex və ya joker simvolları ilə ayrı-ayrı saytlara xüsusi rəngləmə qaydaları təyin edə bilərsiniz.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -50,100 +52,10 @@ Bu əlavə Firefox temasını baxdığınız veb saytın görünüşünə uyğun
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Firefox temasını dəyişdirən istənilən digər əlavə
 
-## Rəng keçidlərini fərdiləşdirmək
+## Fərdiləşdirmə və bələdçilər
 
-Firefox tab panelinin rəng dəyişikliklərinə öz daxili keçid effektini tətbiq edir. Bu davranışı söndürmək və Adaptive Tab Bar Colour (ATBC) əlavəsinin rəngləri dərhal yeniləməsinə imkan vermək üçün aşağıdakı kodu CSS temanıza əlavə edin:
-
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Digər tərəfdən, tab paneli üçün yumşaq rəng keçidlərini üstün tuta bilərsiniz. Texniki məhdudiyyətlərə görə bu, daxili şəkildə dəstəklənmir, ona görə aşağıdakı kodu CSS temanıza əlavə edin ([@Moarram](https://github.com/Moarram/) sayəsində):
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Sidebery interfeysində yumşaq rəng keçidlərini aktivləşdirmək üçün aşağıdakı kodu Sidebery Style Editor bölməsinə əlavə edin ([@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/) sayəsində):
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Kontekst menyularında uyğunlaşan tema
-
-Uyğunlaşan temanı kontekst menyularına tətbiq etmək üçün aşağıdakı kodu CSS temanıza əlavə edin:
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Bundan başqa, `about:config` səhifəsini açıb aşağıdakı tərcihləri `false` etməklə sistemin öz kontekst menyuları söndürülməlidir:
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Üçüncü tərəf CSS temaları ilə uyğunluq
-
-Üçüncü tərəf CSS teması Firefox-un standart rəng dəyişənlərindən (məsələn, tab panelinin rəngi üçün `--lwt-accent-color`) istifadə etdiyi müddətcə Adaptive Tab Bar Colour (ATBC) ilə işləyir. [Bu](https://github.com/easonwong-de/Firefox-Simple-One-Line), ATBC ilə uyğun CSS temasının nümunəsidir.
-
-## GTK teması ilə Linux-da başlıq sətri düymələri
-
-Firefox-un başlıq sətri düymələri Windows üslubuna qayıda bilər. Bunun qarşısını almaq üçün “Qabaqcıl tərcihlər” (`about:config`) səhifəsini açın və `widget.gtk.non-native-titlebar-buttons.enabled` dəyərini `false` edin. ([@anselstetter](https://github.com/anselstetter/) sayəsində)
+Fərdi CSS temasından istifadə edirsinizsə, rəng keçidlərini tənzimləmək istəyirsinizsə və ya digər sazlamalara ehtiyacınız varsa, [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki) səhifəsinə baxın.
 
 ## Təhlükəsizlik xatırlatması
 
-Zərərli veb interfeyslərdən ehtiyatlı olun. Brauzerin interfeysi ilə veb səhifənin interfeysini ayırd etmək vacibdir. Ətraflı məlumat üçün [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/) yazısına baxın. ([u/KazaHesto](https://www.reddit.com/user/KazaHesto/) sayəsində)
+Brauzer interfeysini təqlid edən zərərli veb interfeyslərdən ehtiyatlı olun. Həmişə brauzer çərçivəsinin harada bitdiyini və veb səhifənin harada başladığını yoxlayın — ətraflı məlumat üçün [bu məqaləyə](https://textslashplain.com/2017/01/14/the-line-of-death/) baxın. ([u/KazaHesto](https://www.reddit.com/user/KazaHesto/) sayəsində)
