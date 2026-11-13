@@ -24,9 +24,11 @@ Changes the color of Firefox theme to match the website’s appearance.
 </div>
 <!-- amo-ignore-end -->
 
-## What Does the Add-on Do?
+## With This Add-on, You Can
 
-Adaptive Tab Bar Color (ATBC) updates your Firefox theme color to match the website you are viewing.
+- Have Firefox’s UI blend into the page you are browsing, or use the theme color provided by the website.
+- Customize different parts of Firefox, including the tab bar, toolbar, and sidebar, with the built-in theme builder.
+- Set custom coloring rules for individual sites by URL, regex, or wildcard in light mode, dark mode, or both.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,12 +37,6 @@ Adaptive Tab Bar Color (ATBC) updates your Firefox theme color to match the webs
 
 </div>
 <!-- amo-ignore-end -->
-
-## With ATBC, You Can
-
-- Have Firefox’s UI blend into the page you are browsing, or use the theme color provided by the website.
-- Customize different parts of Firefox, including the tab bar, toolbar, and sidebar, with the built-in theme builder.
-- Set custom coloring rules for individual sites by URL, regex, or wildcard in light mode, dark mode, or both.
 
 ## Works Well With
 

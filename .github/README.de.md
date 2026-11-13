@@ -24,9 +24,11 @@
 </div>
 <!-- amo-ignore-end -->
 
-## Was macht die Erweiterung?
+## Mit dieser Erweiterung kannst du
 
-Anpassende Tableistenfarbe (ATBC) passt die Farbe deines Firefox-Themes dynamisch an die von dir besuchte Website an.
+- Die Benutzeroberfläche von Firefox an die besuchte Seite anpassen lassen oder die von der Website bereitgestellte Theme-Farbe verwenden.
+- Verschiedene Bereiche von Firefox wie Tableiste, Werkzeugleiste und Seitenleiste mit dem integrierten Theme-Editor anpassen.
+- Benutzerdefinierte Farbregeln für einzelne Websites über URL, Regex oder Wildcard für den Hellmodus, Dunkelmodus oder beide festlegen.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,12 +37,6 @@ Anpassende Tableistenfarbe (ATBC) passt die Farbe deines Firefox-Themes dynamisc
 
 </div>
 <!-- amo-ignore-end -->
-
-## Mit ATBC kannst du
-
-- Die Benutzeroberfläche von Firefox an die besuchte Seite anpassen lassen oder die von der Website bereitgestellte Theme-Farbe verwenden.
-- Verschiedene Bereiche von Firefox wie Tableiste, Werkzeugleiste und Seitenleiste mit dem integrierten Theme-Editor anpassen.
-- Benutzerdefinierte Farbregeln für einzelne Websites über URL, Regex oder Wildcard für den Hellmodus, Dunkelmodus oder beide festlegen.
 
 ## Funktioniert gut mit
 

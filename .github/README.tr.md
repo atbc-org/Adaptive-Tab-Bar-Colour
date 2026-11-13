@@ -24,9 +24,11 @@ Firefox tema rengini web sitesinin görünümüyle eşlemek için değiştirir.
 </div>
 <!-- amo-ignore-end -->
 
-## Bu Eklenti Ne İşe Yarar?
+## Bu Eklenti ile Neler Yapabilirsiniz?
 
-Adaptive Tab Bar Colour (ATBC), Firefox tema rengini görüntülediğiniz web sitesine uyacak şekilde dinamik olarak günceller.
+- Firefox arayüzünün gezindiğiniz sayfayla bütünleşmesini sağlayabilir veya web sitesinin belirlediği tema rengini kullanabilirsiniz.
+- Yerleşik tema oluşturucu ile sekme çubuğu, araç çubuğu ve kenar çubuğu dahil Firefox'un farklı bölümlerini özelleştirebilirsiniz.
+- Açık mod, koyu mod veya her ikisi için URL, regex veya joker karakterlerle sitelere özel renklendirme kuralları belirleyebilirsiniz.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,12 +37,6 @@ Adaptive Tab Bar Colour (ATBC), Firefox tema rengini görüntülediğiniz web si
 
 </div>
 <!-- amo-ignore-end -->
-
-## ATBC ile Neler Yapabilirsiniz?
-
-- Firefox arayüzünün gezindiğiniz sayfayla bütünleşmesini sağlayabilir veya web sitesinin belirlediği tema rengini kullanabilirsiniz.
-- Yerleşik tema oluşturucu ile sekme çubuğu, araç çubuğu ve kenar çubuğu dahil Firefox'un farklı bölümlerini özelleştirebilirsiniz.
-- Açık mod, koyu mod veya her ikisi için URL, regex veya joker karakterlerle sitelere özel renklendirme kuralları belirleyebilirsiniz.
 
 ## Beraber İyi Çalışan Eklentiler
 

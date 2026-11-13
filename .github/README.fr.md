@@ -24,9 +24,11 @@ Change la couleur du thème de Firefox pour correspondre à l'apparence de sites
 </div>
 <!-- amo-ignore-end -->
 
-## Que fait cette extension ?
+## Avec cette extension, vous pouvez
 
-Adaptive Tab Bar Colour (ATBC) ajuste dynamiquement la couleur du thème Firefox pour correspondre au site web que vous consultez.
+- Faire en sorte que l’interface de Firefox s’intègre à la page que vous consultez, ou utiliser la couleur de thème fournie par le site web.
+- Personnaliser les différentes parties de Firefox, y compris la barre d’onglets, la barre d’outils et la barre latérale, grâce au constructeur de thème intégré.
+- Définir des règles de coloration personnalisées par URL, regex ou caractère générique pour des sites spécifiques, en mode clair, sombre ou les deux.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -35,12 +37,6 @@ Adaptive Tab Bar Colour (ATBC) ajuste dynamiquement la couleur du thème Firefox
 
 </div>
 <!-- amo-ignore-end -->
-
-## Avec ATBC, vous pouvez
-
-- Faire en sorte que l’interface de Firefox s’intègre à la page que vous consultez, ou utiliser la couleur de thème fournie par le site web.
-- Personnaliser les différentes parties de Firefox, y compris la barre d’onglets, la barre d’outils et la barre latérale, grâce au constructeur de thème intégré.
-- Définir des règles de coloration personnalisées par URL, regex ou caractère générique pour des sites spécifiques, en mode clair, sombre ou les deux.
 
 ## Compatible avec
 
