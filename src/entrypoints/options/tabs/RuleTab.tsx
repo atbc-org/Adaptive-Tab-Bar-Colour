@@ -261,56 +261,59 @@ export default function RuleTab({ pref, ready }: RuleTabProps) {
 				</Popover>
 			</div>
 			{rules.length > 0 && (
-				<div
-					className={clsx(
-						styles.ruleList,
-						dragFromIndex !== null && styles.isDragging,
-					)}
-					ref={listRef}
-				>
-					{rules.map(([id, rule], index) => {
-						const shiftState = getShiftState(index);
-						const visualIndex =
-							shiftState === "up"
-								? index - 1
-								: shiftState === "down"
-									? index + 1
-									: index;
-						return (
+				<div className={styles.ruleListWrapper}>
+					<div
+						className={clsx(
+							styles.ruleList,
+							dragFromIndex !== null && styles.isDragging,
+						)}
+						ref={listRef}
+					>
+						{rules.map(([id, rule], index) => {
+							const shiftState = getShiftState(index);
+							const visualIndex =
+								shiftState === "up"
+									? index - 1
+									: shiftState === "down"
+										? index + 1
+										: index;
+							return (
+								<RuleCard
+									key={`rule-${id}`}
+									rule={rule}
+									isPlaceholder={dragFromIndex === index}
+									shiftState={shiftState}
+									isTop={visualIndex === 0}
+									isBottom={visualIndex === rules.length - 1}
+									isAlt={index % 2 !== 0}
+									onGrab={(e) => handleGrab(index, e)}
+									onChange={(newRule) => {
+										if (newRule) pref.rule[id] = newRule;
+										else delete pref.rule[id];
+									}}
+								/>
+							);
+						})}
+					</div>
+					{dragFromIndex !== null && rules[dragFromIndex] && (
+						<div
+							ref={floatingRef}
+							className={clsx(
+								styles.floatingCard,
+								hoverIndex === 0 && styles.isTop,
+								hoverIndex === rules.length - 1 &&
+									styles.isBottom,
+							)}
+						>
 							<RuleCard
-								key={`rule-${id}`}
-								rule={rule}
-								isPlaceholder={dragFromIndex === index}
-								shiftState={shiftState}
-								isTop={visualIndex === 0}
-								isBottom={visualIndex === rules.length - 1}
-								isAlt={index % 2 !== 0}
-								onGrab={(e) => handleGrab(index, e)}
-								onChange={(newRule) => {
-									if (newRule) pref.rule[id] = newRule;
-									else delete pref.rule[id];
-								}}
+								rule={rules[dragFromIndex][1]}
+								isTop={hoverIndex === 0}
+								isBottom={hoverIndex === rules.length - 1}
+								isAlt={dragFromIndex % 2 !== 0}
+								onChange={() => {}}
 							/>
-						);
-					})}
-				</div>
-			)}
-			{dragFromIndex !== null && rules[dragFromIndex] && (
-				<div
-					ref={floatingRef}
-					className={clsx(
-						styles.floatingCard,
-						hoverIndex === 0 && styles.isTop,
-						hoverIndex === rules.length - 1 && styles.isBottom,
+						</div>
 					)}
-				>
-					<RuleCard
-						rule={rules[dragFromIndex][1]}
-						isTop={hoverIndex === 0}
-						isBottom={hoverIndex === rules.length - 1}
-						isAlt={dragFromIndex % 2 !== 0}
-						onChange={() => {}}
-					/>
 				</div>
 			)}
 			<button

@@ -74,6 +74,10 @@ main.rule-tab {
 		}
 	}
 
+	.rule-list-wrapper {
+		position: relative;
+	}
+
 	.rule-list {
 		display: flex;
 		flex-direction: column;
