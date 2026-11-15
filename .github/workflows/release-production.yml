@@ -4,8 +4,7 @@ concurrency:
   group: amo-api
 
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches: [main]
   workflow_dispatch:
     inputs:
@@ -15,15 +14,46 @@ on:
         type: string
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      should_release: ${{ steps.check.outputs.should_release }}
+      notes: ${{ steps.check.outputs.notes }}
+    steps:
+      - name: Check Release Trigger
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          should_release="false"
+          notes=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            should_release="true"
+          else
+            pr_json=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" \
+              --jq 'map(select(.merged_at != null and (.head.ref | startswith("release/")))) | .[0] // empty')
+            if [ -n "$pr_json" ]; then
+              should_release="true"
+              notes=$(printf '%s' "$pr_json" | jq -r '.body // ""')
+            fi
+          fi
+          echo "should_release=$should_release" >> "$GITHUB_OUTPUT"
+          delimiter="EOF_$(date +%s%N)"
+          {
+            echo "notes<<$delimiter"
+            printf '%s\n' "$notes"
+            echo "$delimiter"
+          } >> "$GITHUB_OUTPUT"
+
   run:
+    needs: prepare
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    if: >
-      (github.event_name == 'pull_request' &&
-       github.event.pull_request.merged == true &&
-       startsWith(github.event.pull_request.head.ref, 'release/')) ||
-      (github.event_name == 'workflow_dispatch' &&
-       github.ref == 'refs/heads/main')
+    if: needs.prepare.outputs.should_release == 'true'
     environment:
       name: AMO
       url: https://addons.mozilla.org/firefox/addon/adaptive-tab-bar-colour/
@@ -34,7 +64,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 0
       - name: Setup Bun Environment
         uses: oven-sh/setup-bun@v2
@@ -45,11 +75,11 @@ jobs:
           FIREFOX_JWT_ISSUER: ${{ secrets.FIREFOX_JWT_ISSUER }}
           FIREFOX_JWT_SECRET: ${{ secrets.FIREFOX_JWT_SECRET }}
           RELEASE_NOTES:
-            ${{ github.event.pull_request.body || inputs.notes || '' }}
+            ${{ inputs.notes || needs.prepare.outputs.notes || '' }}
         run: bash scripts/release.sh build_and_sign_production "$RELEASE_NOTES"
       - name: Tag And Create GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NOTES:
-            ${{ github.event.pull_request.body || inputs.notes || '' }}
+            ${{ inputs.notes || needs.prepare.outputs.notes || '' }}
         run: bash scripts/release.sh create_production_release "$RELEASE_NOTES"
