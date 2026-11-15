@@ -102,31 +102,24 @@ export function normalisePref(key: PrefKey, value: unknown): unknown {
 	return isRuleKey(key) ? normaliseRule(value) : prefSchema[key](value);
 }
 
-/** Migrates and normalises a raw storage record into a clean snapshot. */
-function normaliseSnapshot(
-	raw: Record<string, unknown>,
-	includeDevice = true,
-): Record<string, unknown> {
-	const snapshot: Record<string, unknown> = {};
-	for (const key of staticPrefKeys) {
-		if (!includeDevice && key.startsWith("device:")) continue;
-		const legacy = key.startsWith("device:")
-			? undefined
-			: raw[key.slice(key.indexOf(":") + 1)];
-		const rawVal =
-			raw[key] ??
-			(typeof legacy === "number" && Math.abs(legacy) < 1
-				? legacy * 100
-				: legacy);
-		snapshot[key] = prefSchema[key](rawVal);
-	}
-	for (const key of Object.keys(raw).filter(isRuleKey).sort()) {
-		const rule = normaliseRule(raw[key]);
-		if (rule) snapshot[key] = rule;
-	}
-	if (isRecord(raw.ruleList)) {
+const migrations: ((draft: Record<string, unknown>) => void)[] = [
+	(draft) => {
+		for (const key of staticPrefKeys) {
+			if (key.startsWith("device:") || Object.hasOwn(draft, key))
+				continue;
+			const legacyKey = key.slice(key.indexOf(":") + 1);
+			if (!Object.hasOwn(draft, legacyKey)) continue;
+			const legacy = draft[legacyKey];
+			draft[key] =
+				typeof legacy === "number" && Math.abs(legacy) < 1
+					? legacy * 100
+					: legacy;
+		}
+	},
+	(draft) => {
+		if (!isRecord(draft.ruleList)) return;
 		let order = 1;
-		for (const [, item] of Object.entries(raw.ruleList).sort(([a], [b]) =>
+		for (const [, item] of Object.entries(draft.ruleList).sort(([a], [b]) =>
 			a.localeCompare(b, undefined, { numeric: true }),
 		)) {
 			if (!isRecord(item)) continue;
@@ -134,8 +127,27 @@ function normaliseSnapshot(
 				{ ...item, target: item.target ?? item.headerType },
 				order++,
 			);
-			if (rule) snapshot[`rule:${nanoid()}`] = rule;
+			if (rule) draft[`rule:${nanoid()}`] = rule;
 		}
+	},
+];
+
+/** Migrates and normalises a raw storage record into a clean snapshot. */
+function normaliseSnapshot(
+	raw: Record<string, unknown>,
+	includeDevice = true,
+): Record<string, unknown> {
+	const draft = { ...raw };
+	for (const migrate of migrations) migrate(draft);
+
+	const snapshot: Record<string, unknown> = {};
+	for (const key of staticPrefKeys) {
+		if (!includeDevice && key.startsWith("device:")) continue;
+		snapshot[key] = prefSchema[key](draft[key]);
+	}
+	for (const key of Object.keys(draft).filter(isRuleKey).sort()) {
+		const rule = normaliseRule(draft[key]);
+		if (rule) snapshot[key] = rule;
 	}
 	return snapshot;
 }
@@ -216,21 +228,52 @@ export async function setPref<K extends PrefKey>(
 		!key.startsWith("device:") && (await isSyncEnabled())
 			? ["local", "sync"]
 			: ["local"];
-	for (const area of areas) {
-		const itemKey = `${area}:${key}` as const;
-		const current = await storage.getItem(itemKey);
-		if (
-			normalised === undefined &&
-			(current !== null ||
-				Object.hasOwn(await storage.snapshot(area), key))
-		) {
-			await storage.removeItem(itemKey);
-		} else if (
-			normalised !== undefined &&
-			JSON.stringify(current) !== JSON.stringify(normalised)
-		) {
-			await storage.setItem(itemKey, normalised);
-		}
+	const itemKeys = areas.map((area) => `${area}:${key}` as const);
+
+	if (normalised === undefined) {
+		await storage.removeItems(itemKeys);
+	} else {
+		const current = await storage.getItems(itemKeys);
+		const updates = current
+			.filter(
+				(entry) =>
+					JSON.stringify(entry.value) !== JSON.stringify(normalised),
+			)
+			.map((entry) => ({ key: entry.key, value: normalised }));
+		if (updates.length) await storage.setItems(updates);
+	}
+}
+
+/** Subscribes to local preference changes. */
+export function watchPrefs(callback: (prefs: Prefs) => void): () => void {
+	return addStorageChangeListener(async (changes, area) => {
+		if (area !== "local" || !Object.keys(changes).some(isPrefKey)) return;
+		callback(normalisePrefs(await storage.snapshot("local")));
+	});
+}
+
+/** Exports shared preferences as JSON. */
+export async function exportPrefs(): Promise<string> {
+	return JSON.stringify(
+		normaliseSnapshot(await storage.snapshot("local"), false),
+	);
+}
+
+/** Imports and replaces all shared preferences from a JSON string or record. */
+export async function importPrefs(
+	input: string | Record<string, unknown>,
+): Promise<boolean> {
+	try {
+		const parsed: unknown =
+			typeof input === "string" ? JSON.parse(input) : input;
+		if (!isRecord(parsed)) return false;
+		const snapshot = normaliseSnapshot(parsed, false);
+		await applySnapshot(snapshot, "local");
+		if (await isSyncEnabled()) await applySnapshot(snapshot, "sync");
+		return true;
+	} catch (error) {
+		console.error("Failed to import preferences:", error);
+		return false;
 	}
 }
 
@@ -241,14 +284,6 @@ export async function resetPrefs(keys?: PrefKey[]): Promise<void> {
 	} else {
 		for (const key of keys) await setPref(key, undefined);
 	}
-}
-
-/** Subscribes to local preference changes. */
-export function watchPrefs(callback: (prefs: Prefs) => void): () => void {
-	return addStorageChangeListener(async (changes, area) => {
-		if (area !== "local" || !Object.keys(changes).some(isPrefKey)) return;
-		callback(normalisePrefs(await storage.snapshot("local")));
-	});
 }
 
 /** Toggles cloud sync settings and resolves conflicts. */
@@ -285,37 +320,18 @@ export async function initPrefs(): Promise<Prefs> {
 	if (await isSyncEnabled()) await setSync(true, "cloud");
 	addStorageChangeListener(async (changes, area) => {
 		if (area !== "sync" || !(await isSyncEnabled())) return;
+		const updates: { key: `local:${PrefKey}`; value: unknown }[] = [];
+		const removals: `local:${PrefKey}`[] = [];
 		for (const key of Object.keys(changes).filter(isPrefKey)) {
-			if (!key.startsWith("device:"))
-				await setPref(key, await storage.getItem(`sync:${key}`));
+			if (key.startsWith("device:")) continue;
+			const normalised = normalisePref(key, changes[key]?.newValue);
+			if (normalised === undefined) removals.push(`local:${key}`);
+			else updates.push({ key: `local:${key}`, value: normalised });
 		}
+		if (updates.length) await storage.setItems(updates);
+		if (removals.length) await storage.removeItems(removals);
 	});
 	return getPrefs();
-}
-
-/** Exports shared preferences as JSON. */
-export async function exportPrefs(): Promise<string> {
-	return JSON.stringify(
-		normaliseSnapshot(await storage.snapshot("local"), false),
-	);
-}
-
-/** Imports and replaces all shared preferences from a JSON string or record. */
-export async function importPrefs(
-	input: string | Record<string, unknown>,
-): Promise<boolean> {
-	try {
-		const parsed: unknown =
-			typeof input === "string" ? JSON.parse(input) : input;
-		if (!isRecord(parsed)) return false;
-		const snapshot = normaliseSnapshot(parsed, false);
-		await applySnapshot(snapshot, "local");
-		if (await isSyncEnabled()) await applySnapshot(snapshot, "sync");
-		return true;
-	} catch (error) {
-		console.error("Failed to import preferences:", error);
-		return false;
-	}
 }
 
 /** Creates a reactive proxy wrapping a `Prefs` object. */
@@ -329,7 +345,7 @@ export function createPrefsProxy(
 		advanced: { ...source.advanced },
 		device: { ...source.device },
 	};
-	const createGroup = <G extends keyof Prefs>(group: G): Prefs[G] =>
+	const createPrefGroup = <G extends keyof Prefs>(group: G): Prefs[G] =>
 		new Proxy(target[group], {
 			set(groupTarget, prop, value) {
 				if (typeof prop !== "string") return false;
@@ -354,14 +370,10 @@ export function createPrefsProxy(
 			},
 		});
 
-	const groups: Prefs = {
-		theme: createGroup("theme"),
-		rule: createGroup("rule"),
-		advanced: createGroup("advanced"),
-		device: createGroup("device"),
-	};
-	return new Proxy(target, {
-		get: (_, prop) => Reflect.get(groups, prop),
-		set: () => false,
+	return Object.freeze({
+		theme: createPrefGroup("theme"),
+		rule: createPrefGroup("rule"),
+		advanced: createPrefGroup("advanced"),
+		device: createPrefGroup("device"),
 	});
 }
