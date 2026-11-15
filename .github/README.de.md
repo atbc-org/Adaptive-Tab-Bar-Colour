@@ -24,9 +24,11 @@
 </div>
 <!-- amo-ignore-end -->
 
-## Was macht die Erweiterung?
+## Mit dieser Erweiterung kannst du
 
-Diese Erweiterung passt das Theme von Firefox dynamisch an das Erscheinungsbild der von dir besuchten Website an, ähnlich wie die Tab-Leisten-Einfärbung in Safari auf macOS.
+- Die Benutzeroberfläche von Firefox an die besuchte Seite anpassen lassen oder die von der Website bereitgestellte Theme-Farbe verwenden.
+- Verschiedene Bereiche von Firefox wie Tableiste, Werkzeugleiste und Seitenleiste mit dem integrierten Theme-Editor anpassen.
+- Benutzerdefinierte Farbregeln für einzelne Websites über URL, Regex oder Wildcard für den Hellmodus, Dunkelmodus oder beide festlegen.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -50,100 +52,10 @@ Diese Erweiterung passt das Theme von Firefox dynamisch an das Erscheinungsbild 
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Jede andere Erweiterung, die das Firefox-Theme ändert
 
-## Farbübergänge anpassen
+## Anpassung und Anleitungen
 
-Firefox wendet von Haus aus einen Übergangseffekt auf Farbänderungen der Tableiste an. Um dieses Verhalten zu deaktivieren und Anpassende Tableistenfarbe (ATBC) zu ermöglichen, Farben sofort zu aktualisieren, füge den folgenden Code zu deinem CSS-Theme hinzu:
-
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Alternativ bevorzugst du vielleicht sanfte Farbübergänge für die Tableiste. Da dies aufgrund technischer Einschränkungen nicht nativ unterstützt werden kann, füge den folgenden Code zu deinem CSS-Theme hinzu (Dank an [@Moarram](https://github.com/Moarram/)):
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Um sanfte Farbübergänge in der Sidebery-Benutzeroberfläche zu aktivieren, füge den folgenden Code zum Sidebery Style Editor hinzu (dank an [@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)):
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Anpassendes Theme in Kontextmenüs
-
-Um das anpassende Theme auf Kontextmenüs anzuwenden, füge den folgenden Code zu deinem CSS-Theme hinzu:
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Zusätzlich müssen native Kontextmenüs deaktiviert werden, indem du `about:config` öffnest und die folgenden Einstellungen auf `false` setzt:
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Kompatibilität mit Drittanbieter-CSS-Themes
-
-Ein Drittanbieter-CSS-Theme funktioniert mit Anpassender Tableistenfarbe (ATBC), solange sie Firefoxs Standard-Farbvariablen verwenden (z. B. `--lwt-accent-color` für die Farbe der Tableiste). [Hier](https://github.com/easonwong-de/Firefox-Simple-One-Line) ist ein Beispiel für ein ATBC-kompatibles CSS-Theme.
-
-## Titelleisten-Schaltflächen unter Linux mit GTK-Theme
-
-Die Titelleisten-Schaltflächen von Firefox könnten auf den Windows-Stil zurückgesetzt werden. Um dies zu verhindern, öffne die „Erweiterten Einstellungen“ (`about:config`) und setze `widget.gtk.non-native-titlebar-buttons.enabled` auf `false`. (Dank an [@anselstetter](https://github.com/anselstetter/))
+Wenn du ein benutzerdefiniertes CSS-Theme verwendest, Farbübergänge anpassen möchtest oder andere Optimierungen benötigst, besuche das [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki).
 
 ## Sicherheitserinnerung
 
-Achte auf bösartige Web-UIs. Es ist wichtig, zwischen der Browser-Benutzeroberfläche und der Web-Benutzeroberfläche zu unterscheiden. Für weitere Informationen siehe [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Dank an [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
+Achte auf bösartige Web-UIs, die vorgeben, Teil des Browsers zu sein. Es ist wichtig, stets zwischen der Browser-Benutzeroberfläche und der Web-Benutzeroberfläche zu unterscheiden – siehe [diesen Artikel](https://textslashplain.com/2017/01/14/the-line-of-death/) für Details. (Dank an [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))

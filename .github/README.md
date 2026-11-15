@@ -24,9 +24,11 @@ Changes the colour of Firefox theme to match the website’s appearance.
 </div>
 <!-- amo-ignore-end -->
 
-## What Does the Add-on Do?
+## With This Add-on, You Can
 
-This add-on dynamically adjusts the Firefox theme to match the appearance of the website you are viewing, similar to the tab bar tinting feature in Safari on macOS.
+- Have Firefox’s UI blend into the page you are browsing, or use the theme colour provided by the website.
+- Customise different parts of Firefox, including the tab bar, toolbar, and sidebar, with the built-in theme builder.
+- Set custom colouring rules for individual sites by URL, regex, or wildcard in light mode, dark mode, or both.
 
 <!-- amo-ignore-start -->
 <div align="center">
@@ -50,100 +52,10 @@ This add-on dynamically adjusts the Firefox theme to match the appearance of the
 - [Envify](https://addons.mozilla.org/firefox/addon/envify/)
 - Any other add-on that modifies the Firefox theme
 
-## Customising Colour Transitions
+## Customisation and Guides
 
-Firefox natively applies a transition effect to tab bar colour changes. To disable this behaviour and allow Adaptive Tab Bar Colour (ATBC) to update colours instantaneously, add the following code to your CSS theme:
-
-<!-- prettier-ignore-start -->
-```css
-:root {
-	--ext-theme-background-transition: none !important;
-	--inactive-window-transition: none !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Alternatively, you may prefer smooth colour transitions for the tab bar. As this cannot be natively supported due to technical limitations, add the following code to your CSS theme (thanks to [@Moarram](https://github.com/Moarram/)):
-
-<!-- prettier-ignore-start -->
-```css
-body, findbar, #navigator-toolbox, #TabsToolbar, #nav-bar, #PersonalToolbar, #sidebar-box, .tab-background, .urlbar-background {
-	transition:
-		background-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		border-color 0.5s cubic-bezier(0, 0, 0, 1) !important,
-		outline 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-To enable smooth colour transitions in the Sidebery UI, add the following code to the Sidebery Style Editor (thanks to [@MaxHasBeenUsed](https://github.com/MaxHasBeenUsed/)):
-
-<!-- prettier-ignore-start -->
-```css
-.Sidebar, .bottom-space {
-	transition: background-color 0.5s cubic-bezier(0, 0, 0, 1) !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Adaptive Theme in Context Menus
-
-To apply the adaptive theme to context menus, add the following code to your CSS theme:
-
-<!-- prettier-ignore-start -->
-```css
-:is(menupopup, panel):where(:not([type="arrow"])) {
-	--panel-background-color: unset !important;
-	--panel-border-color: unset !important;
-}
-```
-<!-- prettier-ignore-end -->
-
-Additionally, native context menus must be disabled by opening `about:config` and setting the following preferences to `false`:
-
-- `widget.gtk.native-context-menus` (Linux)
-- `widget.macos.native-context-menus` (macOS)
-
-<!-- amo-ignore-start -->
-<details>
-<summary>How to apply custom CSS</summary>
-
-1. Type `about:config` in the address bar and press Enter.
-2. Search for `toolkit.legacyUserProfileCustomizations.stylesheets` and set it to `true`.
-3. Type `about:support` in the address bar.
-4. Find “Profile Folder” and click the “Show in Finder” (macOS) or “Open Folder” (Windows/Linux) button.
-5. Create a new folder named `chrome` in your profile directory.
-6. Inside the `chrome` folder, create a text file named `userChrome.css`.
-7. Paste the code above into `userChrome.css` and save the file.
-8. Restart Firefox.
-
-</details>
-<!-- amo-ignore-end -->
-
-## Compatibility with Third-Party CSS Themes
-
-A third-party CSS theme works with Adaptive Tab Bar Colour (ATBC), as long as they use Firefox’s standard colour variables (e.g. `--lwt-accent-color` for the tab bar colour). [This](https://github.com/easonwong-de/Firefox-Simple-One-Line) is an example of an ATBC-compatible CSS theme.
-
-## Title Bar Buttons on Linux with GTK Theme
-
-Firefox’s title bar buttons may revert to the Windows style. To prevent this, access “Advanced Preferences” (`about:config`) and set `widget.gtk.non-native-titlebar-buttons.enabled` to `false`. (Thanks to [@anselstetter](https://github.com/anselstetter/))
+If you use a custom CSS theme, want to adjust colour transitions, or need other tweaks, visit the [Adaptive Tab Bar Colour Wiki](https://github.com/atbc-org/Adaptive-Tab-Bar-Colour/wiki).
 
 ## Safety Reminder
 
-Beware of malicious web UIs. It is important to distinguish between the browser UI and the web UI. For further information, please refer to [The Line of Death](https://textslashplain.com/2017/01/14/the-line-of-death/). (Thanks to [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
+Beware of malicious web UIs pretending to be part of the browser. Always check where the browser frame ends and the web page begins—see [this article](https://textslashplain.com/2017/01/14/the-line-of-death/) for details. (Thanks to [u/KazaHesto](https://www.reddit.com/user/KazaHesto/))
