@@ -41,6 +41,7 @@ fallbackColourTooltip: ページの色を判定できない場合に使用しま
 frame: フレーム
 homepageColour: ホームページの色
 homepageColourTooltip: ホームページと新しいタブに使用します。
+howDoRulesWork: ルールの仕組み
 ifVerticalTabsAreEnabled: 「垂直タブ」が有効な場合、０以外の値を設定するとウィンドウコントロール上部に隙間ができ、操作しづらくなることがあります。
 ignore: 無視
 ignoreDesignatedThemeColour: ウェブサイトのテーマカラーを無視
@@ -57,6 +58,7 @@ minimumContrastTooltip: タブバーとテキストの最小コントラスト�
 moreSettings: さらに設定
 moreSettingsTooltip: オプションページを開く
 no: いいえ
+ok: OK
 overwriteAccentColour: アクセントカラーを上書き
 overwriteAccentColourTooltip:
   URL
@@ -73,6 +75,18 @@ ruleAppliedInBothMode: ルールはライトモードとダークモードの両
 ruleAppliedInDarkMode: ルールはダークモードにのみ適用されます
 ruleAppliedInLightMode: ルールはライトモードにのみ適用されます
 ruleList: ルール一覧
+ruleMatchDomain: ドメインまたはパス：サイトとその配下のページに一致。
+ruleMatchExact: 完全なURL：特定の1ページに一致。
+ruleMatchIntro: ルールの一致方法：
+ruleMatchRegex: 正規表現：高度なパターン一致。
+ruleMatchWildcard: ワイルドカード：
+ruleMatchWildcardAny: 任意の文字列の一致には
+ruleMatchWildcardAnyEnd: を使用
+ruleMatchWildcardChar: 1文字の一致には
+ruleMatchWildcardCharEnd: を使用
+ruleMatchWildcardPart: URLの一部の一致には
+ruleMatchWildcardPartEnd: を使用
+ruleOrderExplanation: ルールは上から順に確認され、最後に一致したものが適用されます。
 ruleWillBeIgnored: このルールは無視されます
 selectedTab: 選択されたタブ
 settingsAreExported: 設定がダウンロードフォルダーにエクスポートされました。

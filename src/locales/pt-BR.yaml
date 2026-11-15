@@ -50,6 +50,7 @@ fallbackColourTooltip:
 frame: Moldura
 homepageColour: Cor da página inicial
 homepageColourTooltip: Usada na página inicial e em novas abas.
+howDoRulesWork: Como as regras funcionam
 ifVerticalTabsAreEnabled:
   Se as “abas verticais” estiverem ativadas, qualquer valor diferente de zero
   pode causar um espaço acima dos controles da janela, tornando-os mais difíceis
@@ -73,6 +74,7 @@ minimumContrastTooltip:
 moreSettings: Mais opções
 moreSettingsTooltip: Abre a página de opções
 no: Não
+ok: OK
 overwriteAccentColour: Substituir cor de destaque
 overwriteAccentColourTooltip:
   Usar uma cor de destaque personalizada em vez da cor do seu sistema para a
@@ -90,6 +92,20 @@ ruleAppliedInBothMode:
 ruleAppliedInDarkMode: A regra só será aplicada no modo escuro
 ruleAppliedInLightMode: A regra só será aplicada no modo claro
 ruleList: Lista de regras
+ruleMatchDomain: "Domínio ou caminho: combina com um site e suas subpáginas."
+ruleMatchExact: "URL exata: combina com uma página específica."
+ruleMatchIntro: "Uma regra pode corresponder por:"
+ruleMatchRegex: "Expressão regular: correspondência avançada."
+ruleMatchWildcard: "Curinga:"
+ruleMatchWildcardAny: Use
+ruleMatchWildcardAnyEnd: para qualquer coisa
+ruleMatchWildcardChar: Use
+ruleMatchWildcardCharEnd: para um caractere
+ruleMatchWildcardPart: Use
+ruleMatchWildcardPartEnd: para parte da URL
+ruleOrderExplanation:
+  As regras são verificadas de cima para baixo. A última que combinar é
+  aplicada.
 ruleWillBeIgnored: Esta regra será ignorada
 selectedTab: Aba selecionada
 settingsAreExported:

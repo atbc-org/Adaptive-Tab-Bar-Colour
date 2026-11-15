@@ -57,6 +57,7 @@ fallbackColourTooltip:
 frame: Marco
 homepageColour: Color de la página de inicio
 homepageColourTooltip: Se usa para la página de inicio y las pestañas nuevas.
+howDoRulesWork: Cómo funcionan las reglas
 ifVerticalTabsAreEnabled:
   Si las “pestañas verticales” están habilitadas, cualquier valor distinto de
   cero puede causar que aparezca un espacio sobre los controles de la ventana,
@@ -81,6 +82,7 @@ minimumContrastTooltip:
 moreSettings: Más opciones
 moreSettingsTooltip: Abrir página de opciones
 no: No
+ok: Aceptar
 overwriteAccentColour: Sobrescribir color de acento
 overwriteAccentColourTooltip:
   Usar un color de énfasis personalizado en lugar del color de su sistema para
@@ -98,6 +100,19 @@ ruleAppliedInBothMode: La regla se aplicará tanto en modo claro como oscuro
 ruleAppliedInDarkMode: La regla sólo se aplicará en modo oscuro
 ruleAppliedInLightMode: La regla sólo se aplicará en modo claro
 ruleList: Lista de reglas
+ruleMatchDomain: "Dominio o ruta: coincide con un sitio y sus subpáginas."
+ruleMatchExact: "URL exacta: coincide con una página."
+ruleMatchIntro: "Una regla puede coincidir por:"
+ruleMatchRegex: "Expresión regular: coincidencia avanzada."
+ruleMatchWildcard: "Comodín:"
+ruleMatchWildcardAny: Usa
+ruleMatchWildcardAnyEnd: para cualquier texto
+ruleMatchWildcardChar: Usa
+ruleMatchWildcardCharEnd: para un carácter
+ruleMatchWildcardPart: Usa
+ruleMatchWildcardPartEnd: para parte de la URL
+ruleOrderExplanation:
+  Las reglas se comprueban de arriba abajo. Se aplica la última que coincida.
 ruleWillBeIgnored: Esta regla será ignorada
 selectedTab: Pestaña seleccionada
 settingsAreExported:

@@ -1,15 +1,20 @@
-.confirm {
+.popover {
 	--width: calc(240 * var(--unit));
 	position: relative;
 	width: 100%;
 
-	.confirm-menu {
+	&.inline {
+		--width: calc(360 * var(--unit));
+		width: fit-content;
+	}
+
+	.popover-menu {
 		display: flex;
 		position: absolute;
 		left: calc((100% - var(--width)) / 2);
 		flex-direction: column;
 		gap: var(--unit-8);
-		z-index: 1;
+		z-index: 20;
 		filter: drop-shadow(var(--shadow-small))
 			drop-shadow(var(--shadow-large));
 		box-sizing: border-box;
@@ -29,7 +34,7 @@
 			content: "";
 		}
 
-		&.confirm-south {
+		&.popover-south {
 			top: 100%;
 			margin-top: var(--unit-12);
 
@@ -38,9 +43,19 @@
 				left: 50%;
 				transform: translateX(-50%);
 			}
+
+			&::after {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				width: 1px;
+				height: var(--unit-8);
+				pointer-events: none;
+				content: "";
+			}
 		}
 
-		&.confirm-north {
+		&.popover-north {
 			bottom: 100%;
 			margin-bottom: var(--unit-12);
 
@@ -51,7 +66,7 @@
 			}
 		}
 
-		&.confirm-left {
+		&.popover-left {
 			right: 0;
 			left: auto;
 
@@ -60,7 +75,7 @@
 			}
 		}
 
-		&.confirm-right {
+		&.popover-right {
 			right: auto;
 			left: 0;
 
@@ -70,12 +85,13 @@
 		}
 	}
 
-	.confirm-text {
+	.popover-content {
 		padding: var(--unit-4);
+		color: var(--text-primary);
 		text-align: start;
 	}
 
-	.confirm-actions {
+	.popover-actions {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;

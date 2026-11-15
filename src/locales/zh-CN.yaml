@@ -40,6 +40,7 @@ fallbackColourTooltip: 无法确定页面颜色时使用。
 frame: 窗口背景
 homepageColour: 首页背景色
 homepageColourTooltip: 用于首页和新标签页。
+howDoRulesWork: 规则如何生效
 ifVerticalTabsAreEnabled: 如果启用了「垂直标签页」，任何非零值都可能导致窗口控制按钮上方出现间隙，使其难以触及。
 ignore: 忽略
 ignoreDesignatedThemeColour: 总是忽略网站指定的主题色
@@ -56,6 +57,7 @@ minimumContrastTooltip: 在此设置标签栏和文字的最小对比度。如�
 moreSettings: 更多设置
 moreSettingsTooltip: 打开设置页
 no: 否
+ok: 确定
 overwriteAccentColour: 覆盖强调色
 overwriteAccentColourTooltip: 在网址列与工具列按钮使用自订强调色，而不是系统的颜色。
 pageIsProtected: 此页面受浏览器保护
@@ -70,6 +72,18 @@ ruleAppliedInBothMode: 该规则将应用于浅色和深色模式
 ruleAppliedInDarkMode: 该规则仅适用于深色模式
 ruleAppliedInLightMode: 该规则仅适用于亮色模式
 ruleList: 自定义规则
+ruleMatchDomain: 域名或路径：匹配网站及其子页面。
+ruleMatchExact: 完整 URL：匹配单个页面。
+ruleMatchIntro: 规则可通过以下方式匹配页面：
+ruleMatchRegex: 正则表达式：高级模式匹配。
+ruleMatchWildcard: 通配符：
+ruleMatchWildcardAny: 使用
+ruleMatchWildcardAnyEnd: 匹配任意内容
+ruleMatchWildcardChar: 使用
+ruleMatchWildcardCharEnd: 匹配单个字符
+ruleMatchWildcardPart: 使用
+ruleMatchWildcardPartEnd: 匹配 URL 片段
+ruleOrderExplanation: 规则从上到下依次检查，最后一条匹配的规则生效。
 ruleWillBeIgnored: 该规则将被忽略
 selectedTab: 被选中的标签页
 settingsAreExported: 偏好设置已经被保存到下载文件夹。

@@ -200,8 +200,8 @@ export default function ThemeTab({ pref, ready }: ThemeTabProps) {
 					>
 						<Icon type="redo" />
 					</button>
-					<Confirm
-						confirmText={i18n.t("confirmResetThemeBuilder")}
+					<Popover
+						content={i18n.t("confirmResetThemeBuilder")}
 						onConfirm={() => {
 							void resetPrefs([
 								"theme:tabbar",
@@ -230,7 +230,7 @@ export default function ThemeTab({ pref, ready }: ThemeTabProps) {
 								{i18n.t("resetAll")}
 							</button>
 						)}
-					</Confirm>
+					</Popover>
 				</section>
 			</div>
 			<div className={styles.column}>

@@ -60,6 +60,7 @@ fallbackColourTooltip:
 frame: Fensterrahmen
 homepageColour: Startseitenfarbe
 homepageColourTooltip: Wird für die Startseite und neue Tabs verwendet.
+howDoRulesWork: So funktionieren Regeln
 ifVerticalTabsAreEnabled:
   Wenn „vertikale Tabs“ aktiviert sind, kann ein Wert ungleich Null dazu führen,
   dass über den Fenstersteuerungen eine Lücke entsteht, was deren Erreichbarkeit
@@ -85,6 +86,7 @@ minimumContrastTooltip:
 moreSettings: Weitere Einstellungen
 moreSettingsTooltip: Optionenseite öffnen
 no: Nein
+ok: OK
 overwriteAccentColour: Akzentfarbe überschreiben
 overwriteAccentColourTooltip:
   Für die URL-Leiste und die Werkzeugleisten-Buttons eine benutzerdefinierte
@@ -103,6 +105,19 @@ ruleAppliedInBothMode:
 ruleAppliedInDarkMode: Die Regel wird nur im Dunkelmodus angewendet
 ruleAppliedInLightMode: Die Regel wird nur im Lichtmodus angewendet
 ruleList: Regelliste
+ruleMatchDomain: "Domain oder Pfad: passt auf eine Website und Unterseiten."
+ruleMatchExact: "Exakte URL: passt auf eine bestimmte Seite."
+ruleMatchIntro: "Eine Regel passt auf eine Seite durch:"
+ruleMatchRegex: "Regulärer Ausdruck: für erweiterte Muster."
+ruleMatchWildcard: "Platzhalter:"
+ruleMatchWildcardAny: Nutze
+ruleMatchWildcardAnyEnd: für beliebigen Text
+ruleMatchWildcardChar: Nutze
+ruleMatchWildcardCharEnd: für ein Zeichen
+ruleMatchWildcardPart: Nutze
+ruleMatchWildcardPartEnd: für einen Teil der URL
+ruleOrderExplanation:
+  Regeln laufen von oben nach unten. Die letzte passende Regel wird angewendet.
 ruleWillBeIgnored: Diese Regel wird ignoriert
 selectedTab: Ausgewählter Tab
 settingsAreExported: Einstellungen wurden in Ihren Download-Ordner exportiert.

@@ -1,29 +1,33 @@
-import styles from "./Confirm.module.css";
+import styles from "./Popover.module.css";
 
-export interface ConfirmLocation {
+export interface PopoverLocation {
 	orientation: "north" | "south";
 	deviation: "none" | "left" | "right";
 }
 
-export interface ConfirmProps {
-	children: (open: () => void) => ReactNode;
-	confirmText: string;
-	onConfirm: () => void;
+export interface PopoverProps {
+	children: (open: () => void, isOpen: boolean) => ReactNode;
+	content: ReactNode;
+	onConfirm?: () => void;
 	onCancel?: () => void;
 	confirmLabel?: string;
 	cancelLabel?: string;
+	showCancel?: boolean;
+	inline?: boolean;
 }
 
-export default function Confirm({
+export default function Popover({
 	children,
-	confirmText,
+	content,
 	onConfirm,
 	onCancel,
 	confirmLabel,
 	cancelLabel,
-}: ConfirmProps) {
+	showCancel = true,
+	inline = false,
+}: PopoverProps) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [location, setLocation] = useState<ConfirmLocation>({
+	const [location, setLocation] = useState<PopoverLocation>({
 		orientation: "south",
 		deviation: "none",
 	});
@@ -76,37 +80,42 @@ export default function Confirm({
 	}, [isOpen]);
 
 	return (
-		<div className={styles.confirm} ref={containerRef}>
-			{children(() => setIsOpen(!isOpen))}
+		<div
+			className={clsx(styles.popover, inline && styles.inline)}
+			ref={containerRef}
+		>
+			{children(() => setIsOpen(!isOpen), isOpen)}
 			{isOpen && (
 				<div
 					ref={menuRef}
 					className={clsx(
-						styles.confirmMenu,
-						location.orientation === "north" && styles.confirmNorth,
-						location.orientation === "south" && styles.confirmSouth,
-						location.deviation === "left" && styles.confirmLeft,
-						location.deviation === "right" && styles.confirmRight,
+						styles.popoverMenu,
+						location.orientation === "north" && styles.popoverNorth,
+						location.orientation === "south" && styles.popoverSouth,
+						location.deviation === "left" && styles.popoverLeft,
+						location.deviation === "right" && styles.popoverRight,
 					)}
 				>
-					<div className={styles.confirmText}>{confirmText}</div>
-					<div className={styles.confirmActions}>
+					<div className={styles.popoverContent}>{content}</div>
+					<div className={styles.popoverActions}>
 						<button
 							onClick={() => {
-								onConfirm();
+								onConfirm?.();
 								setIsOpen(false);
 							}}
 						>
 							{confirmLabel ?? i18n.t("yes")}
 						</button>
-						<button
-							onClick={() => {
-								onCancel?.();
-								setIsOpen(false);
-							}}
-						>
-							{cancelLabel ?? i18n.t("no")}
-						</button>
+						{showCancel && (
+							<button
+								onClick={() => {
+									onCancel?.();
+									setIsOpen(false);
+								}}
+							>
+								{cancelLabel ?? i18n.t("no")}
+							</button>
+						)}
 					</div>
 				</div>
 			)}

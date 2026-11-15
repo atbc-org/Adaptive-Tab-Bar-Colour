@@ -50,6 +50,7 @@ fallbackColourTooltip: Используется, когда невозможно
 frame: Рамка
 homepageColour: Цвет домашней страницы
 homepageColourTooltip: Используется для домашней страницы и новых вкладок.
+howDoRulesWork: Как работают правила
 ifVerticalTabsAreEnabled:
   Если включены «вертикальные вкладки», любое ненулевое значение может привести
   к появлению зазора над элементами управления окном, что затрудняет доступ к
@@ -73,6 +74,7 @@ minimumContrastTooltip:
 moreSettings: Больше настроек
 moreSettingsTooltip: Открыть страницу настроек
 no: Нет
+ok: ОК
 overwriteAccentColour: Перезаписать акцентный цвет
 overwriteAccentColourTooltip:
   Использовать собственный цвет акцента вместо цвета системы для адресной строки
@@ -90,6 +92,19 @@ ruleAppliedInBothMode:
 ruleAppliedInDarkMode: Правило будет применяться только в тёмном режиме
 ruleAppliedInLightMode: Правило будет применяться только в светлом режиме
 ruleList: Список правил
+ruleMatchDomain: "Домен или путь: сайт и его подстраницы."
+ruleMatchExact: "Точный URL: одна конкретная страница."
+ruleMatchIntro: "Правило может совпадать по:"
+ruleMatchRegex: "Регулярное выражение: сложный шаблон."
+ruleMatchWildcard: "Шаблон:"
+ruleMatchWildcardAny: Используйте
+ruleMatchWildcardAnyEnd: для любого текста
+ruleMatchWildcardChar: Используйте
+ruleMatchWildcardCharEnd: для одного символа
+ruleMatchWildcardPart: Используйте
+ruleMatchWildcardPartEnd: для части URL
+ruleOrderExplanation:
+  Правила проверяются сверху вниз. Срабатывает последнее совпавшее правило.
 ruleWillBeIgnored: Это правило будет игнорироваться
 selectedTab: Выбранная вкладка
 settingsAreExported: Настройки экспортированы в папку загрузок.

@@ -47,6 +47,7 @@ fallbackColourTooltip: Used when a page’s colour cannot be determined.
 frame: Frame
 homepageColour: Home page colour
 homepageColourTooltip: Used for the home page and new tabs.
+howDoRulesWork: How do rules work
 ifVerticalTabsAreEnabled:
   If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
   above the window controls, making them harder to reach.
@@ -69,6 +70,7 @@ minimumContrastTooltip:
 moreSettings: More settings
 moreSettingsTooltip: Open option page
 no: No
+ok: OK
 overwriteAccentColour: Overwrite accent colour
 overwriteAccentColourTooltip:
   Use a custom accent colour instead of your system’s colour for the URL bar and
@@ -85,6 +87,19 @@ ruleAppliedInBothMode: The rule will be applied in both light and dark mode
 ruleAppliedInDarkMode: The rule will only be applied in dark mode
 ruleAppliedInLightMode: The rule will only be applied in light mode
 ruleList: Rule list
+ruleMatchDomain: "Domain or path: matches a site and its subpages."
+ruleMatchExact: "Exact URL: matches one specific page."
+ruleMatchIntro: "A rule can match a page by:"
+ruleMatchRegex: "Regular expression: advanced pattern matching."
+ruleMatchWildcard: "Wildcard:"
+ruleMatchWildcardAny: Use
+ruleMatchWildcardAnyEnd: to match anything
+ruleMatchWildcardChar: Use
+ruleMatchWildcardCharEnd: to match one character
+ruleMatchWildcardPart: Use
+ruleMatchWildcardPartEnd: to match part of a URL
+ruleOrderExplanation:
+  Rules run from top to bottom. The last matching rule is applied.
 ruleWillBeIgnored: This rule will be ignored
 selectedTab: Selected tab
 settingsAreExported: Settings have been exported to your download folder.

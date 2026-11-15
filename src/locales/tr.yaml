@@ -52,6 +52,7 @@ fallbackColourTooltip: Bir sayfanın rengi belirlenemediğinde kullanılır.
 frame: Çerçeve
 homepageColour: Giriş sayfası rengi
 homepageColourTooltip: Giriş sayfası ve yeni sekmeler için kullanılır.
+howDoRulesWork: Kurallar nasıl çalışır
 ifVerticalTabsAreEnabled:
   “Dikey sekmeler” devredeyse, sıfır olmayan herhangi bir değer pencere
   denetimlerinin üstünde bir boşluk belirip bu denetimlere ulaşmanın
@@ -75,6 +76,7 @@ minimumContrastTooltip:
 moreSettings: Daha fazla ayar
 moreSettingsTooltip: Seçenek sayfasını aç
 no: Hayır
+ok: Tamam
 overwriteAccentColour: Vurgu renginin üzerine yaz
 overwriteAccentColourTooltip:
   URL çubuğu ve araç çubuğu düğmeleri için sistem renginiz yerine özel bir vurgu
@@ -91,6 +93,19 @@ ruleAppliedInBothMode: Kural hem aydınlık hem de karanlık modda uygulanacakt�
 ruleAppliedInDarkMode: Kural yalnızca karanlık modda uygulanacaktır
 ruleAppliedInLightMode: Kural yalnızca ışık modunda uygulanacaktır
 ruleList: Kural listesi
+ruleMatchDomain: "Alan adı veya yol: bir site ve alt sayfalarıyla eşleşir."
+ruleMatchExact: "Tam URL: belirli bir sayfayla eşleşir."
+ruleMatchIntro: "Bir kural şununla eşleşebilir:"
+ruleMatchRegex: "Düzenli ifade: gelişmiş desen eşleştirme."
+ruleMatchWildcard: "Joker karakter:"
+ruleMatchWildcardAny: Her şeyi eşleştirmek için
+ruleMatchWildcardAnyEnd: "\0"
+ruleMatchWildcardChar: Tek karakter eşleştirmek için
+ruleMatchWildcardCharEnd: "\0"
+ruleMatchWildcardPart: URL’nin bir bölümünü eşleştirmek için
+ruleMatchWildcardPartEnd: "\0"
+ruleOrderExplanation:
+  Kurallar yukarıdan aşağıya çalışır. Son eşleşen kural geçerli olur.
 ruleWillBeIgnored: Bu kural göz ardı edilecek
 selectedTab: Seçili sekme
 settingsAreExported: Ayarlar indirilenler klasörünüze aktarıldı.

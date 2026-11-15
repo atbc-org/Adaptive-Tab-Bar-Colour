@@ -49,6 +49,7 @@ fallbackColourTooltip:
 frame: Çərçivə
 homepageColour: Əsas səhifə rəngi
 homepageColourTooltip: Əsas səhifə və yeni vərəqlər üçün istifadə olunur.
+howDoRulesWork: Qaydalar necə işləyir
 ifVerticalTabsAreEnabled:
   “Şaquli tablar” aktivdirsə, sıfırdan fərqli istənilən dəyər pəncərə idarəetmə
   düymələrinin üstündə boşluq yarada və onlara çatmağı çətinləşdirə bilər.
@@ -72,6 +73,7 @@ minimumContrastTooltip:
 moreSettings: Daha çox parametr
 moreSettingsTooltip: Seçimlər səhifəsini aç
 no: Xeyr
+ok: Oldu
 overwriteAccentColour: Vurğu rəngini əvəz et
 overwriteAccentColourTooltip:
   URL sətri və alət paneli düymələri üçün sisteminizin rəngi əvəzinə fərdi vurğu
@@ -88,6 +90,19 @@ ruleAppliedInBothMode: Qayda həm açıq, həm də tünd rejimdə tətbiq olunac
 ruleAppliedInDarkMode: Qayda yalnız tünd rejimdə tətbiq olunacaq
 ruleAppliedInLightMode: Qayda yalnız açıq rejimdə tətbiq olunacaq
 ruleList: Qaydalar siyahısı
+ruleMatchDomain: "Domen və ya yol: sayta və alt səhifələrinə uyğun gəlir."
+ruleMatchExact: "Dəqiq URL: bir konkret səhifəyə uyğun gəlir."
+ruleMatchIntro: "Qayda səhifəni bununla uyğunlaşdırır:"
+ruleMatchRegex: "Müntəzəm ifadə: qabaqcıl şablon uyğunlaşdırması."
+ruleMatchWildcard: "Əvəzedici simvol:"
+ruleMatchWildcardAny: İstənilən mətni uyğunlaşdırmaq üçün
+ruleMatchWildcardAnyEnd: "\0"
+ruleMatchWildcardChar: Bir simvolu uyğunlaşdırmaq üçün
+ruleMatchWildcardCharEnd: "\0"
+ruleMatchWildcardPart: URL hissəsini uyğunlaşdırmaq üçün
+ruleMatchWildcardPartEnd: "\0"
+ruleOrderExplanation:
+  Qaydalar yuxarıdan aşağıya işləyir. Son uyğun qayda tətbiq olunur.
 ruleWillBeIgnored: Bu qayda nəzərə alınmayacaq
 selectedTab: Seçilmiş tab
 settingsAreExported: Parametrlər endirmələr qovluğunuza ixrac edildi.

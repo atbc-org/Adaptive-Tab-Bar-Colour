@@ -242,6 +242,7 @@ export type IconType =
 	| "background"
 	| "backgroundOnFocus"
 	| "border"
+	| "chevron"
 	| "circle"
 	| "contrast"
 	| "delete"

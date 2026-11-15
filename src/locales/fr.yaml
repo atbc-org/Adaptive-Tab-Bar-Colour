@@ -57,6 +57,7 @@ fallbackColourTooltip:
 frame: Cadre
 homepageColour: Couleur de la page d'accueil
 homepageColourTooltip: Utilisée pour la page d’accueil et les nouveaux onglets.
+howDoRulesWork: Fonctionnement des règles
 ifVerticalTabsAreEnabled:
   Si les « onglets verticaux » sont activés, toute valeur non nulle peut
   entraîner l'apparition d'un espace au-dessus des commandes de la fenêtre, les
@@ -81,6 +82,7 @@ minimumContrastTooltip:
 moreSettings: Plus de paramètres
 moreSettingsTooltip: Ouvrir la page d'options
 no: Non
+ok: OK
 overwriteAccentColour: Remplacer la couleur d'accentuation
 overwriteAccentColourTooltip:
   Utiliser une couleur d’accentuation personnalisée au lieu de la couleur de
@@ -98,6 +100,20 @@ ruleAppliedInBothMode: La règle sera appliquée en mode clair et sombre
 ruleAppliedInDarkMode: La règle ne sera appliquée qu'en mode sombre
 ruleAppliedInLightMode: La règle ne sera appliquée qu'en mode clair
 ruleList: Liste de règles
+ruleMatchDomain: "Domaine ou chemin : correspond à un site et ses sous-pages."
+ruleMatchExact: "URL exacte : correspond à une page précise."
+ruleMatchIntro: "Une règle peut correspondre par :"
+ruleMatchRegex: "Expression régulière : correspondance avancée."
+ruleMatchWildcard: "Joker :"
+ruleMatchWildcardAny: Utilisez
+ruleMatchWildcardAnyEnd: pour tout texte
+ruleMatchWildcardChar: Utilisez
+ruleMatchWildcardCharEnd: pour un caractère
+ruleMatchWildcardPart: Utilisez
+ruleMatchWildcardPartEnd: pour une partie de l’URL
+ruleOrderExplanation:
+  Les règles sont vérifiées de haut en bas. La dernière qui correspond
+  s’applique.
 ruleWillBeIgnored: Cette règle sera ignorée
 selectedTab: Onglet sélectionné
 settingsAreExported:

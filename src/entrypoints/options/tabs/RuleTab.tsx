@@ -202,39 +202,99 @@ export default function RuleTab({ pref, ready }: RuleTabProps) {
 
 	return (
 		<main className={clsx(styles.ruleTab, !ready && "disabled")}>
-			<div
-				className={clsx(
-					styles.ruleList,
-					dragFromIndex !== null && styles.isDragging,
-				)}
-				ref={listRef}
-			>
-				{rules.map(([id, rule], index) => {
-					const shiftState = getShiftState(index);
-					const visualIndex =
-						shiftState === "up"
-							? index - 1
-							: shiftState === "down"
-								? index + 1
-								: index;
-					return (
-						<RuleCard
-							key={`rule-${id}`}
-							rule={rule}
-							isPlaceholder={dragFromIndex === index}
-							shiftState={shiftState}
-							isTop={visualIndex === 0}
-							isBottom={visualIndex === rules.length - 1}
-							isAlt={index % 2 !== 0}
-							onGrab={(e) => handleGrab(index, e)}
-							onChange={(newRule) => {
-								if (newRule) pref.rule[id] = newRule;
-								else delete pref.rule[id];
-							}}
-						/>
-					);
-				})}
+			<div className={styles.ruleHelp}>
+				<Popover
+					inline
+					showCancel={false}
+					confirmLabel={i18n.t("ok")}
+					content={
+						<div className={styles.ruleHelpContent}>
+							<p>{i18n.t("ruleOrderExplanation")}</p>
+							<p>{i18n.t("ruleMatchIntro")}</p>
+							<ul>
+								<li>{i18n.t("ruleMatchExact")}</li>
+								<li>{i18n.t("ruleMatchDomain")}</li>
+								<li>
+									{i18n.t("ruleMatchWildcard")}
+									<ul>
+										<li>
+											{i18n.t("ruleMatchWildcardPart")}
+											<strong>
+												<code>*</code>
+											</strong>
+											{i18n.t("ruleMatchWildcardPartEnd")}
+										</li>
+										<li>
+											{i18n.t("ruleMatchWildcardAny")}
+											<strong>
+												<code>**</code>
+											</strong>
+											{i18n.t("ruleMatchWildcardAnyEnd")}
+										</li>
+										<li>
+											{i18n.t("ruleMatchWildcardChar")}
+											<strong>
+												<code>?</code>
+											</strong>
+											{i18n.t("ruleMatchWildcardCharEnd")}
+										</li>
+									</ul>
+								</li>
+								<li>{i18n.t("ruleMatchRegex")}</li>
+							</ul>
+						</div>
+					}
+				>
+					{(open, isOpen) => (
+						<button
+							type="button"
+							className={clsx(
+								styles.ruleHelpButton,
+								isOpen && styles.isOpen,
+							)}
+							onClick={open}
+						>
+							<span>{i18n.t("howDoRulesWork")}</span>
+							<Icon type="chevron" />
+						</button>
+					)}
+				</Popover>
 			</div>
+			{rules.length > 0 && (
+				<div
+					className={clsx(
+						styles.ruleList,
+						dragFromIndex !== null && styles.isDragging,
+					)}
+					ref={listRef}
+				>
+					{rules.map(([id, rule], index) => {
+						const shiftState = getShiftState(index);
+						const visualIndex =
+							shiftState === "up"
+								? index - 1
+								: shiftState === "down"
+									? index + 1
+									: index;
+						return (
+							<RuleCard
+								key={`rule-${id}`}
+								rule={rule}
+								isPlaceholder={dragFromIndex === index}
+								shiftState={shiftState}
+								isTop={visualIndex === 0}
+								isBottom={visualIndex === rules.length - 1}
+								isAlt={index % 2 !== 0}
+								onGrab={(e) => handleGrab(index, e)}
+								onChange={(newRule) => {
+									if (newRule) pref.rule[id] = newRule;
+									else delete pref.rule[id];
+								}}
+							/>
+						);
+					})}
+				</div>
+			)}
 			{dragFromIndex !== null && rules[dragFromIndex] && (
 				<div
 					ref={floatingRef}
@@ -254,10 +314,7 @@ export default function RuleTab({ pref, ready }: RuleTabProps) {
 				</div>
 			)}
 			<button
-				className={clsx(
-					styles.addRuleButton,
-					rules.length > 0 && styles.marginTop,
-				)}
+				className={styles.addRuleButton}
 				onClick={() => {
 					void addRule({
 						target: "URL",

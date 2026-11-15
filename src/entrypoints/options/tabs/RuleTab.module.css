@@ -11,7 +11,68 @@
 main.rule-tab {
 	display: flex;
 	flex-direction: column;
+	gap: var(--unit-16);
 	position: relative;
+
+	.rule-help {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.rule-help-button {
+			display: inline-flex;
+			align-items: center;
+			gap: var(--unit-4);
+			transition-property: color;
+			transition-timing-function: ease;
+			background-color: transparent;
+			padding: 0;
+			width: fit-content;
+			height: fit-content;
+			color: var(--text-primary);
+			line-height: 1;
+
+			svg {
+				margin: 0;
+			}
+
+			&.is-open svg {
+				transform: rotate(180deg);
+			}
+
+			&:hover {
+				background-color: transparent;
+				color: var(--text-secondary);
+			}
+
+			&:active {
+				background-color: transparent;
+				color: var(--text-primary);
+			}
+		}
+
+		.rule-help-content {
+			display: flex;
+			flex-direction: column;
+			gap: var(--unit-8);
+			line-height: 1.3;
+
+			p {
+				color: var(--text-primary);
+			}
+
+			ul {
+				display: flex;
+				flex-direction: column;
+				gap: var(--unit-2);
+				padding-inline-start: var(--unit-16);
+			}
+
+			strong {
+				padding-inline: var(--unit-4);
+			}
+		}
+	}
 
 	.rule-list {
 		display: flex;
@@ -67,10 +128,6 @@ main.rule-tab {
 		width: 100%;
 		height: calc(48 * var(--unit));
 		text-align: center;
-
-		&.margin-top {
-			margin-top: var(--unit-16);
-		}
 
 		&:hover {
 			background-color: var(--panel-hover);

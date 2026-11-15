@@ -378,8 +378,8 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 
 					<div className={styles.settingGroup}>
 						<div className={styles.switchWrapper}>
-							<Confirm
-								confirmText={i18n.t("confirmSyncSettings")}
+							<Popover
+								content={i18n.t("confirmSyncSettings")}
 								confirmLabel={i18n.t("keepCloudSettings")}
 								cancelLabel={i18n.t("keepLocalSettings")}
 								onConfirm={() => void setSync(true, "cloud")}
@@ -405,7 +405,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 										/>
 									</label>
 								)}
-							</Confirm>
+							</Popover>
 							<p>{i18n.t("syncSettingsTooltip")}</p>
 						</div>
 					</div>
@@ -455,8 +455,8 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 								reader.readAsText(file);
 							}}
 						/>
-						<Confirm
-							confirmText={i18n.t("confirmResetAll")}
+						<Popover
+							content={i18n.t("confirmResetAll")}
 							onConfirm={() => void resetPrefs()}
 						>
 							{(open) => (
@@ -468,7 +468,7 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 									<span>{i18n.t("resetAllSettings")}</span>
 								</button>
 							)}
-						</Confirm>
+						</Popover>
 					</div>
 				</section>
 			</div>
