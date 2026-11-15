@@ -156,7 +156,7 @@ function normaliseSnapshot(
 function projectSnapshot(snapshot: Record<string, unknown>): Prefs {
 	const prefs: Prefs = {
 		theme: {} as ThemePrefs,
-		rule: {},
+		rule: {} as RulePrefs,
 		advanced: {} as AdvancedPrefs,
 		device: {} as DevicePrefs,
 	};

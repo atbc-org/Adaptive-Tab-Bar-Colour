@@ -108,7 +108,7 @@ function testHostname(url: string, targetHost: string): boolean {
 export async function getRule(
 	url = "",
 	scheme: Scheme,
-	rules: Record<string, Rule>,
+	rules: RulePrefs,
 ): Promise<RuleQueryResult> {
 	if (!url) return { url };
 
