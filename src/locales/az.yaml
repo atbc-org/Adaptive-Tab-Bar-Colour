@@ -1,3 +1,4 @@
+accessibility: Əlçatanlıq
 addANewRule: Yeni qayda əlavə et
 addonNotFound: Əlavə tapılmadı
 advanced: Qabaqcıl
@@ -14,16 +15,21 @@ background: Fon
 backgroundOnFocus: Fokusda fon
 backupAndReset: Ehtiyat nüsxə və sıfırlama
 border: Haşiyə
+browserIntegration: Brauzer inteqrasiyası
 colourIsAdjusted: Minimum kontrastı təmin etmək üçün ilkin rəng tənzimlənib
+colourSelection: Rəng seçimi
 compatibilityMode: Uyğunluq rejimi
 compatibilityModeTooltip:
   Tema API-si əvəzinə veb saytın “theme-color” metaməlumatı dəyişdirilir.
   Dəstəkləyən brauzerlər tab panelinin rəngini buna uyğun tənzimləyir.
 confirmResetAll: Bütün parametrləri sıfırlamaq istədiyinizə əminsiniz?
 confirmResetThemeBuilder: Tema qurucusunu sıfırlamaq istədiyinizə əminsiniz?
+confirmSyncSettings:
+  Yerli və bulud parametrləri fərqlidir. Hansını saxlamaq istəyirsiniz?
 couldNotFindElement: "Uyğun gələn HTML elementi tapılmadı:"
 couldNotFindElementEnd: ", əvəzinə rəng veb səhifədən seçildi"
 currentPage: Cari səhifə
+customColours: Fərdi rənglər
 delete: Sil
 deleteRule: Qaydanı sil
 dynamicColourUpdate: Dinamik rəng yeniləməsi
@@ -37,11 +43,13 @@ exportSettings: Parametrləri ixrac et
 extensionDescription:
   Firefox temasının rəngini veb saytın görünüşünə uyğunlaşdırır.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Ehtiyat rəng: tünd"
-fallbackColourLight: "Ehtiyat rəng: açıq"
+fallbackColour: Ehtiyat rəng
+fallbackColourTooltip:
+  Səhifənin rəngini müəyyən etmək mümkün olmadıqda istifadə olunur.
 frame: Çərçivə
-homepageColourDark: "Əsas səhifə rəngi: tünd"
-homepageColourLight: "Əsas səhifə rəngi: açıq"
+homepageColour: Əsas səhifə rəngi
+homepageColourTooltip: Əsas səhifə və yeni vərəqlər üçün istifadə olunur.
+howDoRulesWork: Qaydalar necə işləyir
 ifVerticalTabsAreEnabled:
   “Şaquli tablar” aktivdirsə, sıfırdan fərqli istənilən dəyər pəncərə idarəetmə
   düymələrinin üstündə boşluq yarada və onlara çatmağı çətinləşdirə bilər.
@@ -55,6 +63,8 @@ importFailed:
 importSettings: Parametrləri idxal et
 inDarkMode: Tünd rejimdə
 inLightMode: Açıq rejimdə
+keepCloudSettings: Buluddan saxla
+keepLocalSettings: Yerli saxla
 loading: Yüklənir…
 minimumContrast: Minimum kontrast
 minimumContrastTooltip:
@@ -63,6 +73,7 @@ minimumContrastTooltip:
 moreSettings: Daha çox parametr
 moreSettingsTooltip: Seçimlər səhifəsini aç
 no: Xeyr
+ok: Oldu
 overwriteAccentColour: Vurğu rəngini əvəz et
 overwriteAccentColourTooltip:
   URL sətri və alət paneli düymələri üçün sisteminizin rəngi əvəzinə fərdi vurğu
@@ -79,12 +90,30 @@ ruleAppliedInBothMode: Qayda həm açıq, həm də tünd rejimdə tətbiq olunac
 ruleAppliedInDarkMode: Qayda yalnız tünd rejimdə tətbiq olunacaq
 ruleAppliedInLightMode: Qayda yalnız açıq rejimdə tətbiq olunacaq
 ruleList: Qaydalar siyahısı
+ruleMatchDomain: "Domen və ya yol: sayta və alt səhifələrinə uyğun gəlir."
+ruleMatchExact: "Dəqiq URL: bir konkret səhifəyə uyğun gəlir."
+ruleMatchIntro: "Qayda səhifəni bununla uyğunlaşdırır:"
+ruleMatchRegex: "Müntəzəm ifadə: qabaqcıl şablon uyğunlaşdırması."
+ruleMatchWildcard: "Əvəzedici simvol:"
+ruleMatchWildcardAny: İstənilən mətni uyğunlaşdırmaq üçün
+ruleMatchWildcardAnyEnd: "\0"
+ruleMatchWildcardChar: Bir simvolu uyğunlaşdırmaq üçün
+ruleMatchWildcardCharEnd: "\0"
+ruleMatchWildcardPart: URL hissəsini uyğunlaşdırmaq üçün
+ruleMatchWildcardPartEnd: "\0"
+ruleOrderExplanation:
+  Qaydalar yuxarıdan aşağıya işləyir. Son uyğun qayda tətbiq olunur.
 ruleWillBeIgnored: Bu qayda nəzərə alınmayacaq
 selectedTab: Seçilmiş tab
 settingsAreExported: Parametrlər endirmələr qovluğunuza ixrac edildi.
 settingsAreImported: Parametrlər idxal edildi.
 sidebar: Yan panel
 specifyAColour: rəng təyin et
+syncSettings: Parametrləri buludla sinxronlaşdır
+syncSettingsFailed:
+  Sinxronlaşdırma parametrlərini dəyişmək mümkün olmadı. Yenidən cəhd edin.
+syncSettingsTooltip:
+  Brauzer hesabınız vasitəsilə parametrləri cihazlar arasında sinxronlaşdırın.
 system: Sistem
 tabBar: Tab paneli
 themeBuilder: Tema qurucusu

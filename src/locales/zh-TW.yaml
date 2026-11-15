@@ -1,3 +1,4 @@
+accessibility: 無障礙
 addANewRule: 新增自訂規則
 addonNotFound: 未找到該擴充套件
 advanced: 進階設定
@@ -10,16 +11,20 @@ background: 背景
 backgroundOnFocus: 聚焦時的背景
 backupAndReset: 備份和重設
 border: 邊界
+browserIntegration: 瀏覽器整合
 colourIsAdjusted: 為達到最小對比度，原顏色已被調整
+colourSelection: 顏色選取
 compatibilityMode: 相容模式
 compatibilityModeTooltip:
   更改網頁的「theme-color」元資料，而非使用 Theme
   API。支援該功能的瀏覽器會相應地調整其標題列顏色。
 confirmResetAll: 是否確定重設所有設定？
 confirmResetThemeBuilder: 是否確定重設佈景主題設定？
+confirmSyncSettings: 本機與雲端設定不同。您想保留哪一份？
 couldNotFindElement: 未能找到符合
 couldNotFindElementEnd: 的網頁元件，改為使用從網頁中提取的顏色
 currentPage: 目前網頁
+customColours: 自訂顏色
 delete: 刪除
 deleteRule: 刪除規則
 dynamicColourUpdate: 動態更新顏色
@@ -30,11 +35,12 @@ errorOccuredLocatingElementEnd: 的網頁元件時發生錯誤，標題列顏色
 exportSettings: 儲存偏好設定
 extensionDescription: 改變 Firefox 佈景主題色彩，使之與網頁融為一體。
 extensionName: 變色標題列
-fallbackColourDark: 備選顏色（暗色）
-fallbackColourLight: 備選顏色（亮色）
+fallbackColour: 備選顏色
+fallbackColourTooltip: 無法判定頁面顏色時使用。
 frame: 視窗背景
-homepageColourDark: 首頁背景色（暗色）
-homepageColourLight: 首頁背景色（亮色）
+homepageColour: 首頁背景色
+homepageColourTooltip: 用於首頁和新分頁。
+howDoRulesWork: 規則如何運作
 ifVerticalTabsAreEnabled: 如果啟用了「垂直分頁」，任何非零值都可能導致視窗控制按鈕上方出現間隙，使其難以觸及。
 ignore: 忽略
 ignoreDesignatedThemeColour: 總是忽略網站指定的主題色
@@ -43,12 +49,15 @@ importFailed: 載入偏好設定失敗。請重試。
 importSettings: 載入偏好設定
 inDarkMode: 在暗色模式下
 inLightMode: 在亮色模式下
+keepCloudSettings: 保留雲端
+keepLocalSettings: 保留本機
 loading: 載入中⋯⋯
 minimumContrast: 最小對比度設定
 minimumContrastTooltip: 在此設定標題列和文字的最小對比度。若該指標未達到，標題列會調整其顏色，使之達到設定的最小對比度。
 moreSettings: 更多設定
 moreSettingsTooltip: 開啟設定頁
 no: 否
+ok: 確定
 overwriteAccentColour: 覆蓋強調色
 overwriteAccentColourTooltip: 於網址列與工具列按鈕採用自訂強調色，而非系統顏色。
 pageIsProtected: 此頁面受瀏覽器保護
@@ -63,12 +72,27 @@ ruleAppliedInBothMode: 此規則將於亮色和暗色模式皆套用
 ruleAppliedInDarkMode: 此規則僅於暗色模式套用
 ruleAppliedInLightMode: 此規則僅於亮色模式套用
 ruleList: 自訂規則
+ruleMatchDomain: 網域或路徑：套用於網站及其子頁面。
+ruleMatchExact: 完整網址：僅套用於單一特定頁面。
+ruleMatchIntro: 規則可透過以下方式比對頁面：
+ruleMatchRegex: 正規表示式：進階模式比對。
+ruleMatchWildcard: 萬用字元：
+ruleMatchWildcardAny: 使用
+ruleMatchWildcardAnyEnd: 比對任意內容
+ruleMatchWildcardChar: 使用
+ruleMatchWildcardCharEnd: 比對單一字元
+ruleMatchWildcardPart: 使用
+ruleMatchWildcardPartEnd: 比對網址片段
+ruleOrderExplanation: 規則由上而下依序檢查，最後一條符合的規則會套用。
 ruleWillBeIgnored: 該規則將被忽略
 selectedTab: 已選的分頁
 settingsAreExported: 偏好設定已儲存至下載資料夾。
 settingsAreImported: 已載入偏好設定。
 sidebar: 側邊欄
 specifyAColour: 指定顏色
+syncSettings: 同步設定至雲端
+syncSettingsFailed: 無法變更同步設定，請重試。
+syncSettingsTooltip: 透過瀏覽器帳戶在裝置之間同步設定。
 system: 系統內建
 tabBar: 分頁標題列
 themeBuilder: 佈景主題

@@ -31,6 +31,21 @@ export default defineConfig({
 			}
 		},
 	},
+	imports: {
+		dirs: ["entrypoints/options/tabs", "entrypoints/popup/widgets"],
+		presets: [
+			{
+				from: "react",
+				imports: [
+					"useLayoutEffect",
+					{ name: "CSSProperties", type: true },
+					{ name: "ReactNode", type: true },
+				],
+			},
+			{ from: "clsx", imports: [["default", "clsx"]] },
+		],
+	},
+
 	manifest: {
 		action: { default_title: "__MSG_extensionName__" },
 		browser_specific_settings: {
@@ -67,7 +82,6 @@ export default defineConfig({
 	outDirTemplate: "atbc",
 	srcDir: "src",
 	vite: () => ({
-		define: { __EXT_VERSION__: JSON.stringify(appVersion) },
 		css: {
 			modules: {
 				generateScopedName: "[hash:base64:6]",

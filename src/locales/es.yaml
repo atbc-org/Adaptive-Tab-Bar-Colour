@@ -1,3 +1,4 @@
+accessibility: Accesibilidad
 addANewRule: Agregar una nueva regla
 addonNotFound: Extensión no encontrada
 advanced: Avanzado
@@ -14,8 +15,10 @@ background: Fondo
 backgroundOnFocus: Fondo en foco
 backupAndReset: Copia de seguridad y reinicio
 border: Borde
+browserIntegration: Integración con el navegador
 colourIsAdjusted:
   El color original ha sido ajustado para asegurar un contraste mínimo
+colourSelection: Selección de color
 compatibilityMode: Modo de compatibilidad
 compatibilityModeTooltip:
   Cambiar los metadatos “theme-color” del sitio web en lugar de utilizar la API
@@ -25,10 +28,13 @@ confirmResetAll:
   ¿Está seguro de que desea restablecer todas las configuraciones?
 confirmResetThemeBuilder:
   ¿Estás seguro de que quieres restablecer el creador de temas?
+confirmSyncSettings:
+  Los ajustes locales y de la nube son distintos. ¿Cuáles quieres conservar?
 couldNotFindElement: No se pudo encontrar el elemento HTML que coincide con
 couldNotFindElementEnd:
   ", utilizando en su lugar el color extraído de la página web"
 currentPage: Página actual
+customColours: Colores personalizados
 delete: Eliminar
 deleteRule: Eliminar regla
 dynamicColourUpdate: Actualización dinámica de color
@@ -45,11 +51,13 @@ extensionDescription:
   Cambia el color del tema de Firefox para que coincida con la apariencia del
   sitio web.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Color de respaldo: oscuro"
-fallbackColourLight: "Color de respaldo: claro"
+fallbackColour: Color de respaldo
+fallbackColourTooltip:
+  Se usa cuando no se puede determinar el color de una página.
 frame: Marco
-homepageColourDark: "Color de la página de inicio: oscuro"
-homepageColourLight: "Color de la página de inicio: claro"
+homepageColour: Color de la página de inicio
+homepageColourTooltip: Se usa para la página de inicio y las pestañas nuevas.
+howDoRulesWork: Cómo funcionan las reglas
 ifVerticalTabsAreEnabled:
   Si las “pestañas verticales” están habilitadas, cualquier valor distinto de
   cero puede causar que aparezca un espacio sobre los controles de la ventana,
@@ -63,6 +71,8 @@ importFailed: Error al importar configuraciones. Por favor, inténtalo de nuevo.
 importSettings: Importar configuraciones
 inDarkMode: En modo oscuro
 inLightMode: En modo claro
+keepCloudSettings: Conservar nube
+keepLocalSettings: Conservar locales
 loading: Cargando…
 minimumContrast: Contraste mínimo
 minimumContrastTooltip:
@@ -72,6 +82,7 @@ minimumContrastTooltip:
 moreSettings: Más opciones
 moreSettingsTooltip: Abrir página de opciones
 no: No
+ok: Aceptar
 overwriteAccentColour: Sobrescribir color de acento
 overwriteAccentColourTooltip:
   Usar un color de énfasis personalizado en lugar del color de su sistema para
@@ -89,6 +100,19 @@ ruleAppliedInBothMode: La regla se aplicará tanto en modo claro como oscuro
 ruleAppliedInDarkMode: La regla sólo se aplicará en modo oscuro
 ruleAppliedInLightMode: La regla sólo se aplicará en modo claro
 ruleList: Lista de reglas
+ruleMatchDomain: "Dominio o ruta: coincide con un sitio y sus subpáginas."
+ruleMatchExact: "URL exacta: coincide con una página."
+ruleMatchIntro: "Una regla puede coincidir por:"
+ruleMatchRegex: "Expresión regular: coincidencia avanzada."
+ruleMatchWildcard: "Comodín:"
+ruleMatchWildcardAny: Usa
+ruleMatchWildcardAnyEnd: para cualquier texto
+ruleMatchWildcardChar: Usa
+ruleMatchWildcardCharEnd: para un carácter
+ruleMatchWildcardPart: Usa
+ruleMatchWildcardPartEnd: para parte de la URL
+ruleOrderExplanation:
+  Las reglas se comprueban de arriba abajo. Se aplica la última que coincida.
 ruleWillBeIgnored: Esta regla será ignorada
 selectedTab: Pestaña seleccionada
 settingsAreExported:
@@ -96,6 +120,11 @@ settingsAreExported:
 settingsAreImported: Las configuraciones han sido importadas.
 sidebar: Barra lateral
 specifyAColour: especificar un color
+syncSettings: Sincronizar ajustes con la nube
+syncSettingsFailed:
+  No se pudieron cambiar los ajustes de sincronización. Inténtalo de nuevo.
+syncSettingsTooltip:
+  Sincroniza los ajustes entre dispositivos con tu cuenta del navegador.
 system: Sistema
 tabBar: Barra de pestañas
 themeBuilder: Creador de temas

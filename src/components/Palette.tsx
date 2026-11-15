@@ -3,7 +3,7 @@ import styles from "./Palette.module.css";
 interface PaletteProps {
 	value?: string;
 	inPopup?: boolean;
-	onChange: (newValue: string) => void;
+	onChange: (newValue: HexColour) => void;
 }
 
 export default function Palette({
@@ -13,6 +13,7 @@ export default function Palette({
 }: PaletteProps) {
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const previewRef = useRef<HTMLDivElement | null>(null);
+	const popupRef = useRef<HTMLDivElement | null>(null);
 	const textInputRef = useRef<HTMLInputElement | null>(null);
 	const colourInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -43,12 +44,35 @@ export default function Palette({
 			)
 				setIsPopupOpen(false);
 		};
-		if (isPopupOpen) {
-			document.addEventListener("pointerdown", onPointerDown);
-			return () =>
-				document.removeEventListener("pointerdown", onPointerDown);
-		}
+		if (!isPopupOpen) return;
+		document.addEventListener("pointerdown", onPointerDown);
+		return () => document.removeEventListener("pointerdown", onPointerDown);
 	}, [isPopupOpen]);
+
+	useLayoutEffect(() => {
+		if (!isPopupOpen || !previewRef.current || !popupRef.current) return;
+		const previewRect = previewRef.current.getBoundingClientRect();
+		const popupRect = popupRef.current.getBoundingClientRect();
+		const width = (popupRect.width || 192) / 2;
+		const height = popupRect.height || 256;
+		const top = previewRect.top;
+		const bottom = window.innerHeight - previewRect.bottom;
+		const left = previewRect.left;
+		const right = window.innerWidth - previewRect.right;
+		const orientation =
+			bottom >= height || top < height ? "south" : "north";
+		const deviation =
+			left >= width && right >= width
+				? "none"
+				: left < width
+					? "right"
+					: "left";
+		setPopupLocation({ orientation, deviation });
+	}, [isPopupOpen]);
+
+	useLayoutEffect(() => {
+		previewRef.current?.style.setProperty("--preview-colour", displayValue);
+	}, [displayValue]);
 
 	useEffect(() => {
 		const onBlur = () => setIsPopupOpen(false);
@@ -87,36 +111,7 @@ export default function Palette({
 			<div
 				ref={previewRef}
 				className={styles.preview}
-				style={{ backgroundColor: displayValue }}
-				onClick={() => {
-					if (!isPopupOpen) {
-						const preview = previewRef.current;
-						if (!preview)
-							return setPopupLocation({
-								orientation: "south",
-								deviation: "none",
-							});
-						const rect = preview.getBoundingClientRect();
-						const width = 96;
-						const height = 256;
-						const top = rect.top;
-						const bottom = window.innerHeight - rect.bottom;
-						const left = rect.left;
-						const right = window.innerWidth - rect.right;
-						const orientation =
-							bottom >= height || top < height
-								? "south"
-								: "north";
-						const deviation =
-							left >= width && right >= width
-								? "none"
-								: left < width
-									? "right"
-									: "left";
-						setPopupLocation({ orientation, deviation });
-					}
-					setIsPopupOpen(!isPopupOpen);
-				}}
+				onClick={() => setIsPopupOpen(!isPopupOpen)}
 			/>
 			{!inPopup && (
 				<input
@@ -134,6 +129,7 @@ export default function Palette({
 			)}
 			{isPopupOpen && (
 				<PalettePopup
+					ref={popupRef}
 					value={displayColour}
 					inPopup={inPopup}
 					location={popupLocation}

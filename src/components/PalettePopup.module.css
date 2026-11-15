@@ -55,6 +55,16 @@
 			left: 50%;
 			transform: translateX(-50%);
 		}
+
+		&::after {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 1px;
+			height: var(--unit-8);
+			pointer-events: none;
+			content: "";
+		}
 	}
 
 	&.popup-north {

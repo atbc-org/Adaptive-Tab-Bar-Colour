@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 import styles from "./RuleCard.module.css";
 
 const defaultValue = {
@@ -9,31 +7,65 @@ const defaultValue = {
 };
 
 interface RuleCardProps {
-	rule: Rule;
+	rule?: Rule;
 	inPopup?: boolean;
-	onChange: (newRule: Rule) => void;
+	isPlaceholder?: boolean;
+	shiftState?: "up" | "down" | "none";
+	isTop?: boolean;
+	isBottom?: boolean;
+	isAlt?: boolean;
+	onGrab?: (e: React.PointerEvent<HTMLElement>) => void;
+	onChange: (newRule: Rule | null) => void;
 }
 
 export default function RuleCard({
 	rule,
 	inPopup = false,
+	isPlaceholder = false,
+	shiftState = "none",
+	isTop = false,
+	isBottom = false,
+	isAlt = false,
+	onGrab,
 	onChange,
 }: RuleCardProps) {
-	if (!rule) return null;
-
 	const [webExtName, setWebExtName] = useState(rule?.header);
 
 	useEffect(() => {
-		if (rule?.headerType === "ADDON_ID")
+		if (rule?.target === "ADDON_ID")
 			getWebExtName(rule.header).then((name) =>
 				setWebExtName(name ?? i18n.t("addonNotFound")),
 			);
-	}, [rule?.header, rule?.headerType]);
+	}, [rule?.header, rule?.target]);
+
+	if (!rule) return null;
 
 	return (
-		<section className={clsx(styles.ruleCard, inPopup && styles.inPopup)}>
+		<section
+			className={clsx(
+				styles.ruleCard,
+				inPopup && styles.inPopup,
+				isPlaceholder && styles.placeholder,
+				shiftState === "up" && styles.shiftUp,
+				shiftState === "down" && styles.shiftDown,
+				isTop && styles.isTop,
+				isBottom && styles.isBottom,
+				isAlt && styles.isAlt,
+			)}
+		>
+			{!inPopup && (
+				<div
+					className={styles.grabber}
+					onPointerDown={(e) => {
+						if (e.button !== 0) return;
+						onGrab?.(e);
+					}}
+				>
+					<Icon type="grabber" />
+				</div>
+			)}
 			{!inPopup &&
-				(rule.headerType === "ADDON_ID" ? (
+				(rule.target === "ADDON_ID" ? (
 					<div className={styles.webExtHeader}>{webExtName}</div>
 				) : (
 					<Input
@@ -69,7 +101,7 @@ export default function RuleCard({
 						case "THEME_COLOUR":
 							onChange({
 								...rule,
-								headerType: "URL",
+								target: "URL",
 								type: "THEME_COLOUR",
 								value: defaultValue.THEME_COLOUR,
 							});
@@ -77,7 +109,7 @@ export default function RuleCard({
 						default:
 							onChange({
 								...rule,
-								headerType: "URL",
+								target: "URL",
 								type: "QUERY_SELECTOR",
 								value: defaultValue.QUERY_SELECTOR,
 							});
@@ -86,7 +118,7 @@ export default function RuleCard({
 				}}
 			>
 				<option value="COLOUR">{i18n.t("specifyAColour")}</option>
-				{rule.headerType === "URL" ? (
+				{rule.target === "URL" ? (
 					<>
 						<option value="THEME_COLOUR">
 							{i18n.t("useIgnoreThemeColour")}

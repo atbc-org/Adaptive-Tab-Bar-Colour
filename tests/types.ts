@@ -1,4 +1,5 @@
 import type { Driver as FirefoxDriver } from "selenium-webdriver/firefox.js";
+import "../src/browser-types.d.ts";
 
 export type TestContext = {
 	driver: FirefoxDriver;

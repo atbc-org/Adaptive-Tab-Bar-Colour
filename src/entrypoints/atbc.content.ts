@@ -125,6 +125,7 @@ function getElementColour(
 				filter: style.filter,
 			};
 	}
+	return undefined;
 }
 
 const darkReaderObserver = new MutationObserver(sendColour);
@@ -226,7 +227,7 @@ async function sendColour() {
 		if (document.visibilityState !== "visible") return;
 		lastSentAt = Date.now();
 		try {
-			await browser.runtime.sendMessage({
+			await sendMessageToBackground({
 				header: "UPDATE_COLOUR",
 				colour: getColourData(),
 			});

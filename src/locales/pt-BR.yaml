@@ -1,3 +1,4 @@
+accessibility: Acessibilidade
 addANewRule: Adicionar nova regra
 addonNotFound: Extensão não encontrada
 advanced: Avançado
@@ -14,16 +15,21 @@ background: Fundo
 backgroundOnFocus: Fundo em foco
 backupAndReset: Backup e redefinição
 border: Borda
+browserIntegration: Integração com o navegador
 colourIsAdjusted: A cor original foi ajustada para garantir um contraste mínimo
+colourSelection: Seleção de cores
 compatibilityMode: Modo de compatibilidade
 compatibilityModeTooltip:
   Alterar os metadados “theme-color” do site em vez de usar a API do tema. Os
   navegadores suportados ajustarão a cor da barra de abas de acordo.
 confirmResetAll: Tem certeza de que deseja redefinir todas as configurações?
 confirmResetThemeBuilder: Você realmente deseja redefinir o criador de temas?
+confirmSyncSettings:
+  As configurações locais e da nuvem são diferentes. Quais deseja manter?
 couldNotFindElement: Não foi possível encontrar o elemento HTML que coincide com
 couldNotFindElementEnd: ", usando a cor extraída da página web em vez disso"
 currentPage: Página atual
+customColours: Cores personalizadas
 delete: Apagar
 deleteRule: Apagar regra
 dynamicColourUpdate: Atualização dinâmica de cor
@@ -38,11 +44,13 @@ exportSettings: Exportar configurações
 extensionDescription:
   Muda a cor do tema do Firefox para combinar com a aparência dos sites.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Cor alternativa: Escuro"
-fallbackColourLight: "Cor alternativa: Claro"
+fallbackColour: Cor alternativa
+fallbackColourTooltip:
+  Usada quando não é possível determinar a cor de uma página.
 frame: Moldura
-homepageColourDark: "Cor da página inicial: Escuro"
-homepageColourLight: "Cor da página inicial: Claro"
+homepageColour: Cor da página inicial
+homepageColourTooltip: Usada na página inicial e em novas abas.
+howDoRulesWork: Como as regras funcionam
 ifVerticalTabsAreEnabled:
   Se as “abas verticais” estiverem ativadas, qualquer valor diferente de zero
   pode causar um espaço acima dos controles da janela, tornando-os mais difíceis
@@ -56,6 +64,8 @@ importFailed: Erro ao importar configurações. Por favor, tente novamente.
 importSettings: Importar configurações
 inDarkMode: Em modo escuro
 inLightMode: Em modo claro
+keepCloudSettings: Manter da nuvem
+keepLocalSettings: Manter locais
 loading: Carregando…
 minimumContrast: Contraste mínimo
 minimumContrastTooltip:
@@ -64,6 +74,7 @@ minimumContrastTooltip:
 moreSettings: Mais opções
 moreSettingsTooltip: Abre a página de opções
 no: Não
+ok: OK
 overwriteAccentColour: Substituir cor de destaque
 overwriteAccentColourTooltip:
   Usar uma cor de destaque personalizada em vez da cor do seu sistema para a
@@ -81,6 +92,20 @@ ruleAppliedInBothMode:
 ruleAppliedInDarkMode: A regra só será aplicada no modo escuro
 ruleAppliedInLightMode: A regra só será aplicada no modo claro
 ruleList: Lista de regras
+ruleMatchDomain: "Domínio ou caminho: combina com um site e suas subpáginas."
+ruleMatchExact: "URL exata: combina com uma página específica."
+ruleMatchIntro: "Uma regra pode corresponder por:"
+ruleMatchRegex: "Expressão regular: correspondência avançada."
+ruleMatchWildcard: "Curinga:"
+ruleMatchWildcardAny: Use
+ruleMatchWildcardAnyEnd: para qualquer coisa
+ruleMatchWildcardChar: Use
+ruleMatchWildcardCharEnd: para um caractere
+ruleMatchWildcardPart: Use
+ruleMatchWildcardPartEnd: para parte da URL
+ruleOrderExplanation:
+  As regras são verificadas de cima para baixo. A última que combinar é
+  aplicada.
 ruleWillBeIgnored: Esta regra será ignorada
 selectedTab: Aba selecionada
 settingsAreExported:
@@ -88,6 +113,11 @@ settingsAreExported:
 settingsAreImported: As configurações foram importadas.
 sidebar: Painel lateral
 specifyAColour: Especificar uma cor
+syncSettings: Sincronizar configurações na nuvem
+syncSettingsFailed:
+  Não foi possível alterar as configurações de sincronização. Tente novamente.
+syncSettingsTooltip:
+  Sincroniza configurações entre dispositivos usando sua conta do navegador.
 system: Sistema
 tabBar: Barra de abas
 themeBuilder: Criador de temas

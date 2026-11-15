@@ -1,3 +1,4 @@
+accessibility: Erişilebilirlik
 addANewRule: Yeni kural ekle
 addonNotFound: Eklenti bulunamadı
 advanced: Gelişmiş
@@ -14,7 +15,9 @@ background: Arka plan
 backgroundOnFocus: Odaklıyken arka plan
 backupAndReset: Yedekleme ve sıfırlama
 border: Kenar
+browserIntegration: Tarayıcı entegrasyonu
 colourIsAdjusted: Orijinal renk, asgari karşıtlıktan emin olmak için düzeltildi
+colourSelection: Renk seçimi
 compatibilityMode: Uyumluluk modu
 compatibilityModeTooltip:
   Tema API'sini kullanmak yerine web sitesinin “theme-color” metadata'sını
@@ -23,10 +26,13 @@ compatibilityModeTooltip:
 confirmResetAll: Tüm ayarları sıfırlamak istediğinizden emin misiniz?
 confirmResetThemeBuilder:
   Tema oluşturucuyu sıfırlamak istediğinize emin misiniz?
+confirmSyncSettings:
+  Yerel ve bulut ayarları farklı. Hangilerini tutmak istiyorsunuz?
 couldNotFindElement: Eşleşen HTML ögesi bulunamadı
 couldNotFindElementEnd:
   ", bunun yerine web sayfasından seçilen renk kullanılıyor"
 currentPage: Geçerli sayfa
+customColours: Özel renkler
 delete: Sil
 deleteRule: Kuralı sil
 dynamicColourUpdate: Dinamik renk güncellemesi
@@ -41,11 +47,12 @@ exportSettings: Ayarları dışarı aktar
 extensionDescription:
   Firefox tema rengini web sitesinin görünümüyle eşlemek için değiştirir.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Yedek renk: koyu"
-fallbackColourLight: "Yedek renk: açık"
+fallbackColour: Yedek renk
+fallbackColourTooltip: Bir sayfanın rengi belirlenemediğinde kullanılır.
 frame: Çerçeve
-homepageColourDark: "Giriş sayfası rengi: koyu"
-homepageColourLight: "Giriş sayfası rengi: açık"
+homepageColour: Giriş sayfası rengi
+homepageColourTooltip: Giriş sayfası ve yeni sekmeler için kullanılır.
+howDoRulesWork: Kurallar nasıl çalışır
 ifVerticalTabsAreEnabled:
   “Dikey sekmeler” devredeyse, sıfır olmayan herhangi bir değer pencere
   denetimlerinin üstünde bir boşluk belirip bu denetimlere ulaşmanın
@@ -59,6 +66,8 @@ importFailed: Ayarlar içe aktarılamadı. Lütfen tekrar deneyin.
 importSettings: Ayarları içe aktar
 inDarkMode: Koyu modda
 inLightMode: Açık modda
+keepCloudSettings: Bulutu tut
+keepLocalSettings: Yereli tut
 loading: Yükleniyor…
 minimumContrast: Asgari karşıtlık
 minimumContrastTooltip:
@@ -67,6 +76,7 @@ minimumContrastTooltip:
 moreSettings: Daha fazla ayar
 moreSettingsTooltip: Seçenek sayfasını aç
 no: Hayır
+ok: Tamam
 overwriteAccentColour: Vurgu renginin üzerine yaz
 overwriteAccentColourTooltip:
   URL çubuğu ve araç çubuğu düğmeleri için sistem renginiz yerine özel bir vurgu
@@ -83,12 +93,28 @@ ruleAppliedInBothMode: Kural hem aydınlık hem de karanlık modda uygulanacakt�
 ruleAppliedInDarkMode: Kural yalnızca karanlık modda uygulanacaktır
 ruleAppliedInLightMode: Kural yalnızca ışık modunda uygulanacaktır
 ruleList: Kural listesi
+ruleMatchDomain: "Alan adı veya yol: bir site ve alt sayfalarıyla eşleşir."
+ruleMatchExact: "Tam URL: belirli bir sayfayla eşleşir."
+ruleMatchIntro: "Bir kural şununla eşleşebilir:"
+ruleMatchRegex: "Düzenli ifade: gelişmiş desen eşleştirme."
+ruleMatchWildcard: "Joker karakter:"
+ruleMatchWildcardAny: Her şeyi eşleştirmek için
+ruleMatchWildcardAnyEnd: "\0"
+ruleMatchWildcardChar: Tek karakter eşleştirmek için
+ruleMatchWildcardCharEnd: "\0"
+ruleMatchWildcardPart: URL’nin bir bölümünü eşleştirmek için
+ruleMatchWildcardPartEnd: "\0"
+ruleOrderExplanation:
+  Kurallar yukarıdan aşağıya çalışır. Son eşleşen kural geçerli olur.
 ruleWillBeIgnored: Bu kural göz ardı edilecek
 selectedTab: Seçili sekme
 settingsAreExported: Ayarlar indirilenler klasörünüze aktarıldı.
 settingsAreImported: Ayarlar içe aktarıldı.
 sidebar: Kenar çubuğu
 specifyAColour: bir renk belirt
+syncSettings: Ayarları buluta eşitle
+syncSettingsFailed: Eşitleme ayarları değiştirilemedi. Lütfen tekrar deneyin.
+syncSettingsTooltip: Tarayıcı hesabınızla ayarları cihazlar arasında eşitleyin.
 system: Sistem
 tabBar: Sekme çubuğu
 themeBuilder: Tema oluşturucu

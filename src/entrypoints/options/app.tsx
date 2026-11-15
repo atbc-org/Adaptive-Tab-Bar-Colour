@@ -1,17 +1,9 @@
-import AdvancedTab from "./tabs/AdvancedTab";
-import RuleTab from "./tabs/RuleTab";
-import ThemeTab from "./tabs/ThemeTab";
-
-const pref = new Preference();
-
 export default function App() {
 	const [activeTab, setActiveTab] = useState(0);
-	const [ready, setReady] = useState(false);
+	const { pref, ready } = usePrefs();
 
 	useEffect(() => {
-		pref.initialise().then(() => {
-			setReady(true);
-		});
+		document.documentElement.lang = getUILanguage();
 	}, []);
 
 	return (

@@ -1,9 +1,7 @@
-import { useSyncExternalStore } from "react";
-
 import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {
-	pref: Preference;
+	pref: Prefs;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
@@ -13,11 +11,6 @@ export default function RuleWidget({
 	ruleData,
 	metaData,
 }: RuleWidgetProps) {
-	useSyncExternalStore(
-		(listener) => pref.addOnChangeListener(listener),
-		() => pref.getLastSave(),
-	);
-
 	return (
 		<section className={styles.ruleWidget}>
 			<div className={styles.infoMessage}>
@@ -33,7 +26,7 @@ export default function RuleWidget({
 
 interface ReasonTextProps {
 	reason: TabMetaReason;
-	info?: string;
+	info?: string | undefined;
 }
 
 function ReasonText({ reason, info }: ReasonTextProps) {
@@ -124,24 +117,28 @@ function ReasonText({ reason, info }: ReasonTextProps) {
 }
 
 interface RuleControlsProps {
-	pref: Preference;
+	pref: Prefs;
 	ruleData: RuleQueryResult;
 	metaData: MetaQueryResult;
 }
 
 function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
-	if (ruleData.id !== 0) {
+	if (ruleData.id !== undefined && ruleData.rule !== undefined) {
+		const id = ruleData.id;
 		return (
 			<>
 				<RuleCard
 					inPopup
 					rule={ruleData.rule}
-					onChange={(newRule) => pref.setRule(ruleData.id, newRule)}
+					onChange={(newRule) => {
+						if (newRule) pref.rule[id] = newRule;
+						else delete pref.rule[id];
+					}}
 				/>
 				<button
 					className={styles.controlButton}
 					onClick={() => {
-						pref.setRule(ruleData.id, null);
+						delete pref.rule[id];
 					}}
 				>
 					{i18n.t("deleteRule")}
@@ -159,8 +156,8 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 			<button
 				className={styles.controlButton}
 				onClick={() => {
-					pref.addRule({
-						headerType: "URL",
+					void addRule({
+						target: "URL",
 						header: hostname,
 						type: "COLOUR",
 						value: new Colour().random().toHex(),
@@ -180,8 +177,8 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 			<button
 				className={styles.controlButton}
 				onClick={() => {
-					pref.addRule({
-						headerType: "ADDON_ID",
+					void addRule({
+						target: "ADDON_ID",
 						header: webExtId,
 						type: "COLOUR",
 						value: new Colour().random().toHex(),
@@ -198,17 +195,21 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				<div>
 					<Palette
 						inPopup
-						value={pref.homeBackground_light}
-						onChange={(value) =>
-							(pref.homeBackground_light = value)
-						}
+						value={pref.advanced.homeBackground_light}
+						onChange={(value) => {
+							pref.advanced.homeBackground_light = value;
+						}}
 					/>
 					<h4>
 						{i18n.t("inLightMode")}
 						<button
 							className={styles.resetButton}
 							title={i18n.t("reset")}
-							onClick={() => pref.reset(["homeBackground_light"])}
+							onClick={() =>
+								void resetPrefs([
+									"advanced:homeBackground_light",
+								])
+							}
 						>
 							<Icon type="reset" size="text" />
 						</button>
@@ -217,15 +218,21 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				<div>
 					<Palette
 						inPopup
-						value={pref.homeBackground_dark}
-						onChange={(value) => (pref.homeBackground_dark = value)}
+						value={pref.advanced.homeBackground_dark}
+						onChange={(value) => {
+							pref.advanced.homeBackground_dark = value;
+						}}
 					/>
 					<h4>
 						{i18n.t("inDarkMode")}
 						<button
 							className={styles.resetButton}
 							title={i18n.t("reset")}
-							onClick={() => pref.reset(["homeBackground_dark"])}
+							onClick={() =>
+								void resetPrefs([
+									"advanced:homeBackground_dark",
+								])
+							}
 						>
 							<Icon type="reset" size="text" />
 						</button>

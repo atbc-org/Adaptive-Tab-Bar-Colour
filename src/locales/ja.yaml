@@ -1,3 +1,4 @@
+accessibility: アクセシビリティ
 addANewRule: 新しいルールを追加する
 addonNotFound: アドオンが見つかりません
 advanced: 詳細設定
@@ -10,16 +11,20 @@ background: 背景
 backgroundOnFocus: フォーカス時の背景
 backupAndReset: バックアップとリセット
 border: 枠線
+browserIntegration: ブラウザーとの連携
 colourIsAdjusted: 元の色は最小コントラストを確保するために調整されました
+colourSelection: 色の選択
 compatibilityMode: 互換モード
 compatibilityModeTooltip:
   ウェブサイトの「theme-color」メタデータを変更し、テーマ API
   の代わりに使用します。対応するブラウザーはそれに応じてタブバーの色を調整します。
 confirmResetAll: すべての設定をリセットしてもよろしいですか？
 confirmResetThemeBuilder: テーマビルダーをリセットしてもよろしいですか？
+confirmSyncSettings: ローカルとクラウドの設定が異なります。どちらを残しますか？
 couldNotFindElement: 一致する HTML 要素
 couldNotFindElementEnd: が見つかりませんでした。代わりにウェブページから取得した色を使用します
 currentPage: 現在のページ
+customColours: カスタムカラー
 delete: 削除
 deleteRule: ルールを削除
 dynamicColourUpdate: 動的な色の更新
@@ -31,11 +36,12 @@ exportSettings: 設定をエクスポート
 extensionDescription:
   Firefox のテーマの色をウェブサイトの外観に合わせて変更します。
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: フォールバック色：ダーク
-fallbackColourLight: フォールバック色：ライト
+fallbackColour: フォールバック色
+fallbackColourTooltip: ページの色を判定できない場合に使用します。
 frame: フレーム
-homepageColourDark: ホームページの色：ダーク
-homepageColourLight: ホームページの色：ライト
+homepageColour: ホームページの色
+homepageColourTooltip: ホームページと新しいタブに使用します。
+howDoRulesWork: ルールの仕組み
 ifVerticalTabsAreEnabled: 「垂直タブ」が有効な場合、０以外の値を設定するとウィンドウコントロール上部に隙間ができ、操作しづらくなることがあります。
 ignore: 無視
 ignoreDesignatedThemeColour: ウェブサイトのテーマカラーを無視
@@ -44,12 +50,15 @@ importFailed: 設定のインポートに失敗しました。もう一度お試
 importSettings: 設定をインポート
 inDarkMode: ダークモード時
 inLightMode: ライトモード時
+keepCloudSettings: クラウドを残す
+keepLocalSettings: ローカルを残す
 loading: 読み込み中⋯⋯
 minimumContrast: 最小コントラスト
 minimumContrastTooltip: タブバーとテキストの最小コントラスト比を設定します。比率が満たされない場合、タブバーの色が自動的に調整されます。
 moreSettings: さらに設定
 moreSettingsTooltip: オプションページを開く
 no: いいえ
+ok: OK
 overwriteAccentColour: アクセントカラーを上書き
 overwriteAccentColourTooltip:
   URL
@@ -66,12 +75,27 @@ ruleAppliedInBothMode: ルールはライトモードとダークモードの両
 ruleAppliedInDarkMode: ルールはダークモードにのみ適用されます
 ruleAppliedInLightMode: ルールはライトモードにのみ適用されます
 ruleList: ルール一覧
+ruleMatchDomain: ドメインまたはパス：サイトとその配下のページに一致。
+ruleMatchExact: 完全なURL：特定の1ページに一致。
+ruleMatchIntro: ルールの一致方法：
+ruleMatchRegex: 正規表現：高度なパターン一致。
+ruleMatchWildcard: ワイルドカード：
+ruleMatchWildcardAny: 任意の文字列の一致には
+ruleMatchWildcardAnyEnd: を使用
+ruleMatchWildcardChar: 1文字の一致には
+ruleMatchWildcardCharEnd: を使用
+ruleMatchWildcardPart: URLの一部の一致には
+ruleMatchWildcardPartEnd: を使用
+ruleOrderExplanation: ルールは上から順に確認され、最後に一致したものが適用されます。
 ruleWillBeIgnored: このルールは無視されます
 selectedTab: 選択されたタブ
 settingsAreExported: 設定がダウンロードフォルダーにエクスポートされました。
 settingsAreImported: 設定がインポートされました。
 sidebar: サイドバー
 specifyAColour: 色を指定
+syncSettings: 設定をクラウドに同期
+syncSettingsFailed: 同期設定を変更できませんでした。もう一度お試しください。
+syncSettingsTooltip: ブラウザーのアカウントを使ってデバイス間で設定を同期します。
 system: システム
 tabBar: タブバー
 themeBuilder: テーマビルダー

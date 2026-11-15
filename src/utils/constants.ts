@@ -1,8 +1,3 @@
-import { getAppConfig } from "#imports";
-
-/** The version of ATBC. */
-export const version = getAppConfig().version;
-
 /** Default light homepage colour. */
 export const default_homeBackground_light = "#ffffff";
 /** Default dark homepage colour. */
@@ -68,11 +63,11 @@ export const presetAddonPageColour = Object.freeze({
 	"addon@darkreader.org": { light: new Colour("#141e24"), dark: new Colour("#141e24") }, // Dark Reader
 	"adguardadblocker@adguard.com": { light: new Colour("#ffffff"), dark: new Colour("#1f1f1f") }, // AdGuard AdBlocker
 	"copyplaintext@eros.man": { light: new Colour("#ffffff"), dark: new Colour("#000000") }, // Copy PlainText
-	"deArrow@ajay.app": { light: new Colour("f9f9f9"), dark: new Colour("#333333") }, // DeArrow
+	"deArrow@ajay.app": { light: new Colour("#f9f9f9"), dark: new Colour("#333333") }, // DeArrow
 	"enhancerforyoutube@maximerf.addons.mozilla.org": { light: new Colour("#eeeeee"), dark: new Colour("#292a2d")}, // Enhancer for YouTube™
 	"gdpr@cavi.au.dk": { light: new Colour("#00237a"), dark: new Colour("#00237a") }, // Consent-O-Matic
 	"jid1-KdTtiCj6wxVAFA@jetpack": { light: new Colour("#f9f9f8"), dark: new Colour("#171a18") }, // Swift Selection Search
-	"sponsorBlocker@ajay.app": { light: new Colour("f9f9f9"), dark: new Colour("#333333") }, // SponsorBlock for YouTube
+	"sponsorBlocker@ajay.app": { light: new Colour("#f9f9f9"), dark: new Colour("#333333") }, // SponsorBlock for YouTube
 	"uBlock0@raymondhill.net": { light: new Colour("#f0f0f2"), dark: new Colour("#1b1b24") }, // uBlock Origin
 } as Record<string, Record<Scheme, Colour> | undefined>);
 
@@ -94,47 +89,10 @@ export const plainTextExtension = [
 	".txt",
 ];
 
-/** Default content of the preference. */
-export const defaultPreferenceContent = Object.freeze({
-	// theme builder
-	popup: 5,
-	popupBorder: 10,
-	sidebar: 5,
-	sidebarBorder: 10,
-	tabbar: 0,
-	tabbarBorder: 0,
-	tabSelected: 15,
-	tabSelectedBorder: 0,
-	toolbar: 0,
-	toolbarBorder: 0,
-	toolbarField: 5,
-	toolbarFieldBorder: 5,
-	toolbarFieldOnFocus: 5,
-	// rule list
-	ruleList: {},
-	// advanced
-	accentColour_dark: default_accentColour_dark,
-	accentColour_light: default_accentColour_light,
-	allowDarkLight: true,
-	compatibilityMode: default_compatibilityMode,
-	dynamic: true,
-	fallbackColour_dark: default_fallbackColour_dark,
-	fallbackColour_light: default_fallbackColour_light,
-	homeBackground_dark: default_homeBackground_dark,
-	homeBackground_light: default_homeBackground_light,
-	minContrast_dark: 45,
-	minContrast_light: 90,
-	noThemeColour: true,
-	overwriteAccentColour: false,
-	// state
-	lastSave: 0,
-	version,
-} as PreferenceContent);
-
 /** Creates a `browserColour` object. */
 export function createBrowserColour(
 	getScheme: () => Scheme,
-	pref: Preference,
+	getPrefs: () => Prefs,
 ): Record<BrowserColour, Colour> {
 	return Object.freeze({
 		get ADDON() {
@@ -158,14 +116,16 @@ export function createBrowserColour(
 				: new Colour("#131215");
 		},
 		get FALLBACK() {
+			const prefs = getPrefs();
 			return getScheme() === "light"
-				? new Colour(pref.fallbackColour_light)
-				: new Colour(pref.fallbackColour_dark);
+				? new Colour(prefs.advanced.fallbackColour_light)
+				: new Colour(prefs.advanced.fallbackColour_dark);
 		},
 		get HOME() {
+			const prefs = getPrefs();
 			return getScheme() === "light"
-				? new Colour(pref.homeBackground_light)
-				: new Colour(pref.homeBackground_dark);
+				? new Colour(prefs.advanced.homeBackground_light)
+				: new Colour(prefs.advanced.homeBackground_dark);
 		},
 		get IMAGE_VIEWER() {
 			return new Colour("#212121");

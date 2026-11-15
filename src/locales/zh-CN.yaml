@@ -1,3 +1,4 @@
+accessibility: 无障碍
 addANewRule: 新建自定义规则
 addonNotFound: 未找到该插件
 advanced: 高级设置
@@ -10,16 +11,20 @@ background: 背景
 backgroundOnFocus: 被选中时的背景
 backupAndReset: 备份和重置
 border: 边界
+browserIntegration: 浏览器集成
 colourIsAdjusted: 为达到最小对比度设置，原颜色已被调整
+colourSelection: 颜色选取
 compatibilityMode: 兼容模式
 compatibilityModeTooltip:
   更改网页的「theme-color」元数据，而非使用 Theme
   API。支持该功能的浏览器会相应地调整其标签栏颜色。
 confirmResetAll: 是否确定重置所有设置？
 confirmResetThemeBuilder: 是否确定重置背景主题？
+confirmSyncSettings: 本地与云端设置不同。您想保留哪一份？
 couldNotFindElement: 找不到符合
 couldNotFindElementEnd: 的网页元素，改为使用从网页中提取的颜色
 currentPage: 当前网页
+customColours: 自定义颜色
 delete: 删除
 deleteRule: 删除规则
 dynamicColourUpdate: 动态更新颜色
@@ -30,11 +35,12 @@ errorOccuredLocatingElementEnd: 的网页元素时发生错误，标签栏的颜
 exportSettings: 保存偏好设置至文件
 extensionDescription: 改变 Firefox 背景主题，使其与网页融为一体。
 extensionName: 变色标签栏
-fallbackColourDark: 备选颜色（暗色）
-fallbackColourLight: 备选颜色（亮色）
+fallbackColour: 备选颜色
+fallbackColourTooltip: 无法确定页面颜色时使用。
 frame: 窗口背景
-homepageColourDark: 首页背景色（暗色）
-homepageColourLight: 首页背景色（亮色）
+homepageColour: 首页背景色
+homepageColourTooltip: 用于首页和新标签页。
+howDoRulesWork: 规则如何生效
 ifVerticalTabsAreEnabled: 如果启用了「垂直标签页」，任何非零值都可能导致窗口控制按钮上方出现间隙，使其难以触及。
 ignore: 忽略
 ignoreDesignatedThemeColour: 总是忽略网站指定的主题色
@@ -43,12 +49,15 @@ importFailed: 导入偏好设置失败。请检查文件是否正确并重试。
 importSettings: 从文件导入偏好设置
 inDarkMode: 在暗色模式下
 inLightMode: 在亮色模式下
+keepCloudSettings: 保留云端
+keepLocalSettings: 保留本地
 loading: 加载中⋯⋯
 minimumContrast: 最小对比度设置
 minimumContrastTooltip: 在此设置标签栏和文字的最小对比度。如果未达到该指标，标签栏的颜色将会被调整，使之达到设置的最小对比度。
 moreSettings: 更多设置
 moreSettingsTooltip: 打开设置页
 no: 否
+ok: 确定
 overwriteAccentColour: 覆盖强调色
 overwriteAccentColourTooltip: 在网址列与工具列按钮使用自订强调色，而不是系统的颜色。
 pageIsProtected: 此页面受浏览器保护
@@ -63,12 +72,27 @@ ruleAppliedInBothMode: 该规则将应用于浅色和深色模式
 ruleAppliedInDarkMode: 该规则仅适用于深色模式
 ruleAppliedInLightMode: 该规则仅适用于亮色模式
 ruleList: 自定义规则
+ruleMatchDomain: 域名或路径：匹配网站及其子页面。
+ruleMatchExact: 完整 URL：匹配单个页面。
+ruleMatchIntro: 规则可通过以下方式匹配页面：
+ruleMatchRegex: 正则表达式：高级模式匹配。
+ruleMatchWildcard: 通配符：
+ruleMatchWildcardAny: 使用
+ruleMatchWildcardAnyEnd: 匹配任意内容
+ruleMatchWildcardChar: 使用
+ruleMatchWildcardCharEnd: 匹配单个字符
+ruleMatchWildcardPart: 使用
+ruleMatchWildcardPartEnd: 匹配 URL 片段
+ruleOrderExplanation: 规则从上到下依次检查，最后一条匹配的规则生效。
 ruleWillBeIgnored: 该规则将被忽略
 selectedTab: 被选中的标签页
 settingsAreExported: 偏好设置已经被保存到下载文件夹。
 settingsAreImported: 已导入偏好设置。
 sidebar: 侧栏
 specifyAColour: 指定颜色
+syncSettings: 同步设置到云端
+syncSettingsFailed: 无法更改同步设置，请重试。
+syncSettingsTooltip: 通过浏览器账户在设备之间同步设置。
 system: 系统内置
 tabBar: 标签栏
 themeBuilder: 背景主题

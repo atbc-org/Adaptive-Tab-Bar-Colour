@@ -1,20 +1,23 @@
-.confirm {
+.popover {
 	--width: calc(240 * var(--unit));
 	position: relative;
 	width: 100%;
 
-	.confirm-menu {
+	&.inline {
+		--width: calc(360 * var(--unit));
+		width: fit-content;
+	}
+
+	.popover-menu {
 		display: flex;
 		position: absolute;
-		top: 100%;
 		left: calc((100% - var(--width)) / 2);
 		flex-direction: column;
 		gap: var(--unit-8);
-		z-index: 1;
+		z-index: 20;
 		filter: drop-shadow(var(--shadow-small))
 			drop-shadow(var(--shadow-large));
 		box-sizing: border-box;
-		margin-top: var(--unit-12);
 		border-radius: var(--unit-16);
 		background-color: var(--panel-alt);
 		padding: var(--unit-8);
@@ -22,9 +25,6 @@
 
 		&::before {
 			position: absolute;
-			top: calc(-1 * var(--unit-12));
-			left: 50%;
-			transform: translateX(-50%);
 			mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCA2MCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMzAgMEMzNS41IDAgMzkuNSAxMC4yNDYzIDQyLjUgMTUuNUM0My45Mjc2IDE4IDUxIDI5Ljk5OTkgNjAgMjkuOTk5OUwzMCAzMEwwIDI5Ljk5OTlDOC45OTk5OCAyOS45OTk5IDE2LjA3MjQgMTggMTcuNSAxNS41QzIwLjUgMTAuMjQ2MyAyNC41IDAgMzAgMFoiIGZpbGw9ImJsYWNrIi8+PC9zdmc+");
 			mask-size: contain;
 			mask-repeat: no-repeat;
@@ -33,22 +33,77 @@
 			height: var(--unit-12);
 			content: "";
 		}
+
+		&.popover-south {
+			top: 100%;
+			margin-top: var(--unit-12);
+
+			&::before {
+				top: calc(-1 * var(--unit-12));
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			&::after {
+				position: absolute;
+				top: 100%;
+				left: 0;
+				width: 1px;
+				height: var(--unit-8);
+				pointer-events: none;
+				content: "";
+			}
+		}
+
+		&.popover-north {
+			bottom: 100%;
+			margin-bottom: var(--unit-12);
+
+			&::before {
+				bottom: calc(-1 * var(--unit-12));
+				left: 50%;
+				transform: translateX(-50%) rotate(180deg);
+			}
+		}
+
+		&.popover-left {
+			right: 0;
+			left: auto;
+
+			&::before {
+				left: calc(100% - 3 * var(--unit-8));
+			}
+		}
+
+		&.popover-right {
+			right: auto;
+			left: 0;
+
+			&::before {
+				left: calc(3 * var(--unit-8));
+			}
+		}
 	}
 
-	.confirm-text {
+	.popover-content {
 		padding: var(--unit-4);
+		color: var(--text-primary);
 		text-align: start;
 	}
 
-	.confirm-actions {
+	.popover-actions {
 		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
 		justify-content: space-between;
 		gap: var(--unit-8);
+		width: 100%;
 
 		button {
 			flex: 1;
 			justify-content: center;
-			height: var(--unit-32);
+			padding: var(--unit-4);
+			min-height: var(--unit-32);
 		}
 	}
 }

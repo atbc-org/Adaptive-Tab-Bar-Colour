@@ -2,6 +2,8 @@ import type { Manifest } from "webextension-polyfill";
 
 export type Scheme = "light" | "dark";
 
+export type HexColour = `#${string}`;
+
 export type BrowserColour =
 	| "ADDON"
 	| "BLANK"
@@ -22,35 +24,9 @@ export type BrowserColour =
 	| "SYSTEM"
 	| "TOOLBOX";
 
-export interface ColourRule {
-	headerType: "URL" | "ADDON_ID";
-	header: string;
-	type: "COLOUR";
-	value: string;
-	scheme: "both" | Scheme;
-}
+export type Theme = Manifest.ThemeType;
 
-export interface ThemeColourRule {
-	headerType: "URL";
-	header: string;
-	type: "THEME_COLOUR";
-	value: boolean;
-	scheme: "both" | Scheme;
-}
-
-export interface QuerySelectorRule {
-	headerType: "URL";
-	header: string;
-	type: "QUERY_SELECTOR";
-	value: string;
-	scheme: "both" | Scheme;
-}
-
-export type Rule = ColourRule | ThemeColourRule | QuerySelectorRule | null;
-
-export type RuleList = Record<number, Rule>;
-
-export interface ThemeBuilderPreferenceContent {
+export interface ThemePrefs {
 	popup: number;
 	popupBorder: number;
 	sidebar: number;
@@ -66,39 +42,93 @@ export interface ThemeBuilderPreferenceContent {
 	toolbarFieldOnFocus: number;
 }
 
-export interface RuleListPreferenceContent {
-	ruleList: RuleList;
-}
+export type RulePrefs = Record<string, Rule>;
 
-export interface AdvancedPreferenceContent {
-	accentColour_dark: string;
-	accentColour_light: string;
+export interface AdvancedPrefs {
+	accentColour_dark: HexColour;
+	accentColour_light: HexColour;
 	allowDarkLight: boolean;
 	compatibilityMode: boolean;
 	dynamic: boolean;
-	fallbackColour_dark: string;
-	fallbackColour_light: string;
-	homeBackground_dark: string;
-	homeBackground_light: string;
+	fallbackColour_dark: HexColour;
+	fallbackColour_light: HexColour;
+	homeBackground_dark: HexColour;
+	homeBackground_light: HexColour;
 	minContrast_dark: number;
 	minContrast_light: number;
 	noThemeColour: boolean;
 	overwriteAccentColour: boolean;
 }
 
-export interface PreferenceContent
-	extends
-		ThemeBuilderPreferenceContent,
-		RuleListPreferenceContent,
-		AdvancedPreferenceContent {
-	lastSave: number;
-	version: number[];
-	[key: string]: PreferenceContent[keyof PreferenceContent];
+export interface DevicePrefs {
+	sync: boolean;
 }
 
+export interface Prefs {
+	theme: ThemePrefs;
+	rule: RulePrefs;
+	advanced: AdvancedPrefs;
+	device: DevicePrefs;
+}
+
+export type PrefValues = {
+	[K in keyof ThemePrefs as `theme:${K}`]: ThemePrefs[K];
+} & { [K in `rule:${string}`]: RulePrefs[K] } & {
+	[K in keyof AdvancedPrefs as `advanced:${K}`]: AdvancedPrefs[K];
+} & { [K in keyof DevicePrefs as `device:${K}`]: DevicePrefs[K] };
+
+export type PrefKey = keyof PrefValues;
+
+export type StaticPrefKey = Exclude<PrefKey, `rule:${string}`>;
+
+export interface ColourRule {
+	target: "URL" | "ADDON_ID";
+	header: string;
+	type: "COLOUR";
+	value: HexColour;
+	scheme: "both" | Scheme;
+	order: number;
+}
+
+export interface ThemeColourRule {
+	target: "URL";
+	header: string;
+	type: "THEME_COLOUR";
+	value: boolean;
+	scheme: "both" | Scheme;
+	order: number;
+}
+
+export interface QuerySelectorRule {
+	target: "URL";
+	header: string;
+	type: "QUERY_SELECTOR";
+	value: string;
+	scheme: "both" | Scheme;
+	order: number;
+}
+
+export type Rule = ColourRule | ThemeColourRule | QuerySelectorRule;
+
+export type NewRule =
+	| Omit<ColourRule, "order">
+	| Omit<ThemeColourRule, "order">
+	| Omit<QuerySelectorRule, "order">;
+
+export interface RuleQueryResult {
+	id?: string | undefined;
+	url: string;
+	webExtId?: string | undefined;
+	rule?: Rule | undefined;
+}
+
+export type SyncChoice = "local" | "cloud";
+
+export type SyncResult = "enabled" | "disabled" | "conflict";
+
 export interface TabThemeColourData {
-	light?: string;
-	dark?: string;
+	light?: string | undefined;
+	dark?: string | undefined;
 }
 
 export interface TabElementColourData {
@@ -112,15 +142,8 @@ export type TabSpecialColourData = "image" | "plaintext" | "svg" | "none";
 export interface TabColourData {
 	page: TabElementColourData[];
 	theme: TabThemeColourData;
-	query?: TabElementColourData;
+	query?: TabElementColourData | undefined;
 	special: TabSpecialColourData;
-}
-
-export interface RuleQueryResult {
-	id: number;
-	url: string;
-	webExtId?: string;
-	rule: Rule;
 }
 
 export type TabMetaReason =
@@ -157,19 +180,17 @@ export interface ApplyThemeResult {
 	corrected: boolean;
 }
 
-export interface CacheData {
-	ruleData: RuleQueryResult;
-	metaData: MetaQueryResult;
-	themeData: ApplyThemeResult;
-}
-
 export interface ColourCorrectionResult {
 	colour: Colour;
 	scheme: Scheme;
 	corrected: boolean;
 }
 
-export type Theme = Manifest.ThemeType;
+export interface CacheData {
+	ruleData: RuleQueryResult;
+	metaData: MetaQueryResult;
+	themeData: ApplyThemeResult;
+}
 
 export type MessageForBackground =
 	| { header: "UPDATE_COLOUR"; colour: TabColourData }
@@ -185,7 +206,7 @@ export type MessageForTab =
 	| {
 			header: "SETUP_SCRIPT";
 			mode: "suspend" | "static" | "dynamic";
-			query?: string;
+			query?: string | undefined;
 	  }
 	| { header: "SET_THEME_COLOUR"; colour: string };
 
@@ -221,10 +242,12 @@ export type IconType =
 	| "background"
 	| "backgroundOnFocus"
 	| "border"
+	| "chevron"
 	| "circle"
 	| "contrast"
 	| "delete"
 	| "download"
+	| "grabber"
 	| "info"
 	| "moon"
 	| "redirect"

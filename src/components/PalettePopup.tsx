@@ -1,6 +1,3 @@
-import clsx from "clsx";
-import { type CSSProperties } from "react";
-
 import styles from "./PalettePopup.module.css";
 
 export interface PopupLocation {
@@ -9,16 +6,18 @@ export interface PopupLocation {
 }
 
 export interface PalettePopupProps {
+	ref?: React.Ref<HTMLDivElement | null>;
 	value: Colour;
 	inPopup: boolean;
 	location: PopupLocation;
 	openColourInput: () => void;
-	onChange: (hex: string) => void;
+	onChange: (hex: HexColour) => void;
 }
 
 export type ColourFormat = "HEX" | "RGB" | "HWB" | "CSS" | "PAGE";
 
 export default function PalettePopup({
+	ref,
 	value,
 	inPopup,
 	location,
@@ -182,6 +181,7 @@ export default function PalettePopup({
 
 	return (
 		<div
+			ref={ref}
 			className={clsx(
 				styles.palettePopup,
 				inPopup && styles.inPopup,

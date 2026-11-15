@@ -1,3 +1,4 @@
+accessibility: Accessibility
 addANewRule: Add a new rule
 addonNotFound: Add-on not found
 advanced: Advanced
@@ -12,17 +13,22 @@ background: Background
 backgroundOnFocus: Background on focus
 backupAndReset: Backup and reset
 border: Border
+browserIntegration: Browser integration
 colourIsAdjusted:
   The original colour has been adjusted to ensure minimum contrast
+colourSelection: Colour selection
 compatibilityMode: Compatibility mode
 compatibilityModeTooltip:
   Change the website’s “theme-color” metadata instead of using the theme API.
   Supported browsers will adjust their tab bar colour accordingly.
 confirmResetAll: Are you sure you want to reset all settings?
 confirmResetThemeBuilder: Are you sure you want to reset the theme builder?
+confirmSyncSettings:
+  Local and cloud settings differ. Which settings do you want to keep?
 couldNotFindElement: Could not find the HTML element matching
 couldNotFindElementEnd: ", using colour picked from the web page instead"
 currentPage: Current page
+customColours: Custom colours
 delete: Delete
 deleteRule: Delete rule
 dynamicColourUpdate: Dynamic colour update
@@ -36,11 +42,12 @@ exportSettings: Export settings
 extensionDescription:
   Changes the colour of Firefox theme to match the website’s appearance.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Fallback colour: dark"
-fallbackColourLight: "Fallback colour: light"
+fallbackColour: Fallback colour
+fallbackColourTooltip: Used when a page’s colour cannot be determined.
 frame: Frame
-homepageColourDark: "Home page colour: dark"
-homepageColourLight: "Home page colour: light"
+homepageColour: Home page colour
+homepageColourTooltip: Used for the home page and new tabs.
+howDoRulesWork: How do rules work
 ifVerticalTabsAreEnabled:
   If “vertical tabs” are enabled, any non-zero value may cause a gap to appear
   above the window controls, making them harder to reach.
@@ -53,6 +60,8 @@ importFailed: Failed to import settings. Please try again.
 importSettings: Import settings
 inDarkMode: In dark mode
 inLightMode: In light mode
+keepCloudSettings: Keep cloud
+keepLocalSettings: Keep local
 loading: Loading…
 minimumContrast: Minimum contrast
 minimumContrastTooltip:
@@ -61,6 +70,7 @@ minimumContrastTooltip:
 moreSettings: More settings
 moreSettingsTooltip: Open option page
 no: No
+ok: OK
 overwriteAccentColour: Overwrite accent colour
 overwriteAccentColourTooltip:
   Use a custom accent colour instead of your system’s colour for the URL bar and
@@ -77,12 +87,28 @@ ruleAppliedInBothMode: The rule will be applied in both light and dark mode
 ruleAppliedInDarkMode: The rule will only be applied in dark mode
 ruleAppliedInLightMode: The rule will only be applied in light mode
 ruleList: Rule list
+ruleMatchDomain: "Domain or path: matches a site and its subpages."
+ruleMatchExact: "Exact URL: matches one specific page."
+ruleMatchIntro: "A rule can match a page by:"
+ruleMatchRegex: "Regular expression: advanced pattern matching."
+ruleMatchWildcard: "Wildcard:"
+ruleMatchWildcardAny: Use
+ruleMatchWildcardAnyEnd: to match anything
+ruleMatchWildcardChar: Use
+ruleMatchWildcardCharEnd: to match one character
+ruleMatchWildcardPart: Use
+ruleMatchWildcardPartEnd: to match part of a URL
+ruleOrderExplanation:
+  Rules run from top to bottom. The last matching rule is applied.
 ruleWillBeIgnored: This rule will be ignored
 selectedTab: Selected tab
 settingsAreExported: Settings have been exported to your download folder.
 settingsAreImported: Settings have been imported.
 sidebar: Sidebar
 specifyAColour: specify a colour
+syncSettings: Sync settings to cloud
+syncSettingsFailed: Could not change sync settings. Please try again.
+syncSettingsTooltip: Sync settings across devices using your browser account.
 system: System
 tabBar: Tab bar
 themeBuilder: Theme builder

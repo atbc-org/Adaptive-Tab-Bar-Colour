@@ -1,3 +1,4 @@
+accessibility: Специальные возможности
 addANewRule: Добавить новое правило
 addonNotFound: Дополнение не найдено
 advanced: Дополнительно
@@ -14,8 +15,10 @@ background: Фон
 backgroundOnFocus: Фон при фокусе
 backupAndReset: Резервное копирование и сброс
 border: Граница
+browserIntegration: Интеграция с браузером
 colourIsAdjusted:
   Исходный цвет скорректирован для обеспечения минимального контраста
+colourSelection: Выбор цвета
 compatibilityMode: Режим совместимости
 compatibilityModeTooltip:
   Изменить метаданные «theme-color» на веб-сайте вместо использования API темы.
@@ -23,9 +26,12 @@ compatibilityModeTooltip:
   вкладок.
 confirmResetAll: Вы уверены, что хотите сбросить все настройки?
 confirmResetThemeBuilder: Вы уверены, что хотите сбросить конструктор темы?
+confirmSyncSettings:
+  Локальные и облачные настройки различаются. Какие настройки сохранить?
 couldNotFindElement: Не удалось найти HTML-элемент, соответствующий
 couldNotFindElementEnd: ", цвет выбран со страницы вместо него"
 currentPage: Текущая страница
+customColours: Пользовательские цвета
 delete: Удалить
 deleteRule: Удалить правило
 dynamicColourUpdate: Динамическое обновление цвета
@@ -39,11 +45,12 @@ exportSettings: Экспорт настроек
 extensionDescription:
   Меняет цвет темы Firefox в соответствии с внешним видом сайта.
 extensionName: Adaptive Tab Bar Colour
-fallbackColourDark: "Резервный цвет: тёмный"
-fallbackColourLight: "Резервный цвет: светлый"
+fallbackColour: Резервный цвет
+fallbackColourTooltip: Используется, когда невозможно определить цвет страницы.
 frame: Рамка
-homepageColourDark: "Цвет домашней страницы: тёмный"
-homepageColourLight: "Цвет домашней страницы: светлый"
+homepageColour: Цвет домашней страницы
+homepageColourTooltip: Используется для домашней страницы и новых вкладок.
+howDoRulesWork: Как работают правила
 ifVerticalTabsAreEnabled:
   Если включены «вертикальные вкладки», любое ненулевое значение может привести
   к появлению зазора над элементами управления окном, что затрудняет доступ к
@@ -57,6 +64,8 @@ importFailed: Не удалось импортировать настройки.
 importSettings: Импорт настроек
 inDarkMode: В тёмном режиме
 inLightMode: В светлом режиме
+keepCloudSettings: Облачные
+keepLocalSettings: Локальные
 loading: Загрузка…
 minimumContrast: Минимальный контраст
 minimumContrastTooltip:
@@ -65,6 +74,7 @@ minimumContrastTooltip:
 moreSettings: Больше настроек
 moreSettingsTooltip: Открыть страницу настроек
 no: Нет
+ok: ОК
 overwriteAccentColour: Перезаписать акцентный цвет
 overwriteAccentColourTooltip:
   Использовать собственный цвет акцента вместо цвета системы для адресной строки
@@ -82,12 +92,30 @@ ruleAppliedInBothMode:
 ruleAppliedInDarkMode: Правило будет применяться только в тёмном режиме
 ruleAppliedInLightMode: Правило будет применяться только в светлом режиме
 ruleList: Список правил
+ruleMatchDomain: "Домен или путь: сайт и его подстраницы."
+ruleMatchExact: "Точный URL: одна конкретная страница."
+ruleMatchIntro: "Правило может совпадать по:"
+ruleMatchRegex: "Регулярное выражение: сложный шаблон."
+ruleMatchWildcard: "Шаблон:"
+ruleMatchWildcardAny: Используйте
+ruleMatchWildcardAnyEnd: для любого текста
+ruleMatchWildcardChar: Используйте
+ruleMatchWildcardCharEnd: для одного символа
+ruleMatchWildcardPart: Используйте
+ruleMatchWildcardPartEnd: для части URL
+ruleOrderExplanation:
+  Правила проверяются сверху вниз. Срабатывает последнее совпавшее правило.
 ruleWillBeIgnored: Это правило будет игнорироваться
 selectedTab: Выбранная вкладка
 settingsAreExported: Настройки экспортированы в папку загрузок.
 settingsAreImported: Настройки импортированы.
 sidebar: Боковая панель
 specifyAColour: указать цвет
+syncSettings: Синхронизировать настройки с облаком
+syncSettingsFailed:
+  Не удалось изменить настройки синхронизации. Попробуйте ещё раз.
+syncSettingsTooltip:
+  Синхронизация настроек между устройствами через учётную запись браузера.
 system: Система
 tabBar: Панель вкладок
 themeBuilder: Конструктор темы
