@@ -30,10 +30,12 @@ export default function App() {
 		};
 	}, []);
 
+	const popupColour = cache?.setThemeResult?.theme?.colors?.popup;
+
 	useEffect(() => {
-		const colour = cache?.themeData?.popupColour;
-		if (colour) document.documentElement.style.setProperty("--app", colour);
-	}, [cache?.themeData?.popupColour]);
+		if (typeof popupColour === "string")
+			document.documentElement.style.setProperty("--app", popupColour);
+	}, [popupColour]);
 
 	return (
 		<>
@@ -41,10 +43,10 @@ export default function App() {
 				<>
 					<RuleWidget
 						pref={pref}
-						ruleData={cache.ruleData}
-						metaData={cache.metaData}
+						getRuleResult={cache.getRuleResult}
+						getMetaResult={cache.getMetaResult}
 					/>
-					{cache.themeData.corrected && <CorrectionWidget />}
+					{cache.setThemeResult.corrected && <CorrectionWidget />}
 				</>
 			) : (
 				<LoadingWidget />
@@ -52,7 +54,7 @@ export default function App() {
 			<ThemeWidget
 				ready={ready}
 				pref={pref}
-				scheme={cache?.themeData?.scheme ?? currentScheme}
+				scheme={cache?.setThemeResult?.scheme ?? currentScheme}
 			/>
 		</>
 	);

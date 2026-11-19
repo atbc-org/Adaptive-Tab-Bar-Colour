@@ -109,12 +109,12 @@ export async function getRule(
 	url = "",
 	scheme: Scheme,
 	rules: RulePrefs,
-): Promise<RuleQueryResult> {
+): Promise<GetRuleResult> {
 	if (!url) return { url };
 
 	const webExtId = await getWebExtId(url);
 	const cleanUrl = url.replace(/\/$/, "");
-	let match: RuleQueryResult = { url, webExtId };
+	let match: GetRuleResult = { url, webExtId };
 
 	const sortedRules = Object.entries(rules).sort(
 		([, ruleA], [, ruleB]) => ruleA.order - ruleB.order,

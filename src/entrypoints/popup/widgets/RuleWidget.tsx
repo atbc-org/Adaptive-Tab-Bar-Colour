@@ -2,24 +2,31 @@ import styles from "./RuleWidget.module.css";
 
 interface RuleWidgetProps {
 	pref: Prefs;
-	ruleData: RuleQueryResult;
-	metaData: MetaQueryResult;
+	getRuleResult: GetRuleResult;
+	getMetaResult: GetMetaResult;
 }
 
 export default function RuleWidget({
 	pref,
-	ruleData,
-	metaData,
+	getRuleResult,
+	getMetaResult,
 }: RuleWidgetProps) {
 	return (
 		<section className={styles.ruleWidget}>
 			<div className={styles.infoMessage}>
 				<Icon type="info" inline />
 				<span>
-					<ReasonText reason={metaData.reason} info={metaData.info} />
+					<ReasonText
+						reason={getMetaResult.reason}
+						info={getMetaResult.info}
+					/>
 				</span>
 			</div>
-			<RuleControls pref={pref} ruleData={ruleData} metaData={metaData} />
+			<RuleControls
+				pref={pref}
+				getRuleResult={getRuleResult}
+				getMetaResult={getMetaResult}
+			/>
 		</section>
 	);
 }
@@ -118,18 +125,22 @@ function ReasonText({ reason, info }: ReasonTextProps) {
 
 interface RuleControlsProps {
 	pref: Prefs;
-	ruleData: RuleQueryResult;
-	metaData: MetaQueryResult;
+	getRuleResult: GetRuleResult;
+	getMetaResult: GetMetaResult;
 }
 
-function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
-	if (ruleData.id !== undefined && ruleData.rule !== undefined) {
-		const id = ruleData.id;
+function RuleControls({
+	pref,
+	getRuleResult,
+	getMetaResult,
+}: RuleControlsProps) {
+	if (getRuleResult.id !== undefined && getRuleResult.rule !== undefined) {
+		const id = getRuleResult.id;
 		return (
 			<>
 				<RuleCard
 					inPopup
-					rule={ruleData.rule}
+					rule={getRuleResult.rule}
 					onChange={(newRule) => {
 						if (newRule) pref.rule[id] = newRule;
 						else delete pref.rule[id];
@@ -147,11 +158,11 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 		);
 	} else if (
 		["THEME_IGNORED", "THEME_USED", "COLOUR_PICKED"].includes(
-			metaData.reason,
+			getMetaResult.reason,
 		) &&
-		URL.canParse(ruleData.url)
+		URL.canParse(getRuleResult.url)
 	) {
-		const { hostname } = new URL(ruleData.url);
+		const { hostname } = new URL(getRuleResult.url);
 		return (
 			<button
 				className={styles.controlButton}
@@ -169,10 +180,10 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 			</button>
 		);
 	} else if (
-		["ADDON_DEFAULT", "ADDON_PRESET"].includes(metaData.reason) &&
-		ruleData.webExtId !== undefined
+		["ADDON_DEFAULT", "ADDON_PRESET"].includes(getMetaResult.reason) &&
+		getRuleResult.webExtId !== undefined
 	) {
-		const webExtId = ruleData.webExtId;
+		const webExtId = getRuleResult.webExtId;
 		return (
 			<button
 				className={styles.controlButton}
@@ -189,7 +200,7 @@ function RuleControls({ pref, ruleData, metaData }: RuleControlsProps) {
 				{i18n.t("addANewRule")}
 			</button>
 		);
-	} else if (metaData.reason === "HOME_PAGE") {
+	} else if (getMetaResult.reason === "HOME_PAGE") {
 		return (
 			<div className={styles.colourWrapper}>
 				<div>

@@ -34,27 +34,36 @@ const browserColour = createBrowserColour(
 
 /** Runtime cache. */
 const cache: {
-	ruleData: Record<number, RuleQueryResult | undefined>;
-	metaData: Record<number, MetaQueryResult | undefined>;
-	themeData: Record<number, ApplyThemeResult | undefined>;
+	getRuleResult: Record<number, GetRuleResult | undefined>;
+	getMetaResult: Record<number, GetMetaResult | undefined>;
+	setThemeResult: Record<number, SetThemeResult | undefined>;
 	scheme: Scheme;
 	readonly reversedScheme: Scheme;
-	clear: () => Promise<void>;
+	clear: (windowId?: number) => Promise<void>;
 } = {
-	ruleData: {},
-	metaData: {},
-	themeData: {},
+	getRuleResult: {},
+	getMetaResult: {},
+	setThemeResult: {},
 	scheme: "light",
 	/** The reversed colour theme. */
 	get reversedScheme() {
 		return this.scheme === "light" ? "dark" : "light";
 	},
-	/** Updates `scheme` and clears `ruleData`, `metaData`, and `themeData`. */
-	async clear() {
+	/**
+	 * Updates `scheme` and clears `getRuleResult`, `getMetaResult`, and
+	 * `setThemeResult`.
+	 */
+	async clear(windowId?: number) {
 		this.scheme = await getCurrentScheme();
-		this.ruleData = {};
-		this.metaData = {};
-		this.themeData = {};
+		if (windowId !== undefined) {
+			delete this.getRuleResult[windowId];
+			delete this.getMetaResult[windowId];
+			delete this.setThemeResult[windowId];
+		} else {
+			this.getRuleResult = {};
+			this.getMetaResult = {};
+			this.setThemeResult = {};
+		}
 	},
 };
 
@@ -69,32 +78,42 @@ async function handleMessage(
 			if (tab === undefined || !tab.active) break;
 			updateTab(tab);
 			break;
-		case "UPDATE_COLOUR":
+		case "UPDATE_COLOUR": {
 			if (tab === undefined || !tab.active) break;
 			const windowId = tab.windowId;
-			const ruleData = cache.ruleData[windowId] ?? { url: tab.url ?? "" };
-			const metaData = (cache.metaData[windowId] = parseTabColourData(
+			const getRuleResult = cache.getRuleResult[windowId] ?? {
+				url: tab.url ?? "",
+			};
+			const webPageMeta = await getWebPageMeta(
+				tab.id,
+				getRuleResult.rule,
 				message.colour,
-				ruleData.rule,
-			));
-			const themeData = (cache.themeData[windowId] = setFrameColour(
+			);
+			if (!webPageMeta.success) break;
+			const getMetaResult = (cache.getMetaResult[windowId] =
+				webPageMeta.result);
+			const setThemeResult = (cache.setThemeResult[windowId] = setTheme(
 				tab,
-				metaData,
+				getMetaResult,
+				cache.scheme,
+				prefs,
+				browserColour.HOME,
 			));
 			sendMessageToPopup({
 				header: "CACHE_UPDATE",
 				windowId,
-				cache: { ruleData, metaData, themeData },
+				cache: { getRuleResult, getMetaResult, setThemeResult },
 			});
 			break;
+		}
 		case "CACHE_REQUEST": {
 			const windowId = await getActiveWindowId();
 			if (windowId === undefined) return undefined;
-			const ruleData = cache.ruleData[windowId];
-			const metaData = cache.metaData[windowId];
-			const themeData = cache.themeData[windowId];
-			return ruleData && metaData && themeData
-				? { ruleData, metaData, themeData }
+			const getRuleResult = cache.getRuleResult[windowId];
+			const getMetaResult = cache.getMetaResult[windowId];
+			const setThemeResult = cache.setThemeResult[windowId];
+			return getRuleResult && getMetaResult && setThemeResult
+				? { getRuleResult, getMetaResult, setThemeResult }
 				: undefined;
 		}
 		default:
@@ -103,41 +122,74 @@ async function handleMessage(
 	return true;
 }
 
-/** Triggers colour update for all active tabs. */
-async function run(): Promise<void> {
+const runDebounceMs = 50;
+const pendingWindowRuns = new Map<number, ReturnType<typeof setTimeout>>();
+
+/**
+ * Triggers colour update for all active tabs, or a specific window's active
+ * tab.
+ */
+async function run(windowId?: number): Promise<void> {
 	if (!isReady) return;
-	await cache.clear();
-	(await getActiveTabList()).forEach(updateTab);
+	if (windowId === undefined) {
+		for (const timer of pendingWindowRuns.values()) clearTimeout(timer);
+		pendingWindowRuns.clear();
+	}
+	await cache.clear(windowId);
+	(await getActiveTabList(windowId)).forEach(updateTab);
+}
+
+/**
+ * Schedules a debounced colour update for a window, or runs immediately if
+ * global.
+ */
+function scheduleRun(windowId?: number): void {
+	if (windowId === undefined) {
+		void run();
+		return;
+	}
+	const existing = pendingWindowRuns.get(windowId);
+	if (existing !== undefined) clearTimeout(existing);
+	pendingWindowRuns.set(
+		windowId,
+		setTimeout(() => {
+			pendingWindowRuns.delete(windowId);
+			void run(windowId);
+		}, runDebounceMs),
+	);
 }
 
 /** Updates the colour for a tab and caches its meta information. */
 async function updateTab(tab: Browser.tabs.Tab): Promise<void> {
 	const windowId = tab.windowId;
-	const ruleData = (cache.ruleData[windowId] = await getRule(
+	const getRuleResult = (cache.getRuleResult[windowId] = await getRule(
 		tab.url,
 		cache.scheme,
 		prefs.rule,
 	));
-	const metaData = (cache.metaData[windowId] = await getTabMeta(
+	const getMetaResult = (cache.getMetaResult[windowId] = await getMeta(
 		tab,
-		ruleData,
+		getRuleResult,
 	));
-	const themeData = (cache.themeData[windowId] = setFrameColour(
+	const setThemeResult = (cache.setThemeResult[windowId] = setTheme(
 		tab,
-		metaData,
+		getMetaResult,
+		cache.scheme,
+		prefs,
+		browserColour.HOME,
 	));
 	sendMessageToPopup({
 		header: "CACHE_UPDATE",
 		windowId: tab.windowId,
-		cache: { ruleData, metaData, themeData },
+		cache: { getRuleResult, getMetaResult, setThemeResult },
 	});
 }
 
 /** Gets colour metadata for a tab. */
-async function getTabMeta(
+async function getMeta(
 	tab: Browser.tabs.Tab,
-	ruleData: RuleQueryResult,
-): Promise<MetaQueryResult> {
+	getRuleResult: GetRuleResult,
+): Promise<GetMetaResult> {
 	const { id, windowId, url, title, favIconUrl } = tab;
 
 	if (!id) {
@@ -149,7 +201,7 @@ async function getTabMeta(
 	}
 
 	const { hostname, href, pathname, protocol } = new URL(url);
-	const { rule, webExtId } = ruleData;
+	const { rule, webExtId } = getRuleResult;
 
 	if (href !== "about:blank" && href !== "about:newtab") {
 		blankTabIds.delete(id);
@@ -176,62 +228,61 @@ async function getTabMeta(
 		}
 	}
 
-	try {
-		return parseTabColourData(
-			await sendMessageToTab<TabColourData>(id, {
-				header: "SETUP_SCRIPT",
-				mode: prefs.advanced.dynamic ? "dynamic" : "static",
-				query: rule?.type === "QUERY_SELECTOR" ? rule.value : undefined,
-			}),
-			rule,
-		);
-	} catch {
-		console.info("Could not connect to", url);
+	const webPageMeta = await getWebPageMeta(id, rule);
+	if (webPageMeta.success) return webPageMeta.result;
+	console.info("Could not connect to", url);
 
-		if (protocol === "about:") {
-			return await getAboutPageMeta(id, windowId, href, pathname, title);
-		} else if (protocol === "moz-extension:") {
-			return await getWebExtPageMeta(webExtId);
-		} else if (sourcePageProtocol.includes(protocol)) {
-			return getSourcePageMeta(protocol, href);
-		} else if (href.startsWith("data:image")) {
-			return {
-				colour: browserColour.IMAGE_VIEWER,
-				reason: "IMAGE_VIEWER",
-			};
-		} else if (href.endsWith(".pdf") || title?.endsWith(".pdf")) {
-			return { colour: browserColour.PDF_VIEWER, reason: "PDF_VIEWER" };
-		} else if (href.endsWith(".json") || title?.endsWith(".json")) {
-			return { colour: browserColour.JSON_VIEWER, reason: "JSON_VIEWER" };
-		} else if (favIconUrl?.startsWith("chrome:")) {
-			return { colour: browserColour.DEFAULT, reason: "PROTECTED_PAGE" };
-		} else if (href.match(new RegExp(`https?:\\/\\/${title}$`, "i"))) {
-			return { colour: browserColour.PLAINTEXT, reason: "TEXT_VIEWER" };
-		} else if (hostname in mozillaPageColour) {
-			return {
-				colour:
-					mozillaPageColour[hostname]?.[cache.scheme] ??
-					browserColour.FALLBACK,
-				reason: "PROTECTED_PAGE",
-			};
-		} else {
-			return {
-				colour: browserColour.FALLBACK,
-				reason: "FALLBACK_COLOUR",
-			};
-		}
+	if (protocol === "about:") {
+		return await getAboutPageMeta(id, windowId, href, pathname, title);
+	} else if (protocol === "moz-extension:") {
+		return await getWebExtPageMeta(webExtId);
+	} else if (sourcePageProtocol.includes(protocol)) {
+		return getSourcePageMeta(protocol, href);
+	} else if (href.startsWith("data:image")) {
+		return { colour: browserColour.IMAGE_VIEWER, reason: "IMAGE_VIEWER" };
+	} else if (href.endsWith(".pdf") || title?.endsWith(".pdf")) {
+		return { colour: browserColour.PDF_VIEWER, reason: "PDF_VIEWER" };
+	} else if (href.endsWith(".json") || title?.endsWith(".json")) {
+		return { colour: browserColour.JSON_VIEWER, reason: "JSON_VIEWER" };
+	} else if (favIconUrl?.startsWith("chrome:")) {
+		return { colour: browserColour.DEFAULT, reason: "PROTECTED_PAGE" };
+	} else if (href.match(new RegExp(`https?:\\/\\/${title}$`, "i"))) {
+		return { colour: browserColour.PLAINTEXT, reason: "TEXT_VIEWER" };
+	} else if (hostname in mozillaPageColour) {
+		return {
+			colour:
+				mozillaPageColour[hostname]?.[cache.scheme] ??
+				browserColour.FALLBACK,
+			reason: "PROTECTED_PAGE",
+		};
+	} else {
+		return { colour: browserColour.FALLBACK, reason: "FALLBACK_COLOUR" };
 	}
 }
 
-/** Parses raw tab colour data to determine final colour metadata. */
-function parseTabColourData(
-	tabColourData: TabColourData,
+/** Fetches and parses colour metadata for a web page tab. */
+async function getWebPageMeta(
+	tabId: number | undefined,
 	rule?: Rule,
-): MetaQueryResult {
-	const { page, theme, query, special } = tabColourData;
+	colourData?: TabColourData,
+): Promise<{ success: true; result: GetMetaResult } | { success: false }> {
+	let tabColourData = colourData;
+	if (!tabColourData) {
+		if (tabId === undefined) return { success: false };
+		try {
+			tabColourData = await sendMessageToTab<TabColourData>(tabId, {
+				header: "SETUP_SCRIPT",
+				mode: prefs.advanced.dynamic ? "dynamic" : "static",
+				query: rule?.type === "QUERY_SELECTOR" ? rule.value : undefined,
+			});
+		} catch {
+			return { success: false };
+		}
+	}
+
 	const parsePageColour = () => {
 		let pageColour = new Colour();
-		for (const element of page) {
+		for (const element of tabColourData.page) {
 			const opacity = parseFloat(element.opacity);
 			if (isNaN(opacity)) continue;
 			pageColour = pageColour.mix(
@@ -241,10 +292,11 @@ function parseTabColourData(
 		}
 		return pageColour.mix(browserColour.FALLBACK);
 	};
-	const parseThemeColour = () => new Colour(theme[cache.scheme]);
-	const parseQueryColour = () => new Colour(query?.colour);
+	const parseThemeColour = () =>
+		new Colour(tabColourData.theme[cache.scheme]);
+	const parseQueryColour = () => new Colour(tabColourData.query?.colour);
 	const getFallbackColour = () => {
-		switch (special) {
+		switch (tabColourData.special) {
 			case "image":
 				return browserColour.IMAGE_VIEWER;
 			case "plaintext":
@@ -259,55 +311,73 @@ function parseTabColourData(
 	switch (rule?.type) {
 		case "THEME_COLOUR": {
 			const themeColour = parseThemeColour();
-			return themeColour.isOpaque()
-				? rule?.value
-					? {
-							colour: themeColour,
-							reason: prefs.advanced.noThemeColour
-								? "THEME_UNIGNORED"
-								: "THEME_USED",
-						}
-					: { colour: getFallbackColour(), reason: "THEME_IGNORED" }
-				: {
-						colour: getFallbackColour(),
-						reason: rule?.value ? "THEME_MISSING" : "COLOUR_PICKED",
-					};
+			return {
+				success: true,
+				result: themeColour.isOpaque()
+					? rule?.value
+						? {
+								colour: themeColour,
+								reason: prefs.advanced.noThemeColour
+									? "THEME_UNIGNORED"
+									: "THEME_USED",
+							}
+						: {
+								colour: getFallbackColour(),
+								reason: "THEME_IGNORED",
+							}
+					: {
+							colour: getFallbackColour(),
+							reason: rule?.value
+								? "THEME_MISSING"
+								: "COLOUR_PICKED",
+						},
+			};
 		}
 		case "QUERY_SELECTOR": {
 			const queryColour = parseQueryColour();
-			return queryColour.isOpaque()
-				? {
-						colour: queryColour,
-						reason: "QS_USED",
-						info: rule?.value || "🕳️",
-					}
-				: {
-						colour: getFallbackColour(),
-						reason: "QS_FAILED",
-						info: rule?.value || "🕳️",
-					};
+			return {
+				success: true,
+				result: queryColour.isOpaque()
+					? {
+							colour: queryColour,
+							reason: "QS_USED",
+							info: rule?.value || "🕳️",
+						}
+					: {
+							colour: getFallbackColour(),
+							reason: "QS_FAILED",
+							info: rule?.value || "🕳️",
+						},
+			};
 		}
 		default: {
 			const themeColour = parseThemeColour();
-			return themeColour.isOpaque()
-				? !prefs.advanced.noThemeColour
-					? { colour: themeColour, reason: "THEME_USED" }
-					: { colour: getFallbackColour(), reason: "THEME_IGNORED" }
-				: {
-						colour: getFallbackColour(),
-						reason:
-							special === "image" || special === "svg"
-								? "IMAGE_VIEWER"
-								: special === "plaintext"
-									? "TEXT_VIEWER"
-									: "COLOUR_PICKED",
-					};
+			return {
+				success: true,
+				result: themeColour.isOpaque()
+					? !prefs.advanced.noThemeColour
+						? { colour: themeColour, reason: "THEME_USED" }
+						: {
+								colour: getFallbackColour(),
+								reason: "THEME_IGNORED",
+							}
+					: {
+							colour: getFallbackColour(),
+							reason:
+								tabColourData.special === "image" ||
+								tabColourData.special === "svg"
+									? "IMAGE_VIEWER"
+									: tabColourData.special === "plaintext"
+										? "TEXT_VIEWER"
+										: "COLOUR_PICKED",
+						},
+			};
 		}
 	}
 }
 
 /** Gets the colour metadata for source pages. */
-function getSourcePageMeta(protocol: string, href: string): MetaQueryResult {
+function getSourcePageMeta(protocol: string, href: string): GetMetaResult {
 	const reason = "PROTECTED_PAGE";
 	if (href === "chrome://browser/content/blanktab.html") {
 		return { colour: browserColour.BLANK, reason };
@@ -330,7 +400,7 @@ async function getAboutPageMeta(
 	href: string,
 	pathname: string,
 	title?: string,
-): Promise<MetaQueryResult> {
+): Promise<GetMetaResult> {
 	if (href === "about:privatebrowsing") {
 		return {
 			colour: (await isWindowIncognito(windowId))
@@ -355,7 +425,7 @@ async function getAboutPageMeta(
 }
 
 /** Gets the colour metadata for an extension page. */
-async function getWebExtPageMeta(webExtId?: string): Promise<MetaQueryResult> {
+async function getWebExtPageMeta(webExtId?: string): Promise<GetMetaResult> {
 	if (webExtId !== undefined) {
 		const webExtName =
 			(await getWebExtName(webExtId)) ?? i18n.t("addonNotFound");
@@ -376,123 +446,6 @@ async function getWebExtPageMeta(webExtId?: string): Promise<MetaQueryResult> {
 	}
 }
 
-/** Applies the colour to the browser frame. */
-function setFrameColour(
-	tab: Browser.tabs.Tab,
-	meta: MetaQueryResult,
-): ApplyThemeResult {
-	const windowId = tab.windowId;
-	const { colour, scheme, corrected } = meta.colour.contrastCorrection(
-		cache.scheme,
-		!prefs.advanced.compatibilityMode && prefs.advanced.allowDarkLight,
-		prefs.advanced.minContrast_light,
-		prefs.advanced.minContrast_dark,
-	);
-	prefs.advanced.compatibilityMode
-		? setTabThemeColour(tab, colour)
-		: applyTheme(windowId, colour, scheme);
-	return {
-		popupColour: colour
-			.brightness((scheme === "light" ? -1.5 : 1) * prefs.theme.popup)
-			.toRGBA(),
-		scheme: scheme,
-		corrected: corrected,
-	};
-}
-
-/**
- * Applies theme colour to a tab using content script (compatibility mode).
- *
- * Used when the theme API is not supported or compatibility mode is enabled.
- */
-async function setTabThemeColour(
-	tab: Browser.tabs.Tab,
-	colour: Colour,
-): Promise<void> {
-	if (!tab.id) return;
-	try {
-		await sendMessageToTab(tab.id, {
-			header: "SET_THEME_COLOUR",
-			colour: colour.brightness(prefs.theme.tabbar).toRGBA(),
-		});
-	} catch {
-		console.warn("Could not apply theme colour to tab:", tab.url);
-	}
-}
-
-/**
- * Applies a browser theme to a window.
- *
- * @see https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/theme
- */
-function applyTheme(windowId: number, colour: Colour, scheme: Scheme): void {
-	if (scheme !== "light" && scheme !== "dark") return;
-
-	const lightDark = <T>(light: T, dark: T) =>
-		scheme === "light" ? light : dark;
-	const css = (value: number): string =>
-		colour.brightness(lightDark(-1.5, 1) * value).toRGBA();
-
-	const primaryColour = lightDark("#000000", "#ffffff");
-	const secondaryColour = lightDark("#0000001c", "#ffffff1c");
-	const accentColour = prefs.advanced.overwriteAccentColour
-		? lightDark(
-				prefs.advanced.accentColour_light,
-				prefs.advanced.accentColour_dark,
-			)
-		: "AccentColor";
-
-	const theme: Theme = {
-		colors: {
-			// adaptive
-			button_background_active: css(prefs.theme.tabSelected),
-			frame: css(prefs.theme.tabbar),
-			frame_inactive: css(prefs.theme.tabbar),
-			ntp_background: browserColour.HOME.toRGBA(),
-			popup: css(prefs.theme.popup),
-			popup_border: css(prefs.theme.popup + prefs.theme.popupBorder),
-			sidebar: css(prefs.theme.sidebar),
-			sidebar_border: css(
-				prefs.theme.sidebar + prefs.theme.sidebarBorder,
-			),
-			tab_line: css(
-				prefs.theme.tabSelectedBorder + prefs.theme.tabSelected,
-			),
-			tab_selected: css(prefs.theme.tabSelected),
-			toolbar: css(prefs.theme.toolbar),
-			toolbar_bottom_separator: css(
-				prefs.theme.toolbarBorder + prefs.theme.toolbar,
-			),
-			toolbar_field: css(prefs.theme.toolbarField),
-			toolbar_field_border: css(
-				prefs.theme.toolbarFieldBorder + prefs.theme.toolbarField,
-			),
-			toolbar_field_focus: css(prefs.theme.toolbarFieldOnFocus),
-			toolbar_top_separator:
-				prefs.theme.tabbarBorder === 0
-					? "transparent"
-					: css(prefs.theme.tabbarBorder + prefs.theme.tabbar + 5),
-			// static
-			icons: primaryColour,
-			ntp_text: primaryColour,
-			popup_text: primaryColour,
-			sidebar_text: primaryColour,
-			tab_background_text: primaryColour,
-			tab_text: primaryColour,
-			toolbar_field_text: primaryColour,
-			toolbar_text: primaryColour,
-			button_background_hover: secondaryColour,
-			toolbar_vertical_separator: secondaryColour,
-			toolbar_field_border_focus: accentColour,
-			popup_highlight: accentColour,
-			sidebar_highlight: accentColour,
-			icons_attention: accentColour,
-		},
-		properties: { color_scheme: "system", content_color_scheme: "system" },
-	};
-	void updateBrowserTheme(windowId, theme);
-}
-
 export default defineBackground(() => {
 	initPrefs().then((initial) => {
 		prefs = initial;
@@ -503,8 +456,8 @@ export default defineBackground(() => {
 		prefs = updated;
 		void run();
 	});
-	addSchemeChangeListener(run);
-	addTabChangeListener(run);
+	addSchemeChangeListener(() => void run());
+	addTabChangeListener(scheduleRun);
 	addMessageListener(handleMessage);
 	addBlankPageListener((tabId, isBlank) => {
 		if (isBlank) blankTabIds.add(tabId);

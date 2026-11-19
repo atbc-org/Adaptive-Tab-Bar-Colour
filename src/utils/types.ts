@@ -115,7 +115,7 @@ export type NewRule =
 	| Omit<ThemeColourRule, "order">
 	| Omit<QuerySelectorRule, "order">;
 
-export interface RuleQueryResult {
+export interface GetRuleResult {
 	id?: string | undefined;
 	url: string;
 	webExtId?: string | undefined;
@@ -168,16 +168,16 @@ export type TabMetaReason =
 	| "THEME_UNIGNORED"
 	| "THEME_USED";
 
-export interface MetaQueryResult {
+export interface GetMetaResult {
 	colour: Colour;
 	reason: TabMetaReason;
 	info?: string;
 }
 
-export interface ApplyThemeResult {
-	popupColour: string;
+export interface SetThemeResult {
 	scheme: Scheme;
 	corrected: boolean;
+	theme: Theme;
 }
 
 export interface ColourCorrectionResult {
@@ -187,9 +187,9 @@ export interface ColourCorrectionResult {
 }
 
 export interface CacheData {
-	ruleData: RuleQueryResult;
-	metaData: MetaQueryResult;
-	themeData: ApplyThemeResult;
+	getRuleResult: GetRuleResult;
+	getMetaResult: GetMetaResult;
+	setThemeResult: SetThemeResult;
 }
 
 export type MessageForBackground =

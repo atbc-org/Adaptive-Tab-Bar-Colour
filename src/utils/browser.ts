@@ -77,11 +77,16 @@ export async function getActiveWindowId(): Promise<number | undefined> {
 	);
 }
 
-/** Retrieves all active and fully loaded tabs. */
-export async function getActiveTabList(): Promise<Browser.tabs.Tab[]> {
+/** Retrieves all active and fully loaded tabs, optionally scoped to a window. */
+export async function getActiveTabList(
+	windowId?: number,
+): Promise<Browser.tabs.Tab[]> {
 	return (
-		(await browser?.tabs?.query?.({ active: true, status: "complete" })) ??
-		[]
+		(await browser?.tabs?.query?.(
+			windowId !== undefined
+				? { active: true, status: "complete", windowId }
+				: { active: true, status: "complete" },
+		)) ?? []
 	);
 }
 
@@ -102,14 +107,27 @@ export async function captureActiveTabPage(): Promise<string | null> {
 }
 
 /** Registers a listener for tab and window change events. */
-export function addTabChangeListener(listener: () => void): void {
-	browser?.tabs?.onAttached?.addListener?.(listener);
-	browser?.tabs?.onActivated?.addListener?.(listener);
-	browser?.tabs?.onUpdated?.addListener?.(listener, {
-		properties: ["status"],
+export function addTabChangeListener(
+	listener: (windowId?: number) => void,
+): void {
+	browser?.tabs?.onAttached?.addListener?.((_, attachInfo) =>
+		listener(attachInfo.newWindowId),
+	);
+	browser?.tabs?.onActivated?.addListener?.((activeInfo) =>
+		listener(activeInfo.windowId),
+	);
+	browser?.tabs?.onUpdated?.addListener?.(
+		(_tabId, _changeInfo, tab) => {
+			if (tab.active) listener(tab.windowId);
+		},
+		{ properties: ["status"] },
+	);
+	browser?.windows?.onFocusChanged?.addListener?.((windowId) => {
+		if (windowId !== undefined && windowId >= 0) listener(windowId);
 	});
-	browser?.windows?.onFocusChanged?.addListener?.(listener);
-	browser?.windows?.onBoundsChanged?.addListener?.(listener);
+	browser?.windows?.onBoundsChanged?.addListener?.((window) =>
+		listener(window.id),
+	);
 }
 
 /** Registers a listener for blank page tab events. */
