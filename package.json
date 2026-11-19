@@ -1,6 +1,6 @@
 {
 	"name": "adaptive-tab-bar-colour",
-	"version": "4.4.0",
+	"version": "4.4.1",
 	"private": true,
 	"description": "Changes the colour of Firefox theme to match the website’s appearance.",
 	"homepage": "https://github.com/atbc-org/Adaptive-Tab-Bar-Colour",
