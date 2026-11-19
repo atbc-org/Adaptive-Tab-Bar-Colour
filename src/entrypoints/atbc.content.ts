@@ -157,7 +157,8 @@ const styleTagObserver = new MutationObserver((mutationList) => {
 
 /** Enables dynamic colour monitoring using event listeners and observers. */
 function enableDynamic(): void {
-	["click", "resize", "scroll", "visibilitychange"].forEach((event) =>
+	document.addEventListener("scroll", sendColour, { passive: true });
+	["click", "resize", "visibilitychange"].forEach((event) =>
 		document.addEventListener(event, sendColour),
 	);
 	[
@@ -215,6 +216,36 @@ function setThemeColour(themeColour: string): void {
 	metaThemeColourList.forEach((metaThemeColour) => metaThemeColour.remove());
 }
 
+/** Checks whether two element colour entries are identical. */
+function isSameElementColour(
+	a?: TabElementColourData,
+	b?: TabElementColourData,
+): boolean {
+	if (a === b) return true;
+	if (!a || !b) return false;
+	return (
+		a.colour === b.colour &&
+		a.opacity === b.opacity &&
+		a.filter === b.filter
+	);
+}
+
+/** Checks whether two tab colour payloads are identical. */
+function isSameTabColourData(
+	a: TabColourData | undefined,
+	b: TabColourData,
+): boolean {
+	if (!a) return false;
+	if (a.special !== b.special) return false;
+	if (a.theme.light !== b.theme.light || a.theme.dark !== b.theme.dark)
+		return false;
+	if (!isSameElementColour(a.query, b.query)) return false;
+	if (a.page.length !== b.page.length) return false;
+	return a.page.every((item, index) =>
+		isSameElementColour(item, b.page[index]),
+	);
+}
+
 let dispatchTimeout: ReturnType<typeof setTimeout> | undefined;
 let lastSentAt = 0;
 const throttleIntervalMs = 250;
@@ -226,10 +257,13 @@ async function sendColour() {
 	const dispatch = async () => {
 		if (document.visibilityState !== "visible") return;
 		lastSentAt = Date.now();
+		const previousColourData = colourDataCache;
+		const nextColourData = getColourData();
+		if (isSameTabColourData(previousColourData, nextColourData)) return;
 		try {
 			await sendMessageToBackground({
 				header: "UPDATE_COLOUR",
-				colour: getColourData(),
+				colour: nextColourData,
 			});
 		} catch {
 			console.warn("Failed to send colour to ATBC background.");
