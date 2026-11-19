@@ -202,25 +202,31 @@ export default function ThemeTab({ pref, ready }: ThemeTabProps) {
 					</button>
 					<Popover
 						content={i18n.t("confirmResetThemeBuilder")}
-						onConfirm={() => {
-							void resetPrefs([
-								"theme:tabbar",
-								"theme:tabbarBorder",
-								"theme:tabSelected",
-								"theme:tabSelectedBorder",
-								"theme:toolbar",
-								"theme:toolbarBorder",
-								"theme:toolbarField",
-								"theme:toolbarFieldBorder",
-								"theme:toolbarFieldOnFocus",
-								"theme:sidebar",
-								"theme:sidebarBorder",
-								"theme:popup",
-								"theme:popupBorder",
-							]);
-							historyRef.current = [];
-							headRef.current = -1;
-						}}
+						buttons={[
+							{
+								label: i18n.t("yes"),
+								action: () => {
+									void resetPrefs([
+										"theme:tabbar",
+										"theme:tabbarBorder",
+										"theme:tabSelected",
+										"theme:tabSelectedBorder",
+										"theme:toolbar",
+										"theme:toolbarBorder",
+										"theme:toolbarField",
+										"theme:toolbarFieldBorder",
+										"theme:toolbarFieldOnFocus",
+										"theme:sidebar",
+										"theme:sidebarBorder",
+										"theme:popup",
+										"theme:popupBorder",
+									]);
+									historyRef.current = [];
+									headRef.current = -1;
+								},
+							},
+							{ label: i18n.t("no") },
+						]}
 					>
 						{(open) => (
 							<button
