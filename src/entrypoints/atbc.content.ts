@@ -1,5 +1,11 @@
-let query: string | undefined;
 let colourDataCache: TabColourData | undefined;
+let querySelectorCache: string | undefined;
+let themeColourCache: TabThemeColourData | undefined;
+
+let dispatchTimeout: ReturnType<typeof setTimeout> | undefined;
+let dispatchFrame: number | undefined;
+let lastSentAt = 0;
+const throttleIntervalMs = 250;
 
 /** Handles incoming runtime messages from the background script. */
 function handleMessage(
@@ -8,7 +14,8 @@ function handleMessage(
 	sendResponse: (response?: unknown) => void,
 ): void {
 	if (message.header === "SETUP_SCRIPT") {
-		query = message.query;
+		querySelectorCache = message.query;
+		themeColourCache = undefined;
 		switch (message.mode) {
 			case "suspend":
 				disableDynamic();
@@ -28,6 +35,32 @@ function handleMessage(
 	}
 }
 
+/** Sets the theme colour by adding a meta tag. */
+function setThemeColour(themeColour: string): void {
+	const metaThemeColourList = document.querySelectorAll(
+		`meta[name="theme-color"]`,
+	);
+	const newMetaThemeColour = document.createElement("meta");
+	newMetaThemeColour.name = "theme-color";
+	newMetaThemeColour.content = themeColour;
+	(document.head ?? document.documentElement).appendChild(newMetaThemeColour);
+	metaThemeColourList.forEach((metaThemeColour) => metaThemeColour.remove());
+}
+
+/** Sends message to background upon the script is loaded. */
+async function sendMessageOnLoad(attempt: number = 0) {
+	try {
+		await sendMessageToBackground({ header: "SCRIPT_READY" });
+	} catch {
+		if (attempt < 10) {
+			console.warn("Failed to connect to ATBC background.");
+			setTimeout(() => sendMessageOnLoad(++attempt), 1000);
+		} else {
+			console.error("Could not connect to ATBC background.");
+		}
+	}
+}
+
 /** Retrieves the colour data from the current page. */
 function getColourData(): TabColourData {
 	const page = getPageColourData();
@@ -43,6 +76,7 @@ function getColourData(): TabColourData {
 
 /** Extracts the theme colour from meta tags. */
 function getThemeColourData(): TabThemeColourData {
+	if (themeColourCache) return themeColourCache;
 	const metaThemeColour = document.querySelector<HTMLMetaElement>(
 		`meta[name="theme-color"]:not([media])`,
 	);
@@ -54,20 +88,21 @@ function getThemeColourData(): TabThemeColourData {
 		document.querySelector<HTMLMetaElement>(
 			`meta[name="theme-color"][media="(prefers-color-scheme: dark)"]`,
 		) ?? metaThemeColour;
-	return {
+	return (themeColourCache = {
 		light: metaThemeColourLight?.content,
 		dark: metaThemeColourDark?.content,
-	};
+	});
 }
 
 /** Extracts visible element colours from the top of the viewport. */
 function getPageColourData(): TabElementColourData[] {
+	const minWidth = window.innerWidth * 0.9;
 	return document
 		.elementsFromPoint(window.innerWidth / 2, 3)
 		.filter(
 			(element) =>
 				element instanceof HTMLElement &&
-				element.offsetWidth >= window.innerWidth * 0.9 &&
+				element.offsetWidth >= minWidth &&
 				element.offsetHeight >= 20,
 		)
 		.map((element) => getElementColour(element))
@@ -81,8 +116,8 @@ function getPageColourData(): TabElementColourData[] {
 /** Extracts colour from an element matching the query. */
 function getQueryColourData(): TabElementColourData | undefined {
 	try {
-		return query
-			? getElementColour(document.querySelector(query))
+		return querySelectorCache
+			? getElementColour(document.querySelector(querySelectorCache))
 			: undefined;
 	} catch {
 		return undefined;
@@ -128,27 +163,128 @@ function getElementColour(
 	return undefined;
 }
 
-const darkReaderObserver = new MutationObserver(sendColour);
-const metaThemeColourObserver = new MutationObserver(sendColour);
-const metaTagObserver = new MutationObserver((mutationList) =>
-	mutationList.forEach((mutation) => {
-		mutation.addedNodes.forEach((node) => {
-			if (
-				node instanceof HTMLMetaElement &&
-				node.name === "theme-color"
-			) {
-				sendColour();
-				metaThemeColourObserver.observe(node, { attributes: true });
-			}
+/** Checks whether two tab colour payloads are identical. */
+function isSameTabColourData(
+	a: TabColourData | undefined,
+	b: TabColourData,
+): boolean {
+	return (
+		!!a &&
+		a.special === b.special &&
+		a.theme.light === b.theme.light &&
+		a.theme.dark === b.theme.dark &&
+		isSameElementColour(a.query, b.query) &&
+		a.page.length === b.page.length &&
+		a.page.every((item, index) => isSameElementColour(item, b.page[index]))
+	);
+}
+
+/** Checks whether two element colour entries are identical. */
+function isSameElementColour(
+	a?: TabElementColourData,
+	b?: TabElementColourData,
+): boolean {
+	return (
+		a === b ||
+		(!!a &&
+			!!b &&
+			a.colour === b.colour &&
+			a.opacity === b.opacity &&
+			a.filter === b.filter)
+	);
+}
+
+/** Sends the current page colour to the background script with throttling. */
+function sendColour(): void {
+	if (document.visibilityState !== "visible") return;
+	clearTimeout(dispatchTimeout);
+	dispatchTimeout = undefined;
+	const remaining = throttleIntervalMs + lastSentAt - Date.now();
+	if (remaining <= 0) {
+		scheduleDispatch();
+		return;
+	}
+	dispatchTimeout = setTimeout(scheduleDispatch, remaining);
+}
+
+/** Sends colour update if the document has focus. */
+function sendColourRequiresFocus(): void {
+	if (document.hasFocus()) sendColour();
+}
+
+/** Schedules a colour dispatch on the next animation frame. */
+function scheduleDispatch(): void {
+	if (dispatchFrame !== undefined) return;
+	dispatchFrame = requestAnimationFrame(() => {
+		void dispatchColour();
+	});
+}
+
+/** Reads and sends the current page colour to the background script. */
+async function dispatchColour(): Promise<void> {
+	dispatchFrame = undefined;
+	if (document.visibilityState !== "visible") return;
+	lastSentAt = Date.now();
+	const previousColourData = colourDataCache;
+	const nextColourData = getColourData();
+	if (isSameTabColourData(previousColourData, nextColourData)) return;
+	try {
+		await sendMessageToBackground({
+			header: "UPDATE_COLOUR",
+			colour: nextColourData,
 		});
-	}),
-);
+	} catch {
+		console.warn("Failed to send colour to ATBC background.");
+	}
+}
+
+/** Checks whether a node list contains a style element. */
+function hasStyleNode(nodes: NodeList): boolean {
+	for (const node of nodes) {
+		if (node.nodeName === "STYLE") return true;
+	}
+	return false;
+}
+
+/** Checks whether a node is a theme-color meta element. */
+function isMetaThemeColour(node: Node): node is HTMLMetaElement {
+	return node instanceof HTMLMetaElement && node.name === "theme-color";
+}
+
+const darkReaderObserver = new MutationObserver(sendColour);
+
+const metaThemeColourObserver = new MutationObserver(() => {
+	themeColourCache = undefined;
+	sendColour();
+});
+
+const metaTagObserver = new MutationObserver((mutationList) => {
+	let changed = false;
+	for (const mutation of mutationList) {
+		for (const node of mutation.addedNodes) {
+			if (!isMetaThemeColour(node)) continue;
+			metaThemeColourObserver.observe(node, { attributes: true });
+			changed = true;
+		}
+		if (changed) continue;
+		for (const node of mutation.removedNodes) {
+			if (isMetaThemeColour(node)) {
+				changed = true;
+				break;
+			}
+		}
+	}
+	if (!changed) return;
+	themeColourCache = undefined;
+	sendColour();
+});
+
 const styleTagObserver = new MutationObserver((mutationList) => {
 	if (
-		mutationList.some((mutation) =>
-			[...mutation.addedNodes, ...mutation.removedNodes].some(
-				(node) => node.nodeName === "STYLE",
-			),
+		mutationList.some(
+			(mutation) =>
+				hasStyleNode(mutation.addedNodes) ||
+				hasStyleNode(mutation.removedNodes),
 		)
 	) {
 		sendColour();
@@ -202,96 +338,11 @@ function disableDynamic(): void {
 	metaThemeColourObserver.disconnect();
 	metaTagObserver.disconnect();
 	styleTagObserver.disconnect();
-}
-
-/** Sets the theme colour by adding a meta tag. */
-function setThemeColour(themeColour: string): void {
-	const metaThemeColourList = document.querySelectorAll(
-		`meta[name="theme-color"]`,
-	);
-	const newMetaThemeColour = document.createElement("meta");
-	newMetaThemeColour.name = "theme-color";
-	newMetaThemeColour.content = themeColour;
-	(document.head ?? document.documentElement).appendChild(newMetaThemeColour);
-	metaThemeColourList.forEach((metaThemeColour) => metaThemeColour.remove());
-}
-
-/** Checks whether two element colour entries are identical. */
-function isSameElementColour(
-	a?: TabElementColourData,
-	b?: TabElementColourData,
-): boolean {
-	if (a === b) return true;
-	if (!a || !b) return false;
-	return (
-		a.colour === b.colour &&
-		a.opacity === b.opacity &&
-		a.filter === b.filter
-	);
-}
-
-/** Checks whether two tab colour payloads are identical. */
-function isSameTabColourData(
-	a: TabColourData | undefined,
-	b: TabColourData,
-): boolean {
-	if (!a) return false;
-	if (a.special !== b.special) return false;
-	if (a.theme.light !== b.theme.light || a.theme.dark !== b.theme.dark)
-		return false;
-	if (!isSameElementColour(a.query, b.query)) return false;
-	if (a.page.length !== b.page.length) return false;
-	return a.page.every((item, index) =>
-		isSameElementColour(item, b.page[index]),
-	);
-}
-
-let dispatchTimeout: ReturnType<typeof setTimeout> | undefined;
-let lastSentAt = 0;
-const throttleIntervalMs = 250;
-
-/** Sends the current page colour to the background script with throttling. */
-async function sendColour() {
 	clearTimeout(dispatchTimeout);
-	const remaining = throttleIntervalMs + lastSentAt - Date.now();
-	const dispatch = async () => {
-		if (document.visibilityState !== "visible") return;
-		lastSentAt = Date.now();
-		const previousColourData = colourDataCache;
-		const nextColourData = getColourData();
-		if (isSameTabColourData(previousColourData, nextColourData)) return;
-		try {
-			await sendMessageToBackground({
-				header: "UPDATE_COLOUR",
-				colour: nextColourData,
-			});
-		} catch {
-			console.warn("Failed to send colour to ATBC background.");
-		}
-	};
-	remaining <= 0
-		? await dispatch()
-		: (dispatchTimeout = setTimeout(() => {
-				void dispatch();
-			}, remaining));
-}
-
-/** Sends colour update if the document has focus. */
-async function sendColourRequiresFocus() {
-	if (document.hasFocus()) await sendColour();
-}
-
-/** Sends message to background upon the script is loaded. */
-async function sendMessageOnLoad(attempt: number = 0) {
-	try {
-		await sendMessageToBackground({ header: "SCRIPT_READY" });
-	} catch {
-		if (attempt < 10) {
-			console.warn("Failed to connect to ATBC background.");
-			setTimeout(() => sendMessageOnLoad(++attempt), 1000);
-		} else {
-			console.error("Could not connect to ATBC background.");
-		}
+	dispatchTimeout = undefined;
+	if (dispatchFrame !== undefined) {
+		cancelAnimationFrame(dispatchFrame);
+		dispatchFrame = undefined;
 	}
 }
 
