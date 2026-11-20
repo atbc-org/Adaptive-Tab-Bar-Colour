@@ -5,25 +5,22 @@ export interface PopoverLocation {
 	deviation: "none" | "left" | "right";
 }
 
+export interface PopoverButton {
+	label: string;
+	action?: () => void;
+}
+
 export interface PopoverProps {
 	children: (open: () => void, isOpen: boolean) => ReactNode;
 	content: ReactNode;
-	onConfirm?: () => void;
-	onCancel?: () => void;
-	confirmLabel?: string;
-	cancelLabel?: string;
-	showCancel?: boolean;
+	buttons?: PopoverButton[];
 	inline?: boolean;
 }
 
 export default function Popover({
 	children,
 	content,
-	onConfirm,
-	onCancel,
-	confirmLabel,
-	cancelLabel,
-	showCancel = true,
+	buttons = [],
 	inline = false,
 }: PopoverProps) {
 	const [isOpen, setIsOpen] = useState(false);
@@ -97,26 +94,21 @@ export default function Popover({
 					)}
 				>
 					<div className={styles.popoverContent}>{content}</div>
-					<div className={styles.popoverActions}>
-						<button
-							onClick={() => {
-								onConfirm?.();
-								setIsOpen(false);
-							}}
-						>
-							{confirmLabel ?? i18n.t("yes")}
-						</button>
-						{showCancel && (
-							<button
-								onClick={() => {
-									onCancel?.();
-									setIsOpen(false);
-								}}
-							>
-								{cancelLabel ?? i18n.t("no")}
-							</button>
-						)}
-					</div>
+					{buttons.length > 0 && (
+						<div className={styles.popoverActions}>
+							{buttons.map((button, index) => (
+								<button
+									key={index}
+									onClick={() => {
+										button.action?.();
+										setIsOpen(false);
+									}}
+								>
+									{button.label}
+								</button>
+							))}
+						</div>
+					)}
 				</div>
 			)}
 		</div>

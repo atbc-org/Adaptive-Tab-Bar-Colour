@@ -71,7 +71,7 @@
 			left: auto;
 
 			&::before {
-				left: calc(100% - 3 * var(--unit-8));
+				left: calc(100% - var(--unit-16) - var(--unit-12));
 			}
 		}
 
@@ -80,7 +80,7 @@
 			left: 0;
 
 			&::before {
-				left: calc(3 * var(--unit-8));
+				left: calc(var(--unit-16) + var(--unit-12));
 			}
 		}
 	}

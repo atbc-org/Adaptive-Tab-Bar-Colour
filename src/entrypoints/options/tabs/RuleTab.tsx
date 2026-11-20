@@ -205,8 +205,7 @@ export default function RuleTab({ pref, ready }: RuleTabProps) {
 			<div className={styles.ruleHelp}>
 				<Popover
 					inline
-					showCancel={false}
-					confirmLabel={i18n.t("ok")}
+					buttons={[{ label: i18n.t("ok") }]}
 					content={
 						<div className={styles.ruleHelpContent}>
 							<p>{i18n.t("ruleOrderExplanation")}</p>

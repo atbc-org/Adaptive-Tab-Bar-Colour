@@ -380,10 +380,18 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 						<div className={styles.switchWrapper}>
 							<Popover
 								content={i18n.t("confirmSyncSettings")}
-								confirmLabel={i18n.t("keepCloudSettings")}
-								cancelLabel={i18n.t("keepLocalSettings")}
-								onConfirm={() => void setSync(true, "cloud")}
-								onCancel={() => void setSync(true, "local")}
+								buttons={[
+									{
+										label: i18n.t("keepCloudSettings"),
+										action: () =>
+											void setSync(true, "cloud"),
+									},
+									{
+										label: i18n.t("keepLocalSettings"),
+										action: () =>
+											void setSync(true, "local"),
+									},
+								]}
 							>
 								{(open) => (
 									<label>
@@ -457,7 +465,13 @@ export default function AdvancedTab({ pref, ready }: AdvancedTabProps) {
 						/>
 						<Popover
 							content={i18n.t("confirmResetAll")}
-							onConfirm={() => void resetPrefs()}
+							buttons={[
+								{
+									label: i18n.t("yes"),
+									action: () => void resetPrefs(),
+								},
+								{ label: i18n.t("no") },
+							]}
 						>
 							{(open) => (
 								<button
