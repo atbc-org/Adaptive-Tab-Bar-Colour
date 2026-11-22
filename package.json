@@ -40,7 +40,7 @@
 		"@types/selenium-webdriver": "^4.35.7",
 		"@types/webextension-polyfill": "^0.12.6",
 		"@wxt-dev/module-react": "^1.2.2",
-		"selenium-webdriver": "^4.52.0",
+		"selenium-webdriver": "^4.53.0",
 		"typescript": "^7.0.2",
 		"web-ext": "^10.8.0",
 		"wxt": "^0.21.5"
